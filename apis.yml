@@ -1,7 +1,11 @@
 aid: beacon-roofing-supply
-url: https://raw.githubusercontent.com/api-evangelist/beacon-roofing-supply/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/beacon-roofing-supply/refs/heads/main/apis.yml
 modified: '2026-03-23'
 apis: []
 common:
   - type: Website
     url: https://www.beacon-roofing-supply.com
+description: >-
+  Beacon Roofing Supply is one of the largest distributors of residential and non-residential
+  roofing materials and complementary building products in North America.
