@@ -4,86 +4,38 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Beacon Roofing Supply
 providerId: beacon-roofing-supply
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Construction
-  - Distribution
   - Roofing
-  - Building Materials
+  - Distribution
   - E-Commerce
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Beacon Roofing Supply API surface. Captures
-  per-tier quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values
-  to be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Beacon does not publish public rate limits for the PRO+ API. The Swagger documentation describes
+  the surface but does not include rate-limit numerics. Limits are managed at the contractor account /
+  partner integration level. No numeric values are asserted here.
+notes: Reconcile against partner integration documentation issued during Beacon ISV onboarding. Do not
+  invent throughput numbers.
+sources:
+  - https://beaconproplus.com/swagger/all_api/
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Beacon PRO+ API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Beacon PRO+ API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Beacon PRO+ API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Beacon PRO+ API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Beacon PRO+ API
+  - name: Per-account / per-partner throttle
+    scope: account
+    metric: varies
+    limit: 'see Beacon partner onboarding documentation'
+    notes: Contractor account and ISV partner applications are throttled; specific numbers are not public.
 policies:
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: Use exponential backoff with jitter on 429; honor Retry-After when returned.
+  - name: Swagger-Documented Surface
+    description: The PRO+ API surface is described via Swagger UI; rate-limit specifics live with the
+      partner integration team rather than in the public docs.
+  - name: Inventory and Price Polling
+    description: Real-time inventory and pricing endpoints are the most heavily polled; cache per Beacon's
+      partner guidance to stay within capacity.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -8,109 +8,91 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: Beacon Roofing Supply
 providerId: beacon-roofing-supply
-publisherName: Beacon Roofing Supply
-serviceCategory: API
+publisherName: Beacon Roofing Supply, Inc. (a QXO company)
+serviceCategory: Construction Distribution / E-Commerce APIs
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Construction
-  - Distribution
   - Roofing
-  - Building Materials
+  - Distribution
   - E-Commerce
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the Beacon Roofing Supply API surface. Provides a FOCUS-aligned
-  mapping for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
+description: 'FOCUS-aligned FinOps shape for Beacon PRO+: API access bundled with the contractor account,
+  with the dominant cost category being underlying material purchases and delivery fees rather than API
+  consumption.'
+notes: No public rate card. Replace meter values with the contractor's negotiated Beacon account terms
+  and ISV integration scope once available.
+sources:
+  - https://beaconproplus.com
+  - https://beaconproplus.com/swagger/all_api/
 principles:
   - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
+    description: Use the PRO+ API to surface order, delivery, and rebate data to the contractor's job-cost
+      ledger so material spend can be attributed per job.
   - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
+    description: Allocate material orders to jobs / projects via contractor PO and job-number metadata
+      passed through the API.
   - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
+    description: Optimize delivery scheduling and consolidate orders to minimize delivery fees; track
+      manufacturer rebates through the API to capture the full earned value.
   - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+    description: Designate a project manager or operations lead as the Beacon account owner who reviews
+      monthly statements and rebate accruals.
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Account-Based Material Spend
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
-    - Usage
     - Purchase
     - Tax
-    - Credit
     - Adjustment
+    - Refund
+    - Credit
   chargeFrequency: Recurring
 focusColumns:
-  ServiceName: Beacon Roofing Supply
-  ServiceCategory: Developer Tools / API
+  ServiceName: Beacon PRO+
+  ServiceCategory: Construction Distribution / E-Commerce APIs
   ProviderName: Beacon Roofing Supply
-  PublisherName: Beacon Roofing Supply
-  InvoiceIssuerName: Beacon Roofing Supply
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  PublisherName: Beacon Roofing Supply, Inc.
+  InvoiceIssuerName: Beacon Roofing Supply, Inc.
+  PricingCategory: Account-Based Material Spend
+  PricingUnit: order
   BillingCurrency: USD
-  ChargeCategory: Usage
+  ChargeCategory: Purchase
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: orders
+    description: Orders placed through the PRO+ API
+    unit: order
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+      - account
+      - job
+      - branch
+  - name: order_volume
+    description: Material spend value via the PRO+ API
+    unit: USD
     aggregation: sum
     dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
+      - account
+      - job
+      - product_category
+  - name: deliveries
+    description: Delivery events tracked via the API
+    unit: delivery
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
+      - account
+      - branch
+  - name: rebates
+    description: Manufacturer rebates accrued / surfaced through the API
+    unit: USD
+    aggregation: sum
+    dimensions:
+      - manufacturer
+      - product_category
 apis:
   - name: Beacon PRO+ API
     baseURL: ''
@@ -119,16 +101,15 @@ apis:
       - Roofing
       - Distribution
       - E-Commerce
-      - Orders
     serviceName: Beacon PRO+ API
     serviceCategory: API
 unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+  - name: Cost per Job
+    metric: order_volume / active_jobs
+    target: align to job estimate
+  - name: Rebate Capture Rate
+    metric: rebates / order_volume
+    target: maximize per manufacturer program
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
