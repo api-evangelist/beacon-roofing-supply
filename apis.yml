@@ -46,6 +46,8 @@ apis:
         url: https://beaconproplus.com/swagger/all_api/
 
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/beacon-building-products
   - type: Website
     url: https://www.becn.com/
   - type: Portal
