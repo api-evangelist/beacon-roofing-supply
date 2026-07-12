@@ -47,6 +47,8 @@ apis:
         url: https://beaconproplus.com/swagger/all_api/
 
 common:
+  - type: DomainSecurity
+    url: security/beacon-roofing-supply-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/beacon-building-products
   - type: Website
