@@ -35,7 +35,7 @@ access: 3rd-Party
 created: '2026-03-23'
 modified: '2026-04-19'
 position: Consumer
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
   - aid: beacon-roofing-supply:beacon-pro-plus
     name: Beacon PRO+ API
