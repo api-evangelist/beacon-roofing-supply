@@ -51,6 +51,12 @@ apis:
       - Roofing
       - Distribution
       - E-Commerce
+      - Order
+    tags_raw:
+      - Construction
+      - Roofing
+      - Distribution
+      - E-Commerce
       - Orders
     properties:
       - type: Documentation
