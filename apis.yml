@@ -32,6 +32,7 @@ accessModel:
   confidence: medium
   source:
   - plans
+  - {url: 'https://www.becn.com/', status: 301, note: 'declared website redirects to https://www.qxo.com/ — a different registrable domain (becn.com -> qxo.com), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
   generated: '2026-07-22'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/beacon-roofing-supply.png
@@ -45,7 +46,7 @@ tags:
 access: 3rd-Party
 created: '2026-03-23'
 modified: '2026-04-19'
-position: Consumer
+position: Consuming
 specificationVersion: '0.23'
 apis:
   - aid: beacon-roofing-supply:beacon-pro-plus
