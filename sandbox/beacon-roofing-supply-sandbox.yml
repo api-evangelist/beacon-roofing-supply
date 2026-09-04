@@ -1,0 +1,75 @@
+generated: '2026-09-04'
+method: probed
+source: >-
+  info.description of openapi/beacon-roofing-supply-v2-openapi.yml, -public-openapi.yml and
+  -oauth2-openapi.yml (which name UAT and DEV base URLs verbatim), plus live probes of those hosts
+  2026-09-04
+specification: API Commons Sandbox
+specificationVersion: '0.1'
+provider: Beacon Roofing Supply
+providerId: beacon-roofing-supply
+public_sandbox: false
+description: >-
+  Beacon documents non-production environments inside every published contract, and even encodes the
+  UAT host as the DEFAULT value of the templated server variable in the OAuth document. None of them
+  is reachable from the public internet. This is a real, documented test tier that is gated to
+  onboarded partners — not an absence of one, and not a public sandbox either.
+environments:
+  - name: UAT
+    base_urls:
+      - https://beacon-uat.becn.com/v2/rest/com/becn
+      - https://beacon-uat.becn.com/v2/rest/com/becn/public
+      - https://beacon-uat.becn.com/rest/model/REST/oauth
+    publicly_reachable: false
+    probed:
+      - {url: 'https://beacon-uat.becn.com/v2/rest/com/becn/branchlist', status: 0, note: 'no connection'}
+      - {url: 'https://beacon-uat.becn.com/swagger/v2/', status: 0, note: 'no connection'}
+    note: >-
+      In openapi/beacon-roofing-supply-oauth2-openapi.yml the servers[] variable enum is
+      [beacon-uat.becn.com, beaconproplus.com] with beacon-uat.becn.com as the DEFAULT — a
+      Try-It-Out click in the published Swagger UI targets UAT, not production. That is a
+      deliberately safe default and worth crediting even though the host is closed to the public.
+  - name: DEV
+    base_urls:
+      - https://beacon-dev.becn.com/v2/rest/com/becn
+      - https://beacon-dev.becn.com/rest/model/REST/oauth
+    publicly_reachable: false
+    probed:
+      - {url: 'https://beacon-dev.becn.com/v2/rest/com/becn/branchlist', status: 0, note: 'no connection'}
+  - name: 'Beacon Stack (Cloud Run)'
+    base_urls:
+      - https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+      - https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+      - https://beacon-api-x7xzzdp35a-uk.a.run.app/v3/rest/com/becn/
+    publicly_reachable: false
+    probed:
+      - {url: 'https://beacon-api-x7xzzdp35a-uk.a.run.app/', status: 0, note: 'DNS resolves to 34.143.73.2/76.2/78.2; no HTTPS connection completes'}
+try_it_out:
+  enabled: false
+  note: >-
+    The Swagger UI at https://beaconproplus.com/swagger/* is deliberately read-only. The page's own
+    loader (beaconSwaggerUI.js) installs plugins that null out TryItOutButton, JsonSchemaForm,
+    ExamplesSelect, ServersContainer, SchemesContainer and AuthorizeBtnContainer. The docs are a
+    reference, not a console — nobody can execute a call from the published page.
+test_credentials:
+  published: false
+  note: >-
+    No test client_id, test account number, magic identifier or fixture value is published on any
+    public surface. The glossary gives illustrative values (account "280381", branchNumber "800",
+    atgOrderId "KP32234", apiSiteId "DEN") but these are documentation examples, not test data, and
+    are recorded as such — none is asserted here as a usable credential.
+onboarding_path:
+  url: https://go.qxo.com/qxoapi
+  requirement: 'Must be an existing QXO.com customer; register first at https://www.qxo.com/open-an-account'
+  terms: https://www.qxo.com/integrations/api-license-terms
+pointer_decision:
+  emit_sandbox_pointer: false
+  reason: >-
+    A `type: Sandbox` pointer asserts a console or test environment a developer can reach. Beacon
+    documents three non-production environments and even defaults the OAuth server selector to UAT,
+    but all three returned status 0 on probe — no connection completes from the public internet —
+    and the Swagger UI has Try-It-Out disabled by the provider's own loader. No evidence, no claim:
+    the artifact records what is published, and no pointer is emitted.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

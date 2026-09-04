@@ -1,0 +1,102 @@
+generated: '2026-09-04'
+method: probed
+source: live HTTPS probes of /.well-known/* on every host this record knows, 2026-09-04
+specification: API Commons Well-Known
+specificationVersion: '0.1'
+provider: Beacon Roofing Supply
+providerId: beacon-roofing-supply
+description: >-
+  Every /.well-known/ path probed on the registrable domains, the API host, the OpenAPI servers[]
+  hosts and the docs/console host. NOTHING WAS FOUND. Two failure shapes account for all of it:
+  beaconproplus.com and becn.com 301 every /.well-known/ path to www.qxo.com, and www.qxo.com is a
+  Next.js single-page app whose catch-all answers HTTP 200 with a ~143KB HTML application shell for
+  any unmatched path. A 200 from www.qxo.com on a /.well-known path is therefore a soft-404, not a
+  document, and is recorded below as a miss with its real body type. No WellKnown or SecurityTxt
+  pointer is emitted for this provider.
+hosts:
+  - host: beaconproplus.com
+    role: API host and Swagger docs host
+    documents:
+      - {path: /.well-known/security.txt, status: 301, file: null, note: 'redirects to www.qxo.com, which returns an SPA shell'}
+      - {path: /.well-known/openid-configuration, status: 301, file: null, note: redirects to www.qxo.com SPA shell}
+      - {path: /.well-known/oauth-authorization-server, status: 301, file: null, note: redirects to www.qxo.com SPA shell}
+      - {path: /.well-known/oauth-protected-resource, status: 301, file: null, note: redirects to www.qxo.com SPA shell}
+      - {path: /.well-known/api-catalog, status: 301, file: null, note: redirects to www.qxo.com SPA shell}
+      - {path: /.well-known/ai-plugin.json, status: 301, file: null, note: redirects to www.qxo.com SPA shell}
+      - {path: /.well-known/agent-card.json, status: 301, file: null, note: redirects to www.qxo.com SPA shell}
+      - {path: /.well-known/agent.json, status: 301, file: null, note: redirects to www.qxo.com SPA shell}
+  - host: www.beaconproplus.com
+    role: former PRO+ web app host
+    documents:
+      - {path: /.well-known/security.txt, status: 301, file: null, note: redirects to www.qxo.com SPA shell}
+      - {path: /.well-known/openid-configuration, status: 301, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 301, file: null}
+      - {path: /.well-known/oauth-protected-resource, status: 301, file: null}
+      - {path: /.well-known/api-catalog, status: 301, file: null}
+      - {path: /.well-known/ai-plugin.json, status: 301, file: null}
+      - {path: /.well-known/agent-card.json, status: 301, file: null}
+      - {path: /.well-known/agent.json, status: 301, file: null}
+  - host: becn.com
+    role: registrable domain declared as Website
+    documents:
+      - {path: /.well-known/security.txt, status: 301, file: null, note: redirects to www.qxo.com SPA shell}
+      - {path: /.well-known/openid-configuration, status: 301, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 301, file: null}
+      - {path: /.well-known/oauth-protected-resource, status: 301, file: null}
+      - {path: /.well-known/api-catalog, status: 301, file: null}
+      - {path: /.well-known/ai-plugin.json, status: 301, file: null}
+      - {path: /.well-known/agent-card.json, status: 301, file: null}
+      - {path: /.well-known/agent.json, status: 301, file: null}
+  - host: www.becn.com
+    role: www of the declared Website
+    documents:
+      - {path: /.well-known/security.txt, status: 301, file: null}
+      - {path: /.well-known/openid-configuration, status: 301, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 301, file: null}
+      - {path: /.well-known/oauth-protected-resource, status: 301, file: null}
+      - {path: /.well-known/api-catalog, status: 301, file: null}
+      - {path: /.well-known/ai-plugin.json, status: 301, file: null}
+      - {path: /.well-known/agent-card.json, status: 301, file: null}
+      - {path: /.well-known/agent.json, status: 301, file: null}
+  - host: www.qxo.com
+    role: parent-company site, current developer-portal host and the 301 target of every Beacon host
+    documents:
+      - {path: /.well-known/security.txt, status: 200, file: null, note: 'NOT A DOCUMENT — 143,895 bytes of text/html Next.js application shell (soft-404). Recorded as a miss.'}
+      - {path: /.well-known/ai-plugin.json, status: 200, file: null, note: 'NOT A DOCUMENT — HTML SPA shell (soft-404).'}
+      - {path: /.well-known/agent-card.json, status: 200, file: null, note: 'NOT A DOCUMENT — HTML SPA shell, not a JSON AgentCard. Rejected per the STEP 0b false-positive rule.'}
+      - {path: /.well-known/agent.json, status: 200, file: null, note: 'NOT A DOCUMENT — HTML SPA shell (soft-404).'}
+      - {path: /.well-known/openid-configuration, status: 404, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+      - {path: /.well-known/oauth-protected-resource, status: 404, file: null}
+      - {path: /.well-known/api-catalog, status: 404, file: null}
+  - host: beacon-api-x7xzzdp35a-uk.a.run.app
+    role: 'alternate API base ("Beacon Stack") named in the all_api OpenAPI info.description'
+    documents:
+      - {path: /.well-known/security.txt, status: 0, file: null, note: 'DNS resolves (34.143.73.2) but no HTTPS connection completes from the public internet.'}
+      - {path: /.well-known/openid-configuration, status: 0, file: null}
+      - {path: /.well-known/oauth-authorization-server, status: 0, file: null}
+      - {path: /.well-known/oauth-protected-resource, status: 0, file: null}
+      - {path: /.well-known/api-catalog, status: 0, file: null}
+      - {path: /.well-known/ai-plugin.json, status: 0, file: null}
+      - {path: /.well-known/agent-card.json, status: 0, file: null}
+      - {path: /.well-known/agent.json, status: 0, file: null}
+summary:
+  hosts_probed: 6
+  paths_probed: 48
+  documents_found: 0
+  soft_404_200s: 4
+  pointer_emitted: false
+related:
+  robots_txt:
+    url: https://www.qxo.com/robots.txt
+    status: 200
+    note: >-
+      Real file (363 bytes). It Disallows /v1/*, /v2/* and /v3/* — the same path prefixes the REST API
+      uses — alongside cart and account paths. This is a crawler directive on the web host, not an API
+      access control, but it does mean a general-purpose crawler is asked not to walk the API prefixes.
+  sitemap:
+    url: https://www.qxo.com/sitemap/index.xml
+    note: Declared in robots.txt. https://www.qxo.com/sitemap.xml itself returns 404.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

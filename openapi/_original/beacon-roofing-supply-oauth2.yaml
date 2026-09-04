@@ -1,0 +1,155 @@
+
+openapi: 3.0.0
+info:
+  title: Beacon OAuth Rest Service Ver 1.0
+  version: release/7.1
+  description: >
+    The Beacon implementation of [OAuth 2.0 Refresh Token](https://oauth.net/2/grant-types/refresh-token/)
+
+
+    [ PROD BASE URL: *https://beaconproplus.com/rest/model/REST/oauth* ]
+    
+    
+    [ UAT  BASE URL: *https://beacon-uat.becn.com/rest/model/REST/oauth* ]
+    
+    
+    [ DEV  BASE URL: *https://beacon-dev.becn.com/rest/model/REST/oauth* ]
+
+    ### API Response messages doc
+      <details>
+          <summary>Show...</summary>
+          <table id="API_Response_Message_Code" border="1">
+           <tbody>
+              <tr>
+                  <th colspan="1" align="center" width="20%"><p><span>API</span></p></th>
+                  <th align="center" width="10%"><p><span>messages.key</span></p></th>
+                  <th align="left" width="40%"><p><span>messages.value</span></p></th>
+              </tr>
+              <tr>
+                  <td rowspan="10" align="left" width="20%"><a href="/swagger/oauth2/#/OAuth%20Service/post_token"><strong>/token</strong></a></td>
+                  <td align="center" width="10%">grant_type</td>
+                  <td align="left" width="40%">Bad Grant Type</td>
+              </tr>
+              <tr>
+                  <td rowspan="5" align="center" width="10%">refresh_token</td>
+                  <td align="left" width="40%">Empty Refresh Token</td>
+              </tr>
+              <tr>
+                  <td align="left" width="40%">Empty Request</td>
+              </tr>
+              <tr>
+                  <td align="left" width="40%">Empty Refresh Token or Client ID</td>
+              </tr>
+              <tr>
+                  <td align="left" width="40%">Invalid Token</td>
+              </tr>
+              <tr>
+                  <td align="left" width="40%">Expired Token</td>
+              </tr>
+              <tr>
+                  <td align="center" width="10%">client_id</td>
+                  <td align="left" width="40%">Empty Client ID</td>
+              </tr>
+              <tr>
+                  <td rowspan="3" align="center" width="10%">token_validation</td>
+                  <td align="left" width="40%">Get token failed</td>
+              </tr>
+              <tr>
+                  <td align="left" width="40%">Get token failed</td>
+              </tr>
+              <tr>
+                  <td align="left" width="40%">Validate token failed</td>
+              </tr>
+            </tbody>
+          </table>
+      </details>
+servers:
+  - url: 'https://{server}/rest/model/REST/oauth/'
+    variables:
+      server:
+        enum:
+          - beacon-uat.becn.com
+          - beaconproplus.com
+        default: beacon-uat.becn.com
+        description: Server
+components:
+  schemas:
+    tokenReqObj:
+      type: object
+      properties:
+        grant_type:
+          type: string
+        refresh_token:
+          type: string
+        client_id:
+          type: string
+        scopes:
+          type: string
+          description: |
+            Indicate if refresh_token need generate new value, if multiple values, need separated by white space.
+            * If value is empty, only refresh access_token.
+            * If value is "all", refresh access_token and refresh_token.
+            * If value contain "refresh_token", also refresh access_token and refresh_token.
+    tokenResp:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+        expires_in:
+          type: number
+          format: long
+        refresh_expires_in:
+          type: number
+          format: long
+        refresh_token:
+          type: string
+        scope:
+          type: string
+        success:
+          type: boolean
+        messages:
+          type: array
+          items:
+            type: object
+            properties: 
+              key:
+                type: string
+              value:
+                type: string
+
+paths:
+  /token:
+    post:
+      security: []
+      tags:
+        - OAuth Service
+      summary: Refresh access/refresh token
+      description: |
+        The grant_type must be refresh_token
+
+        Request sample:
+
+        {
+          "grant_type": "refresh_token",
+          "refresh_token": "xxxxxxx",
+          "client_id": "yyyyyyy"
+        }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tokenReqObj'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokenResp'
+        '401':
+          description: 'Unauthorized, request is invalid'
+        '500':
+          description: Internal exception

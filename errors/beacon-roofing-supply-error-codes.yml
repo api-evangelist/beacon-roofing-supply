@@ -1,0 +1,229 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://beaconproplus.com/swagger/static/swagger-ui-url/go-live/v2.yaml (the "API Response Message
+  Code" table published verbatim inside info.description of the Beacon Rest Services Ver 2 (OAuth)
+  OpenAPI, rendered at https://beaconproplus.com/swagger/v2/), plus the OAuth token-service message
+  table in .../oauth2.yaml rendered at https://beaconproplus.com/swagger/oauth2/
+specification: API Commons Error Catalog
+specificationVersion: '0.1'
+provider: Beacon Roofing Supply
+providerId: beacon-roofing-supply
+name: Beacon Rest Services Error / Message Code Registry
+description: >-
+  Beacon publishes a numeric application-level message-code registry inside the info.description of
+  every Beacon Rest Services OpenAPI. The code is returned in the messages[] array of the uniform
+  response envelope alongside the HTTP status, so a caller must read both: the HTTP status describes
+  the transport outcome and the numeric code describes the business outcome. Codes are grouped by
+  leading digit into five classes.
+format: vendor-numeric
+rfc9457: false
+envelope:
+  shape: |-
+    {
+      "success": false,
+      "messages": [ { "key": null, "code": "1001", "type": "error", "value": "Validation exception" } ],
+      "result": null
+    }
+  fields:
+    - name: success
+      description: Boolean outcome flag. false indicates the call did not succeed.
+    - name: messages
+      description: Array of message objects; each carries key, code, type and value.
+    - name: messages[].code
+      description: The numeric message code from the registry below.
+    - name: messages[].type
+      description: 'One of: success | error.'
+    - name: messages[].value
+      description: Human-readable message text.
+    - name: result
+      description: The operation payload on success; null or absent on error.
+    - name: traceId
+      description: >-
+        Per-request correlation id returned on error responses. Observed on a live unauthenticated
+        probe 2026-09-04 (GET https://beaconproplus.com/v3/rest/com/becn/branchData -> 401 with
+        traceId "cb065aa5056b615d1e0907a0d4788d9e"). Not documented in the spec; use it when opening
+        a support ticket.
+    - name: messageCode
+      description: >-
+        Alternate top-level field used by some V3 responses in place of messages[].code
+        (observed live: {"result":null,"message":"Please provide token","messageCode":401}).
+  note: >-
+    Beacon documents that a named list of V2 operations does NOT use this envelope and returns the
+    example payload directly. Those legacy-format operations are listed under legacy_envelope_operations.
+legacy_envelope_operations:
+  - /quote
+  - /getQuoteDetail
+  - /getCurrentUserInfo
+  - /getAddressBook
+  - /createAddressBook
+  - /updateAddressBook
+  - /deleteAddressBook
+  - /changePassword
+  - /forgotPassword
+  - /getPerfectOrderDetail
+  - /getStatusChange
+  - /updateStatusChange
+  - /itemlist
+  - /itemDetails
+  - /addPerfectOrderToTemplate
+  - /deleteQuote
+  - /createQuote
+  - /submitQuote
+  - /getOrderShippingInfo
+  - /addOrderShippingInfo
+  - /suggestiveSelling
+  - /getCurrentOrderReview
+  - /submitCurrentOrder
+  - /getPerfectStyleGroups
+  - /validateOrderByLocation
+  - /submitOrder
+  - /submitDelegatedQuote
+classes:
+  - prefix: 1XXX
+    name: Common request parameter error
+  - prefix: 2XXX
+    name: Current profile error
+  - prefix: 3XXX
+    name: Specified request parameter error
+  - prefix: 4XXX
+    name: System level common error
+  - prefix: 5XXX
+    name: Specified response error
+codes:
+  - code: '1001'
+    class: 1XXX
+    message: Param is required.
+  - code: '1002'
+    class: 1XXX
+    message: Repository item not found via request
+  - code: '1003'
+    class: 1XXX
+    message: Param max length is invalid.
+  - code: '1004'
+    class: 1XXX
+    message: Param min length is invalid.
+  - code: '1005'
+    class: 1XXX
+    message: Param regular expression is invalid.
+  - code: '1006'
+    class: 1XXX
+    message: Request param requestBody is not a valid
+  - code: '1007'
+    class: 1XXX
+    message: Request param caused validation exception
+  - code: '1008'
+    class: 1XXX
+    message: Request param caused form error
+  - code: '2001'
+    class: 2XXX
+    message: Current profile in request is empty
+  - code: '2002'
+    class: 2XXX
+    message: Current profile type/instance in request is empty
+  - code: '2003'
+    class: 2XXX
+    message: Current profile in request do not have available accounts
+  - code: '2004'
+    class: 2XXX
+    message: Current profile is unauthorized
+    observed: >-
+      Returned live on an unauthenticated GET of
+      https://beaconproplus.com/v1/rest/com/becn/branchlist (2026-09-04) with value
+      "Please provide token".
+  - code: '2005'
+    class: 2XXX
+    message: Current profile is already authorized
+  - code: '2006'
+    class: 2XXX
+    message: Current profile is permission denied
+  - code: '3001'
+    class: 3XXX
+    message: Request param account id is not available/not belong to current profile
+  - code: '3002'
+    class: 3XXX
+    message: Request param product id is not available to current region of current profile
+  - code: '3003'
+    class: 3XXX
+    message: Request param profile id is not equal to current profile
+  - code: '3004'
+    class: 3XXX
+    message: Request param profile id is not found
+  - code: '3005'
+    class: 3XXX
+    message: Request param site id is not equal to current site
+  - code: '3006'
+    class: 3XXX
+    message: Request param sku id is not available to current region of current profile
+  - code: '3007'
+    class: 3XXX
+    message: Request param shipping is invalid to current region of current profile
+  - code: '4001'
+    class: 4XXX
+    message: System error
+  - code: '4002'
+    class: 4XXX
+    message: Mincron error
+    note: Mincron is the back-office ERP Beacon integrates against for commercial accounts.
+  - code: '4003'
+    class: 4XXX
+    message: ATG Order version invalid error
+    note: ATG is the Oracle Commerce platform behind the PRO+ order model.
+  - code: '5001'
+    class: 5XXX
+    message: Submit order failed response
+  - code: '5002'
+    class: 5XXX
+    message: Submit order failed with integration exception message returned
+  - code: '5003'
+    class: 5XXX
+    message: Query order detail not match with current
+  - code: '5004'
+    class: 5XXX
+    message: No result is returned to order history
+  - code: '5005'
+    class: 5XXX
+    message: Template name invalid
+  - code: '5006'
+    class: 5XXX
+    message: Need change account
+  - code: '5007'
+    class: 5XXX
+    message: Account no longer available for current user
+  - code: '5008'
+    class: 5XXX
+    message: Illegal data
+  - code: '5009'
+    class: 5XXX
+    message: Account token invalid
+  - code: '5010'
+    class: 5XXX
+    message: No current Order
+  - code: '5011'
+    class: 5XXX
+    message: Quote order account not match
+oauth_token_messages:
+  endpoint: POST /token
+  source: https://beaconproplus.com/swagger/oauth2/
+  messages:
+    - key: grant_type
+      value: Bad Grant Type
+    - key: refresh_token
+      value: Empty Refresh Token
+    - key: refresh_token
+      value: Empty Request
+    - key: refresh_token
+      value: Empty Refresh Token or Client ID
+    - key: refresh_token
+      value: Invalid Token
+    - key: refresh_token
+      value: Expired Token
+    - key: client_id
+      value: Empty Client ID
+    - key: token_validation
+      value: Get token failed
+    - key: token_validation
+      value: Validate token failed
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

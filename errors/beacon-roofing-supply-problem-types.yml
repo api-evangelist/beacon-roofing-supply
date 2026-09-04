@@ -1,0 +1,96 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/beacon-roofing-supply-v1-openapi.yml, openapi/beacon-roofing-supply-v2-openapi.yml,
+  openapi/beacon-roofing-supply-v3-openapi.yml, openapi/beacon-roofing-supply-all-api-openapi.yml,
+  openapi/beacon-roofing-supply-public-openapi.yml, openapi/beacon-roofing-supply-internal-openapi.yml
+  (4xx/5xx response objects, census run 2026-09-04); enriched from the published message-code table
+  captured in errors/beacon-roofing-supply-error-codes.yml
+specification: API Commons Error Catalog
+specificationVersion: '0.1'
+provider: Beacon Roofing Supply
+providerId: beacon-roofing-supply
+format: vendor-envelope
+rfc9457: false
+media_type: application/json
+description: >-
+  Beacon Rest Services does not use RFC 9457 application/problem+json. Errors are returned as
+  application/json in the vendor uniform envelope (success / messages[] / result) with a numeric
+  application message code, and the HTTP status carries the transport-level outcome. This catalog is
+  derived from the response objects declared across the eleven published OpenAPI documents; the
+  counts are the number of operations declaring each status.
+census:
+  operations_examined: 424
+  documents_examined: 11
+  statuses_declared:
+    '200': 423
+    '201': 3
+    '400': 241
+    '401': 409
+    '403': 102
+    '405': 376
+    '419': 154
+    '500': 417
+  note: >-
+    No operation in any published Beacon document declares a 429. There is no documented
+    rate-limit exhaustion status and no rate-limit response headers appear anywhere in the specs.
+problem_types:
+  - status: 400
+    title: Bad Request
+    detail: 'Bad Request, accountId is invalid.'
+    operations: 241
+    remediation: >-
+      Verify accountId / account is a 6-digit Beacon customer number the authenticated profile is
+      entitled to. See message codes 3001 and 1001-1008.
+  - status: 401
+    title: Unauthorized
+    detail: 'Unauthorized, the authorization bearer token is invalid — or, on V1, user do not login.'
+    operations: 409
+    remediation: >-
+      Obtain a bearer token, or refresh it at POST /rest/model/REST/oauth/token with
+      grant_type=refresh_token. V1 uses a cookie session (JSESSIONID / DYN_USER_ID /
+      DYN_USER_CONFIRM) established by POST /login instead.
+    observed:
+      url: https://beaconproplus.com/v3/rest/com/becn/branchData
+      probed: '2026-09-04'
+      http_status: 401
+      body: '{"success":false,"messages":{"code":401,"value":"Please provide token"},"code":401,"traceId":"..."}'
+  - status: 403
+    title: Forbidden
+    detail: 'Forbidden, user do not has permission to access this API. Some operations are restricted to master admin or admin users.'
+    operations: 102
+    remediation: 'Check the profile permission template; see message code 2006 (permission denied).'
+  - status: 405
+    title: Method Not Allowed
+    detail: 'Method not allowed, the request method is not valid for this API or this API is not available.'
+    operations: 376
+    remediation: >-
+      Beacon overloads 405 to mean BOTH a wrong HTTP verb and a feature that is not enabled for the
+      caller's site. A 405 is therefore not necessarily a client coding error — confirm the operation
+      is enabled for your apiSiteId before changing the request.
+  - status: 419
+    title: Authentication Timeout (non-standard)
+    detail: 'Unauthorized, the authorization bearer token is expired.'
+    operations: 154
+    remediation: >-
+      Refresh the access token. NOTE 419 is not a registered IANA HTTP status code; a generic HTTP
+      client will not recognise it. Treat 419 as "expired, refresh and retry" and 401 as "invalid,
+      re-authenticate" — the two are distinct in this API and must not be collapsed.
+  - status: 500
+    title: Internal exception
+    detail: Internal exception.
+    operations: 417
+    remediation: 'Retry with backoff; if it persists quote the traceId to Beacon support.'
+gaps:
+  - >-
+    No 429 / rate-limit-exhaustion response is declared on any operation, and no RateLimit-* or
+    Retry-After headers appear in any document, so a client cannot detect throttling from the
+    contract.
+  - >-
+    No response body schema is attached to any 4xx or 5xx response — every error response carries a
+    description string only. Callers must parse the envelope by convention rather than by schema.
+  - >-
+    Status 419 is non-standard and undocumented outside the response description text.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

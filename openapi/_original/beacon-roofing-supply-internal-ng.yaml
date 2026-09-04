@@ -1,0 +1,1486 @@
+openapi: 3.0.0
+info:
+  title: Beacon Rest Services (Use for Internal)
+  version: 24PI-4-Sprint-3
+  description: |
+    This version of APIs do not require the user to login, to be able to access
+    services. A bearer token is required to be authorized to access the
+    services.
+
+    ### STORE BASE URL:
+
+    [ PROD BASE URL: *https://beaconproplus.com/v4/rest/com/becn* ]
+    
+    [ UAT  BASE URL: *https://beacon-uat-ng.becn.com/v4/rest/com/becn* ]
+    
+    [ DEV  BASE URL: *https://beacon-dev-ng.becn.com/v4/rest/com/becn* ]
+    
+    ### IDP BASE URL:
+    
+    [ PROD BASE URL: *https://identity.becn.com/auth/realms/master/protocol/openid-connect/token* ]
+    
+    [ UAT  BASE URL: *https://identity-uat.becn.com/auth/realms/master/protocol/openid-connect/token* ]
+    
+    [ DEV  BASE URL: *https://identity-dev.becn.com/auth/realms/master/protocol/openid-connect/token* ]
+    
+    Key
+
+    ## API Uniform Format:
+    <details>
+      <summary>Show...</summary>
+      ### Success Response:
+      ```
+      {
+          "success":true,
+          "messages":null,
+          "result": <the response example value of each API>
+      }
+      ```
+      ### Explanation:
+      If the response example value of one endpoint `/foo` is:
+      ```
+      {
+          "name":"bar",
+          "age":123
+      }
+      ```
+
+      Then the actual response value of this endpoint is: (replace the value of "result" element in `API Uniform Format` with example response)
+      ```
+      {
+          "success":true,
+          "messages":null,
+          "result":{
+              "name":"bar",
+              "age":123
+          }
+      }
+      ```
+      ### Validation Failed Response:
+      ```
+      {
+          "success":false,
+          "messages":[{
+            "type": "error",
+            "value": "validation exception message"
+          },...],
+          "result": null
+      }
+      ```
+    </details>
+    
+    ## Keycloak Authentication Process
+    <details>
+      <summary>Show...</summary>
+      ### Token endpoint
+      ```
+      /auth/realms/master/protocol/openid-connect/token
+      ```
+      The token endpoint is used to obtain tokens. Tokens can either be obtained by exchanging an authorization code or by supplying credentials directly depending on what flow is used. The token endpoint is also used to obtain new access tokens when they expire.
+      ### Resource Owner Password Credentials
+      Resource Owner Password Credentials, referred to as Direct Grant in {project_name}, allows exchanging user credentials for tokens.
+    
+      For a client to be permitted to use the Resource Owner Password Credentials grant the client has to have the Direct Access Grants Enabled option enabled.
+    
+      This flow is not included in OpenID Connect, but is a part of the OAuth 2.0 specification.
+      ### Example for obtaining access token & refresh token using CURL
+      The following example shows how to obtain an access token for a user in the realm master with username user and password password. The example is using the confidential client client_id:
+      ```
+      curl \
+        -d "client_id=client_id" \
+        -d "client_secret=client_secret" \
+        -d "username=user" \
+        -d "password=password" \
+        -d "grant_type=password" \
+        "http://{IDP_domain}/auth/realms/master/protocol/openid-connect/token"
+      ```
+      ### Example for obtaining access token with client credentials using CURL
+      The following example shows how to obtain an access token with client credentials. The example is using the confidential client client_id:
+      ```
+      curl \
+        -d "client_id=client_id" \
+        -d "client_secret=client_secret" \
+        -d "grant_type=client_credentials" \
+        "http://{IDP_domain}/auth/realms/master/protocol/openid-connect/token"
+      ```
+      ### Example for refreshing an access token using CURL
+      The following example shows how to refresh an access token with refresh token. The example is using the confidential client client_id:
+      ```
+      curl \
+        -d "client_id=client_id" \
+        -d "client_secret=client_secret" \
+        -d "grant_type=refresh_token" \
+        -d "refresh_token=refresh_token" \
+        "http://{IDP_domain}/auth/realms/master/protocol/openid-connect/token"
+      ```
+    </details>
+components:
+  schemas:
+    priceRequest:
+      type: object
+      required:
+        - account
+        - brnNumber
+        - item
+      properties:
+        account:
+          type: string
+        jobNumber:
+          type: string
+        branchNumber:
+          type: string
+        item:
+          type: array
+          items:
+            $ref: '#/components/schemas/pricingItem'
+    quotePriceRequest:
+      type: object
+      required:
+        - account
+        - brnNumber
+        - item
+      properties:
+        account:
+          type: string
+        jobNumber:
+          type: string
+        branchNumber:
+          type: string
+        bidNumber:
+          type: string
+        item:
+          type: array
+          items:
+            $ref: '#/components/schemas/pricingItem'
+    pricingItem:
+      type: object
+      required:
+        - itemNumber
+      properties:
+        itemNumber:
+          type: string
+        quantity:
+          type: number
+          format: long
+          description: Default value is 1
+        unitOfMeasure:
+          type: string
+    itemPrice:
+      type: object
+      properties:
+        requestUnitOfMeasure:
+          type: string
+        requestQuantity:
+          type: number
+          format: long
+        requestExtendedPrice:
+          type: number
+          format: double
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        orderUnitOfMeasure:
+          type: string
+        requestNetPrice:
+          type: number
+          format: double
+        orderNetPrice:
+          type: number
+          format: double
+        orderQuantity:
+          type: number
+          format: long
+        orderExtendedPrice:
+          type: number
+          format: double
+        itemDescription:
+          type: string
+        error:
+          type: string
+        warning:
+          type: string
+    IDPTokenResp:
+      type: object
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          type: number
+        refresh_expires_in:
+          type: number
+        refresh_token:
+          type: string
+        token_type:
+          type: string
+        not-before-policy:
+          type: number
+        session_state:
+          type: string
+        scope:
+          type: string
+    createCustomerResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            Response:
+              type: object
+              properties:
+                Result:
+                  type: string
+                Message:
+                  type: string
+        success:
+          example: true
+        code:
+          type: number
+    journalResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            rcode:
+              type: string
+            rtext:
+              type: string
+            scmd:
+              type: array
+              items:
+                type: object
+                properties:
+                  mtype:
+                    type: string
+                  mtext:
+                    type: string
+                  mclas:
+                    type: string
+                  mnumb:
+                    type: string
+        success:
+          example: true
+        messages:
+          type: string
+    createSalesOrderResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            Response:
+              type: object
+              properties:
+                Result:
+                  type: string
+                Message:
+                  type: string
+        success:
+          example: true
+        code:
+          type: number
+    itemPricingResp:
+      type: object
+      properties:
+        bizItemPrices:
+          type: array
+          items:
+            $ref: '#/components/schemas/itemPrice'
+    deleteUserReq:
+      type: object
+      properties:
+        login:
+          type: string
+        email:
+          type: string
+    deleteInternalUserReq:
+      type: object
+      properties:
+        login:
+          type: string
+    createCustomerJobReq:
+      type: object
+      properties:
+        inbound-customer-job-data:
+          type: object
+          properties:
+            customer:
+              type: array
+              items:
+                type: object
+                properties:
+                  transaction-id:
+                    type: string
+                  business-group-info:
+                    type: object
+                    properties:
+                      group-name:
+                        type: string
+                      internal-group-code:
+                        type: string
+                      bectran-reference-Id:
+                        type: string
+                  job-info:
+                    type: object
+                    properties:
+                      job-amount:
+                        type: integer
+                        format: int32
+                      job-name:
+                        type: string
+                      project-type-code:
+                        type: string
+                      project-type-desc:
+                        type: string
+                      contract-term-code:
+                        type: string
+                      contract-term-desc:
+                        type: string
+                      estimated-start-date:
+                        type: string
+                        format: date
+                      estimated-end-date:
+                        type: string
+                        format: date
+                      job-status:
+                        type: string
+                      bonding-flag:
+                        type: string
+                      financing-flag:
+                        type: string
+                      customer-role:
+                        type: string
+                  job-location:
+                    type: object
+                    properties:
+                      address-line1:
+                        type: string
+                      city:
+                        type: string
+                      state-code:
+                        type: string
+                      zip-code:
+                        type: string
+                      country-code:
+                        type: string
+                  customer-basic-info:
+                    type: object
+                    properties:
+                      client-account-id:
+                        type: string
+                      name:
+                        type: string
+                      address-line-1:
+                        type: string
+                      address-line-2:
+                        type: string
+                      city:
+                        type: string
+                      state-code:
+                        type: string
+                      country-code:
+                        type: string
+                      zip-code:
+                        type: string
+                      annual-sales-range:
+                        type: string
+                      bectran-customer-id:
+                        type: string
+                      contact-person-first-name:
+                        type: string
+                      contact-person-last-name:
+                        type: string
+                      contact-person-phone:
+                        type: string
+                      contact-person-title:
+                        type: string
+                      customer-dba-name:
+                        type: string
+                      customer-legal-name:
+                        type: string
+                      date-created-in-bectran:
+                        type: string
+                        format: date
+                      num-of-employee:
+                        type: string
+                      state-of-incorporation:
+                        type: string
+                      style-of-business:
+                        type: string
+                      type-of-business:
+                        type: string
+                      year-established:
+                        type: string
+                      contact-person-email:
+                        type: string
+                  sales-person-info:
+                    type: object
+                    properties:
+                      first-name:
+                        type: string
+                      last-name:
+                        type: string
+                      internal-code:
+                        type: string
+                  operations-unit-info:
+                    type: object
+                    properties:
+                      opsUnitName:
+                        type: string
+                      opsUnitCode:
+                        type: string
+                  apay-info:
+                    type: object
+                    properties:
+                      entry:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            first-name:
+                              type: string
+                            last-name:
+                              type: string
+                            phone:
+                              type: string
+                            email:
+                              type: string
+                  page-2-info:
+                    type: object
+                    properties:
+                      entry:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            category-code:
+                              type: string
+                            category:
+                              type: string
+                            name:
+                              type: string
+                            value:
+                              type: string
+                            valueCode:
+                              type: string
+                  customer-profile-detail:
+                    type: object
+                    properties:
+                      annual-sales:
+                        type: object
+                        properties:
+                          bectran-internal-code:
+                            type: string
+                          description:
+                            type: string
+                      num-of-employee:
+                        type: object
+                        properties:
+                          bectran-internal-code:
+                            type: string
+                          description:
+                            type: string
+                      style-of-business:
+                        type: object
+                        properties:
+                          bectran-internal-code:
+                            type: string
+                          description:
+                            type: string
+                      type-of-business:
+                        type: object
+                        properties:
+                          bectran-internal-code:
+                            type: string
+                          description:
+                            type: string
+                  credit-decision-info:
+                    type: object
+                    properties:
+                      amountRequested:
+                        type: integer
+                        format: int32
+                      approvedLimit:
+                        type: integer
+                        format: int32
+                      clientAccountId:
+                        type: string
+                      creditTerm:
+                        type: string
+                      creditTermCode:
+                        type: string
+                      riskRating:
+                        type: string
+                      riskRatingClass:
+                        type: string
+                      rawScore:
+                        type: integer
+                        format: int32
+                      creditDecision:
+                        type: string
+                      decisionDate:
+                        type: string
+                        format: date
+                      groupName:
+                        type: string
+                      internalGroupCode:
+                        type: string
+                      bectranReferenceId:
+                        type: string
+                      nextReviewDate:
+                        type: string
+                        format: date
+                      approving-officers:
+                        type: object
+                        properties:
+                          entry:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                firstName:
+                                  type: string
+                                lastName:
+                                  type: string
+                                approvalDate:
+                                  type: string
+                                  format: date
+                                email:
+                                  type: string
+                                decision:
+                                  type: string
+                  additional-Info:
+                    type: object
+                    properties:
+                      entry:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            internal-code:
+                              type: string
+                            description:
+                              type: string
+                            value:
+                              type: string
+                            data-type:
+                              type: string
+    createCustomerReq:
+      type: object
+      properties:
+        inbound-customer-data:
+          type: object
+          properties:
+            xmlns:
+              type: string
+            customer:
+              type: object
+              properties:
+                account-id:
+                  type: string
+                transaction-id:
+                  type: string
+                business-group-info:
+                  type: object
+                  properties:
+                    groupName:
+                      type: string
+                    internalGroupCode:
+                      type: string
+                    bectranReferenceId:
+                      type: string
+                basic-info:
+                  type: object
+                  properties:
+                    addressLineOne:
+                      type: string
+                    addressLineTwo:
+                      type: string
+                    annualSalesRange:
+                      type: string
+                    bectranCustomerId:
+                      type: string
+                    city:
+                      type: string
+                    contactPersonFirstName:
+                      type: string
+                    contactPersonLastName:
+                      type: string
+                    contactPersonPhone:
+                      type: string
+                    contactPersonTitle:
+                      type: string
+                    countryId:
+                      type: string
+                    customerDbaName:
+                      type: string
+                    customerLegalName:
+                      type: string
+                    dateCreatedInBectran:
+                      type: string
+                      format: date
+                    dunsNumber:
+                      type: string
+                    fax:
+                      type: string
+                    federalTaxId:
+                      type: string
+                    numOfEmployee:
+                      type: string
+                    phone:
+                      type: string
+                    state:
+                      type: string
+                    stateOfIncorporation:
+                      type: string
+                    styleOfBusiness:
+                      type: string
+                    typeOfBusiness:
+                      type: string
+                    yearEstablished:
+                      type: string
+                    zipCode:
+                      type: string
+                    contactPersonEmail:
+                      type: string
+                sales-person-info:
+                  type: object
+                  properties:
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                    internalCode:
+                      type: string
+                operations-unit-info:
+                  type: object
+                  properties:
+                    opsUnitName:
+                      type: string
+                    opsUnitCode:
+                      type: string
+                credit-request-info:
+                  type: object
+                  properties:
+                    requestId:
+                      type: string
+                    requestSource:
+                      type: string
+                    amountRequested:
+                      type: integer
+                      format: int32
+                    termRequestedCode:
+                      type: string
+                    termRequestedDescription:
+                      type: string
+                    plannedPurchase:
+                      type: string
+                    requestDate:
+                      type: string
+                    requestFormType:
+                      type: string
+                    purchaseOrderRequired:
+                      type: string
+                    accountNumExist:
+                      type: string
+                    clientAccountId:
+                      type: string
+                    orderPending:
+                      type: string
+                    orderPendingAmount:
+                      type: integer
+                      format: int32
+                customer-profile-detail:
+                  type: object
+                  properties:
+                    annualSales:
+                      type: object
+                      properties:
+                        bectranInternalCode:
+                          type: string
+                        clientInternalCode:
+                          type: string
+                        description:
+                          type: string
+                    numOfEmployee:
+                      type: object
+                      properties:
+                        bectranInternalCode:
+                          type: string
+                        clientInternalCode:
+                          type: string
+                        description:
+                          type: string
+                    styleOfBusiness:
+                      type: object
+                      properties:
+                        bectranInternalCode:
+                          type: string
+                        clientInternalCode:
+                          type: string
+                        description:
+                          type: string
+                    typeOfBusiness:
+                      type: object
+                      properties:
+                        bectranInternalCode:
+                          type: string
+                        clientInternalCode:
+                          type: string
+                        description:
+                          type: string
+                credit-decision-info:
+                  type: object
+                  properties:
+                    amountRequested:
+                      type: integer
+                      format: int32
+                    approvedLimit:
+                      type: integer
+                      format: int32
+                    clientAccountId:
+                      type: string
+                    creditTerm:
+                      type: string
+                    creditTermCode:
+                      type: string
+                    riskRating:
+                      type: string
+                    riskRatingClass:
+                      type: string
+                    rawScore:
+                      type: number
+                    transactionId:
+                      type: string
+                    creditDecision:
+                      type: string
+                    decisionDate:
+                      type: string
+                    groupName:
+                      type: string
+                    internalGroupCode:
+                      type: string
+                    bectranReferenceId:
+                      type: string
+                    nextReviewDate:
+                      type: string
+                    approving-officers:
+                      type: object
+                      properties:
+                        entry:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              firstName:
+                                type: string
+                              lastName:
+                                type: string
+                              approvalDate:
+                                type: string
+                              approvalComment:
+                                type: string
+                              email:
+                                type: string
+                              decision:
+                                type: string
+    journalValidateReq:
+      type: object
+      properties:
+        header:
+          type: object
+          properties:
+            JRNBLID:
+              type: string
+            JRNTRANSACTIONCURRENCY:
+              type: string
+            JRNINSTANCE:
+              type: string
+            JRNJOURNALTYPE:
+              type: string
+            JRNPURPOSE:
+              type: string
+            JRNREVERSALDATE:
+              type: string
+            PREPARERID:
+              type: string
+            JRNACCOUNTINGPERIOD:
+              type: string
+              format: date
+            JOURNALURL:
+              type: string
+            JRNJOURNALREFERENCECODE:
+              type: string
+            JOURNAL_HEADER:
+              type: string
+        item:
+          type: array
+          items:
+            type: object
+            properties:
+              JRNLLINENUMBER:
+                type: string
+              JRNLCOMPANY:
+                type: string
+              JRNLBRANCH:
+                type: string
+              JRNLDEPARTMENT:
+                type: string
+              JRNLMAINACCOUNT:
+                type: string
+              JRNLSUBACCOUNT:
+                type: string
+              JRNLAMOUNT:
+                type: string
+              JRNLTRANSACTIONCURRENCY:
+                type: string
+              JRNLTRANSACTIONDESCRIPTION:
+                type: string
+              JRNLVENDOR:
+                type: string
+    journalCreateReq:
+      type: object
+      properties:
+        header:
+          type: object
+          properties:
+            JRNBLID:
+              type: string
+            JRNTRANSACTIONCURRENCY:
+              type: string
+            JRNINSTANCE:
+              type: string
+            JRNJOURNALTYPE:
+              type: string
+            JRNPURPOSE:
+              type: string
+            JRNREVERSALDATE:
+              type: string
+              format: date
+            PREPARERID:
+              type: string
+            JRNACCOUNTINGPERIOD:
+              type: string
+              format: date
+            JOURNALURL:
+              type: string
+            JRNJOURNALREFERENCECODE:
+              type: string
+        item:
+          type: array
+          items:
+            type: object
+            properties:
+              JRNLLINENUMBER:
+                type: string
+              JRNLCOMPANY:
+                type: string
+              JRNLBRANCH:
+                type: string
+              JRNLDEPARTMENT:
+                type: string
+              JRNLMAINACCOUNT:
+                type: string
+              JRNLSUBACCOUNT:
+                type: string
+              JRNLAMOUNT:
+                type: string
+              JRNLTRANSACTIONCURRENCY:
+                type: string
+              JRNLTRANSACTIONDESCRIPTION:
+                type: string
+    journalReq:
+      type: object
+      properties:
+        header:
+          type: object
+          properties:
+            JRNBLID:
+              type: string
+            JRNTRANSACTIONCURRENCY:
+              type: string
+            JRNINSTANCE:
+              type: string
+            JRNJOURNALTYPE:
+              type: string
+            JRNPURPOSE:
+              type: string
+            JRNREVERSALDATE:
+              type: string
+            PREPARERID:
+              type: string
+            JRNACCOUNTINGPERIOD:
+              type: string
+              format: date
+            JOURNALURL:
+              type: string
+            JRNJOURNALREFERENCECODE:
+              type: string
+            JOURNAL_HEADER:
+              type: string
+            JESOURCECODE:
+              type: string
+        item:
+          type: array
+          items:
+            type: object
+            properties:
+              JRNLLINENUMBER:
+                type: string
+              JRNLCOMPANY:
+                type: string
+              JRNLBRANCH:
+                type: string
+              JRNLDEPARTMENT:
+                type: string
+              JRNLMAINACCOUNT:
+                type: string
+              JRNLSUBACCOUNT:
+                type: string
+              JRNLAMOUNT:
+                type: string
+              JRNLTRANSACTIONCURRENCY:
+                type: string
+              JRNLTRANSACTIONDESCRIPTION:
+                type: string
+    createSalesOrderHoldReq:
+      type: object
+      properties:
+        salesOrderHold-data:
+          $ref: '#/components/schemas/salesOrderHoldData'
+    salesOrderHoldData:
+      type: object
+      properties:
+        salesOrderHold:
+          type: array
+          items:
+            $ref: '#/components/schemas/salesOrderHold'
+    salesOrderHold:
+      type: object
+      properties:
+        opco-code:
+          type: string
+        account-id:
+          type: string
+        order-number:
+          type: string
+        hold-status:
+          type: string
+        hold-code:
+          type: string
+        hold-date:
+          type: string
+        hold-amount:
+          type: string
+        hold-source:
+          type: string
+        release-status:
+          type: string
+        release-code:
+          type: string
+        release-date:
+          type: string
+          format: date
+        release-comments:
+          type: string
+        release-source:
+          type: string
+        released-by:
+          type: string
+    orderInvoiceRep:
+      type: object
+      properties:
+        invoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderInvoice'
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+    orderInvoice:
+      type: object
+      properties:
+        apiSiteId:
+          type: string
+        accountId:
+          type: string
+        accountName:
+          type: string
+        orderNumber:
+          type: string
+        orderPlacedDate:
+          type: string
+          format: date
+        invoiceDate:
+          type: string
+          format: date
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        purchaseOrderNumber:
+          type: string
+        sales:
+          type: number
+          format: double
+        otherCharges:
+          type: number
+          format: double
+        salesPlusOtherCharges:
+          type: number
+          format: double
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    saveEagleViewOrderBilling_req:
+      type: object
+      properties:
+        reportId:
+          type: string
+          description: report id
+        reportDate:
+          type: string
+          example: yyyy-MM-dd hh:mm:ss
+          description: date of report
+        reportAddresses:
+          type: object
+          properties:
+            address1:
+              type: string
+            address2:
+              type: string
+            zipCode:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+        cost:
+          type: number
+          format: double
+          description: cost
+        status:
+          type: string
+          description: status
+        productType:
+          type: string
+          description: product type
+        source:
+          type: string
+          description: source from atg/webhook
+    saveEagleViewOrderBilling_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              value:
+                type: string
+        result:
+          type: object
+          properties:
+            billId:
+              type: string
+    eagleViewReportUpdateByDateRequest:
+      type: object
+      properties:
+        profile:
+          type: string
+        fromDate:
+          type: string
+          format: yyyy-MM-dd
+        toDate:
+          type: string
+          format: yyyy-MM-dd
+    eagleViewReportUpdateRequest:
+      type: object
+      properties:
+        profile:
+          type: string
+        reportIds:
+          type: string
+          description: for endpoint 'updateReportsByIds', it is required.
+    eagleViewReportCommonResponse:
+      type: object
+      properties:
+        result:
+          type: string
+        success:
+          type: boolean
+        messages:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    internalAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+paths:
+  /orderPricing:
+    post:
+      security:
+        - internalAuth: []
+      tags:
+        - Pricing Services
+      summary: query order price
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/priceRequest'
+      responses:
+        '200':
+          description: |
+            Refer to API Uniform Format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/itemPricingResp'
+        '400':
+          description: 'Bad Request.'
+        '401':
+          description: 'Unauthorized, the authorization token is invalid'
+        '405':
+          description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
+        '500':
+          description: Internal exception
+  /quotePricing:
+    post:
+      security:
+        - internalAuth: []
+      tags:
+        - Pricing Services
+      summary: query quote price
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/quotePriceRequest'
+      responses:
+        '200':
+          description: |
+            Refer to API Uniform Format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/itemPricingResp'
+        '400':
+          description: 'Bad Request.'
+        '401':
+          description: 'Unauthorized, the authorization token is invalid'
+        '405':
+          description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
+        '500':
+          description: Internal exception
+  /createdCustomerAccount:
+    post:
+      security:
+        - internalAuth: [ ]
+      tags:
+        - Customer Services
+      summary: submit customer data to mincron service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCustomerReq'
+      responses:
+        '200':
+          description: |
+            successful operation
+
+            refer to *API Uniform Format*
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createCustomerResp'
+        '400':
+          description: 'Bad Request.'
+        '401':
+          description: 'Unauthorized, the authorization token is invalid'
+        '405':
+          description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
+        '500':
+          description: Internal exception
+  /createdCustomerJob:
+    post:
+      security:
+        - internalAuth: [ ]
+      tags:
+        - Customer Services
+      summary: submit customer data to mincron service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCustomerJobReq'
+      responses:
+        '200':
+          description: |
+            successful operation
+
+            refer to *API Uniform Format*
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createCustomerResp'
+        '400':
+          description: 'Bad Request.'
+        '401':
+          description: 'Unauthorized, the authorization token is invalid'
+        '405':
+          description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
+        '500':
+          description: Internal exception
+  /createdCACustomerAccount:
+    post:
+      security:
+        - internalAuth: [ ]
+      tags:
+        - Customer Services
+      summary: submit customer data to mincron service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCustomerReq'
+      responses:
+        '200':
+          description: |
+            successful operation
+
+            refer to *API Uniform Format*
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createCustomerResp'
+        '400':
+          description: 'Bad Request.'
+        '401':
+          description: 'Unauthorized, the authorization token is invalid'
+        '405':
+          description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
+        '500':
+          description: Internal exception
+  /createdCACustomerJob:
+    post:
+      security:
+        - internalAuth: [ ]
+      tags:
+        - Customer Services
+      summary: submit customer data to mincron service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCustomerJobReq'
+      responses:
+        '200':
+          description: |
+            successful operation
+            
+            refer to *API Uniform Format*
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createCustomerResp'
+        '400':
+          description: 'Bad Request.'
+        '401':
+          description: 'Unauthorized, the authorization token is invalid'
+        '405':
+          description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
+        '500':
+          description: Internal exception
+  /invoice:
+    get:
+      tags:
+        - Invoiced Services
+      summary: List invoiced Data under the account
+      description: |
+        This service will list the invoiced Data
+      parameters:
+        - in: query
+          name: accountId
+          description: Account ID
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: company
+          description: Company Number
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: branchNumber
+          description: Branch number
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: pageSize
+          description: Default page size is 25, max 100
+          schema:
+            type: integer
+        - in: query
+          name: pageNo
+          description: Default page no is 1
+          schema:
+            type: integer
+        - in: query
+          name: searchBy
+          schema:
+            type: string
+          description: |
+            searchBy enumeration
+            * OrderPlacedDate
+            * OrderNumber
+            * OrderStatus
+            * UUID
+            * OrderId
+        - in: query
+          name: searchTerm
+          schema:
+            type: string
+          description: |
+            When 'searchBy' is one of the following enumeration, the 'searchTerm' should be populated
+            * OrderNumber
+            * UUID
+            * OrderId
+        - in: query
+          name: searchStartDate
+          schema:
+            type: string
+            format: MM-DD-YYYY
+          description: |
+            When 'searchBy' is 'OrderPlacedDate', the 'searchStartDate' should be populated, format should be 'MM-DD-YYYY', e.g. '01-05-2021',the searchStartDate limit  to the past year.
+        - in: query
+          name: searchEndDate
+          schema:
+            type: string
+            format: MM-DD-YYYY
+          description: |
+            When 'searchBy' is 'OrderPlacedDate', the 'searchEndDate' should be populated, format should be 'MM-DD-YYYY', e.g. '01-05-2021'
+        - in: query
+          name: searchEnum
+          schema:
+            type: string
+          description: |
+            When 'searchBy' is 'OrderStatus', the 'searchEnum' should be one of the following enumeration:
+            * Delivered
+            * Invoiced
+            * Pending
+            * Processing
+            * ReadyDeliveryOrPickUp
+            * DeliveredOrInvoiced
+        - in: query
+          name: queryCompany
+          description: Default queryCompany is true
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: |
+            successful operation
+            refer to *API Uniform Format*
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orderInvoiceRep'
+        '400':
+          description: 'Bad Request, accountId is invalid'
+        '401':
+          description: 'Unauthorized, the authorization bearer token is invalid'
+        '403':
+          description: 'Forbidden, user do not has permission to access this API'
+        '405':
+          description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
+        '419':
+          description: 'Unauthorized, the authorization bearer token is expired'
+        '500':
+          description: Internal exception
+  /operateJournal:
+    post:
+      security:
+        - internalAuth: [ ]
+      tags:
+        - Journal Services
+      summary: journal operation to mincron service
+      description: |
+        request journal header value:
+        - journal_created: create journal to US endpoint
+        - journal_created_CA: create journal to CA endpoint
+        - journal_validation: validation journal to US endpoint
+        - journal_validation_CA: validation journal to CA endpoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/journalReq'
+      responses:
+        '200':
+          description: |
+            successful operation
+            
+            refer to *API Uniform Format*
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/journalResp'
+        '400':
+          description: 'Bad Request.'
+        '401':
+          description: 'Unauthorized, the authorization token is invalid'
+        '405':
+          description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
+        '500':
+          description: Internal exception

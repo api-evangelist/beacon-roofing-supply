@@ -1,0 +1,182 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  Derived from openapi/beacon-roofing-supply-all-api-openapi.yml operationIds. No MCP server exists —
+  searched 2026-09-04 across https://www.qxo.com/customapi, https://go.qxo.com/qxoapi,
+  https://beaconproplus.com/swagger/, web search, and direct POST tools/list probes of
+  https://mcp.qxo.com/mcp (no DNS), https://www.qxo.com/mcp (404), https://api.qxo.com/mcp (404) and
+  https://beaconproplus.com/mcp (301 to the QXO SPA).
+specification: API Commons MCP
+specificationVersion: '0.1'
+provider: Beacon Roofing Supply
+providerId: beacon-roofing-supply
+status: candidate
+description: >-
+  Beacon Roofing Supply / QXO ships NO Model Context Protocol server — not hosted, not stdio, not
+  as a package. The tool list below is a CANDIDATE derived by API Evangelist from operationIds that
+  exist in Beacon's own published OpenAPI. It is a proposal for what an MCP surface over this API
+  would look like, not something a client can connect to today.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: derived
+  note: >-
+    mode is none because nobody ships a server. Every probe is recorded in probes[] below. No
+    endpoint URL is invented here.
+probes:
+  - {url: 'https://mcp.qxo.com/mcp', method: 'POST tools/list', status: 0, note: 'DNS does not resolve'}
+  - {url: 'https://www.qxo.com/mcp', method: 'POST tools/list', status: 404}
+  - {url: 'https://api.qxo.com/mcp', method: 'POST tools/list', status: 404}
+  - {url: 'https://beaconproplus.com/mcp', method: 'POST tools/list', status: 301, note: 'redirects to the www.qxo.com SPA shell'}
+agent_readiness_note: >-
+  Two properties of the underlying API would need to be settled before an MCP server over it could
+  be operated safely, and both are gaps in the provider's contract rather than in the wrapper:
+  (1) there is no idempotency mechanism on any write, including POST /submitOrder, and
+  (2) there is no cancel/void operation for a submitted order. See
+  conventions/beacon-roofing-supply-conventions.yml. A read-only tool set (catalog, pricing,
+  availability, order history, delivery tracking) carries none of that risk and is the sensible
+  first surface.
+candidate_tools:
+  - name: search_catalog
+    category: catalog
+    read_only: true
+    rest: [V3Controller_itemlist]
+    path: GET /itemlist
+    description: Search the QXO/Beacon product catalog with facets, auto-correction and did-you-mean.
+  - name: get_item_details
+    category: catalog
+    read_only: true
+    rest: [V3Controller_itemDetails]
+    path: GET /itemDetails
+    description: Retrieve full product detail for one or more items.
+  - name: get_pricing
+    category: pricing
+    read_only: true
+    rest: [V2Controller_pricing]
+    path: GET /pricing
+    description: Real-time account-specific pricing for products/SKUs.
+  - name: check_availability
+    category: catalog
+    read_only: true
+    rest: [V2Controller_getProductBranchOrRegionAvailability, V2Controller_getSKUBranchOrRegionAvailability]
+    path: GET /getProductBranchOrRegionAvailability, GET /getSKUBranchOrRegionAvailability
+    description: Branch- or region-level availability for a product or SKU.
+  - name: bulk_catalog_extract
+    category: catalog
+    read_only: true
+    rest: [V3Controller_downloadCatalogItemData]
+    path: GET /downloadCatalogItemData, GET /skuData, GET /branchData, GET /productAvailabilityData
+    description: >-
+      Bulk catalog, SKU, branch and availability extracts (V3). The intended path for a full catalog
+      sync, in place of paging /itemlist.
+  - name: list_branches
+    category: locations
+    read_only: true
+    rest: [V1Controller_branchlist]
+    path: GET /branchlist
+    description: List the Beacon/QXO branches serving the account.
+  - name: list_accounts
+    category: account
+    read_only: true
+    rest: [V1Controller_accounts]
+    path: GET /accounts
+    description: List the customer accounts the authenticated profile may act for.
+  - name: get_order_history
+    category: orders
+    read_only: true
+    rest: [V2Controller_orderhistory]
+    path: GET /orderhistory
+    description: Paged order history for an account, filterable by job number and date range.
+  - name: get_order_detail
+    category: orders
+    read_only: true
+    rest: [V2Controller_orderdetail]
+    path: GET /orderdetail
+    description: Full detail for a single order.
+  - name: list_jobs
+    category: jobs
+    read_only: true
+    rest: [V1Controller_jobs]
+    path: GET /jobs
+    description: List contractor jobs/projects that orders are attributed to.
+  - name: get_invoice_history
+    category: financials
+    read_only: true
+    path: GET /invoiceHistory
+    document: openapi/beacon-roofing-supply-v2-openapi.yml
+    description: >-
+      Invoices and payment status for an account (Bill Trust Services). Published in the V2 document;
+      it has no operationId there, because only the combined all_api document assigns operationIds.
+  - name: get_rebates
+    category: financials
+    read_only: true
+    rest: [V2Controller_rebateLanding, V2Controller_getRebateRedeemedSummaryItems, V2Controller_getRebateRedeemedItemDetail]
+    tag: Rebate Services
+    description: Manufacturer rebate programs, redeemed summaries and accruals for an account.
+  - name: get_delivery_status
+    category: delivery
+    read_only: true
+    tag: Delivery Tracking Service
+    document: openapi/beacon-roofing-supply-v2-openapi.yml
+    description: >-
+      Delivery status and tracking for material orders. Published under the Delivery Tracking Service
+      tag in the V2 document, which carries no operationIds.
+  - name: list_templates
+    category: templates
+    read_only: true
+    rest: [V2Controller_template]
+    path: GET /template
+    description: List saved material-list templates.
+  - name: build_cart
+    category: orders
+    read_only: false
+    rest: [V2Controller_addMultipleItemsToOrder]
+    path: POST /addMultipleItemsToOrder
+    description: Add multiple items to the working order.
+    consequence: reversible via POST /removeItemFromCart or POST /clearCart
+  - name: review_order
+    category: orders
+    read_only: true
+    rest: [V2Controller_getCurrentOrderReview]
+    path: GET /getCurrentOrderReview
+    description: Review the working order before submission — the closest thing to a dry run.
+  - name: validate_order
+    category: orders
+    read_only: true
+    rest: [V2Controller_validateOrderByLocation]
+    path: GET /validateOrderByLocation
+    description: Validate an order against branch/region rules without submitting it.
+  - name: submit_order
+    category: orders
+    read_only: false
+    rest: [V2Controller_submitOrder]
+    path: POST /submitOrder
+    description: Submit the order. SPENDS MONEY.
+    consequence: >-
+      IRREVERSIBLE via API. No cancel/void operation is published; cancellation runs through a branch
+      representative. No idempotency key exists, so a retry may place a second order. This tool should
+      require human confirmation in any agent deployment.
+coverage:
+  candidate_tool_count: 18
+  read_only_tools: 16
+  writing_tools: 2
+  source_operations: 424
+  operationid_note: >-
+    Only openapi/beacon-roofing-supply-all-api-openapi.yml assigns operationIds (145 of them, prefixed
+    V1Controller_/V2Controller_/V3Controller_/V4Controller_). The ten per-version documents declare
+    NONE, so an operation reachable only through, say, the V2 document has no stable identifier to
+    bind a tool to. Tools above are bound to a real operationId where one exists and to a document +
+    path where one does not; nothing is invented.
+pointer_decision:
+  emit_mcpserver_pointer: false
+  reason: >-
+    A `type: MCPServer` pointer asserts the provider operates an MCP server, and the apis.io rating
+    weights it 4 pts in the ergonomics facet plus 12 pts in agent readiness. Beacon/QXO operates
+    none. This file is a candidate authored by API Evangelist, so no pointer is emitted — the
+    artifact would score 16 points for something the provider does not ship.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,48 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay — Beacon Rest Services
+  version: 1.0.0
+extends: beacon-roofing-supply-all-api-openapi.yml
+x-generated: '2026-09-04'
+x-method: generated
+x-source: Generated from the harvested document plus probes recorded in this repository. Documents API
+  Evangelist enhancements and findings; the original under openapi/_original/ is never mutated.
+x-target-operations: 145
+x-target-secured-operations: 4
+x-target-version: '1.0'
+actions:
+- target: $.info
+  description: Record the provenance of this harvested document and the discovery path that found it.
+  update:
+    x-apievangelist-source: https://beaconproplus.com/swagger/static/swagger-ui-url/go-live/all_api.yaml
+    x-apievangelist-discovered-via: https://beaconproplus.com/swagger/ -> /swagger/all_api/index.html
+      -> the url template in /swagger/static/beacon/beaconSwaggerUI.js
+    x-apievangelist-harvested: '2026-09-04'
+- target: $
+  description: Declare the production base URL. The harvested document carried no servers[]; the host
+    is stated only in prose inside info.description, and was confirmed live (structured JSON 401 "Please
+    provide token") on 2026-09-04.
+  update:
+    x-apievangelist-servers-added: true
+- target: $.paths.*.*.responses
+  description: 'FINDING, not a change: every 4xx/5xx response carries a description string and no response
+    schema. The real error envelope ({success, messages[{key,code,type,value}], result}) and the numeric
+    message-code registry live in prose inside info.description. Captured as machine-readable data in
+    errors/beacon-roofing-supply-error-codes.yml and errors/beacon-roofing-supply-problem-types.yml.'
+  update:
+    x-apievangelist-finding: error-responses-have-no-schema
+- target: $.paths.*.*.security
+  description: 'FINDING, not a change: 4 of 145 operations (3%) declare a security requirement, and the
+    document declares no top-level security. The remaining 141 inherit nothing, so a generated client
+    cannot tell they need a token — though every operation probed live returned 401 unauthenticated. A
+    top-level security block would close this.'
+  update:
+    x-apievangelist-finding: security-not-applied-to-all-operations
+    x-apievangelist-secured-operations: 4
+    x-apievangelist-total-operations: 145
+- target: $.paths.*.*
+  description: 'FINDING, not a change: no mutating operation declares an idempotency key parameter or
+    header, and there is no 429 or rate-limit header anywhere in this document. See conventions/beacon-roofing-supply-conventions.yml
+    (idempotency.coverage: none) and rate-limits/beacon-roofing-supply-rate-limits.yml (limit_count: 0).'
+  update:
+    x-apievangelist-finding: no-idempotency-no-rate-limit-signal

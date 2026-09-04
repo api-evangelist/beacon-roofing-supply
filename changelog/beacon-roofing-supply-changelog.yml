@@ -1,0 +1,402 @@
+generated: '2026-09-04'
+method: searched
+source: https://beaconproplus.com/swagger/dev/index.html (Beacon Rest API Release Notes), whose table
+  is populated from https://beaconproplus.com/swagger/static/beacon/beaconSwaggerReleaseNotes.js
+specification: API Commons ChangeLog
+specificationVersion: '0.1'
+provider: Beacon Roofing Supply
+providerId: beacon-roofing-supply
+name: Beacon Rest API Release Notes
+url: https://beaconproplus.com/swagger/dev/index.html
+description: Beacon publishes a per-release change table for its REST services, broken out by service
+  (V1, V2, V3, Public, OAuth2, Internal). The page is a static HTML shell whose rows are injected from
+  beaconSwaggerReleaseNotes.js; the release data itself is a JavaScript object literal, which is why the
+  changelog does not render for a crawler and does not appear in search. 72 releases are published in
+  total. Entries below are the 20 most recent, verbatim.
+scheme: release-train (release/<year><PI>-<increment>-Sprint-<n>), historically release/<major>.<minor>
+  and Sprint<n>
+dated: false
+dated_note: No release carries a date. The registry is ordered newest-first but publishes version strings
+  only, so a consumer cannot tell how old the newest entry is, nor how frequently Beacon ships. This is
+  the single largest gap in an otherwise unusually complete changelog.
+current_version_in_release_notes: release/24PI-3-Sprint-4
+current_version_in_specs: 24PI-4-Sprint-3 (info.version of the V1/V2/Internal documents) and release/7.2_siteId
+  (V3/Public)
+drift_note: The OpenAPI documents declare info.version 24PI-4-Sprint-3, one program increment AHEAD of
+  the newest entry in the release-notes table (24PI-3-Sprint-4). The published notes therefore lag the
+  published contract by at least one increment.
+release_count: 72
+all_versions:
+- release/24PI-3-Sprint-4
+- release/24PI-2-Sprint-6
+- release/24PI-2-Sprint-5
+- release/24PI-2-Sprint-4
+- release/24PI-2-Sprint-3
+- release/24PI-2-Sprint-2
+- release/24PI-2-Sprint-1
+- release/24PI-1-Sprint-6
+- release/24PI-1-Sprint-5
+- release/24PI-1-Sprint-4
+- release/24PI-1-Sprint-3
+- release/24PI-1-Sprint-2
+- release/24PI-1-Sprint-1
+- release/23PI-4-Sprint-6
+- release/23PI-4-Sprint-5
+- release/23PI-4-Sprint-4
+- release/23PI-4-Sprint-3
+- release/23PI-4-Sprint-2
+- release/23PI-4-Sprint-1
+- release/23Q3_sprint_4
+- release/23Q3_sprint_3
+- release/23Q3_sprint_2
+- release/23Q3_sprint_1
+- release/23Q2_sprint_4
+- release/23Q2_sprint_3
+- release/23Q2_sprint_2
+- release/23Q2_sprint_1
+- release/23Q1_sprint_4
+- release/23Q1_sprint_3
+- release/23Q1_sprint_2
+- release/23Q1_sprint_1
+- release/22Q4_sprint_4_hotfix
+- release/22Q4_sprint_4
+- release/22Q4_sprint_3
+- release/22Q4_sprint_2
+- release/22Q4_sprint_1
+- release/22Q3_sprint_5
+- release/22Q3_sprint_4
+- release/22Q3_sprint_3_hotfix
+- release/22Q3_sprint_2
+- release/22Q3_sprint_1
+- release/22Q2_sprint_3
+- release/22Q2_sprint_2
+- release/22Q2_sprint_1
+- sprint41
+- sprint38
+- Sprint36
+- Sprint35
+- Sprint34
+- Sprint33
+- Sprint29
+- Sprint25
+- Sprint23
+- Sprint21
+- release/sprint33_closed_account
+- release/7.9
+- release/7.8
+- release/7.7
+- release/7.6_hotfix2
+- release/7.6
+- release/7.5
+- release/7.4
+- release/sso
+- release/7.3
+- release/7.2_siteId
+- release/7.1
+- release/7.0
+- release/6.6_hotfix5
+- release/6.6_hotfix3, release/6.6_hotfix4
+- release/6.6_hotfix2
+- release/6.6
+- release/6.5, release/6.5_hotfix1~6
+entries:
+- version: release/24PI-3-Sprint-4
+  date: null
+  breaking: false
+  change_count: 3
+  changes:
+  - service: v1
+    change: add new query parameter 'queryCompany' to '/orderhistory' and '/orderdetail'
+  - service: v2
+    change: add new query parameter 'queryCompany' to '/orderhistory', '/orderhistory_v2', '/orderdetail',
+      '/downloadOrderDetailAsPDF' and '/invoiceHistory'
+  - service: internal
+    change: add new query parameter 'queryCompany' to '/invoice'
+- version: release/24PI-2-Sprint-6
+  date: null
+  breaking: false
+  change_count: 1
+  changes:
+  - service: v2
+    change: add new response element 'GAFOrderNumber' to '/quickMeasure/placeReportOrder'
+- version: release/24PI-2-Sprint-5
+  date: null
+  breaking: false
+  change_count: 3
+  changes:
+  - service: v2
+    change: add new request element 'enRoute' and 'arrived' to '/saveDeliverySetting' and '/getDeliverySetting'
+  - service: v2
+    change: add new request element 'accountID' to '/getNotifications'
+  - service: v2
+    change: add new request element 'siteAverageResponseTimeMFCommercial' to '/quickMeasure/siteStatus'
+- version: release/24PI-2-Sprint-4
+  date: null
+  breaking: false
+  change_count: 1
+  changes:
+  - service: v2
+    change: add new endpoints '/quickMeasure/siteStatus'
+- version: release/24PI-2-Sprint-3
+  date: null
+  breaking: false
+  change_count: 4
+  changes:
+  - service: v1
+    change: add new response element 'loyaltyFlag' to endpoints '/login', '/accounts', '/cartItems'
+  - service: v2
+    change: add new endpoints '/getUserInfo', '/getAccountFavorites'
+  - service: v2
+    change: add new response element 'loyaltyFlag' to endpoints '/cartItems'
+  - service: internal
+    change: add new endpoints '/eagleview/updateReportsByIds','/eagleview/updateReportsByDate','/eagleview/updateReportsByDate'
+- version: release/24PI-2-Sprint-2
+  date: null
+  breaking: false
+  change_count: 3
+  changes:
+  - service: v1
+    change: add new response element 'loyaltyFlag' to endpoints '/getCurrentUserInfo', '/switchAccount'
+  - service: v2
+    change: add new response element 'jobTaxExempt' to endpoints '/orderSummary', '/orderdetail', '/getMincronQuoteDetail'
+  - service: v2
+    change: add new response element 'loyaltyFlag' to endpoints '/getCurrentUserInfo'
+- version: release/24PI-2-Sprint-1
+  date: null
+  breaking: false
+  change_count: 2
+  changes:
+  - service: v1
+    change: add new response element 'orderNotes' to endpoints '/orderhistory', '/orderdetail'
+  - service: v2
+    change: add new response element 'orderNotes' to endpoints '/orderhistory', '/orderdetail', '/orderhistory_v2'
+- version: release/24PI-1-Sprint-6
+  date: null
+  breaking: false
+  change_count: 6
+  changes:
+  - service: v1
+    change: add new response element 'guidedOrder' to endpoints '/login', '/getCurrentUserInfo', '/accounts',
+      '/switchAccount', '/branchlist'
+  - service: v1
+    change: rename response element 'hasRebate' to 'hasMincronRebate' for endpoints '/accounts', '/switchAccount',
+      '/login', '/getCurrentUserInfo', '/cartItems'
+  - service: v2
+    change: add new response element 'guidedOrder' to endpoint '/getCurrentUserInfo'
+  - service: v2
+    change: rename response element 'hasRebate' to 'hasMincronRebate' for endpoints '/getCurrentUserInfo',
+      '/cartItems'
+  - service: v2
+    change: add new response element 'evOrderId' to endpoint '/getOrderShippingInfo','/getCurrentOrderReview','/getSubmitOrderResult','/submitSavedOrder','/getOrderApprovalDetail','/getSavedOrderShippingInfo','/getSavedOrderReviewInfo'
+  - service: v2
+    change: add new response element 'privateOrGlobal' to endpoint '/getEagleViewOrderReports'
+- version: release/24PI-1-Sprint-5
+  date: null
+  breaking: false
+  change_count: 11
+  changes:
+  - service: v1
+    change: add new response elements 'warranties', 'documents' to endpoint '/orderdetail'
+  - service: v1
+    change: add new response element 'productName' to endpoint '/items'
+  - service: v2
+    change: add new searchEnum 'DeliveredOrInvoiced' to endpoint '/invoiceHistory' and '/orderHistory_v2'
+  - service: v2
+    change: add new response elements 'warranties', 'documents' to endpoint '/orderdetail'
+  - service: v2
+    change: add new endpoint '/quickMeasure/placeReportOrder','/quickMeasure/callback'
+  - service: v2
+    change: add new request body element 'referenceId', 'emailCC', 'fromDate' and 'toDate' to endpoint
+      '/getEagleViewOrderReports'
+  - service: v2
+    change: add new response element 'EmailCC' and 'ReferenceId' to endpoint '/getEagleViewOrderReports'
+  - service: v2
+    change: add new response element 'goals' to endpoint '/loyalreward'
+  - service: v3
+    change: add filter 'divisionId' to endpoint '/itemlist'
+  - service: internal
+    change: add new searchEnum 'DeliveredOrInvoiced' to endpoint '/invoice'
+  - service: internal
+    change: update request body and response for endpoint '/createdCACustomerJob', '/createSalesOrderHold'
+      and '/operateJournal'
+- version: release/24PI-1-Sprint-4
+  date: null
+  breaking: false
+  change_count: 3
+  changes:
+  - service: v2
+    change: add filter 'jobName' to endpoint '/quote'
+  - service: v2
+    change: add new response element 'expirationDate' to endpoint '/quote'
+  - service: v3
+    change: add filter 'companyId' to endpoint '/itemlist'
+- version: release/24PI-1-Sprint-3
+  date: null
+  breaking: false
+  change_count: 2
+  changes:
+  - service: v1
+    change: add new response elements 'invoicedDate' and 'paymentStatus' to endpoint '/orderhistory' and
+      '/orderdetail'
+  - service: v2
+    change: add new response elements 'invoicedDate' and 'paymentStatus' to endpoint '/orderhistory' and
+      '/orderdetail'
+- version: release/24PI-1-Sprint-2
+  date: null
+  breaking: false
+  change_count: 4
+  changes:
+  - service: v2
+    change: add new response element 'displayStatus' to endpoint '/quote'
+  - service: v2
+    change: add new response element 'displayStatus' to endpoint '/getMincronQuoteDetail'
+  - service: v2
+    change: add new response element 'itemAvailableQty','itemUsedupQty' and 'itemRemainingQty' to endpoint
+      '/getMincronQuoteDetail'
+  - service: v2
+    change: add new endpoint '/downloadBillTrustInvoiceAsPDF'
+- version: release/24PI-1-Sprint-1
+  date: null
+  breaking: false
+  change_count: 2
+  changes:
+  - service: v1
+    change: add new response element 'isEVrefreshTokenValid' to endpoint '/getCurrentUserInfo'
+  - service: v2
+    change: add new response element 'isEVrefreshTokenValid' to endpoint '/getCurrentUserInfo'
+- version: release/23PI-4-Sprint-6
+  date: null
+  breaking: false
+  change_count: 4
+  changes:
+  - service: v1
+    change: add new response element 'active' to endpoint '/login', '/accounts', '/switchAccount', '/getCurrentUserInfo',
+      '/branchlist'
+  - service: v2
+    change: add new response element 'active' to endpoint '/getCurrentUserInfo'
+  - service: v2
+    change: add new request element 'displayOrder' to endpoint '/getTemplateDetail'
+  - service: v2
+    change: add new endpoint '/updateTemplateItemDisplayOrder'
+- version: release/23PI-4-Sprint-5
+  date: null
+  breaking: false
+  change_count: 7
+  changes:
+  - service: v1
+    change: add new response element 'jobNumber' to endpoint '/template'
+  - service: v1
+    change: add new response element 'activeToSendEmail', 'corporateBranch', 'mincronBranchStatus', 'canAccessEVSmartOrderOnBranch'
+      to endpoint '/login', '/accounts', '/switchAccount', '/getCurrentUserInfo', '/branchlist'
+  - service: v2
+    change: add new request element 'additionalReason' to endpoint '/rejectQuote'
+  - service: v2
+    change: add new request element 'jobNumber' to endpoint '/createTemplate', '/updateTemplate', '/updateSingleTemplateLineItem'
+  - service: v2
+    change: add new response element 'jobNumber' to endpoint '/template', '/getTemplateDetail', '/createTemplate',
+      '/updateTemplate', '/updateSingleTemplateLineItem'
+  - service: v2
+    change: add new response element 'activeToSendEmail', 'corporateBranch', 'mincronBranchStatus', 'canAccessEVSmartOrderOnBranch'
+      to endpoint '/getCurrentUserInfo'
+  - service: v3
+    change: add new endpoint '/deleteAccount'
+- version: release/23PI-4-Sprint-4
+  date: null
+  breaking: false
+  change_count: 2
+  changes:
+  - service: v2
+    change: add new request element 'templateId' to endpoint '/getSKUBranchOrRegionAvailability'
+  - service: v2
+    change: add new request element 'templateId' to endpoint '/addMultipleItemsToOrder'
+- version: release/23PI-4-Sprint-3
+  date: null
+  breaking: false
+  change_count: 2
+  changes:
+  - service: v1
+    change: add new response element 'nationalAccount' to endpoint '/login', '/accounts', '/switchAccount',
+      '/getCurrentUserInfo', '/cartItems'
+  - service: v2
+    change: add new response element 'nationalAccount' to endpoint '/getCurrentUserInfo', '/cartItems'
+- version: release/23PI-4-Sprint-2
+  date: null
+  breaking: false
+  change_count: 12
+  changes:
+  - service: v1
+    change: add new response element 'hasRebate', 'loyaltyEnrolled' to endpoint '/login', '/accounts',
+      '/switchAccount', '/getCurrentUserInfo', '/cartItems'
+  - service: v1
+    change: add new response element 'canAccessEVSmartOrder' to endpoint 'login','accounts','switchAccount','getCurrentUserInfo'
+      and 'cartItems'
+  - service: v1
+    change: add new response element 'mincronCCMsg' to endpoint '/submitOrder'
+  - service: v1
+    change: add new response element 'creditCardTokenExists' to endpoint '/orderhistory', '/orderdetail'
+  - service: v2
+    change: add new endpoint '/downloadRebateRedeemedDetailAsPDF'
+  - service: v2
+    change: add new response element 'payWithCredit' to endpoint '/getCurrentOrderReview'
+  - service: v2
+    change: add new request element 'payWithCredit' to endpoint '/updateOrderCCBillingAddress'
+  - service: v2
+    change: add new response element 'hasRebate', 'loyaltyEnrolled' to endpoint '/getCurrentUserInfo',
+      '/cartItems'
+  - service: v2
+    change: add new response element 'canAccessEVSmartOrder' to endpoint '/getCurrentUserInfo' and '/cartItems'
+  - service: v2
+    change: add new response element 'deactivationDate' to endpoint '/rebateLanding'
+  - service: v2
+    change: add new response element 'mincronCCMsg' to endpoint '/submitOrder'
+  - service: v2
+    change: add new response element 'creditCardTokenExists' to endpoint '/orderhistory', '/orderhistory_v2',
+      '/orderdetail'
+- version: release/23PI-4-Sprint-1
+  date: null
+  breaking: false
+  change_count: 11
+  changes:
+  - service: v1
+    change: add new response element 'shownExtendedPO', 'extendedPORequired' to endpoint '/jobs'
+  - service: v1
+    change: add new response element 'omniToken' to endpoint '/orderhistory', '/orderdetail'
+  - service: v1
+    change: add new response element 'extendedPO' to endpoint '/submitOrder'
+  - service: v1
+    change: add new request element 'payment' to endpoint '/submitOrder'
+  - service: v1
+    change: add new response element 'canAccessEVSmartOrder' to endpoint 'login','accounts','switchAccount','getCurrentUserInfo'
+      and 'cartItems'
+  - service: v2
+    change: add new response element 'extendedPORequired' to endpoint '/getCurrentOrderReview'
+  - service: v2
+    change: add new response element 'shownExtendedPO' to endpoint '/getCurrentOrderReview', '/getSavedOrderConfirmationInfo',
+      '/getSavedOrderReviewInfo', '/getSavedOrderShippingInfo'
+  - service: v2
+    change: add new response element 'omniToken' to endpoint '/orderhistory', '/orderhistory_v2', '/orderdetail'
+  - service: v2
+    change: add new response element 'extendedPO' to endpoint '/submitOrder', '/submitCurrentOrder'
+  - service: v2
+    change: add new request element 'payment' to endpoint '/submitOrder'
+  - service: v2
+    change: add new response element 'canAccessEVSmartOrder' to endpoint 'getCurrentUserInfo' and 'cartItems'
+- version: release/23Q3_sprint_4
+  date: null
+  breaking: false
+  change_count: 5
+  changes:
+  - service: v2
+    change: add new endpoint '/getAssignedEnterpriseAccounts'
+  - service: v2
+    change: add new response element 'assignedEnterpriseAccounts' to endpoint '/getCurrentUserInfo'
+  - service: v2
+    change: add new query parameters 'showItemDetails' and 'showPrice' to endpoint 'suggestiveSelling'
+  - service: v2
+    change: add new endpoint '/updateOrderCCBillingAddress'
+  - service: internal
+    change: add Deprecated description to endpoint '/validateJournal', '/createJournal', '/validateCAJournal'
+      and '/createCAJournal'
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

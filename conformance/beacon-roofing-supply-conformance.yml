@@ -1,0 +1,154 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/*.yml (the eleven published Beacon Rest Services documents, examined 2026-09-04),
+  https://beaconproplus.com/swagger/oauth2/, https://www.qxo.com/integrations/api-license-terms,
+  https://www.qxo.com/privacy-policy-and-cookie-notice, plus probes recorded in
+  well-known/beacon-roofing-supply-well-known.yml and security/beacon-roofing-supply-domain-security.yml
+specification: API Commons Conformance
+specificationVersion: '0.1'
+provider: Beacon Roofing Supply
+providerId: beacon-roofing-supply
+description: >-
+  What the Beacon Rest Services contracts actually declare about cross-cutting and domain standards.
+  Every entry below is judged from the contract or from a probe, not from a marketing claim.
+conformance:
+  - id: openapi-3.0
+    name: OpenAPI Specification 3.0.0
+    conforms: true
+    evidence: >-
+      All eleven published documents declare openapi: 3.0.0 and parse. 424 operations, 1,000+
+      component schemas. Source index https://beaconproplus.com/swagger/
+  - id: oauth2
+    name: OAuth 2.0 (RFC 6749)
+    conforms: partial
+    evidence: >-
+      https://beaconproplus.com/swagger/oauth2/ publishes a token endpoint implementing the
+      refresh_token grant and links to https://oauth.net/2/grant-types/refresh-token/ explicitly. The
+      response carries access_token, token_type, expires_in, refresh_expires_in, refresh_token and
+      scope — the RFC 6749 token-response shape. It is partial because the token endpoint is at a
+      vendor path (/rest/model/REST/oauth/token) rather than a discoverable one, accepts the request
+      as application/json rather than application/x-www-form-urlencoded, and NO initial grant
+      (authorization_code, client_credentials or password) is published — only refresh.
+  - id: oauth2-bearer
+    name: OAuth 2.0 Bearer Token Usage (RFC 6750)
+    conforms: true
+    evidence: >-
+      securitySchemes bearerAuth {type: http, scheme: bearer, bearerFormat: token} in
+      openapi/beacon-roofing-supply-v3-openapi.yml and -public-openapi.yml; the V2 info.description
+      documents 'Authorization Bearer <token>'.
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    evidence: >-
+      No openIdConnect securityScheme in any document. /.well-known/openid-configuration returns 404
+      on www.qxo.com and 301-to-SPA on beaconproplus.com (see the well-known probe).
+  - id: rfc9457
+    name: RFC 9457 Problem Details for HTTP APIs
+    conforms: false
+    evidence: >-
+      No application/problem+json media type appears in any of the eleven documents. Errors use a
+      vendor envelope with a numeric message code; see errors/beacon-roofing-supply-problem-types.yml
+  - id: rfc8594
+    name: RFC 8594 Sunset HTTP Header
+    conforms: false
+    evidence: >-
+      No Sunset or Deprecation header is declared on any operation. The published API license terms
+      state QXO "may discontinue offering one or more of the QXO APIs at any time without notice".
+  - id: rfc9116
+    name: RFC 9116 security.txt
+    conforms: false
+    evidence: >-
+      /.well-known/security.txt returns an HTML SPA shell on www.qxo.com (soft-404) and 301s into
+      that same shell from beaconproplus.com and becn.com. No RFC 9116 document is served on any
+      host. Probed 2026-09-04, recorded in well-known/beacon-roofing-supply-well-known.yml
+  - id: rfc9111-cache
+    name: HTTP caching directives
+    conforms: partial
+    evidence: >-
+      Live responses from the API host carry 'cache-control: no-cache, no-store, must-revalidate,
+      max-age=0' and an ETag on the 401 body (observed 2026-09-04). Caching semantics are not
+      documented in the contracts.
+  - id: pagination
+    name: Consistent pagination
+    conforms: partial
+    evidence: >-
+      pageNo/pageSize appear on 39/40 operations respectively (and inconsistently as path parameters
+      on 7), with orderBy on 10. No shared pagination component, no envelope-level total/hasMore, and
+      no documented maximum page size. See conventions/beacon-roofing-supply-conventions.yml
+  - id: idempotency
+    name: Idempotent write semantics
+    conforms: false
+    evidence: >-
+      Zero occurrences of "idempoten" across all eleven documents; no idempotency key parameter on any
+      of the mutating operations, including POST /submitOrder.
+  - id: rate-limit-headers
+    name: RateLimit header fields for HTTP (draft-ietf-httpapi-ratelimit-headers)
+    conforms: false
+    evidence: >-
+      No RateLimit-*, X-RateLimit-* or Retry-After header in any document, and no 429 response is
+      declared on any of the 424 operations.
+  - id: http-status-registry
+    name: IANA HTTP status code registry
+    conforms: false
+    evidence: >-
+      154 operations declare a 419 response ("the authorization bearer token is expired"). 419 is not
+      a registered IANA HTTP status code.
+  - id: tls-hsts
+    name: TLS 1.3 + HSTS
+    conforms: true
+    evidence: >-
+      security/beacon-roofing-supply-domain-security.yml records TLSv1.3 with
+      'strict-transport-security: max-age=31536000; includeSubDomains' on beaconproplus.com,
+      www.beaconproplus.com and www.becn.com. Confirmed again on the live API host 2026-09-04.
+  - id: ccpa-privacy
+    name: US state privacy disclosure (CCPA/CPRA-style)
+    conforms: true
+    evidence: >-
+      https://www.qxo.com/privacy-policy-and-cookie-notice (HTTP 200, probed 2026-09-04) is a
+      published Privacy Policy and Cookie Notice with a stated privacy request address
+      (privacy@qxo.com).
+domain_standards:
+  checked:
+    - id: x12-edi
+      name: ASC X12 EDI (850/855/856/810)
+      declared_in_contract: false
+      note: >-
+        Beacon's own integration marketing names TrueCommerce EDI as a partner channel for purchase
+        orders, ASNs and invoices, and QXO publishes an Invoice API. But NO published Beacon contract
+        declares an X12 transaction set, segment, envelope or message type — the EDI channel runs
+        outside the REST surface. Recorded as not-declared rather than as conformance, per the
+        contract-not-prose rule.
+    - id: scim
+      name: SCIM (RFC 7643/7644)
+      declared_in_contract: false
+      note: >-
+        User and permission-template management is published (/createPermissionTemplate,
+        /permissionTemplateList, /deleteUser) but under vendor schemas. No urn:ietf:params:scim
+        schema URN appears in any document.
+    - id: odata
+      name: OData
+      declared_in_contract: false
+      note: No $metadata surface and no OData query options.
+    - id: gs1
+      name: GS1 product identifiers (GTIN/UPC)
+      declared_in_contract: partial
+      note: >-
+        Catalog schemas carry vendor identifiers — itemNumber, skuId, productId, branchNumber — and a
+        Beacon-specific product hierarchy (cateFilter values such as US_MAIN_CAT_RESIRFNG_ASPHALT).
+        No GTIN/GLN field is declared, so a buyer integrating on GS1 identifiers needs a mapping.
+  conclusion: >-
+    Construction-products distribution has no single dominant open API standard that this contract
+    could have declared, and Beacon declares none. REWARD-ONLY: no conformance is asserted here that
+    the contract does not carry.
+certifications:
+  published: []
+  trust_center: null
+  note: >-
+    probe-security-programs.py returned vdp=none trust=none on 2026-09-04. trust.qxo.com does not
+    resolve; https://www.qxo.com/security returns 404. QXO's SEC filings discuss cybersecurity risk
+    but no SOC 2, ISO 27001, PCI DSS or comparable certification is published on a public trust page,
+    so no Compliance pointer is emitted for this provider.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

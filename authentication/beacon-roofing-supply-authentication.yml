@@ -1,0 +1,67 @@
+generated: '2026-09-04'
+method: derived
+source: openapi/beacon-roofing-supply-internal-ng-openapi.yml, openapi/beacon-roofing-supply-internal-openapi.yml,
+  openapi/beacon-roofing-supply-public-openapi.yml, openapi/beacon-roofing-supply-v1-ng-openapi.yml,
+  openapi/beacon-roofing-supply-v1-openapi.yml, openapi/beacon-roofing-supply-v2-ng-openapi.yml,
+  openapi/beacon-roofing-supply-v2-openapi.yml, openapi/beacon-roofing-supply-v3-ng-openapi.yml,
+  openapi/beacon-roofing-supply-v3-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - cookie
+schemes:
+- name: internalAuth
+  type: http
+  scheme: bearer
+  bearerFormat: token
+  sources:
+  - openapi/beacon-roofing-supply-internal-ng-openapi.yml
+  - openapi/beacon-roofing-supply-internal-openapi.yml
+  - openapi/beacon-roofing-supply-public-openapi.yml
+  - openapi/beacon-roofing-supply-v3-ng-openapi.yml
+  - openapi/beacon-roofing-supply-v3-openapi.yml
+- name: JSESSIONID
+  type: apiKey
+  in: cookie
+  parameter: JSESSIONID
+  sources:
+  - openapi/beacon-roofing-supply-v1-ng-openapi.yml
+  - openapi/beacon-roofing-supply-v1-openapi.yml
+  - openapi/beacon-roofing-supply-v2-ng-openapi.yml
+  - openapi/beacon-roofing-supply-v2-openapi.yml
+- name: DYN_USER_ID
+  type: apiKey
+  in: cookie
+  parameter: DYN_USER_ID
+  sources:
+  - openapi/beacon-roofing-supply-v1-ng-openapi.yml
+  - openapi/beacon-roofing-supply-v1-openapi.yml
+  - openapi/beacon-roofing-supply-v2-ng-openapi.yml
+  - openapi/beacon-roofing-supply-v2-openapi.yml
+- name: DYN_USER_CONFIRM
+  type: apiKey
+  in: cookie
+  parameter: DYN_USER_CONFIRM
+  sources:
+  - openapi/beacon-roofing-supply-v1-ng-openapi.yml
+  - openapi/beacon-roofing-supply-v1-openapi.yml
+  - openapi/beacon-roofing-supply-v2-ng-openapi.yml
+  - openapi/beacon-roofing-supply-v2-openapi.yml
+- name: siteId
+  type: apiKey
+  in: cookie
+  parameter: siteId
+  sources:
+  - openapi/beacon-roofing-supply-v1-ng-openapi.yml
+  - openapi/beacon-roofing-supply-v1-openapi.yml
+  - openapi/beacon-roofing-supply-v2-ng-openapi.yml
+  - openapi/beacon-roofing-supply-v2-openapi.yml
+- name: rememberPassword
+  type: apiKey
+  in: cookie
+  parameter: rememberPassword
+  sources:
+  - openapi/beacon-roofing-supply-v1-ng-openapi.yml
+  - openapi/beacon-roofing-supply-v1-openapi.yml

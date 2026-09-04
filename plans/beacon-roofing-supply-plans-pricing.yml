@@ -4,81 +4,72 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Beacon Roofing Supply
 providerId: beacon-roofing-supply
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: false
+generated: '2026-09-04'
+method: searched
+modified: '2026-09-04'
+reconciled: true
+plan_count: 0
+source: >-
+  https://www.qxo.com/customapi (the "QXO API services" page, HTTP 200 probed 2026-09-04),
+  https://go.qxo.com/qxoapi (the API access request form, HTTP 200) and
+  https://www.qxo.com/integrations/api-license-terms (the published API license terms)
 tags:
   - Construction
   - Distribution
   - Roofing
   - Building Materials
   - E-Commerce
-description: Beacon PRO+ is a contractor-facing digital ordering and account-management platform. The
-  PRO+ API is published to enable integrations with contractor management software (AccuLynx, JobNimbus)
-  and ERP systems. Access is provided to existing Beacon contractor account holders and partner ISVs;
-  there is no public per-call rate card. Beacon was acquired by QXO in 2025.
-notes: No public API pricing. PRO+ API access is bundled with the contractor's Beacon account relationship
-  and partner integrations are arranged with Beacon's digital team. Reconcile against the partner / contractor
-  agreement once available.
+description: >-
+  QXO (which acquired Beacon Roofing Supply in April 2025) publishes NO plans, tiers, price points or
+  quotas for the Beacon PRO+ / QXO APIs. plan_count is 0 and that is a searched finding, not an
+  unchecked one. The developer page at https://www.qxo.com/customapi lists six named API products
+  (Order, Pricing, Account, Product, Delivery Tracking, Invoice) and ends in a single "Contact us"
+  call to action. The request form at https://go.qxo.com/qxoapi states the only two gates that
+  exist: you must already be a QXO.com customer (register at https://www.qxo.com/open-an-account),
+  and you must accept the API license terms. Nothing is priced; API access is an attribute of the
+  commercial account relationship, and the money changes hands on the material order, not on the API
+  call.
+gate: sales
+gate_url: https://go.qxo.com/qxoapi
+terms_url: https://www.qxo.com/integrations/api-license-terms
+liability_cap: >-
+  The published API license terms cap QXO's maximum aggregate liability at USD 100 — the only dollar
+  figure attached to the API programme anywhere on the public surface.
+published_api_products:
+  - name: Order API
+    description: Place material orders and track order status and deliveries within your system.
+  - name: Pricing API
+    description: >-
+      Access real-time pricing information for single or multiple QXO products to simplify generating
+      estimates and placing orders.
+  - name: Account API
+    description: >-
+      Access customer account information including billing addresses, contacts and other account
+      details.
+  - name: Product API
+    description: >-
+      Browse the QXO product catalog for product details, availability and key attributes across
+      multiple product hierarchies.
+  - name: Delivery Tracking API
+    description: Track material order status; delivery photos are delivered to the customer's inbox.
+  - name: Invoice API
+    description: Access invoices, invoiced data, payment status and other financial information.
+notes: >-
+  The six product names above are QXO's own marketing decomposition of the API programme and do not
+  map one-to-one onto the eleven published OpenAPI documents, which are versioned by release train
+  (V1/V2/V3/Public/OAuth2/Internal) rather than by product. Both are recorded because a buyer reads
+  the first and an integrator reads the second.
 sources:
   - https://beaconproplus.com/swagger/all_api/
   - https://beaconproplus.com
-plans:
-  - id: beacon-roofing-supply-pro-plus
-    name: Beacon PRO+ Account
-    type: enterprise
-    description: API access included with a Beacon PRO+ contractor account or a partner ISV integration
-      agreement. Underlying material pricing flows from the customer's Beacon account terms.
-    entries:
-      - label: Contractor Account
-        description: API access included with an active Beacon PRO+ contractor account
-        name: contractor_account
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: US
-        domains:
-          - https://beaconproplus.com
-        unit: 1
-        price: included with PRO+ account
-        userMultiplied: false
-      - label: Partner Integration
-        description: ISV partner integration agreement (AccuLynx, JobNimbus, custom partners)
-        name: partner_integration
-        type: subscription
-        metric: year
-        limit: -1
-        timeFrame: year
-        geo: US
-        domains:
-          - https://beaconproplus.com
-        unit: 1
-        price: contact Beacon partner team
-        userMultiplied: false
-      - label: Material Purchases
-        description: Underlying product purchases at the contractor's negotiated Beacon pricing
-        name: material_purchases
-        type: metered
-        metric: order
-        limit: -1
-        timeFrame: usage
-        geo: US
-        domains:
-          - https://beaconproplus.com
-        unit: 1
-        price: per Beacon account terms
-        userMultiplied: false
-    elements:
-      - name: Beacon PRO+ API
-      - name: Real-Time Inventory and Pricing
-      - name: Online Ordering and Delivery Tracking
-      - name: Account Management
-      - name: Manufacturer Rebate Tracking
-      - name: AccuLynx / JobNimbus Integration
-      - name: Swagger UI Documentation
+plans: []
+plans_removed_note: >-
+  A previous bulk sweep (2026-05-04, method: generated) asserted a single "Beacon PRO+ Account"
+  enterprise plan with three priced entries. Nothing on QXO's public surface publishes those terms,
+  so the entry has been removed rather than re-stated: plan_count is 0 and the list is empty. The
+  capability list that entry carried is preserved as published_api_products above, which QXO does
+  publish.
+
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -1,0 +1,293 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://beaconproplus.com/swagger/v2/ and the eleven published OpenAPI documents behind
+  https://beaconproplus.com/swagger/ (info.description prose + a 424-operation parameter census run
+  2026-09-04), plus live unauthenticated probes of
+  https://beaconproplus.com/v1|v2|v3/rest/com/becn/* and
+  https://www.qxo.com/integrations/api-license-terms
+specification: API Commons Conventions
+specificationVersion: '0.1'
+provider: Beacon Roofing Supply
+providerId: beacon-roofing-supply
+description: >-
+  Cross-cutting runtime semantics for the Beacon Rest Services (Beacon PRO+, now operated under QXO).
+  Everything below is read from the provider's own published contracts and prose, or observed on a
+  live unauthenticated call. Where a convention does not exist, that is recorded as an absence
+  rather than inferred.
+
+authentication:
+  styles:
+    - name: OAuth 2.0 bearer token
+      applies_to: V2, V3, Public, Internal
+      header: 'Authorization: Bearer <access_token>'
+      token_endpoint: https://beaconproplus.com/rest/model/REST/oauth/token
+      grant_types_published: [refresh_token]
+      note: >-
+        Only the refresh_token grant is published. The initial grant that mints the first
+        access_token/refresh_token pair is NOT documented on any public surface — it is issued during
+        partner onboarding at https://go.qxo.com/qxoapi. An agent cannot bootstrap credentials from
+        the public contract.
+    - name: Cookie session
+      applies_to: V1 (and v1_ng, v2_ng)
+      cookies: [JSESSIONID, DYN_USER_ID, DYN_USER_CONFIRM, siteId, rememberPassword]
+      note: >-
+        Established by POST /login. Session lasts 1 hour by default, extended to 7 days with the
+        RememberMe flag (stated in the /login operation description). This is a browser-shaped
+        session mechanism carried into an API contract.
+  detail: authentication/beacon-roofing-supply-authentication.yml
+
+tenancy:
+  parameter: apiSiteId
+  description: >-
+    Beacon is multi-site (multi-brand/region). Most operations accept apiSiteId, resolved in a
+    documented precedence order, highest first.
+  precedence:
+    - 1. apiSiteId in the query string (example.com/?apiSiteId=XYZ)
+    - 2. apiSiteId as a ROOT element of the JSON request body (a nested apiSiteId is ignored)
+    - 3. apiSiteId implied by the OAuth token — the client_id is pre-bound to a site id in Beacon's database
+  agent_note: >-
+    Because option 3 exists, an agent that omits apiSiteId still gets a site — the one bound to its
+    client_id. Omitting the parameter is not the same as leaving it unset.
+
+idempotency:
+  coverage: none
+  mechanism: null
+  header: null
+  scope: []
+  retention: null
+  evidence: >-
+    A case-insensitive grep for "idempoten" across all eleven published OpenAPI documents
+    (424 operations) returns zero hits, and no operation declares an idempotency key parameter,
+    header or request-body field. The published API license terms
+    (https://www.qxo.com/integrations/api-license-terms) contain no replay-protection language.
+  consequence: >-
+    The mutating surface includes POST /submitOrder, POST /submitCurrentOrder, POST /submitQuote and
+    POST /addMultipleItemsToOrder — operations that place real material orders against a contractor's
+    account. There is no documented way to make a retry safe. An agent must treat every write as
+    at-most-once and reconcile with GET /orderhistory before retrying.
+
+pagination:
+  style: page-number
+  params:
+    - name: pageNo
+      in: query (and path on 7 operations)
+      description: 1-based page index.
+      operations: 39
+    - name: pageSize
+      in: query (and path on 7 operations)
+      description: Items per page.
+      operations: 40
+    - name: orderBy
+      in: query
+      description: Sort key.
+      operations: 10
+  response_component:
+    name: BCPaginationDataObj
+    aka: 'Pagination (in the combined all_api document); BCOtherPaginationObj for the next/previous links'
+    fields: [next, previous, pageSize, currentPage, totalCount, results]
+    references: 34
+    documents: [v2, v2_ng, v3, v3_ng, internal, internal_ng, all_api]
+    note: >-
+      A shared pagination envelope IS declared as a reusable component and is the second-most
+      referenced schema in the contract set after the message object. next/previous are link objects
+      rather than opaque cursors, and totalCount is present, so a client can page generically wherever
+      an operation returns this shape. Catalog/facet responses additionally carry their own
+      recordCount per facet, which is a count of matches, not of pages.
+  max_page_size: null
+  max_page_size_note: No maximum pageSize is documented on any operation.
+  consistency_note: >-
+    pageNo/pageSize appear as PATH parameters on 7 operations and as QUERY parameters on the rest.
+    A client cannot assume one placement.
+
+field_selection:
+  style: boolean feature flags
+  description: >-
+    Rather than a sparse-fieldset or expand syntax, catalog operations take boolean query flags that
+    switch response sections on and off.
+  params: [showPricing, showFacets, showSkuList, showItemVariations, showItemAvailable, showHoverAttrs, hoverSearch, enableAutoCorrection, enableDidYouMean]
+
+metadata:
+  supported: partial
+  description: >-
+    There is no generic key/value metadata bag. Order-shaped operations instead carry named
+    contractor fields — jobNumber (20 operations), atgUUID (a caller-supplied GUID that Beacon echoes
+    back), PO number and job/project identifiers — which is how contractor spend is attributed to a job.
+
+request_tracing:
+  field: traceId
+  location: response body (top level)
+  documented: false
+  evidence: >-
+    Observed on live unauthenticated probes 2026-09-04 of
+    https://beaconproplus.com/v3/rest/com/becn/branchData (traceId cb065aa5056b615d1e0907a0d4788d9e),
+    /v1/rest/com/becn/branchlist and /v3/rest/com/becn/itemlist. Present on every error response
+    returned; not mentioned in any published document.
+  request_id_header: null
+
+versioning:
+  style: URI path prefix
+  versions:
+    - version: v1
+      base: https://beaconproplus.com/v1/rest/com/becn
+      auth: cookie session
+      status: live (19 published operations)
+    - version: v2
+      base: https://beaconproplus.com/v2/rest/com/becn
+      auth: OAuth bearer
+      status: live and the primary surface (187 published operations)
+    - version: v3
+      base: https://beaconproplus.com/v3/rest/com/becn
+      auth: OAuth bearer
+      status: live (8 published operations, catalog + integration bulk downloads)
+    - version: v4
+      base: null
+      status: >-
+        Referenced only as a tag inside the combined all_api document. No standalone V4 contract is
+        published and no base URL is stated for it.
+  release_scheme: 'release/<year><PI>-<increment>-Sprint-<n>'
+  changelog: changelog/beacon-roofing-supply-changelog.yml
+  note: >-
+    Versions are additive surfaces, not successive replacements — V1, V2 and V3 are all live
+    simultaneously with different auth models and different capability sets. V3 is described as
+    "Public" but still requires a bearer token.
+
+error_envelope:
+  shape: '{ success: bool, messages: [ {key, code, type, value} ], result: <payload> }'
+  code_registry: errors/beacon-roofing-supply-error-codes.yml
+  problem_types: errors/beacon-roofing-supply-problem-types.yml
+  rfc9457: false
+  exceptions: >-
+    27 named V2 operations are documented as returning the raw payload with NO envelope
+    (see legacy_envelope_operations in the error-codes artifact). A client must branch on the
+    operation name, not on the response shape.
+  nonstandard_status: >-
+    419 is used for "bearer token expired" on 154 operations. It is not a registered IANA status code.
+
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  documented: false
+  evidence: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header appears in any of the eleven documents, and
+    no operation declares a 429 response. Live 401 responses carry no rate-limit headers. The API
+    license terms prohibit usage that "exceeds reasonable request volume" without defining a number.
+  detail: rate-limits/beacon-roofing-supply-rate-limits.yml
+
+reversibility:
+  grade: documented
+  applies: true
+  summary: >-
+    Beacon publishes reversal operations for most stateful objects a contractor creates — carts,
+    templates, saved orders, quotes, address book entries and permission templates all have an
+    explicit delete/remove operation. What is NOT published anywhere is a time window for any of
+    them, and — critically — there is no reversal at all for the one action that spends money.
+  operations:
+    - surface: Shopping cart line item
+      write: POST /updateCart, POST /addMultipleItemsToOrder
+      reversal: POST /removeItemFromCart (single item), POST /clearCart (whole cart)
+      operationId: V2Controller_removeItemFromCart
+      window: null
+      window_source: null
+    - surface: Quote / saved-order approval
+      write: POST /approveQuote, POST /approveSavedOrder, POST /submitQuoteOrderForApproval
+      reversal: POST /rejectQuote, POST /rejectSavedOrder, POST /reviseQuote
+      window: null
+      window_source: null
+      note: >-
+        The approval workflow is genuinely two-sided — an approver can reject or revise rather than
+        only approve. This is the one place in the contract where an action is designed to be undone.
+    - surface: Saved order
+      write: POST /saveOrder
+      reversal: POST /deleteSavedOrder
+      operationId: V2Controller_deleteSavedOrder
+      window: null
+      window_source: null
+    - surface: Quote
+      write: POST /createQuote
+      reversal: POST /deleteQuote
+      operationId: V2Controller_deleteQuote
+      window: null
+      window_source: null
+    - surface: Order template
+      write: POST /createTemplate
+      reversal: POST /deleteTemplate
+      operationId: V2Controller_deleteTemplate
+      window: null
+      window_source: null
+    - surface: Address book entry
+      write: POST /createAddressBook
+      reversal: POST /deleteAddressBook
+      operationId: V2Controller_deleteAddressBook
+      window: null
+      window_source: null
+    - surface: Permission template
+      write: POST /createPermissionTemplate
+      reversal: POST /deletePermissionTemplate
+      operationId: V2Controller_deletePermissionTemplate
+      window: null
+      window_source: null
+    - surface: Order-related document
+      write: POST /uploadOrderRelatedDocuments
+      reversal: POST /deleteOrderRelatedDocuments
+      operationId: V2Controller_deleteOrderRelatedDocuments
+      window: null
+      window_source: null
+    - surface: EagleView measurement order
+      write: POST /createEVOrder
+      reversal: POST /deleteEVOrder
+      window: null
+      window_source: null
+    - surface: Account
+      write: n/a
+      reversal: POST /deleteAccount
+      window: null
+      window_source: null
+      note: Present in both V2 and V3. No restore operation and no grace period is documented.
+  no_reversal:
+    - surface: Submitted material order
+      write: POST /submitOrder, POST /submitCurrentOrder, POST /submitDelegatedQuote
+      reversal: null
+      note: >-
+        There is NO cancel, void, amend or return operation for a submitted order anywhere in the
+        424 published operations. Beacon's own product prose directs contractors to the branch:
+        the checkForAvailability field is documented as "should always be 'No' to ensure orders are
+        received by a branch representative", i.e. a human at the branch is the cancellation path.
+        Combined with the absence of idempotency, this is the highest-consequence gap in the
+        contract for an autonomous agent.
+  windows_documented: false
+  grade_reason: >-
+    Reversal paths exist and are named (0.4 credit) but not one of them states a window, and the
+    money-spending write has no reversal at all. Nothing in the published docs states a window, so
+    none is asserted here.
+
+dry_run_mode:
+  supported: partial
+  operations:
+    - POST /validateOrderByLocation
+    - GET /getCurrentOrderReview
+  note: >-
+    Beacon publishes validation/review operations that let a caller check an order before submitting
+    it, which is a rehearsal path in substance if not in name. There is no generic dry_run flag.
+
+bulk_operations:
+  supported: true
+  operations:
+    - GET /downloadCatalogItemData
+    - GET /skuData
+    - GET /branchData
+    - GET /productAvailabilityData
+    - POST /addMultipleItemsToOrder
+  note: V3 is largely a bulk-extract surface for ERP/catalog synchronisation.
+
+cross_links:
+  errors: errors/beacon-roofing-supply-problem-types.yml
+  error_codes: errors/beacon-roofing-supply-error-codes.yml
+  lifecycle: lifecycle/beacon-roofing-supply-lifecycle.yml
+  authentication: authentication/beacon-roofing-supply-authentication.yml
+  rate_limits: rate-limits/beacon-roofing-supply-rate-limits.yml
+  scopes: scopes/beacon-roofing-supply-scopes.yml
+  data_model: data-model/beacon-roofing-supply-data-model.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

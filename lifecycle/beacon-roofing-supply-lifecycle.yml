@@ -1,0 +1,134 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://www.qxo.com/integrations/api-license-terms (published API license terms),
+  https://beaconproplus.com/swagger/ (the version index), https://beaconproplus.com/swagger/dev/index.html
+  (release notes), and the info.description of the eleven published OpenAPI documents. Status-page
+  and SLA absences were probed 2026-09-04.
+specification: API Commons Lifecycle
+specificationVersion: '0.1'
+provider: Beacon Roofing Supply
+providerId: beacon-roofing-supply
+description: >-
+  Versioning, deprecation, support and availability posture for the Beacon Rest Services, operated by
+  QXO following the April 2025 acquisition of Beacon Roofing Supply.
+
+versioning:
+  style: URI path prefix (/v1, /v2, /v3)
+  concurrent_versions: 3
+  policy_published: false
+  note: >-
+    Beacon publishes three concurrently live major versions with different authentication models and
+    non-overlapping capability sets, plus a "Public" sub-surface and an OAuth token service. No
+    document states which version is recommended for new integrations, how long an older version is
+    supported, or what triggers a new major version.
+  release_scheme: 'release/<year><PI>-<increment>-Sprint-<n>'
+  current_version: 24PI-4-Sprint-3
+  changelog: changelog/beacon-roofing-supply-changelog.yml
+
+deprecation:
+  policy_published: true
+  policy_url: https://www.qxo.com/integrations/api-license-terms
+  posture: no-notice
+  quote: >-
+    "QXO may discontinue offering one or more of the QXO APIs at any time without notice." The same
+    terms allow QXO to terminate a customer's API access "at any time and for any reason upon notice."
+  notice_period: none
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations_in_spec: []
+  under_development_operations:
+    - /getEagleViewOrderReportFileAnyFormat (under development)
+  note: >-
+    This is a published deprecation policy, and it is an explicit disclaimer of any notice period
+    rather than a commitment to one. No operation in any of the 424 published operations carries
+    deprecated: true, and no Sunset or Deprecation response header appears anywhere in the contracts.
+    One path is labelled "(under development)" in the path string itself, which is the only lifecycle
+    marker carried in-contract.
+
+status_page:
+  published: false
+  probed:
+    - url: https://status.beaconproplus.com/
+      status: 0
+      note: DNS does not resolve.
+    - url: https://beaconproplus.com/status
+      status: 404
+      note: Redirects to https://www.qxo.com/status, which returns 404.
+  health_endpoint:
+    published: true
+    tag: Health Check
+    document: openapi/beacon-roofing-supply-v2-openapi.yml
+    note: >-
+      A Health Check tag exists inside the V2 contract, but it is an authenticated API operation, not
+      a public status page. It tells an already-integrated caller whether the service answers; it
+      does not tell a prospective one whether there is an incident.
+
+sla:
+  published: false
+  note: >-
+    The API license terms contain no service level agreement, no uptime commitment and no support
+    commitment. They cap QXO's aggregate liability at USD 100.
+
+support:
+  channels:
+    - type: sales/onboarding form
+      url: https://go.qxo.com/qxoapi
+    - type: contact page
+      url: https://www.qxo.com/contact-us
+  developer_support_channel: null
+  note: >-
+    There is no developer-specific support channel, forum, community or ticketing surface. API
+    questions route through the same commercial contact path as material orders.
+
+availability:
+  environments:
+    - name: production
+      base: https://beaconproplus.com
+      public: true
+      probed_status: 401
+    - name: UAT
+      base: https://beacon-uat.becn.com
+      public: false
+      probed_status: 0
+      note: Documented in every spec's info.description; the host does not resolve publicly.
+    - name: development
+      base: https://beacon-dev.becn.com
+      public: false
+      probed_status: 0
+      note: Documented in every spec's info.description; the host does not resolve publicly.
+    - name: 'Beacon Stack (Cloud Run)'
+      base: https://beacon-api-x7xzzdp35a-uk.a.run.app
+      public: false
+      probed_status: 0
+      note: >-
+        Named as an alternate base in the all_api document and used as a tag inside it. The host
+        resolves (34.143.73.2 and siblings) but does not complete a TLS/HTTP request from the public
+        internet.
+
+ownership:
+  status: acquired
+  acquirer: QXO, Inc.
+  completed: '2025-04-29'
+  effect_on_api: >-
+    The Beacon PRO+ consumer web app has been folded into www.qxo.com — beaconproplus.com and
+    becn.com now 301 to qxo.com, and the PRO+ login lives at https://www.qxo.com/proplus/login. The
+    API itself did NOT move: the Swagger index, the eleven OpenAPI documents and the /v1|/v2|/v3
+    REST bases all still serve from beaconproplus.com and were live when probed 2026-09-04. The
+    developer-facing marketing surface has moved to https://www.qxo.com/customapi while the technical
+    surface stayed behind, which is why the two are easy to miss from each other.
+  evidence:
+    - url: https://www.becn.com/
+      status: 200
+      note: Follows a 301 chain to https://www.qxo.com/
+    - url: https://beaconproplus.com/swagger/
+      status: 200
+      note: Version index still served from the Beacon host.
+    - url: https://beaconproplus.com/v2/rest/com/becn/branchlist
+      status: 401
+      note: Live API, structured JSON auth challenge.
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

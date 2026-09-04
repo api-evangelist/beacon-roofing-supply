@@ -1,0 +1,60 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  Registry searches run 2026-09-04 against registry.npmjs.org (queries: beacon-pro-plus,
+  beaconproplus, becn, qxo), pypi.org/pypi/<name>/json (beacon-pro-plus, beaconproplus, qxo — all
+  404), plus https://www.qxo.com/customapi, https://go.qxo.com/qxoapi and
+  https://beaconproplus.com/swagger/ (no SDK or download link on any of them), and GitHub owner
+  lookups for becn and qxo.
+specification: API Commons Packages
+specificationVersion: '0.1'
+provider: Beacon Roofing Supply
+providerId: beacon-roofing-supply
+package_count: 0
+official_package_count: 0
+description: >-
+  Beacon Roofing Supply / QXO publishes NO first-party client library in any package registry, and no
+  SDK download or code sample on any developer surface. This is a searched zero. Integrators generate
+  a client from the OpenAPI or hand-roll HTTP.
+packages: []
+registries_searched:
+  - {registry: npm, endpoint: 'https://registry.npmjs.org/-/v1/search', queries: [beacon-pro-plus, beaconproplus, becn, qxo], result: 'no first-party package; all hits are unrelated projects (redux-beacon, plus-pro-components, an abandoned becn 1.0.0 from 2022 owned by an unrelated user)'}
+  - {registry: PyPI, endpoint: 'https://pypi.org/pypi/<name>/json', queries: [beacon-pro-plus, beaconproplus, qxo], result: '404 on every name'}
+  - {registry: Maven Central, result: not-found}
+  - {registry: NuGet, result: not-found}
+  - {registry: RubyGems, result: not-found}
+  - {registry: crates.io, result: not-found}
+  - {registry: Packagist, result: not-found}
+  - {registry: pkg.go.dev, result: not-found}
+github:
+  organization: null
+  checked:
+    - {owner: becn, url: 'https://github.com/becn', type: User, public_repos: 0, verdict: 'not the company — an empty personal account created 2015'}
+    - {owner: qxo, url: 'https://github.com/qxo', type: User, public_repos: 319, location: 'hangzhou, china', verdict: 'not the company — an unrelated individual developer'}
+    - {owner: beacon-roofing-supply, url: 'https://github.com/beacon-roofing-supply', status: 404}
+  conclusion: >-
+    No GitHub organization belongs to Beacon Roofing Supply or QXO. No GitHubOrganization pointer is
+    emitted; the two accounts whose names match are demonstrably other people, and pointing at either
+    would be a false attribution.
+integration_paths_that_do_exist:
+  note: >-
+    The absence of an SDK does not mean the absence of adoption. Beacon's integration surface is
+    consumed through third-party contractor platforms rather than through Beacon-authored code.
+  partners:
+    - {name: AccuLynx, url: 'https://www.qxo.com/acculynx', relationship: 'contractor CRM with a documented QXO/Beacon material-ordering integration'}
+    - {name: JobNimbus, url: 'https://www.qxo.com/job-nimbus'}
+    - {name: JobTread, url: 'https://www.qxo.com/jobtread'}
+    - {name: Leap, url: 'https://www.qxo.com/leap'}
+    - {name: Dataforma, url: 'https://www.qxo.com/integrations/dataforma'}
+    - {name: Hover, url: 'https://www.qxo.com/hover'}
+  index: https://www.qxo.com/integrations
+pointer_decision:
+  emit_packages_pointer: true
+  emit_sdks_pointer: false
+  reason: >-
+    `type: SDKs` feeds the sdk_count checks and asserts the provider publishes client libraries.
+    package_count is 0, so no SDKs pointer is emitted. A `type: Packages` pointer is emitted so the
+    searched zero, its registry list and the GitHub-owner findings stay discoverable.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,64 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://beaconproplus.com/swagger/oauth2/ and its backing document
+  openapi/beacon-roofing-supply-oauth2-openapi.yml (components.schemas.tokenReqObj.scopes and
+  tokenResp.scope)
+specification: API Commons OAuth Scopes
+specificationVersion: '0.1'
+provider: Beacon Roofing Supply
+providerId: beacon-roofing-supply
+docs: https://beaconproplus.com/swagger/oauth2/
+description: >-
+  Beacon's OAuth surface carries a `scopes` field, but it is NOT a permission scope in the RFC 6749
+  sense. It is a refresh-behaviour selector on the token endpoint: it tells the server which of the
+  two tokens to re-mint. No document in the Beacon Rest Services set declares an oauth2
+  securityScheme with a `scopes` map, and no operation is gated on a named scope. Authorization is
+  carried instead by the profile/permission-template model inside the API (see permission_model).
+scope_semantics: refresh-selector
+scope_count: 3
+scopes:
+  - name: '(empty)'
+    description: 'Only refresh access_token. The refresh_token is left as-is.'
+    source: components.schemas.tokenReqObj.scopes description
+  - name: all
+    description: 'Refresh access_token AND refresh_token.'
+    source: components.schemas.tokenReqObj.scopes description
+  - name: refresh_token
+    description: >-
+      Also refresh access_token and refresh_token. Multiple values are separated by whitespace, per
+      the field description.
+    source: components.schemas.tokenReqObj.scopes description
+token_endpoint:
+  method: POST
+  url: https://beaconproplus.com/rest/model/REST/oauth/token
+  templated_server: 'https://{server}/rest/model/REST/oauth/ where server ∈ {beacon-uat.becn.com, beaconproplus.com}'
+  grant_type: refresh_token
+  request_fields: [grant_type, refresh_token, client_id, scopes]
+  response_fields: [access_token, token_type, expires_in, refresh_expires_in, refresh_token, scope, success, messages]
+  client_secret_required: false
+  note: >-
+    The published request takes client_id with no client_secret. The initial grant that issues the
+    first refresh_token is not published anywhere — it is arranged through partner onboarding at
+    https://go.qxo.com/qxoapi.
+permission_model:
+  style: profile + permission template (server-side, not scope-based)
+  operations:
+    - GET /getCurrentUserPermission
+    - GET /permissionTemplateList
+    - GET /getPermissionTemplateDetail
+    - POST /createPermissionTemplate
+    - POST /updatePermissionTemplate
+    - POST /deletePermissionTemplate
+  roles_referenced: [master admin user, admin user]
+  evidence: >-
+    102 operations declare a 403 whose description is "Forbidden, user do not has permission to
+    access this API"; eleven of those narrow it to "only master admin user or admin user". Message
+    code 2006 is "Current profile is permission denied".
+  agent_note: >-
+    An agent cannot determine from the contract which operations its token may call. There is no
+    scope string to inspect and no capability discovery endpoint — the only way to learn the
+    permission surface is to call GET /getCurrentUserPermission at runtime, or to fail with 403.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

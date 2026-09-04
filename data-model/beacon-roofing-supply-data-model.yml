@@ -1,0 +1,207 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/*.yml — 755 unique component schemas and a $ref / id-reference-field census across the
+  eleven published Beacon Rest Services documents, run 2026-09-04; entity descriptions and
+  identifier formats enriched from the Glossary table published verbatim in the info.description of
+  https://beaconproplus.com/swagger/v2/
+specification: API Commons Data Model
+specificationVersion: '0.1'
+provider: Beacon Roofing Supply
+providerId: beacon-roofing-supply
+description: >-
+  The entity graph behind Beacon PRO+ / QXO. The domain is distribution: a contractor Profile acts on
+  behalf of one or more Accounts, an Account is served by a Branch, a Branch stocks Skus of Products,
+  and a Cart becomes an Order (optionally via a Quote or a Saved Order) delivered against a Job. Two
+  legacy back-office systems surface in the model as first-class identifiers — Oracle ATG for the
+  order model and Mincron for commercial ERP — and both leak into the public contract.
+identifier_formats:
+  source: 'Glossary table, https://beaconproplus.com/swagger/v2/'
+  entries:
+    - field: account / accountId / accountLegacyId
+      type: string
+      example: '280381'
+      description: >-
+        6-digit numeric value assigned to a Beacon customer. Three field names are documented as
+        synonyms of one another, which is itself a modelling hazard for an integrator.
+    - field: atgOrderId
+      type: string
+      example: KP32234
+      description: Order number as it appears on PRO+ (Oracle ATG order id).
+    - field: atgUUID
+      type: string
+      example: 41cf3908-fe11-45ce-899c-9390c8299a18
+      description: >-
+        Caller-supplied GUID, documented as the same as UUID. This is the closest thing the API has
+        to a client-side correlation key on an order — but it is not an idempotency key and is not
+        documented to deduplicate.
+    - field: branchNumber
+      type: string
+      example: '800'
+      description: Store number of the Beacon branch assigned to a customer based on customer location.
+    - field: apiSiteId
+      type: string
+      example: DEN
+      description: Value assigned to a customer account to identify the source of API traffic.
+    - field: address1 / address2
+      type: string
+      example: 3000 BRIGHTON BLVD
+      description: Ship-to address fields.
+    - field: checkForAvailability
+      type: string
+      enum: ['No', 'Yes']
+      description: >-
+        Beacon documents that this "should always be 'No' to ensure orders are received by a branch
+        representative. If 'Yes,' and the product is not available at time of order, the order will
+        be cancelled." A behavioural flag with an order-cancelling consequence.
+entities:
+  - name: Profile
+    schemas: [profileObj]
+    identifier: profileId
+    description: The authenticated user identity. Carries the permission template and the set of accounts it may act for.
+    relationships:
+      - {type: has_many, target: Account, via: accounts}
+      - {type: has_one, target: PermissionTemplate, via: permissionTemplateId}
+  - name: Account
+    schemas: [customerType, UserInfo_savedorder]
+    identifier: accountId (aka account, accountLegacyId, accountNumber)
+    description: A Beacon customer account — the commercial entity that owns pricing, credit and rebate terms.
+    relationships:
+      - {type: belongs_to, target: Branch, via: branchNumber}
+      - {type: has_many, target: AddressBook, via: addressBookId}
+      - {type: has_many, target: Order, via: orderId}
+      - {type: has_many, target: Job, via: jobNumber}
+  - name: Branch
+    schemas: [branchObj]
+    identifier: branchNumber
+    description: A physical Beacon/QXO branch. Determines regional catalog, availability and delivery.
+    relationships:
+      - {type: has_many, target: Sku, via: skuId}
+  - name: Product
+    schemas: [Item, productObj_itemlist, PDPskusVariationObj, variationsObj, multiVariationDataObj]
+    identifier: productId (aka productNumber, itemNumber, productOrItemNumber)
+    description: A catalog product, with variations resolved to purchasable SKUs.
+    relationships:
+      - {type: has_many, target: Sku, via: skuIds}
+      - {type: belongs_to, target: Category, via: categoryId}
+      - {type: has_many, target: Rebate, via: rebateId}
+  - name: Sku
+    identifier: skuId
+    description: The purchasable unit — product plus variation plus unit of measure.
+    relationships:
+      - {type: belongs_to, target: Product, via: productId}
+      - {type: has_many, target: Branch, via: branchNumber, note: 'availability is per branch'}
+  - name: Category
+    schemas: [categoryObj, categoryObj2]
+    identifier: categoryId (and facetId for faceted navigation)
+    description: >-
+      Product hierarchy node. Beacon exposes its own hierarchy codes (cateFilter values such as
+      US_MAIN_CAT_RESIRFNG_ASPHALT); no GS1/UNSPSC mapping is published.
+  - name: Cart
+    identifier: 'implicit (current order for the profile+account)'
+    description: The working order. Mutated by /updateCart, /addMultipleItemsToOrder, /removeItemFromCart, /clearCart.
+    relationships:
+      - {type: has_many, target: Product, via: itemNumber}
+      - {type: has_one, target: Order, via: 'submit', note: 'POST /submitOrder / /submitCurrentOrder converts the cart'}
+  - name: Order
+    schemas: [Result, RadioButton_savedorder]
+    identifier: orderId (aka orderNumber, atgOrderId)
+    description: A submitted material order. Terminal — no cancel/void operation is published.
+    relationships:
+      - {type: belongs_to, target: Account, via: accountId}
+      - {type: belongs_to, target: Job, via: jobNumber}
+      - {type: has_one, target: ShippingAddress, via: shippingAddress}
+      - {type: has_many, target: DeliveryOption, via: ProductDeliveryId}
+      - {type: has_many, target: Invoice, via: 'invoiceHistory'}
+      - {type: has_many, target: Document, via: 'order related documents'}
+  - name: SavedOrder
+    schemas: [Job_savedorder, ContactInfo_savedorder, AddressBook_savedorder]
+    identifier: savedOrderId
+    description: A draft order held for approval. Has an explicit approve/reject/submit workflow.
+    relationships:
+      - {type: has_one, target: Order, via: 'POST /submitSavedOrder'}
+      - {type: belongs_to, target: Profile, via: approverId}
+  - name: Quote
+    identifier: quoteId
+    description: A priced proposal that can be revised, approved, rejected and converted to an order.
+    relationships:
+      - {type: has_one, target: Order, via: 'POST /convertQuoteOrder, POST /placeQuoteOrder'}
+      - {type: belongs_to, target: Account, via: accountId}
+  - name: Template
+    identifier: templateId (and templateItemId for line items)
+    description: A reusable order/material list.
+    relationships:
+      - {type: has_many, target: Product, via: templateItemId}
+  - name: Job
+    schemas: [Job, Job_savedorder]
+    identifier: jobNumber
+    description: >-
+      The contractor's project. Present on 48 schema properties and 20 operation parameters — this is
+      the field that makes material spend attributable to a project, and it is the hook a job-costing
+      or ERP integration hangs on.
+    relationships:
+      - {type: has_many, target: Order, via: jobNumber}
+      - {type: belongs_to, target: Account, via: accountId}
+  - name: AddressBook
+    schemas: [AddressBook, AddressBook_savedorder, ShippingAddress]
+    identifier: addressBookId
+    description: Saved ship-to addresses for an account.
+  - name: Delivery
+    schemas: [DeliveryOption]
+    identifier: ProductDeliveryId
+    description: Delivery scheduling and tracking against an order; delivery settings support enRoute and arrived notifications.
+    relationships:
+      - {type: belongs_to, target: Order, via: orderId}
+  - name: Invoice
+    identifier: 'invoice number'
+    description: Billing document. Surfaced through the Bill Trust Services tag and the QXO Invoice API product.
+    relationships:
+      - {type: belongs_to, target: Account, via: accountId}
+  - name: Rebate
+    identifier: rebateId
+    description: Manufacturer rebate program and accrual, surfaced through Rebate Services.
+    relationships:
+      - {type: belongs_to, target: Account, via: accountId}
+  - name: EagleViewOrder
+    identifier: evOrderId
+    description: >-
+      A roof-measurement report ordered from EagleView and converted into a material order
+      (EV Measurement to Order). Authenticated via an Okta-brokered EagleView authorization code.
+    relationships:
+      - {type: has_one, target: Order, via: 'EV Measurement to Order'}
+  - name: PermissionTemplate
+    identifier: 'permission template id'
+    description: The authorization unit. Governs which operations a profile may call; roles named are master admin and admin.
+  - name: Notification
+    description: >-
+      In-app notifications retrieved by polling GET /getNotifications and cleared with
+      /deleteNotifications. There is no push/webhook delivery.
+  - name: Claim
+    identifier: ClaimNumber
+    description: Insurance claim reference carried on storm/restoration-shaped orders.
+external_systems:
+  - name: Oracle ATG (Oracle Commerce)
+    evidence: 'atgOrderId, atgUUID, /getAtgQuoteDetail, message code 4003 "ATG Order version invalid error"'
+    role: Order and commerce platform behind PRO+.
+  - name: Mincron
+    evidence: 'mincronId, /getMincronQuoteDetail, GET /mincronMapping (V3 Integration Services), message code 4002 "Mincron error"'
+    role: Back-office ERP, primarily for commercial accounts. V3 publishes an explicit Mincron product mapping endpoint.
+  - name: EagleView
+    evidence: 'Eagle View Order + EV Measurement to Order tags, /getOktaEagleViewLoginUrl, /exchangeOktaEagleViewAuthorizationCode'
+    role: Aerial roof measurement, ordered and billed through Beacon.
+  - name: GAF QuickMeasure
+    evidence: 'GAF Quick Measure Services tag, /quickMeasure/placeReportOrder, /quickMeasure/siteStatus, /quickMeasure/callback'
+    role: Manufacturer measurement service; /quickMeasure/callback is Beacon RECEIVING a report, not Beacon emitting a webhook.
+  - name: Hover
+    evidence: 'Hover Job Services tag, hoverSearch and showHoverAttrs query flags'
+    role: 3D property measurement.
+  - name: Okta
+    evidence: '/getOktaEagleViewLoginUrl, /exchangeOktaEagleViewAuthorizationCode'
+    role: Identity brokering for the EagleView integration only — not for the Beacon API itself.
+  - name: BillTrust
+    evidence: Bill Trust Services tag
+    role: Invoicing and payment presentment.
+render: null
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

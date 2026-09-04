@@ -3,25 +3,30 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/beacon-roofing-supply/refs/heads/main/apis.yml
 name: Beacon Roofing Supply
 description: >-
-  Beacon Roofing Supply (BECN) is one of the largest distributors of residential and
-  non-residential roofing materials and complementary building products in North America.
-  Beacon operates the Beacon PRO+ digital platform providing roofing contractors with
-  real-time inventory, pricing, online ordering, delivery tracking, and account management.
-  Beacon PRO+ offers a REST API and Swagger-documented integration layer for contractor
-  management software, ERP systems, and roofing business applications. Beacon was acquired
-  by QXO in 2025.
+  Beacon Roofing Supply (formerly NASDAQ: BECN) is one of the largest distributors of residential and
+  non-residential roofing materials and complementary building products in North America, operating
+  roughly 600 branches. QXO, Inc. completed its acquisition of Beacon on 2025-04-29 and the business
+  now trades under the QXO brand. Its contractor commerce platform, Beacon PRO+, publishes an
+  unusually complete REST surface: eleven OpenAPI 3.0 documents totalling 424 operations, indexed at
+  https://beaconproplus.com/swagger/ and covering catalog search, account-specific real-time pricing,
+  branch availability, cart and order submission, quotes and approval workflows, order history,
+  delivery tracking, invoices, manufacturer rebates, permission management and the EagleView, GAF
+  QuickMeasure and Hover measurement integrations, plus an OAuth 2.0 token service and a change log
+  covering 72 releases. Access is sales-gated at https://www.qxo.com/customapi; contracts are public.
 type: Index
 deliveryModel:
-  model: unknown
+  model: hosted-saas
   open_source: false
-  commercial: false
-  callable_host: false
-  label: Delivery model not determined — needs a product licence on record
-  confidence: low
+  commercial: true
+  callable_host: true
+  label: Vendor-hosted commercial API
+  confidence: high
   source:
-  - none
-  generated: '2026-08-28'
-  method: derived
+  - {url: 'https://beaconproplus.com/v2/rest/com/becn/branchlist', status: 401, note: 'live vendor-hosted API, structured JSON auth challenge (probed 2026-09-04)'}
+  - {url: 'https://www.qxo.com/integrations/api-license-terms', status: 200, note: 'published commercial API licence terms — non-exclusive, non-assignable, no open-source grant'}
+  - openapi
+  generated: '2026-09-04'
+  method: probed
 accessModel:
   pricing: paid
   onboarding: unknown
@@ -32,9 +37,10 @@ accessModel:
   confidence: medium
   source:
   - plans
-  - {url: 'https://www.becn.com/', status: 301, note: 'declared website redirects to https://www.qxo.com/ — a different registrable domain (becn.com -> qxo.com), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
-  generated: '2026-07-22'
-  method: derived
+  - {url: 'https://www.becn.com/', status: 301, note: 'declared website redirects to https://www.qxo.com/. RESOLVED 2026-09-04: this is an acquisition, not a stale domain — QXO, Inc. completed its acquisition of Beacon Roofing Supply on 2025-04-29 and folded the PRO+ web app into qxo.com. The API host did NOT move: https://beaconproplus.com/swagger/ and the /v1|/v2|/v3 REST bases still serve from the Beacon domain.'}
+  - {url: 'https://go.qxo.com/qxoapi', status: 200, note: 'API access is sales-gated: requester must already be a QXO customer and accept the API licence terms. No self-serve signup, no published price.'}
+  generated: '2026-09-04'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/beacon-roofing-supply.png
 tags:
   - Construction
@@ -43,21 +49,29 @@ tags:
   - Building Materials
   - E-Commerce
   - Fortune 1000
+  - Supply Chain
+  - Order
+  - Catalog
+  - Delivery
 access: 3rd-Party
 created: '2026-03-23'
-modified: '2026-04-19'
+modified: '2026-09-04'
 position: Consuming
 specificationVersion: '0.23'
 apis:
   - aid: beacon-roofing-supply:beacon-pro-plus
-    name: Beacon PRO+ API
+    name: Beacon PRO+ API (V2, OAuth)
     description: >-
-      The Beacon PRO+ API provides roofing contractors and integration partners with
-      programmatic access to Beacon's product catalog, real-time inventory and pricing,
-      order management, delivery tracking, account management, and manufacturer rebate
-      tracking. The API is documented via Swagger UI and enables integrations with
-      contractor management software like AccuLynx and JobNimbus.
-    humanURL: https://beaconproplus.com/swagger/all_api/
+      The primary Beacon Rest Services surface — 187 published operations covering the product
+      catalog, account-specific real-time pricing, branch and region availability, cart and order
+      submission, quotes and saved-order approval workflows, order history, delivery tracking,
+      invoices (Bill Trust), manufacturer rebates, permission templates, and the EagleView, GAF
+      QuickMeasure and Hover measurement-partner integrations. Authenticated with an OAuth 2.0
+      bearer token. This is the surface QXO markets as its Order, Pricing, Account, Product,
+      Delivery Tracking and Invoice APIs.
+    humanURL: https://beaconproplus.com/swagger/v2/
+    baseURL: https://beaconproplus.com/v2/rest/com/becn
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/beacon-roofing-supply.png
     tags:
       - Construction
       - Roofing
@@ -72,23 +86,226 @@ apis:
       - Orders
     properties:
       - type: Documentation
+        url: https://beaconproplus.com/swagger/v2/
+      - type: OpenAPI
+        url: openapi/beacon-roofing-supply-v2-openapi.yml
+      - type: OpenAPI
+        url: openapi/beacon-roofing-supply-v2-ng-openapi.yml
+      - type: Overlay
+        url: overlays/beacon-roofing-supply-v2-overlay.yaml
+  - aid: beacon-roofing-supply:beacon-rest-all-api
+    name: Beacon External Rest Service (all_api)
+    description: >-
+      The combined Beacon Rest Services document — 145 operations spanning the V1, V2, V3 and V4
+      tags plus the Integrations and Beacon Stack surfaces. It is the ONLY Beacon document that
+      assigns operationIds (V1Controller_*, V2Controller_*, V3Controller_*, V4Controller_*), which
+      makes it the document any SDK generator, tool crosswalk or workflow definition has to bind to.
+      It also carries the API Site ID resolution rules, the uniform response envelope, the numeric
+      message-code registry and the field glossary inside its info.description.
+    humanURL: https://beaconproplus.com/swagger/all_api/
+    baseURL: https://beaconproplus.com
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/beacon-roofing-supply.png
+    tags:
+      - Construction
+      - Roofing
+      - Distribution
+      - E-Commerce
+      - Order
+    properties:
+      - type: Documentation
         url: https://beaconproplus.com/swagger/all_api/
       - type: OpenAPI
-        url: https://beaconproplus.com/swagger/all_api/
+        url: openapi/beacon-roofing-supply-all-api-openapi.yml
+      - type: Overlay
+        url: overlays/beacon-roofing-supply-all-api-overlay.yaml
+  - aid: beacon-roofing-supply:beacon-rest-v3
+    name: Beacon Rest Services V3 (Public / Integrations)
+    description: >-
+      Beacon's integration surface — bulk catalog, SKU, branch and product-availability extracts
+      designed for ERP, PIM and estimating-system synchronisation, plus the Mincron ERP product
+      mapping endpoint and account deletion. Eight published operations, authenticated with an
+      OAuth 2.0 bearer token despite the "Public" label. This is the correct surface for a full
+      catalog sync; paging the search endpoints to reconstruct the catalog is not.
+    humanURL: https://beaconproplus.com/swagger/v3/
+    baseURL: https://beaconproplus.com/v3/rest/com/becn
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/beacon-roofing-supply.png
+    tags:
+      - Construction
+      - Roofing
+      - Catalog
+      - Integration
+      - Distribution
+    properties:
+      - type: Documentation
+        url: https://beaconproplus.com/swagger/v3/
+      - type: OpenAPI
+        url: openapi/beacon-roofing-supply-v3-openapi.yml
+      - type: OpenAPI
+        url: openapi/beacon-roofing-supply-v3-ng-openapi.yml
+      - type: Overlay
+        url: overlays/beacon-roofing-supply-v3-overlay.yaml
+  - aid: beacon-roofing-supply:beacon-rest-v1
+    name: Beacon Rest Services V1 (session)
+    description: >-
+      The original Beacon PRO+ API surface — login and logout, account switching, branch list, jobs,
+      order history and detail, catalog item lookup, pricing, cart items, order submission and
+      templates. Nineteen published operations. Authenticated with a browser-shaped cookie session
+      (JSESSIONID, DYN_USER_ID, DYN_USER_CONFIRM, siteId) established by POST /login and lasting one
+      hour, or seven days with the RememberMe flag, rather than with a bearer token.
+    humanURL: https://beaconproplus.com/swagger/v1/
+    baseURL: https://beaconproplus.com/v1/rest/com/becn
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/beacon-roofing-supply.png
+    tags:
+      - Construction
+      - Roofing
+      - Distribution
+      - E-Commerce
+      - Order
+    properties:
+      - type: Documentation
+        url: https://beaconproplus.com/swagger/v1/
+      - type: OpenAPI
+        url: openapi/beacon-roofing-supply-v1-openapi.yml
+      - type: OpenAPI
+        url: openapi/beacon-roofing-supply-v1-ng-openapi.yml
+      - type: Overlay
+        url: overlays/beacon-roofing-supply-v1-overlay.yaml
+  - aid: beacon-roofing-supply:beacon-oauth
+    name: Beacon OAuth Rest Service
+    description: >-
+      Beacon's OAuth 2.0 token service, implementing the refresh_token grant and linking to
+      https://oauth.net/2/grant-types/refresh-token/ in its own description. Returns access_token,
+      token_type, expires_in, refresh_expires_in, refresh_token and scope. The scopes request field
+      is a refresh-behaviour selector (empty, "all" or "refresh_token"), not a permission scope. No
+      initial grant is published — the first refresh_token is issued during partner onboarding. This
+      is the only Beacon document that declares a servers[] block, and its default is the UAT host.
+    humanURL: https://beaconproplus.com/swagger/oauth2/
+    baseURL: https://beaconproplus.com/rest/model/REST/oauth
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/beacon-roofing-supply.png
+    tags:
+      - OAuth
+      - Authentication
+      - Security
+      - Construction
+      - Distribution
+    properties:
+      - type: Documentation
+        url: https://beaconproplus.com/swagger/oauth2/
+      - type: OpenAPI
+        url: openapi/beacon-roofing-supply-oauth2-openapi.yml
+      - type: OAuthScopes
+        url: scopes/beacon-roofing-supply-scopes.yml
+      - type: Overlay
+        url: overlays/beacon-roofing-supply-oauth2-overlay.yaml
+  - aid: beacon-roofing-supply:beacon-rest-public
+    name: Beacon Rest Services Public
+    description: >-
+      A small unauthenticated-user surface published at /v2/rest/com/becn/public. Beacon documents it
+      as APIs that "do not require the user to login", though a bearer token is still required to be
+      authorized. It carries the faceted catalog item list together with its category, product
+      variation and did-you-mean / auto-correction schemas.
+    humanURL: https://beaconproplus.com/swagger/public/
+    baseURL: https://beaconproplus.com/v2/rest/com/becn/public
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/beacon-roofing-supply.png
+    tags:
+      - Construction
+      - Roofing
+      - Catalog
+      - E-Commerce
+      - Distribution
+    properties:
+      - type: Documentation
+        url: https://beaconproplus.com/swagger/public/
+      - type: OpenAPI
+        url: openapi/beacon-roofing-supply-public-openapi.yml
+      - type: Overlay
+        url: overlays/beacon-roofing-supply-public-overlay.yaml
+  - aid: beacon-roofing-supply:beacon-rest-internal
+    name: Beacon Internal Rest Service
+    description: >-
+      An internal-facing Beacon service that is nonetheless listed on the same public Swagger index
+      and whose documentation is served without authentication — user and internal-user
+      administration, EagleView report reconciliation, invoice access and account tooling.
+      Twenty-one operations secured with an internalAuth bearer scheme. Catalogued here because
+      Beacon publishes it publicly, not because it is offered as a partner surface.
+    humanURL: https://beaconproplus.com/swagger/internal/
+    baseURL: https://beaconproplus.com/v2/rest/com/becn
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/beacon-roofing-supply.png
+    tags:
+      - Construction
+      - Distribution
+      - Administration
+      - Internal
+      - Roofing
+    properties:
+      - type: Documentation
+        url: https://beaconproplus.com/swagger/internal/
+      - type: OpenAPI
+        url: openapi/beacon-roofing-supply-internal-openapi.yml
+      - type: OpenAPI
+        url: openapi/beacon-roofing-supply-internal-ng-openapi.yml
+      - type: Overlay
+        url: overlays/beacon-roofing-supply-internal-overlay.yaml
 
 common:
+  - type: Authentication
+    url: authentication/beacon-roofing-supply-authentication.yml
   - type: DomainSecurity
     url: security/beacon-roofing-supply-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/beacon-building-products
   - type: Website
     url: https://www.becn.com/
-  - type: Portal
-    url: https://www.beaconproplus.com/
+  - type: DeveloperPortal
+    url: https://www.qxo.com/customapi
   - type: Documentation
-    url: https://beaconproplus.com/swagger/all_api/
+    url: https://beaconproplus.com/swagger/
+  - type: APIReference
+    url: https://beaconproplus.com/swagger/v2/
+  - type: GettingStarted
+    url: https://go.qxo.com/qxoapi
+  - type: SignUp
+    url: https://www.qxo.com/open-an-account
+  - type: TermsOfService
+    url: https://www.qxo.com/integrations/api-license-terms
+  - type: PrivacyPolicy
+    url: https://www.qxo.com/privacy-policy-and-cookie-notice
   - type: Support
-    url: https://www.becn.com/contact-us
+    url: https://www.qxo.com/contact-us
+  - type: Blog
+    url: https://www.qxo.com/qxo-blog
+  - type: ChangeLog
+    url: https://beaconproplus.com/swagger/dev/index.html
+  - type: ChangeLog
+    url: changelog/beacon-roofing-supply-changelog.yml
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Conventions
+    url: conventions/beacon-roofing-supply-conventions.yml
+  - type: ErrorCatalog
+    url: errors/beacon-roofing-supply-problem-types.yml
+  - type: ErrorCodes
+    url: errors/beacon-roofing-supply-error-codes.yml
+  - type: Lifecycle
+    url: lifecycle/beacon-roofing-supply-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/beacon-roofing-supply-lifecycle.yml
+  - type: Conformance
+    url: conformance/beacon-roofing-supply-conformance.yml
+  - type: DataModel
+    url: data-model/beacon-roofing-supply-data-model.yml
+  - type: Packages
+    url: packages/beacon-roofing-supply-packages.yml
+  - type: LLMsTxt
+    url: llms/beacon-roofing-supply-llms.txt
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Plans
+    url: plans/beacon-roofing-supply-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/beacon-roofing-supply-rate-limits.yml
+  - type: FinOps
+    url: finops/beacon-roofing-supply-finops.yml
   - type: Features
     data:
       - name: Real-Time Inventory and Pricing
@@ -126,3 +343,18 @@ common:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+
+x-enrichment:
+  date: '2026-09-04'
+  status: enriched
+  artifacts_added: 52
+  artifacts_updated: 3
+  pass: local-v3
+  note: >-
+    STEP 0b contract discovery found eleven first-party OpenAPI 3.0 documents (424 operations) that
+    previous rounds had missed. The Swagger UI at https://beaconproplus.com/swagger/all_api/ is an
+    HTML shell; its loader (/swagger/static/beacon/beaconSwaggerUI.js) reveals the real specs at
+    /swagger/static/swagger-ui-url/go-live/<key>.yaml, and /swagger/ indexes twelve surfaces
+    including a 72-release change log. Ownership verified per STEP 0c: info.title "Beacon Rest
+    Services", base paths /v{1,2,3}/rest/com/becn (becn = Beacon's ticker), all served from
+    beaconproplus.com and probed live.

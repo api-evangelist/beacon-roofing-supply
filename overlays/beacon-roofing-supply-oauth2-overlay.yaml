@@ -1,0 +1,50 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay — Beacon OAuth Rest Service Ver 1.0
+  version: 1.0.0
+extends: beacon-roofing-supply-oauth2-openapi.yml
+x-generated: '2026-09-04'
+x-method: generated
+x-source: Generated from the harvested document plus probes recorded in this repository. Documents API
+  Evangelist enhancements and findings; the original under openapi/_original/ is never mutated.
+x-target-operations: 1
+x-target-secured-operations: 1
+x-target-version: release/7.1
+actions:
+- target: $.info
+  description: Record the provenance of this harvested document and the discovery path that found it.
+  update:
+    x-apievangelist-source: https://beaconproplus.com/swagger/static/swagger-ui-url/go-live/oauth2.yaml
+    x-apievangelist-discovered-via: https://beaconproplus.com/swagger/ -> /swagger/oauth2/index.html ->
+      the url template in /swagger/static/beacon/beaconSwaggerUI.js
+    x-apievangelist-harvested: '2026-09-04'
+- target: $.servers
+  description: NO CHANGE. This is the only Beacon document that declares servers[], as a templated variable
+    whose enum is [beacon-uat.becn.com, beaconproplus.com] with UAT as the DEFAULT. Left exactly as published.
+  update:
+    x-apievangelist-servers-added: false
+- target: $.paths.*.*
+  description: 'FINDING, not a change: no operation in this document declares an operationId. Only the
+    combined all_api document does (145 of them). Without stable identifiers, SDK generators, tool crosswalks
+    and workflow documents cannot bind to these operations. Recorded for the provider rather than auto-generated
+    — inventing operationIds here would create identifiers Beacon does not recognise.'
+  update:
+    x-apievangelist-finding: missing-operationIds
+- target: $.paths.*.*.responses
+  description: 'FINDING, not a change: every 4xx/5xx response carries a description string and no response
+    schema. The real error envelope ({success, messages[{key,code,type,value}], result}) and the numeric
+    message-code registry live in prose inside info.description. Captured as machine-readable data in
+    errors/beacon-roofing-supply-error-codes.yml and errors/beacon-roofing-supply-problem-types.yml.'
+  update:
+    x-apievangelist-finding: error-responses-have-no-schema
+- target: $
+  description: 'NO FINDING: all 1 operations declare a security requirement. Note the document still has
+    no top-level security default.'
+  update:
+    x-apievangelist-security-coverage: complete
+- target: $.paths.*.*
+  description: 'FINDING, not a change: no mutating operation declares an idempotency key parameter or
+    header, and there is no 429 or rate-limit header anywhere in this document. See conventions/beacon-roofing-supply-conventions.yml
+    (idempotency.coverage: none) and rate-limits/beacon-roofing-supply-rate-limits.yml (limit_count: 0).'
+  update:
+    x-apievangelist-finding: no-idempotency-no-rate-limit-signal

@@ -4,41 +4,72 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Beacon Roofing Supply
 providerId: beacon-roofing-supply
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: false
+generated: '2026-09-04'
+method: searched
+modified: '2026-09-04'
+source: >-
+  https://www.qxo.com/integrations/api-license-terms (the published API license terms) and a
+  full census of the eleven Beacon Rest Services OpenAPI documents at
+  https://beaconproplus.com/swagger/ (424 operations), plus live unauthenticated probes of
+  https://beaconproplus.com/v1|v2|v3/rest/com/becn/* on 2026-09-04
+reconciled: true
 tags:
   - Construction
   - Roofing
   - Distribution
   - E-Commerce
   - Rate Limiting
-description: Beacon does not publish public rate limits for the PRO+ API. The Swagger documentation describes
-  the surface but does not include rate-limit numerics. Limits are managed at the contractor account /
-  partner integration level. No numeric values are asserted here.
-notes: Reconcile against partner integration documentation issued during Beacon ISV onboarding. Do not
-  invent throughput numbers.
-sources:
-  - https://beaconproplus.com/swagger/all_api/
+limit_count: 0
+description: >-
+  Beacon publishes NO numeric rate limit, no window, no burst allowance and no runtime signal. This
+  is a searched zero, not an unchecked one: the contracts were censused and the license terms were
+  read. The only constraint QXO states is a qualitative one in the API license terms, section 3.1(f),
+  which prohibits use that "exceeds reasonable request volume, constitutes excessive or abusive
+  usage" — with "reasonable" left undefined and no remedy short of termination ("QXO may terminate
+  at any time and for any reason upon notice").
+evidence:
+  - fact: No 429 response is declared on any of the 424 published operations.
+    source: openapi/*.yml census, 2026-09-04
+  - fact: No RateLimit-*, X-RateLimit-* or Retry-After header appears anywhere in the eleven documents.
+    source: openapi/*.yml grep, 2026-09-04
+  - fact: >-
+      A live unauthenticated GET of https://beaconproplus.com/v3/rest/com/becn/branchData returned
+      401 with headers x-powered-by, access-control-allow-origin, etag, strict-transport-security,
+      cache-control and pragma — and no rate-limit header of any kind.
+    source: probe 2026-09-04
+  - fact: The API license terms state no call cap, no throughput number and no SLA.
+    source: https://www.qxo.com/integrations/api-license-terms
 responseCodes:
-  throttled: 429
-limits:
-  - name: Per-account / per-partner throttle
-    scope: account
-    metric: varies
-    limit: 'see Beacon partner onboarding documentation'
-    notes: Contractor account and ISV partner applications are throttled; specific numbers are not public.
+  throttled: null
+  note: >-
+    Unknown. No throttling status is documented and none was observed. Do not assume 429 — the API
+    already returns a non-standard 419 for token expiry, so its status vocabulary is not conventional.
+limits: []
+headers: []
 policies:
-  - name: Backoff Strategy
-    description: Use exponential backoff with jitter on 429; honor Retry-After when returned.
-  - name: Swagger-Documented Surface
-    description: The PRO+ API surface is described via Swagger UI; rate-limit specifics live with the
-      partner integration team rather than in the public docs.
-  - name: Inventory and Price Polling
-    description: Real-time inventory and pricing endpoints are the most heavily polled; cache per Beacon's
-      partner guidance to stay within capacity.
+  - name: Reasonable-volume clause (the only stated limit)
+    description: >-
+      API license terms 3.1(f) prohibits use that "exceeds reasonable request volume, constitutes
+      excessive or abusive usage". No threshold is published, so a partner cannot self-assess
+      compliance from the contract.
+    source: https://www.qxo.com/integrations/api-license-terms
+  - name: Bulk-extract endpoints exist and should be preferred over polling
+    description: >-
+      V3 publishes GET /downloadCatalogItemData, /skuData, /branchData and /productAvailabilityData
+      as bulk downloads. Where an integration needs the full catalog, these are the intended path;
+      iterating the paginated /itemlist to reconstruct the catalog is the shape most likely to read
+      as "excessive usage" under 3.1(f).
+  - name: Crawler directive on the API path prefixes
+    description: >-
+      https://www.qxo.com/robots.txt Disallows /v1/*, /v2/* and /v3/*. It governs the web host rather
+      than the API, but it is the closest thing QXO publishes to a stated automated-access posture.
+  - name: Backoff guidance (API Evangelist recommendation, not provider policy)
+    description: >-
+      Because no signal exists, an integrator has to infer throttling from 500s and latency. Use
+      exponential backoff with jitter, and treat 419 as refresh-and-retry rather than as a limit.
+notes: >-
+  Ask Beacon/QXO for the per-partner limit during onboarding at https://go.qxo.com/qxoapi — it is
+  the single most useful undocumented number for this API. Do not invent throughput values.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
