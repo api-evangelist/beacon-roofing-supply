@@ -96,7 +96,8 @@ apis:
     — 2 operation(s) for beacon stack (base url:- https://beacon-api-x7xzzdp35a-uk.a.run.app).
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
-  tags:
+  tags: []
+  tags_raw:
   - Beacon Stack (BASE URL:- https://beacon-api-x7xzzdp35a-uk.a.run.app)
   properties:
   - type: OpenAPI
@@ -1068,6 +1069,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - v1
+  tags_raw:
   - V1
   properties:
   - type: OpenAPI
@@ -1094,6 +1097,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - v2
+  tags_raw:
   - V2
   properties:
   - type: OpenAPI
@@ -1120,6 +1125,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - v3
+  tags_raw:
   - V3
   properties:
   - type: OpenAPI
