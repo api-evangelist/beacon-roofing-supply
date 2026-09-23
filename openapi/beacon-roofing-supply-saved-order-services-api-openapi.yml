@@ -1,0 +1,1867 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Saved Order Services API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Saved Order Services
+paths:
+  /saveOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Create new saved order and save current cart to this order
+      description: 'This service can create a new saved order and add current shopping cart
+
+        items to the newly created saved order.
+
+
+        po, jobName, jobNumber , additionalRecipients are optional'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                savedOrderName:
+                  type: string
+                po:
+                  type: string
+                jobName:
+                  type: string
+                jobNumber:
+                  type: string
+                emptyCart:
+                  type: boolean
+                  description: A flag whether empty user current shopping cart, it's true or empty value, empty cart, else keep current cart.
+                additionalRecipients:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/saveOrderRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postSaveOrder
+      x-operation-id-source: derived
+  /getOrderApprovalList:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: List saved/pending orders
+      description: 'This service is able to list saved or pending orders.
+
+
+        If approverId is empty, it will be treat as Get Saved/Pending Order list
+
+
+        If approverId not empty, it will be treat as get ''Pending Order by
+
+        Approver''
+
+
+        1.sortBy value
+
+
+        Pending Order:displayName,accountNumber,createdUser,submittedDate
+
+
+        Saved Order:displayName,accountNumber,lastModifiedDate,status,creationDate,submittedDate
+
+
+        2.status value:
+
+
+        Pending Order: READY_FOR_APPROVAL
+
+
+        Saved Order:READY_FOR_SUBMISSION
+
+
+        Rejected Order: REJECTED_ORDER
+
+
+        3.searchBy value
+
+
+        Pending Order:displayName,accountNumber,createdUser.email,submittedDate
+
+
+        Saved Order:displayName,accountNumber,creationDate,createdUser.name,createdUser.email,lastModifiedDate,lastModifiedUser.name,lastModifiedUser.email,submittedDate,submittedUser.name,submittedUser.email
+
+
+        4.searchBy ''submittedDate'' or ''creationDate'' its format value is
+
+        ''MM-dd-yyyy''.eg,07-30-2019
+
+
+        5.''sortBy'' ''searchBy'' are not required. But if set value, it''s limited
+
+        by the given values.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getOrderApprovalList_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getOrderApprovalList_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postGetOrderApprovalList
+      x-operation-id-source: derived
+  /getOrderApprovalDetail:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Get saved/pending order detail, also use this service to render order…
+      description: 'This service provides saved or pending order details for a given saved
+
+        order Id.'
+      parameters:
+      - in: query
+        name: orderId
+        schema:
+          type: string
+        required: true
+        description: Saved Order ID
+      - in: query
+        name: editable
+        schema:
+          type: boolean
+        required: true
+      - in: query
+        name: validate
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getOrderApprovalDetail_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetOrderApprovalDetail
+      x-operation-id-source: derived
+  /rejectSavedOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Reject pending order
+      description: This service can reject pending order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/rejectSavedOrder_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postRejectSavedOrder
+      x-operation-id-source: derived
+  /deleteSavedOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Delete saved orders
+      description: This service can delete saved order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteSavedOrder_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postDeleteSavedOrder
+      x-operation-id-source: derived
+  /updateSavedOrderItems:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Update saved/pending order items
+      description: 'This service can update the items of given saved or pending order
+
+
+        The `items.color` format: "vendor color name(code)", e.g. "Gunmetal
+
+        Grey(010)" or just "vendor color name", e.g. "Gunmetal Grey"'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateSavedOrderItems_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateSavedOrderItems_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateSavedOrderItems
+      x-operation-id-source: derived
+  /getSavedOrderShippingInfo:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Get saved/pending order shipping info
+      description: 'This service provides saved or pending order shipping information for a
+
+        given saved order Id.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getSavedOrderShippingInfo_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSavedOrderShippingInfo_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postGetSavedOrderShippingInfo
+      x-operation-id-source: derived
+  /updateSavedOrderShippingInfo:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Update saved/pending order shipping info
+      description: 'This service can update saved or pending order shipping information for
+
+
+        a given saved order Id.
+
+
+        deliveryOption: "scheduled" or "onHold", when "scheduled",
+
+        "deliveryDate" and "deliveryTime" is needed
+
+
+        shippingMethod: "Ship_to" or "Pick_up"
+
+
+        Ship_to example :
+
+
+        ```
+
+        {
+
+        "orderId":"33400002",
+
+        "deliveryOption":"onHold",
+
+        "shippingMethod":"Ship_to",
+
+        "shippingAddress":{
+
+        "address1":"testaddress",
+
+        "address2":"",
+
+        "city":"test city",
+
+        "state":"AZ",
+
+        "states":null,
+
+        "postalCode":"12345",
+
+        "country":"USA"
+
+        },
+
+        "contactInfo":{
+
+        "phoneNumber":"1234567990",
+
+        "firstName":"",
+
+        "lastName":"testolivia",
+
+        "nickName":"testolivia"
+
+        },
+
+        "instructions":"ppererr111"
+
+        }
+
+        ```
+
+
+        Pick_up example :
+
+
+        ```
+
+        {
+
+        "orderId":"33400002",
+
+        "deliveryOption":"scheduled",
+
+        "deliveryDate":"06-28-2018",
+
+        "deliveryTime":"Afternoon",
+
+        "shippingMethod":"Pick_up",
+
+        "shippingAddress":{
+
+        "displayName":"DENVER BRANCH",
+
+        "address1":"DENVER BRANCH - STATEWIDE",
+
+        "address2":"1205 S PLATTE RIVER DR.",
+
+        "city":"DENVER",
+
+        "state":"CO",
+
+        "postalCode":"80223-3100",
+
+        "phoneNumber":"3037447111",
+
+        "address3":""
+
+        },
+
+        "branchName":"",
+
+        "contactInfo":{
+
+        "firstName":"",
+
+        "lastName":"",
+
+        "nickName":"",
+
+        "phoneNumber":"3037447111"
+
+        },
+
+        "instructions":"pppdd"
+
+        }
+
+        ```'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateSavedOrderShippingInfo_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateSavedOrderShippingInfo
+      x-operation-id-source: derived
+  /getSavedOrderReviewInfo:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Get saved/pending order review info
+      description: 'This service provides saved or pending order review information for a
+
+        given saved order Id.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getSavedOrderReviewInfo_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSavedOrderReviewInfo_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postGetSavedOrderReviewInfo
+      x-operation-id-source: derived
+  /updateSavedOrderReviewInfo:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Save saved order review info
+      description: Save saved order review info in order review page.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateSavedOrderReviewInfo_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateSavedOrderReviewInfo
+      x-operation-id-source: derived
+  /submitSavedOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Submit/Revise saved order for approval for submmitter user
+      description: 'This service can submit the save order for approval with a given saved order
+
+        Id. Please note, it''s just converted save order to pending order.
+
+        Only can call this API to submit order for approval/Revise pending order for the user who doesn''t have submit order permission.
+
+
+        po, jobName, jobNumber , additionalRecipients are optional'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/submitSavedOrder_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/submitSavedOrder_res'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postSubmitSavedOrder
+      x-operation-id-source: derived
+  /approveSavedOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Approve saved/pending order
+      description: 'This service can approve the submitted saved/pending order for a given
+
+        saved order Id.
+
+
+        apiSiteId, po, jobName, jobNumber , additionalRecipients are optional'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/approveSavedOrder_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postApproveSavedOrder
+      x-operation-id-source: derived
+  /getSavedOrderConfirmationInfo:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Get saved/pending order confirmation info
+      description: 'This service provides saved or pending order confirmation information
+
+        for a given saved order Id.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getSavedOrderConfirmationInfo_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSavedOrderConfirmationInfo_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postGetSavedOrderConfirmationInfo
+      x-operation-id-source: derived
+  /saveOrderValidate:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Validate the saved/pending order
+      description: This service provides saved or pending order validation, such as shipping method/delivery option, shipping/delivery pickup date/time.
+      parameters:
+      - in: query
+        name: id
+        schema:
+          type: string
+        required: true
+        description: Saved Order ID
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getSaveOrderValidate
+      x-operation-id-source: derived
+  /approver:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: List saved order approvers
+      description: This service will list all the approvers for current user.
+      parameters:
+      - in: query
+        name: hasPendingOrders
+        schema:
+          type: string
+        description: If true, will only returns the approvers which has pending orders
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/approver_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getApprover
+      x-operation-id-source: derived
+  /downloadSavedOrderAsPDF:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Saved Order Services
+      summary: Download saved order as PDF
+      description: This service can download saved order as PDF.
+      parameters:
+      - in: query
+        name: orderId
+        description: Order ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: showPrice
+        schema:
+          type: boolean
+        description: show price on download PDF or not
+      responses:
+        '200':
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: byte
+          description: 'successful operation
+
+
+            return the PDF file in bytes
+
+
+            Failed operation
+
+
+            return ''application/json'' and refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getDownloadSavedOrderAsPDF
+      x-operation-id-source: derived
+components:
+  schemas:
+    submitSavedOrder_res:
+      type: object
+      properties:
+        savedOrderId:
+          type: string
+        evOrderId:
+          type: string
+    getSavedOrderReviewInfo_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+    BranchAddress_savedorder:
+      type: object
+      properties:
+        displayName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+        branchNumber:
+          type: string
+    ApproverObj:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+    getOrderApprovalList_req:
+      type: object
+      properties:
+        approverId:
+          type: string
+        currentPage:
+          type: integer
+        pageSize:
+          type: integer
+        searchBy:
+          type: string
+        searchTerm:
+          type: string
+        sortBy:
+          type: string
+        sortType:
+          type: string
+        status:
+          type: string
+    approveSavedOrder_req:
+      type: object
+      properties:
+        apiSiteId:
+          type: string
+        orderId:
+          type: string
+        po:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        uuid:
+          type: string
+        UUID:
+          type: string
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+    updateSavedOrderShippingInfo_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+        deliveryOption:
+          type: string
+        deliveryDate:
+          type: string
+          format: MM-dd-yyyy
+        deliveryTime:
+          type: string
+        shippingMethod:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress_savedorder_req'
+        branchName:
+          type: string
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
+        instructions:
+          type: string
+    getSavedOrderConfirmationInfo_req:
+      type: object
+      properties:
+        id:
+          type: string
+    submitSavedOrder_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+        approverId:
+          type: string
+        po:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+    updateSavedOrderReviewInfo_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+        po:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+    deleteSavedOrder_req:
+      type: object
+      properties:
+        id:
+          type: string
+    getSavedOrderShippingInfo_rep:
+      $ref: '#/components/schemas/OrderDetailItemObj'
+    updateSavedOrderItems_rep:
+      type: object
+      properties:
+        savedOrderId:
+          type: string
+        savedOrderName:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommerceItem_savedorder'
+    RadioButton_savedorder:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+    getOrderApprovalList_rep:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderSimpleItemObj'
+    OrderSimpleItemObj:
+      type: object
+      properties:
+        id:
+          type: string
+        mincronId:
+          type: string
+        displayName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        accountNumber:
+          type: string
+        accountName:
+          type: string
+        creationDate:
+          type: string
+          format: timestamp
+        createdUser:
+          type: string
+        createdUserEmail:
+          type: string
+        submittedDate:
+          type: string
+          format: timestamp
+        status:
+          type: string
+        statusDisplayName:
+          type: string
+        readOnly:
+          type: boolean
+    getOrderApprovalDetail_rep:
+      $ref: '#/components/schemas/SavedPendingOrderApprovalDetailItemV2Obj'
+    saveOrderRep:
+      type: object
+      properties:
+        successUrl:
+          type: string
+        savedOrderId:
+          type: string
+    rejectSavedOrder_req:
+      type: object
+      properties:
+        rejectReason:
+          type: string
+        orders:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+    updateSavedOrderItems_req:
+      type: object
+      properties:
+        savedOrderId:
+          type: string
+        savedOrderName:
+          type: string
+        action:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              quantity:
+                type: integer
+              itemNumber:
+                type: string
+              uom:
+                type: string
+              color:
+                type: string
+                example: Dark Blue(012)
+              MFG:
+                type: string
+                example: Light Yellow
+    JobAccounts_savedorder:
+      type: object
+      properties:
+        unavailable:
+          type: boolean
+        unavailableMsg:
+          type: boolean
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job_savedorder'
+    ShippingAddress_savedorder_req:
+      type: object
+      properties:
+        displayName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+    getSavedOrderShippingInfo_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    OrderDetailItemObj:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        siteId:
+          type: string
+        organizationId:
+          type: string
+        accountNumber:
+          type: string
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
+        creationDate:
+          type: string
+          format: timestamp
+        createdUser:
+          type: string
+        submittedDate:
+          type: string
+          format: timestamp
+        lastModifiedDate:
+          type: string
+          format: timestamp
+        lastModifiedUser:
+          type: string
+        evOrderId:
+          type: string
+        assignApproval:
+          $ref: '#/components/schemas/UserInfo_savedorder'
+        assignApprovalDisplayText:
+          type: string
+        deleteStatus:
+          type: boolean
+          default: false
+        job:
+          $ref: '#/components/schemas/Job_savedorder'
+        jobAccounts:
+          $ref: '#/components/schemas/JobAccounts_savedorder'
+        approvedBy:
+          type: string
+        po:
+          type: string
+        emailAddress:
+          type: array
+          items:
+            type: string
+        deliveryOption:
+          type: string
+        deliveryOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        deliveryTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        shippingMethod:
+          type: string
+        shippingMethodValue:
+          type: string
+        shippingMethods:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        shippingAddressTitle:
+          type: string
+        shippingAddress:
+          type: object
+          properties:
+            address1:
+              type: string
+            address2:
+              type: string
+            address3:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            states:
+              type: array
+              items:
+                $ref: '#/components/schemas/RadioButton_savedorder'
+            postalCode:
+              type: string
+            country:
+              type: string
+        branchName:
+          type: string
+        branchAddress:
+          type: object
+          properties:
+            displayName:
+              type: string
+            address1:
+              type: string
+            address2:
+              type: string
+            address3:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            stateValue:
+              type: string
+            postalCode:
+              type: string
+            country:
+              type: string
+            phoneNumber:
+              type: string
+        instructions:
+          type: string
+        commerceItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommerceItem_savedorder'
+        status:
+          type: string
+        statusDisplayName:
+          type: string
+        mincronId:
+          type: string
+        itemsTotal:
+          type: number
+          format: double
+        taxes:
+          type: number
+          format: double
+        otherCharges:
+          type: number
+          format: double
+        subTotal:
+          type: number
+          format: double
+        addressBooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBook_savedorder'
+        addressBook:
+          $ref: '#/components/schemas/AddressBook_savedorder'
+        storeLocatorItemId:
+          type: string
+        rejectReason:
+          type: string
+        rejectUserDisplayText:
+          type: string
+        rejectUser:
+          $ref: '#/components/schemas/UserInfo_savedorder'
+        requiredFields:
+          $ref: '#/components/schemas/RequiredFields_savedorder'
+        showDeliveryNotification:
+          type: boolean
+        accountBranchState:
+          type: string
+    Job_savedorder:
+      type: object
+      properties:
+        jobNumber:
+          type: string
+        jobName:
+          type: string
+        jobNameMandatory:
+          type: boolean
+        jobNumberMandatory:
+          type: boolean
+        jobNumberDisplayName:
+          type: string
+    UserInfo_savedorder:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+    AddressBook_savedorder:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress_savedorder'
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    approver_rep:
+      type: array
+      items:
+        $ref: '#/components/schemas/ApproverObj'
+    ContactInfo_savedorder:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        phoneNumber:
+          type: string
+    CommerceItem_savedorder:
+      type: object
+      properties:
+        id:
+          type: string
+        imageUrl:
+          type: string
+        imageOnErrorUrl:
+          type: string
+        thumbImageUrl:
+          type: string
+        pdpUrl:
+          type: string
+        description:
+          type: string
+        itemNumber:
+          type: string
+        price:
+          type: integer
+          format: double
+        quantity:
+          type: integer
+        uom:
+          type: string
+        subTotal:
+          type: integer
+          format: double
+        deleteStatus:
+          type: boolean
+        vendorColorId:
+          type: string
+        productId:
+          type: string
+        itemGrayOutLevel:
+          type: string
+          enum:
+          - none
+          - grayWithChange
+          - gray
+        itemFromQuote:
+          type: boolean
+        quotedItemQtyChanged:
+          type: boolean
+    RequiredFields_savedorder:
+      type: object
+      properties:
+        deliveryOption:
+          type: boolean
+        deliveryDate:
+          type: boolean
+        deliveryTime:
+          type: boolean
+        shippingMethod:
+          type: boolean
+        shippingAddress:
+          type: boolean
+        postalCode:
+          type: boolean
+        state:
+          type: boolean
+        address1:
+          type: boolean
+        address2:
+          type: boolean
+        address3:
+          type: boolean
+        country:
+          type: boolean
+        city:
+          type: boolean
+        branchName:
+          type: boolean
+        contactInfo:
+          type: boolean
+        firstName:
+          type: boolean
+        lastName:
+          type: boolean
+        nickName:
+          type: boolean
+        phoneNumber:
+          type: boolean
+        instructions:
+          type: boolean
+        po:
+          type: boolean
+        jobName:
+          type: boolean
+        jobAccounts:
+          type: boolean
+        showExtendedPO:
+          type: boolean
+    getSavedOrderReviewInfo_rep:
+      $ref: '#/components/schemas/OrderDetailItemObj'
+    SavedPendingOrderApprovalDetailItemV2Obj:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        siteId:
+          type: string
+        organizationId:
+          type: string
+        accountNumber:
+          type: string
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
+        creationDate:
+          type: string
+          format: timestamp
+        createdUser:
+          type: string
+        submittedDate:
+          type: string
+          format: timestamp
+        lastModifiedDate:
+          type: string
+          format: timestamp
+        lastModifiedUser:
+          type: string
+        evOrderId:
+          type: string
+        assignApproval:
+          $ref: '#/components/schemas/UserInfo_savedorder'
+        assignApprovalDisplayText:
+          type: string
+        deleteStatus:
+          type: boolean
+          default: false
+        job:
+          $ref: '#/components/schemas/Job_savedorder'
+        jobAccounts:
+          $ref: '#/components/schemas/JobAccounts_savedorder'
+        approvedBy:
+          type: string
+        po:
+          type: string
+        additionalEmailRecipient:
+          type: array
+          items:
+            type: string
+        deliveryOption:
+          type: string
+        deliveryOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        deliveryTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        shippingMethod:
+          type: string
+        shippingMethodValue:
+          type: string
+        shippingMethods:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        shippingAddressTitle:
+          type: string
+        shippingAddress:
+          type: object
+          properties:
+            address1:
+              type: string
+            address2:
+              type: string
+            address3:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            states:
+              type: array
+              items:
+                $ref: '#/components/schemas/RadioButton_savedorder'
+            postalCode:
+              type: string
+            country:
+              type: string
+        branchName:
+          type: string
+        branchAddress:
+          type: object
+          properties:
+            displayName:
+              type: string
+            address1:
+              type: string
+            address2:
+              type: string
+            address3:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            stateValue:
+              type: string
+            postalCode:
+              type: string
+            country:
+              type: string
+            phoneNumber:
+              type: string
+        instructions:
+          type: string
+        commerceItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommerceItem_savedorder'
+        status:
+          type: string
+        statusDisplayName:
+          type: string
+        mincronId:
+          type: string
+        itemsTotal:
+          type: number
+          format: double
+        taxes:
+          type: number
+          format: double
+        otherCharges:
+          type: number
+          format: double
+        subTotal:
+          type: number
+          format: double
+        addressBooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBook_savedorder'
+        addressBook:
+          $ref: '#/components/schemas/AddressBook_savedorder'
+        storeLocatorItemId:
+          type: string
+        rejectReason:
+          type: string
+        rejectUserDisplayText:
+          type: string
+        rejectUser:
+          $ref: '#/components/schemas/UserInfo_savedorder'
+        showDeliveryNotification:
+          type: boolean
+        MFG:
+          type: string
+        color:
+          type: string
+        orderRelatedDocuments:
+          items:
+            type: string
+    SavedOrderConfirmationDetailObj:
+      type: object
+      properties:
+        id:
+          type: string
+        mincronId:
+          type: string
+        displayName:
+          type: string
+        accountNumber:
+          type: string
+        accountName:
+          type: string
+        accountNameOriginal:
+          type: string
+        creationDate:
+          type: string
+        createdUser:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        createdUserEmail:
+          type: string
+        submittedDate:
+          type: string
+        status:
+          type: string
+        statusDisplayName:
+          type: string
+        readOnly:
+          type: boolean
+        siteId:
+          type: string
+        organizationId:
+          type: string
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          type: string
+        deleteStatus:
+          type: boolean
+        job:
+          $ref: '#/components/schemas/Job_savedorder'
+        jobAccounts:
+          $ref: '#/components/schemas/JobAccounts_savedorder'
+        shippingMethod:
+          type: string
+        shippingMethodValue:
+          type: string
+        shippingMethods:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress_savedorder'
+        shippingAddressTitle:
+          type: string
+        branchName:
+          type: string
+        branchAddress:
+          $ref: '#/components/schemas/BranchAddress_savedorder'
+        instructions:
+          type: string
+        commerceItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommerceItem_savedorder'
+        requiredFields:
+          $ref: '#/components/schemas/RequiredFields_savedorder'
+        approvedBy:
+          type: string
+        po:
+          type: string
+        emailAddress:
+          type: array
+          items:
+            type: string
+        deliveryOption:
+          type: string
+        deliveryOptionValue:
+          type: string
+        deliveryOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        deliveryTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        itemsTotal:
+          type: number
+          format: double
+        taxes:
+          type: number
+          format: double
+        otherCharges:
+          type: number
+          format: double
+        subTotal:
+          type: integer
+          format: double
+        addressBooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBook_savedorder'
+        addressBook:
+          $ref: '#/components/schemas/AddressBook_savedorder'
+        storeLocatorItemId:
+          type: string
+        rejectReason:
+          type: string
+        assignApprovalDisplayText:
+          type: string
+        assignApproval:
+          $ref: '#/components/schemas/UserInfo_savedorder'
+        rejectUserDisplayText:
+          type: string
+        rejectUser:
+          $ref: '#/components/schemas/UserInfo_savedorder'
+        showDeliveryNotification:
+          type: boolean
+        accountBranchState:
+          type: string
+        displaySubTotalMsg:
+          type: boolean
+        subTotalMsg:
+          type: string
+        thankYouMsg:
+          type: string
+    ShippingAddress_savedorder:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        postalCode:
+          type: string
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    getSavedOrderConfirmationInfo_rep:
+      $ref: '#/components/schemas/SavedOrderConfirmationDetailObj'
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

@@ -1,0 +1,1548 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Quote Services API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Quote Services
+paths:
+  /quote:
+    get:
+      tags:
+      - Quote Services
+      summary: List all quotes for the current user
+      description: This service is able to list all quotes for the current user
+      parameters:
+      - in: query
+        name: account
+        required: true
+        schema:
+          type: string
+        description: Account ID
+      - in: query
+        name: quoteType
+        description: 'The quote type you want to query, if empty, will return all types of quote
+
+
+          #### quoteType enumeration
+
+          * draft
+
+          * inProcess
+
+          * received
+
+          '
+        schema:
+          type: string
+      - in: query
+        name: pageSize
+        schema:
+          type: string
+        description: Default is 10, max is 100, record count of each page
+      - in: query
+        name: pageNo
+        schema:
+          type: string
+        description: Default is 1, the first page, page number or page index
+      - in: query
+        name: filterBy
+        description: 'The search key
+
+
+          #### filterBy enumeration
+
+          * quoteId
+
+          * quoteName
+
+          * creationDate
+
+          * status
+
+          * jobName
+
+          '
+        schema:
+          type: string
+      - in: query
+        name: filter
+        description: 'The search terms
+
+
+          When filterBy is ''status'', filter should be one of enumeration below
+
+
+          #### filter status enumeration
+
+          * Open
+
+          * InProgress
+
+          * Revised
+
+          * Ready for Review
+
+          * Approved
+
+          * Ordered
+
+          * Closed
+
+          '
+        schema:
+          type: string
+      - in: query
+        name: jobName
+        schema:
+          type: string
+      - in: query
+        name: orderBy
+        description: 'Default is ''creationDate desc''
+
+
+          #### orderBy enumeration
+
+          * quoteId asc/desc
+
+          * quoteName asc/desc
+
+          * creationDate asc/desc
+
+          * status asc/desc
+
+          * createdBy asc/desc
+
+          '
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value": "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/quote_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getQuote
+      x-operation-id-source: derived
+  /getMincronQuoteDetail:
+    post:
+      tags:
+      - Quote Services
+      summary: Get quote details for a given template
+      description: This service provides quotes details for a given quote Id.
+      parameters:
+      - in: query
+        name: quoteId
+        required: true
+        schema:
+          type: string
+        description: Quote ID
+      - in: query
+        name: account
+        schema:
+          type: string
+        description: Account ID
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value": "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getQuoteDetail_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postGetMincronQuoteDetail
+      x-operation-id-source: derived
+  /getAtgQuoteDetail:
+    get:
+      tags:
+      - Quote Services
+      summary: Get Atg quote details for a given template
+      description: This service provides quotes details for a given quote Id.
+      parameters:
+      - in: query
+        name: quoteId
+        required: true
+        schema:
+          type: string
+        description: Quote ID
+      - in: query
+        name: account
+        schema:
+          type: string
+        description: Account ID
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value": "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getQuoteDetail_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetAtgQuoteDetail
+      x-operation-id-source: derived
+  /createQuote:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Quote Services
+      summary: Create quote for current user
+      description: 'This service can create quote
+
+
+        ### quoteItems:
+
+        * itemType:
+
+        * ''I'': Internal quote item
+
+        * ''E'': External quote item, color and dimensions only support E type'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createQuote_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createQuote_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postCreateQuote
+      x-operation-id-source: derived
+  /updateQuote:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Quote Services
+      summary: Update quote
+      description: 'This service can update quote and modifying quote items.
+
+        ### items:
+
+        * action:
+
+        * UPDATE_QUOTE
+
+        * CREATE_ITEM
+
+        * UPDATE_ITEM
+
+        * DELETE_ITEM
+
+
+        UPDATE_QUOTE example:
+
+
+        {
+
+        "id":"29600002",
+
+        "quoteName":"test quote",
+
+        "phoneNumber":"12345678901",
+
+        "address1":"test address1",
+
+        "address2":"test address2",
+
+        "city":"test city",
+
+        "state":"Alabama",
+
+        "jobNumber":"RSGD",
+
+        "jobName":"ECONE APARTMENT",
+
+        "workType":"R",
+
+        "quoteNotes":"test quote notes",
+
+        "mailingAddress1": "test mailing address1",
+
+        "mailingAddress2": "test mailing address2",
+
+        "mailingAddress3": "test mailing address3",
+
+        "mailingState": "Alabama",
+
+        "mailingCity": "test mailing city 001",
+
+        "mailingZip": "90207",
+
+        "expires": "test expires",
+
+        "action":"UPDATE_QUOTE"
+
+        }
+
+
+        CREATE_ITEM example:
+
+
+        {
+
+        "id":"28400006",
+
+        "quoteItems":[
+
+        {
+
+        "itemNumber":"412023",
+
+        "itemType":"I",
+
+        "uom":"CTN",
+
+        "quantity":22,
+
+        "displayName":"test display name"
+
+        },
+
+        {
+
+        "itemNumber":"368238",
+
+        "itemType":"E",
+
+        "uom":"CTN",
+
+        "quantity":22,
+
+        "displayName":"test display name",
+
+        "matchColor": "red",
+
+        "dimensions": "dd"
+
+        }
+
+        ],
+
+        "action":"CREATE_ITEM"
+
+        }
+
+
+        UPDATE_ITEM example:
+
+
+        {
+
+        "id":"29600002",
+
+        "quoteName":"jason test quote",
+
+        "quoteItems":[{
+
+        "id":"36300005",
+
+        "quantity":3
+
+        }],
+
+        "action":"UPDATE_ITEM"
+
+
+        DELETE_ITEM example:
+
+
+        {
+
+        "id":"29600002",
+
+        "deleteItems":[
+
+        "36300005"
+
+        ],
+
+        "action":"DELETE_ITEM"
+
+        }'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateQuote_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateQuote
+      x-operation-id-source: derived
+  /deleteQuote:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Quote Services
+      summary: Delete quote
+      description: 'This service can delete quote(s) for current user.
+
+
+        ### Request body: required
+
+
+        * quoteId: required'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteQuote_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postDeleteQuote
+      x-operation-id-source: derived
+  /submitQuote:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Quote Services
+      summary: Submit quote
+      description: 'This service can submit quote for current user.
+
+
+        There two situations as below:
+
+
+        1. quoteId is null: will create quote at first, then submit quote, if failed, rollback
+
+
+        2. quoteId is not null: will query quote by quoteId, if quote exists then submit quote.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/submitQuote_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/submitQuote_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postSubmitQuote
+      x-operation-id-source: derived
+  /submitDelegatedQuote:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Quote Services
+      summary: Submit Delegated quote
+      description: 'This service can submit quote for delegated accountId on behalf of current user.
+
+
+        There two situations as below:
+
+
+        1. quoteId is null: will create quote at first, then submit quote, if failed, rollback
+
+
+        2. quoteId is not null: will query quote by quoteId, if quote exists then submit quote.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/submitDelegatedQuote_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/submitQuote_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postSubmitDelegatedQuote
+      x-operation-id-source: derived
+  /submitQuoteForm:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Quote Services
+      summary: Submit quote form
+      description: This service can submit quote form for current user.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/submitQuoteForm_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postSubmitQuoteForm
+      x-operation-id-source: derived
+  /approveQuote:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Quote Services
+      summary: Approve quote
+      description: 'This service can approve quote.
+
+
+        1. Quote ID invalid
+
+
+        2. Quote ID empty, shows quote ID is required.
+
+
+        3. Quote ID valid, able to approve the quote, and webstore will send out
+
+        email.
+
+
+        4. Quote Status != ready for review, System will show message'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/approveQuote_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postApproveQuote
+      x-operation-id-source: derived
+  /reviseQuote:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Quote Services
+      summary: Revise quote
+      description: 'This service can revise quote.
+
+
+        1. Quote ID invalid or empty: will show error message.
+
+
+        2. Quote ID valid: able to revise the Quote. and store will send out
+
+        email.
+
+
+        3. Quote status != ready for review, will show error message.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/reviseQuote_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postReviseQuote
+      x-operation-id-source: derived
+  /rejectQuote:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Quote Services
+      summary: Reject quote
+      description: 'This service can reject quote.
+
+
+        1. Quote ID invalid or empty: will show error message.
+
+
+        2. Quote ID valid: able to revise the Quote. and store will send out
+
+        email.
+
+
+        3. Quote status != ready for review, will show error message.
+
+
+        4. The reason value should be one of ''Price is Too High'', ''Lost Bid'', ''Product Not Available'', ''Product Will Arrive Late'' and ''Other''.
+
+
+        5. The additionalReason only works when the reject reason is ''Other'''
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/rejectQuote_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postRejectQuote
+      x-operation-id-source: derived
+  /downloadQuoteAsPDF:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Quote Services
+      summary: Download quote as PDF
+      description: This service can download quote as PDF.
+      parameters:
+      - in: query
+        name: quoteId
+        required: true
+        schema:
+          type: string
+        description: Quote ID
+      - in: query
+        name: showPrice
+        schema:
+          type: boolean
+        description: show price on download PDF or not
+      - in: query
+        name: receivedQuote
+        schema:
+          type: boolean
+        description: received quote or not ,defualt true, for draft and inProcess quote pass it value to false.
+      - in: query
+        name: showBackToQuouteDetailPageLink
+        schema:
+          type: boolean
+        description: show back to quote detail page link on download PDF or not
+      responses:
+        '200':
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: byte
+          description: 'successful operation
+
+
+            return the PDF file in bytes
+
+
+            Failed operation
+
+
+            return ''application/json'' and refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getDownloadQuoteAsPDF
+      x-operation-id-source: derived
+components:
+  schemas:
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    createQuoteItemObj:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemType:
+          type: string
+        quantity:
+          type: integer
+        uom:
+          type: string
+        color:
+          type: string
+        dimensions:
+          type: string
+        displayName:
+          type: string
+    quote_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+        draftQuote:
+          $ref: '#/components/schemas/quoteListObj'
+        inProcessQuote:
+          $ref: '#/components/schemas/quoteListObj'
+        receivedQuote:
+          $ref: '#/components/schemas/quoteListObj'
+    EditQuoteInfoBaseObj:
+      type: object
+      properties:
+        id:
+          type: string
+        quoteName:
+          type: string
+        phoneNumber:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        workType:
+          type: string
+          description: The Work Type, should be one of `N`(for New Construction) and `R`(for Remodel)
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        quoteNotes:
+          type: string
+        mailingAddress1:
+          type: string
+        mailingAddress2:
+          type: string
+        mailingAddress3:
+          type: string
+        mailingState:
+          type: string
+        mailingCity:
+          type: string
+        mailingZip:
+          type: string
+        expires:
+          type: string
+        validate:
+          type: boolean
+          description: default is true, if false, ignore request body validation except quote name.
+    EditDelegatedQuoteInfoObj:
+      allOf:
+      - type: object
+        properties:
+          accountId:
+            type: string
+            description: accountId on whose behalf quote is submitted
+          branchId:
+            type: string
+            description: branchIdId to which the quote is submitted
+          apiSiteId:
+            type: string
+            description: Api Site Id
+      - $ref: '#/components/schemas/EditDelegatedQuoteInfoBaseObj'
+    approveQuote_req:
+      type: object
+      properties:
+        quoteId:
+          type: string
+    quoteDetailItemObj:
+      type: object
+      properties:
+        id:
+          type: string
+        itemNumber:
+          type: string
+        itemType:
+          type: string
+        displayName:
+          type: string
+        productId:
+          type: string
+        quantity:
+          type: integer
+          format: long
+        unitOfMeasure:
+          type: string
+        deleteStatus:
+          type: boolean
+        imageURL:
+          type: string
+        imageOnErrorUrl:
+          type: string
+        PDPUrl:
+          type: string
+        productNumber:
+          type: string
+        unitPrice:
+          type: integer
+          format: long
+        itemDescription:
+          type: string
+        itemTotalPrice:
+          type: integer
+          format: long
+        currencySymbol:
+          type: string
+        stickerImageURL:
+          type: string
+        formatUnitPrice:
+          type: string
+        formatItemTotalPrice:
+          type: string
+        color:
+          type: string
+        dimensions:
+          type: string
+        itemAvailableQty:
+          type: integer
+          format: long
+        itemUsedupQty:
+          type: integer
+          format: long
+        itemRemainingQty:
+          type: integer
+          format: long
+        itemOrderInfo:
+          $ref: '#/components/schemas/quoteItemOrderInfoObj'
+    EditQuoteInfoObj:
+      allOf:
+      - $ref: '#/components/schemas/EditQuoteInfoBaseObj'
+      - type: object
+        properties:
+          quoteItems:
+            type: array
+            items:
+              $ref: '#/components/schemas/EditQuoteItemObj'
+    submitDelegatedQuote_req:
+      $ref: '#/components/schemas/EditDelegatedQuoteInfoObj'
+    reviseQuote_req:
+      type: object
+      properties:
+        quoteId:
+          type: string
+        quoteNotes:
+          type: string
+    deleteQuote_req:
+      type: object
+      properties:
+        quoteId:
+          type: string
+    quoteDetailObj:
+      type: object
+      properties:
+        id:
+          type: string
+        mincronId:
+          type: string
+        accountNumber:
+          type: string
+        createdUser:
+          type: string
+        createdUserName:
+          type: string
+        creationDate:
+          type: string
+        deleteStatus:
+          type: boolean
+        displayName:
+          type: string
+        quoteItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/quoteDetailItemObj'
+        quoteNotes:
+          type: string
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          type: string
+        lastModifiedUserEmail:
+          type: string
+        siteID:
+          type: string
+        status:
+          type: string
+        displayStatus:
+          type: string
+        phoneNumber:
+          type: string
+        workType:
+          type: string
+        workTypeName:
+          type: string
+        jobNumber:
+          type: string
+        jobName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        postalCode:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        mailingAddress1:
+          type: string
+        mailingAddress2:
+          type: string
+        mailingAddress3:
+          type: string
+        mailingState:
+          type: string
+        mailingCity:
+          type: string
+        mailingZip:
+          type: string
+        expires:
+          type: string
+        quoteTotalPrice:
+          type: integer
+          format: double
+        profileId:
+          type: string
+        profileEmail:
+          type: string
+        documentName:
+          type: string
+        standardQuoteItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/quoteDetailItemObj'
+        addtionalQuoteItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/quoteDetailItemObj'
+        lastModifiedDate4Integration:
+          type: string
+        creationDate4Integration:
+          type: string
+        formatQuoteTotal:
+          type: string
+        subTotal:
+          type: integer
+          format: double
+        otherCharges:
+          type: integer
+          format: double
+        tax:
+          type: integer
+          format: double
+        gst:
+          type: integer
+          format: double
+        total:
+          type: integer
+          format: double
+        formatSubTotal:
+          type: string
+        formatTax:
+          type: string
+        formatTotal:
+          type: string
+        atgOrderId:
+          type: string
+        mincronOrderId:
+          type: string
+        jobTaxExempt:
+          type: boolean
+    updateQuote_req:
+      type: object
+      properties:
+        id:
+          type: string
+        quoteName:
+          type: string
+        phoneNumber:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        workType:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        postalCode:
+          type: string
+        quoteNotes:
+          type: string
+        mailingAddress1:
+          type: string
+        mailingAddress2:
+          type: string
+        mailingAddress3:
+          type: string
+        mailingState:
+          type: string
+        mailingCity:
+          type: string
+        mailingZip:
+          type: string
+        expires:
+          type: string
+        action:
+          type: string
+        quoteItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/updateQuoteItemsObj'
+        deleteItems:
+          type: array
+          items:
+            type: string
+        creationDate:
+          type: string
+          format: date
+        lastModifiedDate:
+          type: string
+          format: date
+    EditDelegatedQuoteInfoBaseObj:
+      allOf:
+      - $ref: '#/components/schemas/EditQuoteInfoBaseObj'
+      - type: object
+        properties:
+          quoteItems:
+            type: array
+            items:
+              $ref: '#/components/schemas/EditDelegatedQuoteItemObj'
+    EditDelegatedQuoteItemObj:
+      allOf:
+      - $ref: '#/components/schemas/EditQuoteItemObj'
+      - type: object
+        properties:
+          netPrice:
+            type: string
+            description: net price for each item
+    createQuote_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    rejectQuote_req:
+      type: object
+      properties:
+        quoteId:
+          type: string
+        reason:
+          type: string
+          description: "Available Reason.\n * Price is Too High\n * Lost Bid\n * Product Not Available\n * Product Will Arrive Late\n * Other\n"
+        additionalReason:
+          type: string
+          description: It's optional, when the user selects 'Other' as a reason, this field accepts an additional reason.
+    quoteItemOrderInfoObj:
+      type: object
+      properties:
+        orderNumber:
+          type: string
+        orderStatus:
+          type: string
+        shipQuantity:
+          type: integer
+          format: long
+        backorderQuantity:
+          type: integer
+          format: long
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    updateQuoteItemsObj:
+      type: object
+      properties:
+        id:
+          type: string
+        itemNumber:
+          type: string
+        itemType:
+          type: string
+        displayName:
+          type: string
+        productId:
+          type: string
+        quantity:
+          type: string
+          format: long
+        deleteStatus:
+          type: boolean
+        siteId:
+          type: string
+        uom:
+          type: string
+        matchColor:
+          type: string
+        dimensions:
+          type: string
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    getQuoteDetail_rep:
+      type: object
+      properties:
+        quote:
+          $ref: '#/components/schemas/quoteDetailObj'
+    submitQuote_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
+          type: boolean
+        result:
+          type: object
+          properties:
+            quoteNumber:
+              type: string
+            quoteStatus:
+              type: string
+    submitQuoteForm_req:
+      type: object
+      properties:
+        userName:
+          type: string
+          description: The User Full Name
+        contactNumber:
+          type: number
+          description: The Contact Number
+        uploadDocument:
+          type: string
+          format: binary
+          description: 'The Upload Document File
+
+
+            Accepted File Types should be: *.pdf,*.csv,*.doc(x),*.tiff,*.xls(x)
+
+
+            File size should between 0KB~10MB
+
+            '
+        jobNumber:
+          type: string
+          description: The Job Number
+        workType:
+          type: string
+          description: The Work Type, should be one of `N`(for New Construction) and `R`(for Remodel)
+        quoteNotes:
+          type: string
+          description: The Quote Nodes
+    quoteListObj:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        quoteList:
+          type: array
+          items:
+            $ref: '#/components/schemas/quoteObj'
+    createQuote_req:
+      type: object
+      properties:
+        quoteName:
+          type: string
+        phoneNumber:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        statusDescription:
+          type: string
+        workType:
+          type: string
+          description: The Work Type, should be one of `N`(for New Construction) and `R`(for Remodel)
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        quoteNotes:
+          type: string
+        mailingAddress1:
+          type: string
+        mailingAddress2:
+          type: string
+        mailingAddress3:
+          type: string
+        mailingState:
+          type: string
+        mailingCity:
+          type: string
+        mailingZip:
+          type: string
+        expires:
+          type: string
+        validate:
+          type: boolean
+          description: default is true, if false, ignore request body validation except quote name.
+        quoteItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/createQuoteItemObj'
+    submitQuote_req:
+      $ref: '#/components/schemas/EditQuoteInfoObj'
+    quoteObj:
+      type: object
+      properties:
+        quoteId:
+          type: string
+        quoteName:
+          type: string
+        creationDate:
+          type: string
+          format: MM-dd-yyyy
+        expirationDate:
+          type: string
+          format: MM-dd-yyyy
+        status:
+          type: string
+        displayStatus:
+          type: string
+          description: The value is one of Available, Partially Available and Complete
+        createdBy:
+          type: string
+    EditQuoteItemObj:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemType:
+          type: string
+        quantity:
+          type: integer
+        uom:
+          type: string
+        displayName:
+          type: string
+        color:
+          type: string
+        dimensions:
+          type: string
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

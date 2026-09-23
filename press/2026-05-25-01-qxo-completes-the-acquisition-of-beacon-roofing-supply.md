@@ -1,7 +1,9 @@
 ---
 title: QXO completes the acquisition of Beacon Roofing Supply ...
 url: https://news.mergerlinks.com/daily-review/qxo-completes-the-acquisition-of-beacon-roofing-supply-for-$-11bn
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Beacon Roofing Supply" press release artificial intelligence'
 position: 1
 source: serpapi-google

@@ -1,0 +1,69 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) SMS Services API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: SMS Services
+paths:
+  /downloadBeacon3DplusApp:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - SMS Services
+      summary: Send SMS to end user
+      description: This service will send message to user though SMS.
+      parameters:
+      - in: query
+        name: phoneNumber
+        description: phone number
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getDownloadBeacon3DplusApp
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

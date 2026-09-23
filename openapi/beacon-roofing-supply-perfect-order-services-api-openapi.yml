@@ -1,0 +1,463 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Perfect Order Services…
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Perfect Order Services
+paths:
+  /getPerfectOrderDetail:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Perfect Order Services
+      summary: Get perfect order details
+      description: This service returns perfect order details based on perfect order Id.
+      parameters:
+      - in: query
+        name: account
+        required: true
+        description: The account Id
+        schema:
+          type: string
+      - in: query
+        name: perfectOrderId
+        required: true
+        description: The main product id for product template or product style id for product style
+        schema:
+          type: string
+      - in: query
+        name: brandName
+        required: true
+        description: 'The brand name
+
+
+          support multiple brands,separated by "||" (should be url encoded: "%7C%7C")
+
+
+          example:
+
+
+          brandName=xxx%7C%7Cyyy
+
+          '
+        schema:
+          type: string
+      - in: query
+        name: jobNumber
+        description: The job number, default is empty
+        schema:
+          type: string
+      - in: query
+        name: showPricing
+        description: Default is false, if "true", display pricing of each item
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getPerfectOrderDetailRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetPerfectOrderDetail
+      x-operation-id-source: derived
+  /getPerfectOrderBrands:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Perfect Order Services
+      summary: Get perfect order brands
+      description: This service returns perfect order all available brands
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getPerfectOrderBrandsRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetPerfectOrderBrands
+      x-operation-id-source: derived
+  /getPerfectOrderLanding:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Perfect Order Services
+      summary: Get product templates to render product template landing page
+      description: This service returns products for perfect order landing page.
+      parameters:
+      - in: query
+        name: brandName
+        required: true
+        description: The brand name
+        schema:
+          type: string
+      - in: query
+        name: pageNo
+        required: true
+        description: page index, default is 1
+        schema:
+          type: integer
+      - in: query
+        name: pageSize
+        required: true
+        description: The numbers of product can be returned for one page, default is 3
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            {"result":{"pagination":{"next":{"available":false,"label":"Next","page":-1},"previous":{"available":true,"label":"Previous","page":3},"pageSize":4,"currentPage":4,"totalCount":14,"results":[{"enable":true,"page":1,"currentPage":false,"type":"page"},{"enable":true,"page":2,"currentPage":false,"type":"page"},{"enable":true,"page":3,"currentPage":false,"type":"page"},{"enable":true,"page":4,"currentPage":true,"type":"page"}]},"items":[{"imgUrl":"/images/large/C-487445_default_small.jpg","landingRank":null,"displayName":"GAF Timberline&reg; Cool Series&reg; Shingles","id":"C-487445"},{"imgUrl":"/images/large/C-499398_default_small.jpg","landingRank":null,"displayName":"GAF Timberline&reg; HD&reg; Reflector Series&trade; Shingles","id":"C-499398"}]},"success":true,"messages":null}
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getPerfectOrderLandingRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetPerfectOrderLanding
+      x-operation-id-source: derived
+  /getPerfectStyleGroups:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Perfect Order Services
+      summary: Get product styles to render product style landing page
+      description: This service returns product styles based on brand.
+      parameters:
+      - in: query
+        name: brand
+        required: true
+        description: The product brand name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getPerfectStyleGroupsRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetPerfectStyleGroups
+      x-operation-id-source: derived
+components:
+  schemas:
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    getPerfectOrderBrandsRep:
+      type: object
+      properties:
+        messages:
+          type: string
+        success:
+          type: boolean
+        result:
+          type: object
+          properties:
+            brands:
+              type: array
+              items:
+                type: object
+                properties:
+                  brandName:
+                    type: string
+                  smallImageUrl:
+                    type: string
+                  heroImageUrl:
+                    type: string
+                  thumbImageUrl:
+                    type: string
+                  zoomImageUrl:
+                    type: string
+    getPerfectOrderDetailRep:
+      type: object
+      properties:
+        messages:
+          type: string
+        perfectOrders:
+          type: array
+          items:
+            type: object
+            properties:
+              displayName:
+                type: string
+              items:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    unitPrice:
+                      type: number
+                      format: double
+                    itemNumber:
+                      type: string
+                    unitOfMeasure:
+                      type: string
+                    productImageUrl:
+                      type: string
+                    productOnErrorImageUrl:
+                      type: string
+                    productOrItemNumber:
+                      type: string
+                    itemOrProductDescription:
+                      type: string
+                    internalProductName:
+                      type: string
+                    quantity:
+                      type: string
+                    variations:
+                      $ref: '#/components/schemas/variationsObj'
+                    skusVariation:
+                      $ref: '#/components/schemas/skusVariationObj'
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    getPerfectStyleGroupsRep:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              brandName:
+                type: string
+              styleId:
+                type: string
+              productStyleImage:
+                type: string
+              productStyleName:
+                type: string
+              rank:
+                type: string
+    getPerfectOrderLandingRep:
+      type: object
+      properties:
+        messages:
+          type: string
+        success:
+          type: boolean
+        result:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/BCPaginationDataObj'
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  landingRank:
+                    type: number
+                  displayName:
+                    type: string
+                  imgUrl:
+                    type: string
+                  imgOnErrorUrl:
+                    type: string
+                  id:
+                    type: string
+    variationsObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        color:
+          White:
+          - '100001'
+          - '200002'
+          Dover:
+          - '100001'
+          - '300003'
+        size:
+          12x10:
+          - '100001'
+          4x4:
+          - '200002'
+          - '300003'
+        thickness:
+          2mm:
+          - '100001'
+          4mm:
+          - '200002'
+          6mm:
+          - '300003'
+    skusVariationObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        '600001':
+          color:
+          - White
+          - Dover
+          size:
+          - 12x10
+          thickness:
+          - 2mm
+        '600002':
+          color:
+          - White
+          size:
+          - 4x4
+          thickness:
+          - 4mm
+        '300003':
+          color:
+          - Dover
+          size:
+          - 4x4
+          thickness:
+          - 6mm
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

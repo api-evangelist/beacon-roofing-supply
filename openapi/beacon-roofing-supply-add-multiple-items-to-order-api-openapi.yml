@@ -1,0 +1,186 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Add Multiple Items To…
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Add Multiple Items To Order
+paths:
+  /addMultipleItemsToOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Add Multiple Items To Order
+      summary: Add item(s) to cart
+      description: 'This service is able to add item(s) to cart.
+
+
+        The `items.color` format: "vendor color name(code)", e.g. "Gunmetal
+
+        Grey(010)" or just "vendor color name", e.g. "Gunmetal Grey"
+
+
+        itemType can be set Standard item or Custom Steel,if no itemType inputed, default value is Standard item,if itemType = Custom Steel, should input description.'
+      parameters:
+      - in: query
+        name: ignoreInvalidItems
+        description: 'if "true", will ignore invalid items and continue add valid items to
+
+          cart, otherwise will return invalid items'
+        schema:
+          type: boolean
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addItemsToOrderReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addItemsToOrderRep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postAddMultipleItemsToOrder
+      x-operation-id-source: derived
+components:
+  schemas:
+    addItemsToOrderRep:
+      type: object
+      properties:
+        allItemsUnavailable:
+          type: boolean
+        unavailableItems:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              failedReason:
+                type: string
+        addedToCartItems:
+          type: array
+          items:
+            type: string
+        vendorColorNotMatchedItems:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              matchColor:
+                type: string
+              matchMFG:
+                type: string
+    shippingObj:
+      type: object
+      properties:
+        shippingMethod:
+          type: string
+        shippingBranch:
+          type: string
+        address:
+          type: object
+          properties:
+            address1:
+              type: string
+            address2:
+              type: string
+            city:
+              type: string
+            postalCode:
+              type: string
+            state:
+              type: string
+    addTocartItem:
+      type: object
+      properties:
+        catalogRefId:
+          type: string
+        productId:
+          type: string
+        quantity:
+          type: integer
+        uom:
+          type: string
+        matchColor:
+          type: string
+          example: Dark Blue(012)
+        matchMFG:
+          type: string
+          example: Light Yellow
+        productNumber:
+          type: string
+        itemType:
+          type: string
+          example: Standard item or Custom Steel
+        description:
+          type: string
+    addItemsToOrderReq:
+      type: object
+      properties:
+        addItemCount:
+          type: integer
+          description: The total amount of item to add to cart
+        accountId:
+          type: string
+          description: The account id
+        specialInstructions:
+          type: string
+          description: The order special instructions
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/addTocartItem'
+        jobNumber:
+          type: string
+          description: The job
+        templateId:
+          type: string
+          description: Template Id
+        shipping:
+          $ref: '#/components/schemas/shippingObj'
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

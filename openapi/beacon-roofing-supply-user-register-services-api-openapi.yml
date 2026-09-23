@@ -1,0 +1,373 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) User Register Services…
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: User Register Services
+paths:
+  /getUserRegisterToken:
+    get:
+      tags:
+      - User Register Services
+      summary: Get token for user register
+      description: This service can return the token for user register
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegisterResponse_getUserRegisterToken'
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getGetUserRegisterToken
+      x-operation-id-source: derived
+  /validateUserByEmail:
+    post:
+      tags:
+      - User Register Services
+      summary: Validate user by email
+      description: This service can validate the user info by email
+      parameters:
+      - in: header
+        name: X-User-Register-Token
+        schema:
+          type: string
+        required: true
+        description: The token from the response of endpoint '/getUserRegisterToken'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateUserRegRequest_validateUserByEmail'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegisterResponse_validateUserByEmail'
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postValidateUserByEmail
+      x-operation-id-source: derived
+  /validateUserByAccount:
+    post:
+      tags:
+      - User Register Services
+      summary: Validate user by account
+      description: This service can validate the user info by account
+      parameters:
+      - in: header
+        name: X-User-Register-Token
+        schema:
+          type: string
+        required: true
+        description: The token from the response of endpoint '/getUserRegisterToken'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateUserRegRequest_validateUserByAccount'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegisterResponse_validateUserByAccount'
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postValidateUserByAccount
+      x-operation-id-source: derived
+  /register:
+    post:
+      tags:
+      - User Register Services
+      summary: Register user
+      description: This service can register user
+      parameters:
+      - in: header
+        name: X-User-Register-Token
+        schema:
+          type: string
+        required: true
+        description: The token from the response of endpoint '/getUserRegisterToken'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegInfo'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRegisterResponse_register'
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postRegister
+      x-operation-id-source: derived
+components:
+  schemas:
+    UserRegisterResponseBranchSelectionBranchInfo:
+      type: object
+      properties:
+        branchId:
+          type: string
+        branchName:
+          type: string
+    UserRegisterResponse_validateUserByAccount:
+      type: object
+      properties:
+        userRegInfo:
+          $ref: '#/components/schemas/UserRegInfo_UserRegisterResponse_validateUserByAccount'
+        showBranchSelection:
+          type: boolean
+        branchSelection:
+          $ref: '#/components/schemas/UserRegisterResponseBranchSelection'
+        retryTimesLeft:
+          type: integer
+        needLogin:
+          type: boolean
+        needRetry:
+          type: boolean
+        needContactSupport:
+          type: boolean
+        needGetUserRegisterToken:
+          type: boolean
+        needInvoice:
+          type: boolean
+        registerSuccess:
+          type: boolean
+    UserRegInfo_UserRegisterResponse_getUserRegisterToken:
+      type: object
+      properties:
+        userRegisterToken:
+          type: string
+    UserRegisterResponse_register:
+      type: object
+      properties:
+        needLogin:
+          type: boolean
+        needRetry:
+          type: boolean
+        needContactSupport:
+          type: boolean
+        needGetUserRegisterToken:
+          type: boolean
+        registerSuccess:
+          type: boolean
+    UserRegisterResponseBranchSelection:
+      type: object
+      properties:
+        accountId:
+          type: string
+        accountName:
+          type: string
+        branches:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRegisterResponseBranchSelectionBranchInfo'
+    UserRegAccountInfo:
+      type: object
+      properties:
+        accountId:
+          type: string
+        accountName:
+          type: string
+        branchId:
+          type: string
+    ValidateUserRegRequest_validateUserByEmail:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        zipCode:
+          type: string
+        phoneNumber:
+          type: string
+        g-recaptcha-response:
+          type: string
+          description: When recaptcha enabled on site, this token is required.Otherwise, keep it empty.
+    UserRegInfo:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        zipCode:
+          type: string
+        phoneNumber:
+          type: string
+        companyName:
+          type: string
+        account:
+          type: string
+        invoice:
+          type: string
+        invoiceDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+        accountInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRegAccountInfo'
+        internalUser:
+          type: string
+        token:
+          type: string
+        additionalEmailRecipients:
+          type: array
+          items:
+            type: string
+    ValidateUserRegRequest_validateUserByAccount:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        companyName:
+          type: string
+        account:
+          type: string
+        invoice:
+          type: string
+        invoiceDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+    UserRegInfo_UserRegisterResponse_validateUserByEmail:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        zipCode:
+          type: string
+        phoneNumber:
+          type: string
+        accountInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRegAccountInfo'
+        internalUser:
+          type: boolean
+        beaconEmployee:
+          type: boolean
+        token:
+          type: string
+    UserRegisterResponse_getUserRegisterToken:
+      type: object
+      properties:
+        userRegInfo:
+          $ref: '#/components/schemas/UserRegInfo_UserRegisterResponse_getUserRegisterToken'
+    UserRegisterResponse_validateUserByEmail:
+      type: object
+      properties:
+        userRegInfo:
+          $ref: '#/components/schemas/UserRegInfo_UserRegisterResponse_validateUserByEmail'
+        showBranchSelection:
+          type: boolean
+        branchSelection:
+          $ref: '#/components/schemas/UserRegisterResponseBranchSelection'
+        retryTimesLeft:
+          type: integer
+        needLogin:
+          type: boolean
+        needRetry:
+          type: boolean
+        needContactSupport:
+          type: boolean
+        needGetUserRegisterToken:
+          type: boolean
+        needInvoice:
+          type: boolean
+        registerSuccess:
+          type: boolean
+    UserRegInfo_UserRegisterResponse_validateUserByAccount:
+      type: object
+      properties:
+        companyName:
+          type: string
+        account:
+          type: string
+        invoice:
+          type: string
+        invoiceDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+        accountInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRegAccountInfo'
+        token:
+          type: string
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

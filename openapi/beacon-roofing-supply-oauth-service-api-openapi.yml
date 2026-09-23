@@ -1,0 +1,121 @@
+openapi: 3.2.0
+info:
+  title: Beacon OAuth Rest Service Ver 1.0 OAuth Service API
+  version: release/7.1
+  description: 'The Beacon implementation of OAuth 2.0 Refresh Token
+
+
+    [ PROD BASE URL: *https://beaconproplus.com/rest/model/REST/oauth* ]
+
+
+    [ UAT BASE URL: *https://beacon-uat.becn.com/rest/model/REST/oauth* ]
+
+
+    [ DEV BASE URL: *https://beacon-dev.becn.com/rest/model/REST/oauth* ]
+
+    ### API Response messages doc
+
+
+    Show...'
+servers:
+- url: https://{server}/rest/model/REST/oauth/
+  variables:
+    server:
+      enum:
+      - beacon-uat.becn.com
+      - beaconproplus.com
+      default: beacon-uat.becn.com
+      description: Server
+tags:
+- name: OAuth Service
+paths:
+  /token:
+    post:
+      security: []
+      tags:
+      - OAuth Service
+      summary: Refresh access/refresh token
+      description: 'The grant_type must be refresh_token
+
+
+        Request sample:
+
+
+        {
+
+        "grant_type": "refresh_token",
+
+        "refresh_token": "xxxxxxx",
+
+        "client_id": "yyyyyyy"
+
+        }'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tokenReqObj'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokenResp'
+        '401':
+          description: Unauthorized, request is invalid
+        '500':
+          description: Internal exception
+      operationId: postToken
+      x-operation-id-source: derived
+components:
+  schemas:
+    tokenReqObj:
+      type: object
+      properties:
+        grant_type:
+          type: string
+        refresh_token:
+          type: string
+        client_id:
+          type: string
+        scopes:
+          type: string
+          description: 'Indicate if refresh_token need generate new value, if multiple values, need separated by white space.
+
+            * If value is empty, only refresh access_token.
+
+            * If value is "all", refresh access_token and refresh_token.
+
+            * If value contain "refresh_token", also refresh access_token and refresh_token.
+
+            '
+    tokenResp:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+        expires_in:
+          type: number
+          format: long
+        refresh_expires_in:
+          type: number
+          format: long
+        refresh_token:
+          type: string
+        scope:
+          type: string
+        success:
+          type: boolean
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string

@@ -1,0 +1,151 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services (Use for Internal) Sales Order Hold…
+  version: 24PI-4-Sprint-3
+  description: 'This version of APIs do not require the user to login, to be able to access
+
+    services.'
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
+tags:
+- name: Sales Order Hold Services
+paths:
+  /createSalesOrderHold:
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - Sales Order Hold Services
+      summary: create inbound sales order hold data to mincron service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createSalesOrderHoldReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createSalesOrderResp'
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postCreateSalesOrderHold
+      x-operation-id-source: derived
+  /createCASalesOrderHold:
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - Sales Order Hold Services
+      summary: create inbound sales order hold data to mincron service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createSalesOrderHoldReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createSalesOrderResp'
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postCreateCASalesOrderHold
+      x-operation-id-source: derived
+components:
+  schemas:
+    createSalesOrderResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            Response:
+              type: object
+              properties:
+                Result:
+                  type: string
+                Message:
+                  type: string
+        success:
+          example: true
+        code:
+          type: number
+    createSalesOrderHoldReq:
+      type: object
+      properties:
+        salesOrderHold-data:
+          $ref: '#/components/schemas/salesOrderHoldData'
+    salesOrderHoldData:
+      type: object
+      properties:
+        salesOrderHold:
+          type: array
+          items:
+            $ref: '#/components/schemas/salesOrderHold'
+    salesOrderHold:
+      type: object
+      properties:
+        opco-code:
+          type: string
+        account-id:
+          type: string
+        order-number:
+          type: string
+        hold-status:
+          type: string
+        hold-code:
+          type: string
+        hold-date:
+          type: string
+        hold-amount:
+          type: string
+        hold-source:
+          type: string
+        release-status:
+          type: string
+        release-code:
+          type: string
+        release-date:
+          type: string
+          format: date
+        release-comments:
+          type: string
+        release-source:
+          type: string
+        released-by:
+          type: string
+  securitySchemes:
+    internalAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token

@@ -1,0 +1,137 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 3 (Public) Integration Services API
+  version: release/7.2_siteId
+  description: 'This version of APIs do not require the user to login, to be able to access
+
+    services.'
+servers:
+- url: https://beaconproplus.com/v3/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of the all_api spec: ''Version 3: https://beaconproplus.com/v3/rest/com/becn''; probed 2026-09-04 -> 401 JSON envelope'
+tags:
+- name: Integration Services
+paths:
+  /mincronMapping:
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+      - Integration Services
+      summary: Get Mincron mapping products
+      description: This service returns mapping products based on customer number.
+      parameters:
+      - in: query
+        name: accountId
+        schema:
+          type: string
+        description: Customer number
+        required: true
+      - in: query
+        name: pageSize
+        description: Default page size is 100
+        schema:
+          type: integer
+      - in: query
+        name: pageNo
+        description: Default page no is 1
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to messageCode doc.
+
+
+            Example
+
+
+            { "messageCode": "1001", "message": "Validation exception" }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/productsRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getMincronMapping
+      x-operation-id-source: derived
+components:
+  schemas:
+    productObj_mincronMapping:
+      type: object
+      properties:
+        customerNumber:
+          type: string
+        itemNumber:
+          type: string
+        itemDescription:
+          type: string
+        productNumber:
+          type: string
+        aliasNumber:
+          type: string
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    productsRep:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            products:
+              type: array
+              items:
+                $ref: '#/components/schemas/productObj_mincronMapping'
+            pagination:
+              $ref: '#/components/schemas/BCPaginationDataObj'
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token

@@ -1,0 +1,510 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Favorites Services API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Favorites Services
+paths:
+  /updateFavorites:
+    post:
+      tags:
+      - Favorites Services
+      summary: This service can update favorites items
+      description: 'This service can update favorites items.
+
+        ### Request body: required
+
+        * account: required
+
+        * action: required
+
+        * categorySort: optional (when action is ''updateItem'')
+
+        ### items: required
+
+        ##### action is ''createItem''
+
+        * itemNumber: required
+
+        * unitOfMeasure: optional (will query default uom for sku when request value is null)
+
+        * quantity: required
+
+        * nickName: optional
+
+        * matchColor: optional, format: "vendor color name(code)", e.g. "Gunmetal
+
+        Grey(010)" or just "vendor color name", e.g. "Gunmetal Grey"
+
+        * matchMFG: optional
+
+        ##### action is ''updateItem''
+
+        * itemId: required
+
+        * itemNumber: required
+
+        * unitOfMeasure: optional (will query default uom for sku when request value is null)
+
+        * quantity: required
+
+        * nickName: optional
+
+        * matchColor: optional, format: "vendor color name(code)", e.g. "Gunmetal
+
+        Grey(010)" or just "vendor color name", e.g. "Gunmetal Grey"
+
+        * matchMFG: optional
+
+        ##### action is ''deleteItem''
+
+        * itemId: optional (any one of itemId or itemNumber is required)
+
+        * itemNumber: optional (any one of itemId or itemNumber is required)
+
+        * unitOfMeasure: optional (if value is not empty, will combine itemNumber to delete favorites item)'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateFavorites_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+            Example
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateFavorites_rep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: postUpdateFavorites
+      x-operation-id-source: derived
+  /getFavoritesCategories:
+    get:
+      tags:
+      - Favorites Services
+      summary: This service can get categories of favorites items
+      responses:
+        '200':
+          description: 'successful operation
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getFavoritesCategories_rep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: getGetFavoritesCategories
+      x-operation-id-source: derived
+  /getFavorites:
+    get:
+      tags:
+      - Favorites Services
+      summary: This service can get favorites items
+      parameters:
+      - in: query
+        name: account
+        required: true
+        description: This is required
+        schema:
+          type: string
+      - in: query
+        name: jobNumber
+        description: Job Number
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getFavorites_rep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: getGetFavorites
+      x-operation-id-source: derived
+  /getAccountFavorites:
+    get:
+      tags:
+      - Favorites Services
+      summary: This service can get account favorites item numbers
+      parameters:
+      - in: query
+        name: accountId
+        required: false
+        description: This is optional
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAccountFavorites_rep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: getGetAccountFavorites
+      x-operation-id-source: derived
+components:
+  schemas:
+    updateFavorites_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    vendorColorsObj:
+      type: object
+      properties:
+        id:
+          type: string
+        MFG:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        sku:
+          type: string
+        color:
+          type: string
+    profileObj:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+    favoritesItemObj:
+      type: object
+      properties:
+        favoritesItemId:
+          type: string
+        itemNumber:
+          type: string
+        quantity:
+          type: integer
+        nickName:
+          type: string
+        productImageUrl:
+          type: string
+        productOnErrorImageUrl:
+          type: string
+        productOrItemDescription:
+          type: string
+        productOrItemNumber:
+          type: string
+        internalProductName:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        unitOfMeasure:
+          type: string
+        vendorColorId:
+          type: string
+        available:
+          type: boolean
+        imageUrl:
+          $ref: '#/components/schemas/imageUrlObj'
+        pdpUrl:
+          type: string
+        multiVariationData:
+          $ref: '#/components/schemas/multiVariationDataObj'
+        mainCategory:
+          type: string
+        category:
+          $ref: '#/components/schemas/favoritesItemCategory'
+    favoritesItemCategory:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+    variationsObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        color:
+          White:
+          - '100001'
+          - '200002'
+          Dover:
+          - '100001'
+          - '300003'
+        size:
+          12x10:
+          - '100001'
+          4x4:
+          - '200002'
+          - '300003'
+        thickness:
+          2mm:
+          - '100001'
+          4mm:
+          - '200002'
+          6mm:
+          - '300003'
+    updateFavorites_req_item:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemNumber:
+          type: string
+        unitOfMeasure:
+          type: string
+        nickName:
+          type: string
+        quantity:
+          type: integer
+        matchColor:
+          type: string
+        matchMFG:
+          type: string
+    imageUrlObj:
+      type: object
+      properties:
+        thumbnail:
+          type: string
+        large:
+          type: string
+        swatch:
+          type: string
+    skusVariationObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        '600001':
+          color:
+          - White
+          - Dover
+          size:
+          - 12x10
+          thickness:
+          - 2mm
+        '600002':
+          color:
+          - White
+          size:
+          - 4x4
+          thickness:
+          - 4mm
+        '300003':
+          color:
+          - Dover
+          size:
+          - 4x4
+          thickness:
+          - 6mm
+    favoritesObj:
+      type: object
+      properties:
+        accountName:
+          type: string
+        lastModifiedUser:
+          $ref: '#/components/schemas/profileObj'
+        createdByUser:
+          $ref: '#/components/schemas/profileObj'
+        lastModifiedDate:
+          type: string
+        createdDate:
+          type: string
+        accountLegacyId:
+          type: string
+        isAccountClosed:
+          type: boolean
+        categorySort:
+          type: boolean
+        favoritesItemsCount:
+          type: integer
+        favoritesItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/favoritesItemObj'
+    updateFavorites_req:
+      type: object
+      properties:
+        account:
+          type: string
+        action:
+          type: string
+          description: action can be  'createItem',  'updateItem' and  'deleteItem'. It's similar to updateTemplate api
+        categorySort:
+          type: boolean
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/updateFavorites_req_item'
+    multiVariationDataObj:
+      type: object
+      properties:
+        currentSkuId:
+          type: string
+        skus:
+          $ref: '#/components/schemas/skusVariationObj'
+        variations:
+          $ref: '#/components/schemas/variationsObj'
+        vendorColors:
+          type: array
+          items:
+            $ref: '#/components/schemas/vendorColorsObj'
+        allVariationTypes:
+          type: array
+          items:
+            type: string
+        currentVariations:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            color: please_select
+            size: 2ft x 4ft
+            diameter: 3d
+            thickness: 5nm'
+            style: slope 002
+            packaging: 5 gallon pail
+            MFG: please_select
+        variationKeyMFG:
+          type: string
+        variationKeyColor:
+          type: string
+        variationGroups:
+          type: array
+          items:
+            type: object
+            properties:
+              variationTypes:
+                type: array
+                items:
+                  type: string
+        maxVariationGroupSize:
+          type: integer
+    getFavoritesCategories_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/favoritesCategories'
+    getFavorites_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/favoritesObj'
+    favoritesCategories:
+      type: array
+      items:
+        type: object
+        properties:
+          category:
+            type: string
+            description: category name
+          subCategories:
+            type: array
+            items:
+              type: object
+              properties:
+                categoryId:
+                  type: string
+    getAccountFavorites_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        favoritesItemsCount:
+          type: integer
+        favoritesItemNumbers:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

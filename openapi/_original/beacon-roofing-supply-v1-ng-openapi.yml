@@ -1,8 +1,10 @@
+# x-archived-from: beacon-roofing-supply-v1-ng-openapi.yml
+# x-archived-on: 2026-09-16
 servers:
   - url: https://beaconproplus.com/v1/rest/com/becn
     description: >-
       Production. Added by API Evangelist; the harvested document carried no servers[].
-      Source: info.description of this spec: 'Version 1: https://beaconproplus.com/v1/rest/com/becn'; probed 2026-09-04 -> 401 {"success":false,..."Please provide token"}
+      Source: info.description of the v1 spec family; probed 2026-09-04 -> 401 JSON envelope
 openapi: 3.0.0
 info:
   title: Beacon Rest Services Ver 1
@@ -14,9 +16,9 @@ info:
 
     [ PROD BASE URL: *https://beaconproplus.com/v1/rest/com/becn* ]
 
-    [ UAT  BASE URL: *https://beacon-uat.becn.com/v1/rest/com/becn* ]
+    [ UAT  BASE URL: *https://beacon-uat-ng.becn.com/v1/rest/com/becn* ]
 
-    [ DEV  BASE URL: *https://beacon-dev.becn.com/v1/rest/com/becn* ]
+    [ DEV  BASE URL: *https://beacon-dev-ng.becn.com/v1/rest/com/becn* ]
 
     ### API Site ID:
     <details>
@@ -768,21 +770,6 @@ components:
               type: boolean
             lastSelectedAccount:
               $ref: '#/components/schemas/accountObj'
-    getLoginDeclarationRep:
-      type: object
-      properties:
-        message:
-          type: string
-        titles:
-          type: array
-          items:
-            type: string
-        declarationContent:
-          type: string
-        CTA:
-          type: array
-          items:
-            type: string
     getCurrentUserInfoRep:
       type: object
       properties:
@@ -865,19 +852,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/accountWithBranchObj'
-    branchlistRep:
-      type: object
-      properties:
-        message:
-          type: string
-        totalNumRecs:
-          type: integer
-        pageNumRecs:
-          type: integer
-        branches:
-          type: array
-          items:
-            $ref: '#/components/schemas/branchObj'
     jobsRep:
       type: object
       properties:
@@ -1137,44 +1111,6 @@ components:
           properties:
             AVSZIPCode:
               type: string
-    addItemsToOrderReq:
-      type: object
-      properties:
-        addItemCount:
-          type: integer
-          description: The total amount of item to add to cart
-        accountId:
-          type: string
-          description: The account id
-        specialInstructions:
-          type: string
-          description: The order special instructions
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/addTocartItem'
-        shipping:
-          $ref: '#/components/schemas/shippingObj'
-        apiSiteId:
-          type: string
-    addTocartItem:
-      type: object
-      properties:
-        catalogRefId:
-          type: string
-        productId:
-          type: string
-        quantity:
-          type: integer
-        uom:
-          type: string
-        productNumber:
-          type: string
-        itemType:
-          type: string
-          example: Standard item or Custom Steel
-        description:
-          type: string
     shippingObj:
       type: object
       properties:
@@ -1195,12 +1131,6 @@ components:
               type: string
             state:
               type: string
-    addItemsToOrderRep:
-      type: object
-      properties:
-        messageInfo:
-          type: string
-          example: Add item(s) to cart successful
     templatelistRep:
       type: object
       properties:
@@ -1315,17 +1245,6 @@ components:
           type: boolean
         skuId:
           type: string
-    getProductInfoRep:
-      type: object
-      properties:
-        message:
-          type: string
-        hoverAttributes:
-          $ref: '#/components/schemas/hoverAttributesObj'
-        accounts:
-          type: array
-          items:
-            type: string
     pricingRep:
       type: object
       properties:
@@ -1344,50 +1263,6 @@ components:
             '253740':
               CTN: 2384.34
               PC: 834.43
-    cartItemsRep:
-      type: object
-      properties:
-        cartLineItems:
-          type: integer
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              catalogRefId:
-                type: string
-              productId:
-                type: string
-              quantity:
-                type: integer
-              uom:
-                type: string
-              unitPrice:
-                type: integer
-                format: double
-              totalPrice:
-                type: integer
-                format: double
-    cartItemsFullRep:
-      type: object
-      properties:
-        atgOrderId:
-          type: string
-        lastSelectedJob:
-          type: object
-          properties:
-            jobName:
-              type: string
-            jobNumber:
-              type: string
-        cartLineItems:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/cartItemList'
-        lastSelectedAccount:
-          $ref: '#/components/schemas/accountObjWithRewardsEligible'
     getSkuUomRep:
       type: object
       properties:
@@ -1506,25 +1381,6 @@ components:
           type: string
         quantityUOM:
           type: string
-    cartItemList:
-      type: object
-      properties:
-        itemOrProductDescription:
-          type: string
-        catalogRefId:
-          type: string
-        productId:
-          type: string
-        quantity:
-          type: integer
-        uom:
-          type: string
-        unitPrice:
-          type: integer
-          format: double
-        totalPrice:
-          type: integer
-          format: double
   securitySchemes:
     JSESSIONID:
       type: apiKey
@@ -1624,51 +1480,6 @@ paths:
           description: 'Bad Request, the request method is not valid'
         '401':
           description: 'Unauthorized, user do not login'
-        '500':
-          description: Internal exception
-  /getLoginDeclaration:
-    get:
-      security: []
-      tags:
-        - My Account Services
-      summary: Get login declaration
-      parameters:
-        - in: query
-          name: siteId
-          schema:
-            type: string
-          description: Default is `homeSite`, should be one of `homeSite`, `dealersChoice`
-        - in: query
-          name: persistentLoginType
-          schema:
-            type: string
-          description: Default is `RememberMe`, should be one of `RememberMe`, `RememberPassword`
-        - in: query
-          name: userAgent
-          schema:
-            type: string
-          description: Default is `desktop`, should be one of `desktop`, `tablet`, `mobile`
-        - in: query
-          name: apiSiteId
-          schema:
-            type: string
-          description: Default is `UAT`
-      responses:
-        '200':
-          description: |
-            successful operation
-
-            If failed, return messageCode, refer to messageCode doc.
-
-            Example
-
-            { "messageCode": "1001", "message": "Validation exception" }
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getLoginDeclarationRep'
-        '405':
-          description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
         '500':
           description: Internal exception
   /getCurrentUserInfo:
@@ -1789,62 +1600,6 @@ paths:
           description: 'Bad Request, the request method is not valid'
         '401':
           description: 'Unauthorized, user do not login'
-        '500':
-          description: Internal exception
-  /branchlist:
-    get:
-      security:
-        - JSESSIONID: []
-          DYN_USER_ID: []
-          DYN_USER_CONFIRM: []
-          siteId: []
-          rememberPassword: []
-      tags:
-        - Branch Services
-      summary: List all available branches
-      parameters:
-        - in: query
-          name: zipCode
-          schema:
-            type: string
-          required: false
-          description: Branch postal code
-        - in: query
-          name: city
-          schema:
-            type: string
-          required: false
-          description: Branch city
-        - in: query
-          name: pageSize
-          schema:
-            type: integer
-          required: false
-          description: Default page size is 21.
-        - in: query
-          name: pageNo
-          schema:
-            type: integer
-          required: false
-          description: 'Default page number is 1, the first page'
-      responses:
-        '200':
-          description: |
-            successful operation
-
-            If failed, return messageCode, refer to messageCode doc.
-              
-            Example
-
-            { "messageCode": "1001", "message": "Validation exception" }
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/branchlistRep'
-        '401':
-          description: 'Unauthorized, user do not login'
-        '405':
-          description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
         '500':
           description: Internal exception
   /jobs:
@@ -2337,58 +2092,6 @@ paths:
           description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
         '500':
           description: Internal exception
-  /getProductInfo:
-    get:
-      security:
-        - JSESSIONID: []
-          DYN_USER_ID: []
-          DYN_USER_CONFIRM: []
-          siteId: []
-          rememberPassword: []
-      tags:
-        - Catalog ITEM Services
-      summary: Get product and related accounts info
-      description: |
-        Returns:
-
-        * hoverAttributes: each Hover attribute and its value.
-          
-        * accounts: accounts ids array where product is available
-      parameters:
-        - in: query
-          name: productId
-          required: true
-          schema:
-            type: string
-          description: Product ID
-        - in: query
-          name: accountInfo
-          schema:
-            type: string
-          description: >-
-            If true, return all accounts as a list for which the product should
-            be served (accounts that have the product as available). Default is
-            false
-      responses:
-        '200':
-          description: |
-            successful operation
-
-            If failed, return messageCode, refer to messageCode doc.
-              
-            Example
-
-            { "messageCode": "1001", "message": "Validation exception" }
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getProductInfoRep'
-        '401':
-          description: 'Unauthorized, user do not login'
-        '405':
-          description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
-        '500':
-          description: Internal exception
   /getSkuUom:
     get:
       security:
@@ -2521,40 +2224,6 @@ paths:
           description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
         '500':
           description: Internal exception
-  /cartItems:
-    get:
-      security:
-        - JSESSIONID: []
-          DYN_USER_ID: []
-          DYN_USER_CONFIRM: []
-          siteId: []
-          rememberPassword: []
-      tags:
-        - Catalog ITEM Services
-      summary: Get items in the cart
-      description: >
-        Return existing items in the cart for the user profile and selected
-        account
-      responses:
-        '200':
-          description: |
-            successful operation
-
-            If failed, return messageCode, refer to messageCode doc.
-              
-            Example
-
-            { "messageCode": "1001", "message": "Validation exception" }
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/cartItemsFullRep'
-        '401':
-          description: 'Unauthorized, user do not login'
-        '405':
-          description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
-        '500':
-          description: Internal exception
   /submitOrder:
     post:
       security:
@@ -2667,55 +2336,6 @@ paths:
           description: 'Forbidden, user do not has permission to access this API'
         '405':
           description: 'Method not allowed, the request method is not valid for this API or this API is not available.'
-        '500':
-          description: Internal exception
-  /addMultipleItemsToOrder:
-    post:
-      security:
-        - JSESSIONID: []
-          DYN_USER_ID: []
-          DYN_USER_CONFIRM: []
-          siteId: []
-          rememberPassword: []
-      tags:
-        - Add Multiple Items To Order
-      summary: Add item(s) to cart
-      description: |
-        This service is able to add item(s) to cart.
-        
-        itemType can be set Standard item or Custom Steel,if no itemType inputed, default value is Standard item,if itemType = Custom Steel, should input description.
-      parameters:
-        - in: query
-          name: reverseItems
-          description: >-
-            if "true", will adding items to the cart in reverse order, default
-            is "true"
-          schema:
-            type: boolean
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/addItemsToOrderReq'
-      responses:
-        '200':
-          description: |
-            successful operation
-
-            If failed, return messageCode, refer to messageCode doc.
-              
-            Example
-
-            { "messageCode": "1001", "message": "Validation exception" }
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/addItemsToOrderRep'
-        '400':
-          description: 'Bad Request, the request method is not valid'
-        '401':
-          description: 'Unauthorized, user do not login'
         '500':
           description: Internal exception
   /template:

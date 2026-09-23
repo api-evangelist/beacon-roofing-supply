@@ -1,0 +1,95 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services (Use for Internal) IDP Token Services…
+  version: 24PI-4-Sprint-3
+  description: 'This version of APIs do not require the user to login, to be able to access
+
+    services.'
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
+tags:
+- name: IDP Token Services
+paths:
+  /auth/realms/master/protocol/openid-connect/token:
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - IDP Token Services
+      summary: obtain IDP Tokens
+      description: The token endpoint is used to obtain tokens. Tokens can either be obtained by exchanging an authorization code or by supplying credentials directly depending on what flow is used. The token endpoint is also used to obtain new access tokens when they expire.
+      parameters:
+      - in: query
+        name: client_id
+        description: Check client and client id mapping on conflunece <a href="https://becn.atlassian.net/wiki/spaces/BED/pages/1559494657/Keycloak+v4+client-APIs+mapping">here</a>.
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: client_secret
+        description: Log into keycloak website and go to "Clients > {clientId} > Credentials"  to check the exact secret.
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: username
+        description: Name of Keycloak user
+        schema:
+          type: string
+      - in: query
+        name: password
+        description: Password of Keycloak user
+        schema:
+          type: string
+      - in: query
+        name: grant_type
+        description: password, client_credentials
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'Refer to API Uniform Format
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IDPTokenResp'
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postAuthRealmsMasterProtocolOpenidConnectToken
+      x-operation-id-source: derived
+components:
+  schemas:
+    IDPTokenResp:
+      type: object
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          type: number
+        refresh_expires_in:
+          type: number
+        refresh_token:
+          type: string
+        token_type:
+          type: string
+        not-before-policy:
+          type: number
+        session_state:
+          type: string
+        scope:
+          type: string
+  securitySchemes:
+    internalAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token

@@ -1,0 +1,569 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) GAF Quick Measure…
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: GAF Quick Measure Services
+paths:
+  /quickMeasure/placeReportOrder:
+    post:
+      tags:
+      - GAF Quick Measure Services
+      summary: This service use for submit report order to GAF
+      description: '### Request body: required
+
+        * emailAddress: required
+
+        * productCode: required
+
+        * address1: required
+
+        * city: required
+
+        * stateOrProvince: required
+
+        * postalCode: required
+
+        * country: required
+
+        * latitude: required
+
+        * longitude: required
+
+        * fullAddress: required, e.g. "3530 Tuxedo Park NW, Atlanta, GA 30305, USA"'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GAFPlaceReportOrder_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GAFPlaceReportOrder_res'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: postQuickMeasurePlaceReportOrder
+      x-operation-id-source: derived
+  /quickMeasure/callback:
+    post:
+      tags:
+      - GAF Quick Measure Services
+      summary: This service use for receive a report
+      description: 'This API can only be called using the token from the IDP server.
+
+
+        IDP BASE URL:
+
+
+        [ PROD BASE URL: *https://identity.becn.com/auth/realms/master/protocol/openid-connect/token* ]
+
+
+        [ UAT BASE URL: *https://identity-uat.becn.com/auth/realms/master/protocol/openid-connect/token* ]
+
+
+        [ DEV BASE URL: *https://identity-dev.becn.com/auth/realms/master/protocol/openid-connect/token* ]
+
+
+        ### Request body: required
+
+        * GAFOrderNumber: required'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GAFQuickMeasureCallback_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GAFQuickMeasureCallback_res'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: postQuickMeasureCallback
+      x-operation-id-source: derived
+  /quickMeasure/siteStatus:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - GAF Quick Measure Services
+      summary: Get the GAF site status
+      responses:
+        '200':
+          description: 'successful operation
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GAFGetStatus_res'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal exception
+      operationId: getQuickMeasureSiteStatus
+      x-operation-id-source: derived
+components:
+  schemas:
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    SiteStatus:
+      type: object
+      properties:
+        siteStatus:
+          type: string
+          description: Open or Closed
+        siteAverageResponseTime:
+          type: number
+          description: current average response time for processing the reports in minutes.
+        siteAverageResponseTimeMFCommercial:
+          type: number
+    GAFPlaceReportOrder_res:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
+          type: boolean
+        result:
+          type: object
+        GAFOrderNumber:
+          type: string
+    GAFPlaceReportOrder_req_product:
+      type: object
+      properties:
+        productCode:
+          type: string
+        additionalInformation:
+          type: array
+          items:
+            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product_additionalInfo'
+    GAFQuickMeasureCallback_res:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
+          type: boolean
+        result:
+          type: object
+    GAFPlaceReportOrder_req_serverRes:
+      type: object
+      properties:
+        Server:
+          type: string
+        ServerReference:
+          type: string
+        Timestamp:
+          type: string
+        Response:
+          $ref: '#/components/schemas/GAFPlaceReportOrder_req_serverRes_res'
+    GAFPlaceReportOrder_req_product_additionalInfo:
+      type: object
+      properties:
+        questioncode:
+          type: string
+        question:
+          type: string
+        answer:
+          type: string
+    GAFPlaceReportOrder_req_serverRes_res:
+      type: object
+      properties:
+        TaskId:
+          type: string
+        Done:
+          type: boolean
+        Obstructed:
+          type: boolean
+        Area:
+          type: string
+        Facets:
+          type: string
+        Pitch:
+          type: string
+        Eaves:
+          type: string
+        Hips:
+          type: string
+        Rakes:
+          type: string
+        Ridges:
+          type: string
+        Bends:
+          type: string
+        Flash:
+          type: string
+        Step:
+          type: string
+        DripEdge:
+          type: string
+        LeakBarrier:
+          type: string
+        RidgeCap:
+          type: string
+        Starter:
+          type: string
+        Parapets:
+          type: string
+        Valleys:
+          type: number
+        Problem:
+          type: string
+        ModelUrl:
+          type: string
+        CoverUrl:
+          type: string
+        DiagramUrl:
+          type: string
+        ReportUrl:
+          type: string
+        AcculynxUrl:
+          type: string
+        HomeownerUrl:
+          type: string
+        VerticalImageUrl:
+          type: string
+        NorthImageUrl:
+          type: string
+        EastImageUrl:
+          type: string
+        SouthImageUrl:
+          type: string
+        WestImageUrl:
+          type: string
+        DxfUrl:
+          type: string
+        CobraExhaustVentFeet:
+          type: number
+        CobraIntakeVentFeet:
+          type: number
+        DeckArmorRolls:
+          type: number
+        HoleArea:
+          type: number
+        HoleCount:
+          type: number
+        HolePerimeter:
+          type: number
+        LibertyBaseRolls:
+          type: number
+        LibertyCapRolls:
+          type: number
+        MasterFlowDomeVents:
+          type: number
+        MasterFlowLouverVents:
+          type: number
+        ProStartBundles:
+          type: number
+        QuickStartRolls:
+          type: number
+        SealARidgeBundles:
+          type: number
+        ShingleMateRolls:
+          type: number
+        StormGuardRolls:
+          type: number
+        SuggestedWaste:
+          type: number
+        TimberCrestBoxes:
+          type: number
+        TimberlineBundles:
+          type: number
+        TimberTexBundles:
+          type: number
+        VersaShieldRolls:
+          type: number
+        WeatherBlockerBundles:
+          type: number
+        WeatherWatchRolls:
+          type: number
+        ZRidgeBundles:
+          type: number
+        PitchToArea:
+          type: string
+        Buildings:
+          type: string
+    GAFQuickMeasureCallback_req_additionalProduct:
+      type: object
+      properties:
+        ProductCode:
+          type: string
+        Report:
+          type: string
+        Assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product'
+    GAFQuickMeasureCallback_req_roofMeasurement_Assets:
+      type: object
+      properties:
+        Report:
+          type: string
+        Cover:
+          type: string
+        Diagram:
+          type: string
+        Acculynx:
+          type: string
+        HomeownerReport:
+          type: string
+        Report3D:
+          type: string
+        DxfUrl:
+          type: string
+        VerticalImage:
+          type: string
+        NorthImage:
+          type: string
+        EastImage:
+          type: string
+        SouthImage:
+          type: string
+        WestImage:
+          type: string
+    GAFQuickMeasureCallback_req:
+      type: object
+      properties:
+        SubscriberOrderNumber:
+          type: string
+        GAFOrderNumber:
+          type: string
+        SubscriberCustomField1:
+          type: string
+        Subscriber:
+          type: string
+        SubscriberReference:
+          type: string
+        Vendor:
+          type: string
+        VendorReference:
+          type: string
+        RoofMeasurement:
+          $ref: '#/components/schemas/GAFQuickMeasureCallback_req_roofMeasurement'
+    GAFQuickMeasureCallback_req_roofMeasurement:
+      type: object
+      properties:
+        Area:
+          type: number
+        Eaves:
+          type: number
+        Hips:
+          type: number
+        Rakes:
+          type: number
+        Ridges:
+          type: number
+        Valleys:
+          type: number
+        Facets:
+          type: number
+        Pitch:
+          type: string
+        Assets:
+          $ref: '#/components/schemas/GAFQuickMeasureCallback_req_roofMeasurement_Assets'
+        Bends:
+          type: number
+        Flash:
+          type: number
+        Step:
+          type: number
+        DripEdge:
+          type: number
+        LeakBarrier:
+          type: number
+        RidgeCap:
+          type: number
+        Starter:
+          type: number
+        Parapets:
+          type: number
+        CobraExhaustVentFeet:
+          type: string
+        CobraIntakeVentFeet:
+          type: string
+        DeckArmorRolls:
+          type: string
+        HoleArea:
+          type: string
+        HoleCount:
+          type: string
+        HolePerimeter:
+          type: string
+        LibertyBaseRolls:
+          type: string
+        LibertyCapRolls:
+          type: string
+        MasterFlowDomeVents:
+          type: string
+        MasterFlowLouverVents:
+          type: string
+        ProStartBundles:
+          type: string
+        QuickStartRolls:
+          type: string
+        SealARidgeBundles:
+          type: string
+        ShingleMateRolls:
+          type: string
+        StormGuardRolls:
+          type: string
+        SuggestedWaste:
+          type: string
+        TimberCrestBoxes:
+          type: string
+        TimberlineBundles:
+          type: string
+        TimberTexBundles:
+          type: string
+        VersaShieldRolls:
+          type: string
+        WeatherBlockerBundles:
+          type: string
+        WeatherWatchRolls:
+          type: string
+        ZRidgeBundles:
+          type: string
+        PitchToArea:
+          type: string
+        Buildings:
+          type: string
+        AdditionalProduct:
+          $ref: '#/components/schemas/GAFQuickMeasureCallback_req_additionalProduct'
+        TrackingId:
+          type: string
+        ServerResponses:
+          type: array
+          items:
+            $ref: '#/components/schemas/GAFPlaceReportOrder_req_serverRes'
+        ProblemCode:
+          type: string
+    GAFGetStatus_res:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/SiteStatus'
+    GAFPlaceReportOrder_req:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        subscriberName:
+          type: string
+        subscriberOrderNumber:
+          type: string
+        subscriberCustomField1:
+          type: string
+        emailAddress:
+          type: string
+        productCode:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        stateOrProvince:
+          type: string
+        postalCode:
+          type: string
+        fipscode:
+          type: string
+        county:
+          type: string
+        country:
+          type: string
+        latitude:
+          type: string
+        longitude:
+          type: string
+        fullAddress:
+          type: string
+        recipientEmailAddresses:
+          type: string
+        instructions:
+          type: string
+        isServiceOpen:
+          type: boolean
+        susbcriberId:
+          type: number
+        ignoreCache:
+          type: boolean
+        trackingId:
+          type: string
+        checkForDuplicate:
+          type: boolean
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product'
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

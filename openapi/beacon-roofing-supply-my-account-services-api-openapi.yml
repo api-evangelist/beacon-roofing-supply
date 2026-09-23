@@ -1,0 +1,2864 @@
+openapi: 3.2.0
+info:
+  title: Beacon Roofing Supply My Account Services API
+  version: '1.0'
+  description: 'Operations tagged My Account Services across 3 of this provider''s published API definitions: beacon-roofing-supply-internal-openapi.yml, beacon-roofing-supply-v2-openapi.yml, beacon-roofing-supply-v3-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
+- url: https://beaconproplus.com/v3/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of the all_api spec: ''Version 3: https://beaconproplus.com/v3/rest/com/becn''; probed 2026-09-04 -> 401 JSON envelope'
+tags:
+- name: My Account Services
+paths:
+  /deleteUser:
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - My Account Services
+      summary: delete BPP user from database
+      description: 'login: The "login name" of the BPP user.
+
+
+        email: The "email address" of the BPP user.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteUserReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postDeleteUser
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
+  /deleteInternalUser:
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - My Account Services
+      summary: delete BCC user from database
+      description: 'login: The "user name" of the BCC user.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteInternalUserReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postDeleteInternalUser
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
+  /hoverExplicitLogin:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Hover Explicit Login
+      description: This service can do Hover explicit login for user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/hoverExplicitLogin_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hoverExplicitLogin_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postHoverExplicitLogin
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getCurrentUserInfo:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Get current user details
+      description: 'This service returns current user information.
+
+
+        `dtAccount` is the deliveryTrackingSettings of current user with last selected account,
+
+
+        `roleType` is one of "Master Admin","Admin",and "Site User"
+
+
+        `isEVrefreshTokenValid` is one of "true", "false", and "null". If the value is "null", it indicates that the user does not have a private okta token.'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getCurrentUserInfoRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetCurrentUserInfo
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getUserInfo:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Get current user computed permissions and custom account info
+      description: This service returns current user and custom account information.
+      parameters:
+      - in: query
+        name: accountId
+        required: false
+        description: This is optional
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getUserInfoRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetUserInfo
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /saveCurrentUserInfo:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Save current user details
+      description: This service can save or update current user information.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/saveCurrentUserInfoReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postSaveCurrentUserInfo
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getCurrentUserPermission:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Get current user permissions
+      description: 'This service will returns all the permissions of current user, the
+
+        "original" presents the original permission, the "computed" presents the
+
+        computed permission by one or more original permission.'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getCurrentUserPermissionRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetCurrentUserPermission
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getAddressBook:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Get current user address book
+      description: This service will returns the addressbook of current user by given address book ids(if empty, will return all the address book)
+      parameters:
+      - in: query
+        name: addressBookIds
+        description: Address Book ID List, if empty, will return all the address book
+        schema:
+          type: string
+      - in: query
+        name: pageSize
+        description: Default page size is 20, the value only take affect when filter by searchBy and searchTerm.
+        schema:
+          type: string
+      - in: query
+        name: pageNo
+        description: Default page no is 1, the value only take affect when filter by searchBy and searchTerm.
+        schema:
+          type: string
+      - in: query
+        name: searchBy
+        schema:
+          type: string
+        description: '
+
+          ##### searchBy enumeration
+
+
+          * addressBookIds
+
+          * accountNumber
+
+          '
+      - in: query
+        name: searchTerm
+        schema:
+          type: string
+        description: '
+
+          ##### When ''searchBy'' is one of the following enumeration, the ''searchTerm'' should be populated
+
+          * addressBookIds
+
+          * accountNumber
+
+          '
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value": "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAddressBookRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetAddressBook
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /createAddressBook:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Create new address book
+      description: This service can create new address book for current user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createAddressBookReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value": "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createAddressBookRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postCreateAddressBook
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /updateAddressBook:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Update exist address book
+      description: This service can update exist address book of current user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateAddressBookReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value": "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateAddressBookRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateAddressBook
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /deleteAddressBook:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Delete exist address book
+      description: This service can delete exist address book of current user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteAddressBookReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value": "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteAddressBookRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postDeleteAddressBook
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /changePassword:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Change password
+      description: This service can change the password of current user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/changePassword_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value": "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/changePassword_rep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postChangePassword
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /setPassword:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Set password
+      description: The service can only set password for new users.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/setPassword_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value": "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/setPassword_rep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postSetPassword
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /resetPassword:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Reset password
+      description: This service can reset the password for existing user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/setPassword_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value": "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/setPassword_rep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postResetPassword
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /forgotPassword:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Forgot password
+      description: This service can send forgot password email to current user by user login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/forgotPassword_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value": "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forgotPassword_rep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postForgotPassword
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /user:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Get user list
+      description: 'This service will list all the users.
+
+
+        The available values for op field are eq, ne, contains, not_contains,
+
+        start_with, end_with, not_start_with and not_end_with.
+
+
+        Request sample:
+
+
+        {
+
+        "orgId":"100001",
+
+        "query":{
+
+        "or": [{
+
+        "op":"eq",
+
+        "property": "email",
+
+        "value": "abc@example.com"
+
+        },
+
+        {
+
+        "op":"end_with",
+
+        "property": "email",
+
+        "value": "@example.com"
+
+        }],
+
+        "and": [{
+
+        "op":"eq",
+
+        "property": "email",
+
+        "value": "abc@example.com"
+
+        },
+
+        {
+
+        "op":"end_with",
+
+        "property": "email",
+
+        "value": "@example.com"
+
+        }],
+
+        "sortBy":"lastModifiedDate",
+
+        "sortType":"desc",
+
+        "pageIndex":1,
+
+        "pageSize":10
+
+        }
+
+        }'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not have permission to access this API, only master admin user or admin user has permission to access
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUser
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getUserDetail:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Get user detail
+      description: This service returns user details.
+      parameters:
+      - in: query
+        name: id
+        description: User ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getUserDetail_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not have permission to access this API, only master admin user or admin user has permission to access
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetUserDetail
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /createUser:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Create user
+      description: 'This service can create user.
+
+
+        #### currentTemplate enumeration
+
+
+        * "Default Role Template"
+
+
+        * "Customized Permission"
+
+
+        * any other string value
+
+
+        When `currentTemplate` is "Default Role Template", will use the default
+
+        role permission as user permission values
+
+
+        When `currentTemplate` is "Customized Permission", the
+
+        `permissionValues` field will be required, and will use given
+
+        "permissionValues" as user permission values
+
+
+        When `currentTemplate` is any other string value, the
+
+        `permissionTemplate.templateId` field will be required, and will use the
+
+        permissions of given permission template as user permission values
+
+
+        #### status enumeration
+
+
+        * "Active"
+
+
+        * "InActive"'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createUser_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createUser_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not have permission to access this API, only master admin user or admin user has permission to access
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postCreateUser
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /updateUser:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Update user
+      description: 'This service can update exist user.
+
+
+        #### currentTemplate enumeration
+
+
+        * "Default Role Template"
+
+
+        * "Customized Permission"
+
+
+        * any other string value
+
+
+        When `currentTemplate` is "Default Role Template", will use the default
+
+        role permission as user permission values
+
+
+        When `currentTemplate` is "Customized Permission", the
+
+        `permissionValues` field will be required, and will use given
+
+        "permissionValues" as user permission values
+
+
+        When `currentTemplate` is any other string value, the
+
+        `permissionTemplate.templateId` field will be required, and will use the
+
+        permissions of given permission template as user permission values
+
+
+        #### status enumeration
+
+
+        * "Active"
+
+
+        * "InActive"'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateUser_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not have permission to access this API, only master admin user or admin user has permission to access
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateUser
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /organization:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Get organization list
+      description: This service returns organization list.
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organization_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not have permission to access this API, only master admin user or admin user has permission to access
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getOrganization
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /role:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Get role list
+      description: This service returns role list
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/role_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not have permission to access this API, only master admin user or admin user has permission to access
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getRole
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /permissionTemplateList:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Get permission template list
+      description: 'This service returns permission template list
+
+
+        sortBy enum:
+
+        * name
+
+        * lastModifiedDate
+
+
+        sortType enum:
+
+        * asc
+
+        * desc'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/permissionTemplateList_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/permissionTemplateList_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not have permission to access this API, only master admin user or admin user has permission to access
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postPermissionTemplateList
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getPermissionTemplateDetail:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Get permission template detail
+      description: This service returns permission template detail
+      parameters:
+      - in: query
+        name: templateId
+        description: Permission Template ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getPermissionTemplateDetail_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not have permission to access this API, only master admin user or admin user has permission to access
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postGetPermissionTemplateDetail
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /createPermissionTemplate:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Create permission template
+      description: This service can create permission template
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createPermissionTemplate_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createPermissionTemplate_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not have permission to access this API, only master admin user or admin user has permission to access
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postCreatePermissionTemplate
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /updatePermissionTemplate:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Update permission template
+      description: This service can update permission template
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updatePermissionTemplate_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not have permission to access this API, only master admin user or admin user has permission to access
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdatePermissionTemplate
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /deletePermissionTemplate:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - My Account Services
+      summary: Delete permission template
+      description: This service can delete permission template
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deletePermissionTemplate_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not have permission to access this API, only master admin user or admin user has permission to access
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postDeletePermissionTemplate
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /updateMobileDevice:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - My Account Services
+      summary: update user account mobile device token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateMobileDeviceReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postUpdateMobileDevice
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /deleteMobileDevice:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - My Account Services
+      summary: Delete user account mobile device token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteMobileDeviceTokenReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postDeleteMobileDevice
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /deleteAccount:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - My Account Services
+      summary: Delete account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                phoneNumber:
+                  type: string
+                accountNumber:
+                  type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to messageCode doc.
+
+
+            Example
+
+
+            { "messageCode": "1001", "message": "Validation exception" }
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messageInfo:
+                    type: string
+                    example: Delete account successful
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: postDeleteAccount
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /shareDeliveryPhotos:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - My Account Services
+      summary: Share Delivery Photos to gaven emails
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/shareDeliveryPhotos_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: postShareDeliveryPhotos
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getAccountOSRAndBMInfo:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - My Account Services
+      summary: Get the OSR and BM info for the given account
+      parameters:
+      - in: query
+        name: accountId
+        required: true
+        description: Account ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAccountOSRAndBMInfo_rep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: postGetAccountOSRAndBMInfo
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getAssignedEnterpriseAccounts:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - My Account Services
+      summary: Get the assigned enterprise accounts
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAssignedEnterpriseAccounts_rep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: getGetAssignedEnterpriseAccounts
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+components:
+  schemas:
+    deleteUserReq:
+      type: object
+      properties:
+        login:
+          type: string
+        email:
+          type: string
+    deleteInternalUserReq:
+      type: object
+      properties:
+        login:
+          type: string
+    addressBookInfoObj_CU:
+      type: object
+      properties:
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        countryValue:
+          type: string
+        phoneNumber:
+          type: string
+    currentUserPermissionObj:
+      type: object
+      properties:
+        Place Order:
+          type: object
+          example:
+            true: true
+            false: false
+            Yes, with Approval: false
+        Price:
+          type: object
+          example:
+            true: true
+            false: false
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    getPermissionTemplateDetail_rep:
+      $ref: '#/components/schemas/BCPermissionTemplateObj_getPermissionTemplateDetail'
+    createAddressBookRep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+        addressBookId:
+          type: string
+    deleteMobileDeviceTokenReq:
+      type: object
+      properties:
+        deviceTokens:
+          type: array
+          items:
+            type: string
+    accountOSRAndBMInfo_emailInfoObj:
+      type: object
+      properties:
+        fullName:
+          type: string
+        emailAddess:
+          type: string
+        phoneNumber:
+          type: string
+    deleteAddressBookReq:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+    updateUser_req:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+          pattern: ^\d{10}$
+          example: 1234567890
+        role:
+          type: object
+          properties:
+            id:
+              type: string
+        accounts:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              checked:
+                type: boolean
+        status:
+          type: string
+        currentTemplate:
+          type: string
+        permissionTemplate:
+          type: object
+          properties:
+            templateId:
+              type: string
+        permissionValues:
+          type: string
+          additionalProperties:
+            type: boolean
+          example:
+            '100001': true
+            '100002': true
+            '100003': false
+    updatePermissionTemplate_req:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        permissionValues:
+          type: string
+          additionalProperties:
+            type: boolean
+          example:
+            '100001': true
+            '100002': true
+            '100003': false
+    forgotPassword_req:
+      type: object
+      properties:
+        login:
+          type: string
+    BCUserObj:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        role:
+          $ref: '#/components/schemas/BCRoleObj'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCAccountObj'
+        assignedAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCAccountObj'
+        lastActivity:
+          type: string
+        lastModifiedDate:
+          type: string
+        status:
+          type: string
+        permissionValues:
+          type: string
+          additionalProperties:
+            type: boolean
+          example:
+            aa: true
+            bb: true
+            cc: false
+        permissionTemplate:
+          $ref: '#/components/schemas/BCPermissionTemplateObj'
+        active:
+          type: boolean
+        currentTemplate:
+          type: string
+        org:
+          $ref: '#/components/schemas/BCOrgObj'
+        lastModifiedUserId:
+          type: string
+        userIsSelf:
+          type: boolean
+        internalUser:
+          type: string
+        userType:
+          type: string
+        rewardsEligible:
+          type: boolean
+    user_rep:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCUserObj_user'
+    branchAddressObj:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+    changePassword_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    BCUserObj_user:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        lastActivity:
+          type: string
+        lastModifiedDate:
+          type: string
+        status:
+          type: string
+        rewardsEligible:
+          type: boolean
+    accountOSRAndBMInfo:
+      type: object
+      properties:
+        OSRList:
+          type: array
+          items:
+            $ref: '#/components/schemas/accountOSRAndBMInfo_emailInfoObj'
+        BMList:
+          type: array
+          items:
+            $ref: '#/components/schemas/accountOSRAndBMInfo_emailInfoObj'
+    deletePermissionTemplate_req:
+      type: object
+      properties:
+        templateId:
+          type: string
+    hoverExplicitLogin_req:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        uuid:
+          type: string
+        ua:
+          type: string
+          enum:
+          - desktop
+          - mobile
+        siteId:
+          type: string
+          enum:
+          - homeSite
+          - dealerchoice
+        persistentLoginType:
+          type: string
+          enum:
+          - RememberMe
+          - RememberPassword
+        userAgent:
+          type: string
+          enum:
+          - desktop
+          - tablet
+          - mobile
+    BCPermissionObj:
+      type: object
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        groupId:
+          type: string
+        name:
+          type: string
+        displayName:
+          type: string
+        type:
+          type: string
+        isAuthorised:
+          type: boolean
+        isDisabled:
+          type: boolean
+        isFixed:
+          type: boolean
+    getUserDetail_rep:
+      $ref: '#/components/schemas/BCUserObj_getUserDetail'
+    updateAddressBookReq:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        addressBookInfo:
+          $ref: '#/components/schemas/addressBookInfoObj_CU'
+    saveCurrentUserInfoReq:
+      type: object
+      properties:
+        title:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        contactPhoneNumber:
+          type: string
+        officePhoneNumber:
+          type: string
+        mobilePhoneNumber:
+          type: string
+        subscribeOrder:
+          type: boolean
+        subscribeQuote:
+          type: boolean
+        subscribeAccount:
+          type: boolean
+    getAccountOSRAndBMInfo_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/accountOSRAndBMInfo'
+    getUserInfoRep:
+      type: object
+      properties:
+        messages:
+          type: string
+        profileId:
+          type: string
+        permission:
+          type: object
+          additionalProperties:
+            type: object
+          example:
+            price: true
+            order:
+              submit: true
+              submitForApproval: true
+              approve: true
+              checkoutShippingAddress: true
+              checkoutOrderReview: true
+              checkoutOrderConfirmation: true
+            orderhistory:
+              queryList: true
+              queryDetail: true
+              withPrice: true
+              withoutPrice: false
+            quote:
+              edit: true
+              upload: true
+              submit: true
+              update: true
+              submitForm: true
+              queryList: true
+              queryListOpen: true
+              queryListInProgress: true
+              queryListProcessed: true
+              queryDetailOpen: true
+              queryDetailInProgress: true
+              queryDetailProcessed: true
+            rebate:
+              submit: true
+              landing: true
+              form: true
+              redeemedSummary: true
+              redeemedDetail: true
+            upcomingDelivery: true
+            nonAppDeliveryNotification: true
+            mobileDeliveryNotification: true
+        account:
+          type: object
+          properties:
+            accountLegacyId:
+              type: string
+            accountViewPrices:
+              type: boolean
+            isAccountClosed:
+              type: boolean
+            gafQuickMeasureFlag:
+              type: boolean
+            branch:
+              type: object
+              properties:
+                branchNumber:
+                  type: string
+                branchRegionId:
+                  type: string
+                market:
+                  type: string
+    changePassword_req:
+      type: object
+      properties:
+        oldPassword:
+          type: string
+        password:
+          type: string
+        confirmpassword:
+          type: string
+    BCAccountObj:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        checked:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+    hoverExplicitLogin_rep:
+      type: object
+      properties:
+        nextUrl:
+          type: string
+    user_req:
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/QueryConditionObj'
+    accountObj:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+        canAccessEVSmartOrder:
+          type: boolean
+        customerType:
+          $ref: '#/components/schemas/customerType'
+        hasMincronRebate:
+          type: boolean
+        loyaltyEnrolled:
+          type: boolean
+        nationalAccount:
+          type: boolean
+        loyaltyFlag:
+          type: boolean
+        gafQuickMeasureFlag:
+          type: boolean
+    permissionTemplateList_rep:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        permssionTemplate:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionTemplateObj'
+    BCPermissionTemplateObj:
+      type: object
+      properties:
+        name:
+          type: string
+        templateId:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionGroupObj'
+        lastModifiedDate:
+          type: string
+        userEmail:
+          type: string
+        org:
+          $ref: '#/components/schemas/BCOrgObj'
+    QueryConditionObj:
+      type: object
+      properties:
+        or:
+          type: array
+          items:
+            $ref: '#/components/schemas/termObj'
+        and:
+          type: array
+          items:
+            $ref: '#/components/schemas/termObj'
+        sortBy:
+          type: string
+        sortType:
+          type: string
+        pageIndex:
+          type: integer
+        pageSize:
+          type: integer
+    BCRoleObj:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionGroupObj'
+    contactInfoObj:
+      type: object
+      properties:
+        email:
+          type: string
+        lastName:
+          type: string
+        firstName:
+          type: string
+        phoneNumber:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+    getAssignedEnterpriseAccounts_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/enterpriseAccount'
+    BCOrgObj:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        masterAdmin:
+          $ref: '#/components/schemas/BCUserObj'
+    createUser_req:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        role:
+          type: object
+          properties:
+            id:
+              type: string
+        accounts:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              checked:
+                type: boolean
+        status:
+          type: string
+        currentTemplate:
+          type: string
+        permissionTemplate:
+          type: object
+          properties:
+            templateId:
+              type: string
+        permissionValues:
+          type: string
+          additionalProperties:
+            type: boolean
+          example:
+            '100001': true
+            '100002': true
+            '100003': false
+    branchObj:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/branchAddressObj'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+        branchDTEnabled:
+          type: boolean
+        active:
+          type: boolean
+        activeToSendEmail:
+          type: boolean
+        corporateBranch:
+          type: boolean
+        mincronBranchStatus:
+          type: string
+        canAccessEVSmartOrderOnBranch:
+          type: boolean
+        guidedOrder:
+          type: boolean
+    updateMobileDeviceReq:
+      type: object
+      properties:
+        deviceToken:
+          $ref: '#/components/schemas/deviceTokenObj'
+    enterpriseAccount:
+      type: object
+      properties:
+        enterpriseAccountLegacyId:
+          type: string
+        enterpriseAccountName:
+          type: string
+        childAccounts:
+          type: array
+          items:
+            type: object
+            properties:
+              accountLegacyId:
+                type: string
+              accountName:
+                type: string
+    deliveryTrackingSettingsObj_getCurrentUserInfo:
+      type: object
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+        myOrders:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            requested: Text
+            scheduled: Email
+            delivered: Text&Email
+        allOrders:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            requested: Text
+            scheduled: Email
+            delivered: Text&Email
+        dtAccount:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            requested: Text
+            scheduled: Email
+            delivered: Text&Email
+    getAddressBookRep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        addressBooks:
+          type: array
+          items:
+            type: object
+            properties:
+              addressBookId:
+                type: string
+              accountLegacyId:
+                type: string
+              accountName:
+                type: string
+              addressBookInfo:
+                $ref: '#/components/schemas/addressBookInfoObj_R'
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    BCPermissionTemplateObj_getPermissionTemplateDetail:
+      type: object
+      properties:
+        name:
+          type: string
+        templateId:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionGroupObj'
+        lastModifiedDate:
+          type: string
+        userEmail:
+          type: string
+        org:
+          $ref: '#/components/schemas/BCOrgObj_getPermissionTemplateDetail'
+    deviceTokenObj:
+      type: object
+      properties:
+        accountId:
+          type: string
+        tokens:
+          type: array
+          items:
+            type: string
+        email:
+          type: string
+    BCUserObj_getPermissionTemplateDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+    customerType:
+      type: object
+      properties:
+        name:
+          type: string
+        realm:
+          type: string
+        isDefault:
+          type: boolean
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    addressBookInfoObj_R:
+      type: object
+      properties:
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        countryValue:
+          type: string
+        phoneNumber:
+          type: string
+    shareDeliveryPhotos_req:
+      type: object
+      properties:
+        orderNumber:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+    createPermissionTemplate_req:
+      type: object
+      properties:
+        name:
+          type: string
+        permissionValues:
+          type: string
+          additionalProperties:
+            type: boolean
+          example:
+            '100001': true
+            '100002': true
+            '100003': false
+    permissionTemplateList_req:
+      type: object
+      properties:
+        sortBy:
+          type: string
+        sortType:
+          type: string
+        pageIndex:
+          type: integer
+        pageSize:
+          type: integer
+    getCurrentUserInfoRep:
+      type: object
+      properties:
+        messages:
+          type: string
+        accountBranch:
+          $ref: '#/components/schemas/branchObj'
+        lastName:
+          type: string
+        cartLineItems:
+          type: integer
+        profileId:
+          type: string
+        firstName:
+          type: string
+        email:
+          type: string
+        login:
+          type: string
+        internalUser:
+          type: boolean
+        userType:
+          type: string
+        roleType:
+          type: string
+        rewardsEligible:
+          type: boolean
+        lastActivity:
+          type: string
+        lastPasswordUpdate:
+          type: string
+        registrationDate:
+          type: string
+        firstLoggedInDate:
+          type: string
+        defaultOrganization:
+          type: string
+        defaultOrganizationId:
+          type: string
+        lastSelectedAccount:
+          $ref: '#/components/schemas/accountObj'
+        deliveryTrackingSettings:
+          $ref: '#/components/schemas/deliveryTrackingSettingsObj_getCurrentUserInfo'
+        title:
+          type: string
+        contactPhoneNumber:
+          type: string
+        officePhoneNumber:
+          type: string
+        mobilePhoneNumber:
+          type: string
+        subscribeEmailType:
+          type: object
+          additionalProperties:
+            type: boolean
+          example:
+            subscribeOrder: true
+            subscribeAccount: true
+            subscribeQuote: true
+        contactAddress:
+          $ref: '#/components/schemas/contactInfoObj'
+        declineNotificationEmail:
+          type: boolean
+        userAccounts:
+          type: array
+          items:
+            type: string
+        hasPrivateEVAccount:
+          type: boolean
+        profileEagleViewPurchaseStatus:
+          type: boolean
+        deviceTokens:
+          type: array
+          items:
+            type: string
+        appLogin:
+          type: boolean
+        appLastPurchaseDate:
+          type: string
+        proPlusLastPurchaseDate:
+          type: string
+        lastProPlusMobileAppLogin:
+          type: string
+        notificationDisableStatus:
+          type: boolean
+        notificationChangeTime:
+          type: string
+        currentUserPermission:
+          $ref: '#/components/schemas/currentUserPermissionObj'
+        hasEnterpriseAccount:
+          type: boolean
+        isEVrefreshTokenValid:
+          type: boolean
+        loyaltyFlag:
+          type: boolean
+    deleteAddressBookRep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    termObj:
+      type: object
+      properties:
+        op:
+          type: string
+        property:
+          type: string
+        value:
+          type: object
+    createPermissionTemplate_rep:
+      type: object
+      properties:
+        templateId:
+          type: string
+    BCPermissionGroupObj:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionObj'
+        isGroup:
+          type: boolean
+    updateAddressBookRep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    forgotPassword_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    getCurrentUserPermissionRep:
+      type: object
+      properties:
+        original:
+          type: object
+          additionalProperties:
+            type: object
+          example:
+            Price:
+              'Yes': true
+              'No': false
+            Approve Orders:
+              'Yes': true
+              'No': false
+            Place Order:
+              'Yes': true
+              'No': false
+              Yes, with Approval: false
+            Order History:
+              Yes, Without Pricing: false
+              Yes, With Pricing: true
+              'No': false
+            Quotes:
+              View: true
+              Manage: true
+              'No': false
+            Rebates:
+              View: false
+              Manage: true
+              'No': false
+            Upcoming Delivery:
+              'Yes': true
+              'No': false
+            Non-App Delivery Notification:
+              'Yes': true
+              'No': false
+            Mobile Delivery Notification:
+              'Yes': true
+              'No': false
+        computed:
+          type: object
+          additionalProperties:
+            type: object
+          example:
+            price: true
+            order:
+              submit: true
+              submitForApproval: true
+              approve: true
+              checkoutShippingAddress: true
+              checkoutOrderReview: true
+              checkoutOrderConfirmation: true
+            orderhistory:
+              queryList: true
+              queryDetail: true
+              withPrice: true
+              withoutPrice: false
+            quote:
+              edit: true
+              upload: true
+              submit: true
+              update: true
+              submitForm: true
+              queryList: true
+              queryListOpen: true
+              queryListInProgress: true
+              queryListProcessed: true
+              queryDetailOpen: true
+              queryDetailInProgress: true
+              queryDetailProcessed: true
+            rebate:
+              submit: true
+              landing: true
+              form: true
+              redeemedSummary: true
+              redeemedDetail: true
+            upcomingDelivery: true
+            nonAppDeliveryNotification: true
+            mobileDeliveryNotification: true
+    createAddressBookReq:
+      $ref: '#/components/schemas/addressBookInfoObj_CU'
+    BCUserObj_getUserDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        role:
+          $ref: '#/components/schemas/BCRoleObj'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCAccountObj'
+        assignedAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCAccountObj'
+        lastActivity:
+          type: string
+        lastModifiedDate:
+          type: string
+        status:
+          type: string
+        permissionTemplate:
+          $ref: '#/components/schemas/BCPermissionTemplateObj'
+        active:
+          type: boolean
+        currentTemplate:
+          type: string
+        org:
+          $ref: '#/components/schemas/BCOrgObj'
+        lastModifiedUserId:
+          type: string
+        userIsSelf:
+          type: boolean
+        internalUser:
+          type: string
+        userType:
+          type: string
+        rewardsEligible:
+          type: boolean
+    setPassword_req:
+      type: object
+      properties:
+        password:
+          type: string
+        confirmpassword:
+          type: string
+        passwordtoken:
+          type: string
+    BCOrgObj_getPermissionTemplateDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        masterAdmin:
+          $ref: '#/components/schemas/BCUserObj_getPermissionTemplateDetail'
+    setPassword_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    organization_rep:
+      $ref: '#/components/schemas/BCOrgObj'
+    createUser_rep:
+      type: object
+      properties:
+        userId:
+          type: string
+    role_rep:
+      $ref: '#/components/schemas/BCRoleObj'
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+  securitySchemes:
+    internalAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+x-refined-from:
+- beacon-roofing-supply-internal-openapi.yml
+- beacon-roofing-supply-v2-openapi.yml
+- beacon-roofing-supply-v3-openapi.yml

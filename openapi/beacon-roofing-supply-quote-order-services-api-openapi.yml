@@ -1,0 +1,1269 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Quote Order Services API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Quote Order Services
+paths:
+  /queryQuoteStatus:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Quote Order Services
+      summary: Query quote status
+      description: This service can get quote status, includes 'expires','quoteNotesEditable','rejectEnable','reviseEnable','copyOrderEnable','approveEnable','finalizeOrderEnable'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/queryQuoteStatus_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/queryQuoteStatus_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postQueryQuoteStatus
+      x-operation-id-source: derived
+  /convertQuoteOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Quote Order Services
+      summary: Convert quote to quote order
+      description: This service can convert quote to quote order
+      parameters:
+      - in: query
+        name: quoteId
+        description: Mincron quote id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: mergeWithUpdate
+        description: Decide copy from original or keep the update with passing this flag. It’s true by default
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postConvertQuoteOrder
+      x-operation-id-source: derived
+  /getQuoteOrderDetail:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Quote Order Services
+      summary: Get quote order detail
+      description: This service can get quote order detail
+      parameters:
+      - in: query
+        name: orderId
+        description: Quote order id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getQuoteOrderDetail_req'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetQuoteOrderDetail
+      x-operation-id-source: derived
+  /updateQuoteOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Quote Order Services
+      summary: Update quote order
+      description: 'This service can update quote order, such as modifying quote order items.
+
+        ## Request body: required
+
+        * id: required, ATG quote order id
+
+        * action: required
+
+        ## items: required
+
+        ### action is ''CREATE_ITEM''
+
+        * itemNumber: required
+
+        * quantity: required
+
+        * uom: optional
+
+        * matchColor: optional, format: "vendor color name(code)", e.g. "Gunmetal Grey(010)" or just "vendor color name", e.g. "Gunmetal Grey"
+
+        * matchMFG: optional
+
+        ### Example:
+
+        {
+
+        "id":"27200001",
+
+        "action":"create_item",
+
+        "commerceItems":[
+
+        {
+
+        "quantity":11,
+
+        "itemNumber":"292490",
+
+        "uom":"AB",
+
+        "matchColor":"",
+
+        "matchMFG":""
+
+        },
+
+        {
+
+        "quantity":22,
+
+        "itemNumber":"292490",
+
+        "uom":"AB",
+
+        "matchColor":"",
+
+        "matchMFG":""
+
+        },
+
+        {
+
+        "quantity":123,
+
+        "itemNumber":"473295",
+
+        "uom":"CD",
+
+        "matchColor":"",
+
+        "matchMFG":""
+
+        }
+
+        ]
+
+        }
+
+
+        ### action is ''UPDATE_ITEM''
+
+        * id: required, ATG quote order item id
+
+        * itemNumber: optional
+
+        * quantity: optional
+
+        * uom: optional
+
+        * matchColor: optional, format: "vendor color name(code)", e.g. "Gunmetal Grey(010)" or just "vendor color name", e.g. "Gunmetal Grey"
+
+        * matchMFG: optional
+
+        * for additional item only quantity can be changed
+
+        ### Example:
+
+        {
+
+        "id":"27200001",
+
+        "displayName": "GAF Z-Ridge",
+
+        "action":"update_item",
+
+        "commerceItems":[
+
+        {
+
+        "id":600001,
+
+        "quantity":444,
+
+        "itemNumber":"292490",
+
+        "uom":"AB1",
+
+        "matchColor":"",
+
+        "matchMFG":""
+
+        },
+
+        {
+
+        "id":600002,
+
+        "quantity":555,
+
+        "itemNumber":"473295",
+
+        "uom":"CD2",
+
+        "matchColor":"",
+
+        "matchMFG":""
+
+        },
+
+        {
+
+        "id":600003,
+
+        "quantity":555
+
+        }
+
+        ]
+
+        }
+
+
+        ### action is ''DELETE_ITEM''
+
+        * id: required, ATG quote order item id
+
+        ### Example:
+
+        {
+
+        "id":"27200001",
+
+        "action":"delete_item",
+
+        "commerceItems":[
+
+        {
+
+        "id":600001
+
+        },
+
+        {
+
+        "id":600002
+
+        }
+
+        ]
+
+        }
+
+
+        other fields not listed above will be ignored.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateQuoteOrder_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateQuoteOrder_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateQuoteOrder
+      x-operation-id-source: derived
+  /updateQuoteOrderShippingInfo:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Quote Order Services
+      summary: Update quote order shipping information
+      description: 'This service can update quote order shipping information
+
+        ## Request body: required
+
+        * id: required, ATG quote order id
+
+        * deliveryOption: "scheduled" or "onHold", when "scheduled", "deliveryDate" and "deliveryTime" is needed
+
+        * shippingMethod: "Ship_to" or "Pick_up"
+
+        ## `scheduled` & `Pick_up` example :
+
+        {
+
+        "id":"27200001",
+
+        "deliveryOption":"scheduled",
+
+        "deliveryDate":"04-14-2020",
+
+        "deliveryTime":"12",
+
+        "shippingMethod":"Pick_up",
+
+        "shippingAddress":{
+
+        "postalCode":"11111",
+
+        "state":"CA",
+
+        "address1":"a",
+
+        "address2":"b",
+
+        "address3":"c",
+
+        "country":"d",
+
+        "city":"e"
+
+        },
+
+        "branchName":"f",
+
+        "contactInfo":{
+
+        "firstName":"g",
+
+        "lastName":"h",
+
+        "nickName":"i",
+
+        "phoneNumber":"1234567890"
+
+        },
+
+        "instructions":"orderNotes"
+
+        }
+
+
+        ## `onHold` & `Ship_to` example :
+
+        {
+
+        "id":"27200001",
+
+        "deliveryOption":"onHold",
+
+        "deliveryDate":"03-01-2018",
+
+        "deliveryTime":"Anytime",
+
+        "shippingMethod":"Ship_to",
+
+        "shippingAddress":{
+
+        "postalCode":"11111",
+
+        "state":"CA",
+
+        "address1":"a",
+
+        "address2":"b",
+
+        "address3":"c",
+
+        "country":"",
+
+        "city":"e"
+
+        },
+
+        "branchName":"f",
+
+        "contactInfo":{
+
+        "firstName":"g",
+
+        "lastName":"h",
+
+        "nickName":"i",
+
+        "phoneNumber":"1234567890"
+
+        },
+
+        "instructions":"orderNotes"
+
+        }
+
+
+        other fields not listed above will be ignored.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateQuoteOrderShippingInfo_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateQuoteOrderShippingInfo
+      x-operation-id-source: derived
+  /getQuoteOrderPrice:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Quote Order Services
+      summary: Get quote order price
+      description: This service can update quote order price
+      parameters:
+      - in: query
+        name: orderId
+        description: ATG Quote Order ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: jobNumber
+        description: Job Number
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getQuoteOrderPrice_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetQuoteOrderPrice
+      x-operation-id-source: derived
+  /placeQuoteOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Quote Order Services
+      summary: Place quote order
+      description: This service can convert quote order to atg order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/placeQuoteOrder_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postPlaceQuoteOrder
+      x-operation-id-source: derived
+  /submitQuoteOrderForApproval:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Quote Order Services
+      summary: Convert quote order to a saved order and submit saved order for approval
+      description: 'This service can convert quote order to a saved order and submit saved order to approver.
+
+        orderId is a required field and it''s quoteOrderId that is generated when quote coverted to order.
+
+        savedOrderName is a required field. ATG will generate save order with it. So, it doesn''t need to invoke saveOrder service to create save order.
+
+        approverId is a required field. Please Retrieve approverList by endpoint "/approver".
+
+
+        ## Examples:
+
+        ###
+
+        ```
+
+        {
+
+        "orderId":"qo9200001",
+
+        "savedOrderName":"test",
+
+        "approverId":"user41240006",
+
+        "poName": "string",
+
+        "jobName": "string",
+
+        "jobNumber": "string",
+
+        "additionalRecipients": [
+
+        "string"
+
+        ]
+
+        }
+
+        ```'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/submitQuoteOrderForApproval_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/submitQuoteOrderForApproval_resp'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postSubmitQuoteOrderForApproval
+      x-operation-id-source: derived
+components:
+  schemas:
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    BranchAddress_savedorder:
+      type: object
+      properties:
+        displayName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+        branchNumber:
+          type: string
+    ContactInfo_quoteOrder:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        phoneNumber:
+          type: string
+    updateQuoteOrder_rep:
+      type: object
+      properties:
+        id:
+          type: string
+        commerceItems:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              quantity:
+                type: number
+                format: long
+              itemNumber:
+                type: string
+              uom:
+                type: string
+              color:
+                type: string
+              MFG:
+                type: string
+    getQuoteOrderPrice_rep:
+      type: object
+      properties:
+        id:
+          type: string
+        subTotal:
+          type: number
+          format: double
+        taxes:
+          type: number
+          format: double
+        otherCharges:
+          type: number
+          format: double
+        total:
+          type: number
+          format: double
+        displayTaxTBD:
+          type: boolean
+        displayOtherChargeTBD:
+          type: boolean
+        commerceItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteOrderItemPrice'
+    queryQuoteStatus_req:
+      type: object
+      properties:
+        quoteId:
+          type: string
+    RadioButton_savedorder:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+    getQuoteOrderDetail_req:
+      type: object
+      properties:
+        id:
+          type: string
+        mincronId:
+          type: string
+        displayName:
+          type: string
+        accountNumber:
+          type: string
+        accountName:
+          type: string
+        creationDate:
+          type: string
+        createdUser:
+          type: string
+        createdUserEmail:
+          type: string
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          type: string
+        lastModifiedUserEmail:
+          type: string
+        placeOrderDate:
+          type: string
+        placeOrderUser:
+          type: string
+        placeOrderEmail:
+          type: string
+        job:
+          $ref: '#/components/schemas/Job_savedorder'
+        jobAccounts:
+          $ref: '#/components/schemas/JobAccounts_savedorder'
+        shippingMethod:
+          type: string
+        shippingMethodValue:
+          type: string
+        shippingMethods:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress_savedorder'
+        shippingAddressTitle:
+          type: string
+        branchName:
+          type: string
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
+        branchAddress:
+          $ref: '#/components/schemas/BranchAddress_savedorder'
+        instructions:
+          type: string
+        commerceItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/quoteOrderItem'
+        requiredFields:
+          $ref: '#/components/schemas/RequiredFields_savedorder'
+        po:
+          type: string
+        emailAddress:
+          type: array
+          items:
+            type: string
+        deliveryOption:
+          type: string
+        deliveryOptionValue:
+          type: string
+        deliveryOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        deliveryTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        expressDeliveryTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        addressBook:
+          $ref: '#/components/schemas/AddressBook_savedorder'
+        storeLocatorItemId:
+          type: string
+        total:
+          type: number
+          format: double
+        subTotal:
+          type: number
+          format: double
+        taxes:
+          type: number
+          format: double
+        otherCharges:
+          type: number
+          format: double
+        displayTaxTBD:
+          type: boolean
+        displayOtherChargeTBD:
+          type: boolean
+        atgOrderId:
+          type: string
+        quoteStatus:
+          type: string
+        atgQuoteId:
+          type: string
+        action:
+          type: string
+        timeZoneId:
+          type: string
+        serverTime:
+          type: integer
+        postponeDeliveryHour:
+          type: integer
+        accountBranchState:
+          type: string
+        branchAddressTimeZoneId:
+          type: string
+        showDeliveryNotification:
+          type: boolean
+        showOrderSummary:
+          type: boolean
+        orderRelatedDocuments:
+          items:
+            type: string
+    submitQuoteOrderForApproval_resp:
+      type: object
+      properties:
+        savedOrderId:
+          type: string
+    JobAccounts_savedorder:
+      type: object
+      properties:
+        unavailable:
+          type: boolean
+        unavailableMsg:
+          type: boolean
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job_savedorder'
+    Job_savedorder:
+      type: object
+      properties:
+        jobNumber:
+          type: string
+        jobName:
+          type: string
+        jobNameMandatory:
+          type: boolean
+        jobNumberMandatory:
+          type: boolean
+        jobNumberDisplayName:
+          type: string
+    AddressBook_savedorder:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress_savedorder'
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
+    updateQuoteOrderShippingInfo_req:
+      type: object
+      properties:
+        id:
+          type: string
+        deliveryOption:
+          type: string
+        deliveryDate:
+          type: string
+          format: MM-dd-yyyy
+        deliveryTime:
+          type: string
+        shippingMethod:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress_quoteOrder_req'
+        branchName:
+          type: string
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_quoteOrder'
+        instructions:
+          type: string
+    ContactInfo_savedorder:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        phoneNumber:
+          type: string
+    ShippingAddress_quoteOrder_req:
+      type: object
+      properties:
+        displayName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+    QuoteOrderItemPrice:
+      type: object
+      properties:
+        id:
+          type: string
+        price:
+          type: number
+          format: double
+        subTotal:
+          type: number
+          format: double
+    quoteOrderItem:
+      type: object
+      properties:
+        id:
+          type: string
+        imageUrl:
+          type: string
+        imageOnErrorUrl:
+          type: string
+        thumbImageUrl:
+          type: string
+        pdpUrl:
+          type: string
+        description:
+          type: string
+        itemNumber:
+          type: string
+        price:
+          type: integer
+          format: double
+        quantity:
+          type: integer
+        uom:
+          type: string
+        subTotal:
+          type: integer
+          format: double
+        deleteStatus:
+          type: boolean
+        vendorColorId:
+          type: string
+        productId:
+          type: string
+        itemGrayOutLevel:
+          type: string
+          enum:
+          - none
+          - grayWithChange
+          - gray
+        itemFromQuote:
+          type: boolean
+        quotedItemQtyChanged:
+          type: boolean
+        itemChanged:
+          type: boolean
+        atgItemDescription:
+          type: string
+        atgItemNetPrice:
+          type: integer
+          format: double
+        atgItemTotalPrice:
+          type: integer
+          format: double
+    queryQuoteStatus_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
+          type: boolean
+        result:
+          type: object
+          properties:
+            expires:
+              type: string
+            quoteNotesEditable:
+              type: boolean
+            rejectEnable:
+              type: boolean
+            reviseEnable:
+              type: boolean
+            copyOrderEnable:
+              type: boolean
+            approveEnable:
+              type: boolean
+            finalizeOrderEnable:
+              type: boolean
+    RequiredFields_savedorder:
+      type: object
+      properties:
+        deliveryOption:
+          type: boolean
+        deliveryDate:
+          type: boolean
+        deliveryTime:
+          type: boolean
+        shippingMethod:
+          type: boolean
+        shippingAddress:
+          type: boolean
+        postalCode:
+          type: boolean
+        state:
+          type: boolean
+        address1:
+          type: boolean
+        address2:
+          type: boolean
+        address3:
+          type: boolean
+        country:
+          type: boolean
+        city:
+          type: boolean
+        branchName:
+          type: boolean
+        contactInfo:
+          type: boolean
+        firstName:
+          type: boolean
+        lastName:
+          type: boolean
+        nickName:
+          type: boolean
+        phoneNumber:
+          type: boolean
+        instructions:
+          type: boolean
+        po:
+          type: boolean
+        jobName:
+          type: boolean
+        jobAccounts:
+          type: boolean
+        showExtendedPO:
+          type: boolean
+    submitQuoteOrderForApproval_req:
+      type: object
+      required:
+      - orderId
+      - savedOrderName
+      - approverId
+      properties:
+        orderId:
+          type: string
+          description: Quote Order Id
+        savedOrderName:
+          type: string
+        approverId:
+          type: string
+        poName:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+    updateQuoteOrder_req:
+      type: object
+      properties:
+        id:
+          type: string
+        action:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              quantity:
+                type: number
+                format: long
+              itemNumber:
+                type: string
+              uom:
+                type: string
+              matchColor:
+                type: string
+              matchMFG:
+                type: string
+    placeQuoteOrder_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+        poName:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        uuid:
+          type: string
+        UUID:
+          type: string
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+    ShippingAddress_savedorder:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        postalCode:
+          type: string
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

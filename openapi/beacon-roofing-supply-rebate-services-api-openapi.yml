@@ -1,0 +1,1041 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Rebate Services API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Rebate Services
+paths:
+  /rebateLanding:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Rebate Services
+      summary: Get Rebates Landing
+      description: This service will list all the landing rebates for current user.
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/rebateLanding_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getRebateLanding
+      x-operation-id-source: derived
+  /getRebateRedeemedSummaryItems:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Rebate Services
+      summary: Get Redeemed Rebates Summary
+      description: 'This service will list all the redeemed rebates summary info for current
+
+        user.'
+      parameters:
+      - in: query
+        name: searchBy
+        schema:
+          type: string
+        description: '
+
+          ##### searchBy enumeration
+
+
+          * year
+
+          * brandName
+
+          '
+      - in: query
+        name: searchTerm
+        schema:
+          type: string
+        description: '
+
+          ##### When ''searchBy'' is one of the following enumeration, the ''searchTerm'' should be populated
+
+          * year - example: 2023
+
+          * brandName - example: GAF
+
+          '
+      - in: query
+        name: filter
+        schema:
+          type: string
+        description: '##### If you need to query multiple conditions at the same time, it is recommended to use this example.
+
+          ##### (Also note that filter and searchBy cannot be used at the same time)
+
+          * search by year and brandName - example: year=2023,brandName=GAF
+
+          '
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getRebateRedeemedSummaryItems_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetRebateRedeemedSummaryItems
+      x-operation-id-source: derived
+  /getRebateRedeemedItemDetail:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Rebate Services
+      summary: Get Redeemed Rebates Details
+      description: 'This service returns redeemed rebateitem details of given rebate id.
+
+
+        ''rebateId'' is required field, optional fields include
+
+        ''searchKey'',''searchValue'',''searchStartDate'',''searchEndDate'',''pageNum'',''pageSize''.
+
+
+        param ''searchKey'' should be one of values
+
+        [''invoiceDate'',''invoiceDateRange'',''orderNumber'',''category'',''itemDesc''].
+
+
+        If the parameter "pageSize" has a value of -1, all redeemed details are returned. Please use with caution.
+
+
+        invoiceDate its format should be ''MM-dd-yyyy'',sample data is
+
+        ''07-16-2019''.
+
+
+        invoiceDateRange is a date range, it gives the customer two calendar options(searchStartDate and searchEndDate)'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getRebateRedeemedItemDetail_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getRebateRedeemedItemDetail_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postGetRebateRedeemedItemDetail
+      x-operation-id-source: derived
+  /downloadRebateRedeemedItemDetail:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Rebate Services
+      summary: Download Redeemed Rebates Details
+      description: 'This service returns redeemed rebate item details csv file by given redeem id/ids, rebateId and accountId.
+
+
+        ''redeemedRebateIds'' is required field, sample data is ''redeem16600001'' or ''redeem16600001,redeem16600002''
+
+        ''rebateId'' is required field, sample data is ''rebates3000001''
+
+        ''accountId'' is optional fields, if it''s null we will use your last selected account legacy id instead.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/downloadRebateRedeemedItemDetail_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: byte
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postDownloadRebateRedeemedItemDetail
+      x-operation-id-source: derived
+  /downloadRebateRedeemedDetailAsPDF:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Rebate Services
+      summary: Download Redeemed Rebates Details As PDF
+      description: 'This service returns redeemed rebate details pdf file by given redeem id/ids, rebateId, submitRebateInfoId and accountId.
+
+
+        - ''redeemedRebateIds'' is optional field:
+
+
+        - download all: pass in null value to download data for the current rebate year, sample data is
+
+        ```
+
+        "redeemedRebateIds": ""
+
+        ```
+
+        ```
+
+        "redeemedRebateIds": null
+
+        ```
+
+        ```
+
+        "redeemedRebateIds": " "
+
+        ```
+
+
+        - download selection: pass in a string, sample data is
+
+        ```
+
+        "redeemedRebateIds": "redeem16600001"
+
+        ```
+
+        ```
+
+        "redeemedRebateIds": "redeem16600001,redeem16600002"
+
+        ```
+
+
+        - ''rebateId'' is required field, sample data is ''rebates3000001''
+
+
+        - ''submitRebateInfoId'' is required field, sample data is ''20400002''
+
+
+        ### Example
+
+
+        - download all:
+
+        ```
+
+        {
+
+        "redeemedRebateIds": ""
+
+        "rebateId": "rebates3000001",
+
+        "submitRebateInfoId": "20400002"
+
+        }
+
+        ```
+
+
+        - download selection:
+
+        ```
+
+        {
+
+        "redeemedRebateIds": "redeem16600001,redeem16600002",
+
+        "rebateId": "rebates3000001",
+
+        "submitRebateInfoId": "20400002"
+
+        }
+
+        ```'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/downloadRebateRedeemedDetailAsPDF_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            return the PDF file in bytes
+
+
+            Failed operation
+
+
+            return ''application/json'' and refer to *API Uniform Format*
+
+            '
+          content:
+            text/pdf:
+              schema:
+                type: string
+                format: byte
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postDownloadRebateRedeemedDetailAsPDF
+      x-operation-id-source: derived
+  /getRebateForm:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Rebate Services
+      summary: Get Rebate From
+      parameters:
+      - in: query
+        name: rebateId
+        description: RebateId Id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: invokeBy
+        description: invokeBy can be one of api, store
+        required: false
+        schema:
+          type: string
+      description: This service will list rebate from
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getRebateFrom_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetRebateForm
+      x-operation-id-source: derived
+  /submitRebate:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Rebate Services
+      summary: Apply for Rebates
+      description: 'This service can apply/submit rebate according to getRebateForm api
+
+
+        When prepare submit json,according to the field.name and find the group which value is one of (rebateInfo,rebateAddress,rebateCustomInfo,rebateMailingAddress)
+
+        also,the field contains lable,type,placeHolder,value(default value) and some restriction zip,phone,startWith,pattern
+
+        then the requst body would like this:
+
+        ```
+
+        {
+
+        "rebateId": "rebate5016",
+
+        "rebateInfo": {
+
+        "companyName": "CompanyN",
+
+        "contactName": "beckya hua",
+
+        "phoneNumber": "1234567891",
+
+        "email": "beckyhu@aaxischina.com"
+
+        },
+
+        "rebateAddress": {
+
+        "address": "10875 Arney Rd SWa",
+
+        "city": "Navarrea",
+
+        "state": "AR",
+
+        "zip": "44662"
+
+        },
+
+        "rebateCustomInfo": {
+
+        "ContractorIDTest": "123456"
+
+        }
+
+        }
+
+        ```'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/submitRebate_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postSubmitRebate
+      x-operation-id-source: derived
+  /updateRebateForm:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Rebate Services
+      summary: Update Rebate Form Once
+      description: 'This service can update rebate
+
+
+        When prepare submit json,according to the field.name and find the group which value is one of (rebateInfo,rebateAddress,rebateCustomInfo,rebateMailingAddress)
+
+        also,the field contains lable,type,placeHolder,value(default value) and some restriction zip,phone,startWith,pattern
+
+        then the requst body would like this:
+
+        ```
+
+        {
+
+        "rebateInfoId": "101800001",
+
+        "rebateInfo": {
+
+        "companyName": "CompanyN",
+
+        "contactName": "beckya hua",
+
+        "phoneNumber": "1234567891",
+
+        "email": "beckyhu@aaxischina.com"
+
+        },
+
+        "rebateAddress": {
+
+        "address": "10875 Arney Rd SWa",
+
+        "city": "Navarrea",
+
+        "state": "AR",
+
+        "zip": "44662"
+
+        },
+
+        "rebateCustomInfo": {
+
+        "ContractorIDTest": "123456"
+
+        }
+
+        }
+
+        ```'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateRebateForm_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateRebateForm_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateRebateForm
+      x-operation-id-source: derived
+  /getSubmittedRebateForm:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Rebate Services
+      summary: Get Submitted Rebate Form
+      parameters:
+      - in: query
+        name: accountId
+        description: AccountId Id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: submittedRebateInfoId
+        required: true
+        description: Submitted rebate info id
+        schema:
+          type: string
+      description: This service will query submitted rebate form detail
+      responses:
+        '200':
+          description: 'successful operation
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSubmittedRebateForm_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetSubmittedRebateForm
+      x-operation-id-source: derived
+  /unenrollRebate:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Rebate Services
+      summary: Uneroll Rebate
+      description: This service will unenroll rebate
+      parameters:
+      - in: query
+        name: rebateId
+        description: Rebate Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUnenrollRebate
+      x-operation-id-source: derived
+components:
+  schemas:
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    RedeemSummeryDTOObj:
+      type: object
+      properties:
+        promotionDates:
+          type: string
+          example: May 5,2017-May 8,2019
+        accountId:
+          type: string
+        submitDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+        id:
+          type: string
+        brand:
+          type: string
+        rebateId:
+          type: string
+        PDFUrl:
+          type: string
+        currencyUnit:
+          type: string
+        promotion:
+          type: string
+        projectedRebate:
+          type: string
+    getRebateRedeemedSummaryItems_rep:
+      type: array
+      items:
+        $ref: '#/components/schemas/RedeemSummeryDTOObj'
+    getRebateFrom_rep:
+      $ref: '#/components/schemas/RebateFromObj'
+    rebateLanding_rep:
+      $ref: '#/components/schemas/RebateItemObj'
+    RebateFromInputDTOObj:
+      type: object
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        placeHolder:
+          type: string
+        value:
+          type: string
+        required:
+          type: boolean
+        type:
+          type: string
+        infoGroup:
+          type: string
+        maxLength:
+          type: integer
+        minLength:
+          type: integer
+        email:
+          type: boolean
+        phone:
+          type: boolean
+        zip:
+          type: boolean
+        numeric:
+          type: boolean
+        pattern:
+          type: string
+        css:
+          type: string
+        invalidMsg:
+          type: string
+        selectValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/RebateFromSelectOptionDTOObj'
+        isRadioSelected:
+          type: boolean
+    downloadRebateRedeemedDetailAsPDF_req:
+      type: object
+      properties:
+        redeemedRebateIds:
+          type: string
+        rebateId:
+          type: string
+        submitRebateInfoId:
+          type: string
+    getRebateRedeemedItemDetail_req:
+      type: object
+      properties:
+        rebateId:
+          type: string
+        searchKey:
+          type: string
+        searchValue:
+          type: string
+        searchStartDate:
+          type: string
+        searchEndDate:
+          type: string
+        pageNum:
+          type: string
+        pageSize:
+          type: string
+    downloadRebateRedeemedItemDetail_req:
+      type: object
+      properties:
+        redeemedRebateIds:
+          type: string
+        rebateId:
+          type: string
+        accountId:
+          type: string
+    RedeemDetailDTOObj:
+      type: object
+      properties:
+        orderNumber:
+          type: string
+        itemStockUnitOfMeasure:
+          type: string
+        invoiceDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+        showSalesAmountAsPrice:
+          type: boolean
+        customerName:
+          type: string
+        projectedRebate:
+          type: string
+        promotionDates:
+          type: string
+          example: May 5,2017-May 8,2019
+        accountId:
+          type: string
+        quantityShipped:
+          type: string
+        salesAmount:
+          type: string
+        id:
+          type: string
+        itemNumber:
+          type: string
+        itemDescription:
+          type: string
+        category:
+          type: string
+        projectedPromotionRebate:
+          type: string
+        rebateId:
+          type: string
+        currencyUnit:
+          type: string
+        promotion:
+          type: string
+    updateRebateForm_req:
+      type: object
+      properties:
+        rebateInfoId:
+          type: string
+        rebateInfo:
+          type: object
+          properties:
+            companyName:
+              type: string
+            contactName:
+              type: string
+            phoneNumber:
+              type: string
+            email:
+              type: string
+        rebateAddress:
+          type: object
+          properties:
+            address:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            zip:
+              type: string
+        rebateCustomInfo:
+          type: object
+        rebateMailingAddress:
+          type: object
+    RebateFromSelectOptionDTOObj:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+    getRebateRedeemedItemDetail_rep:
+      $ref: '#/components/schemas/RedeemDetailsDTOObj'
+    getSubmittedRebateForm_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/userRebateInfo'
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    userRebateInfo:
+      type: object
+      properties:
+        rebateInfoId:
+          type: string
+        subscriptionDate:
+          type: string
+        rebateForm:
+          $ref: '#/components/schemas/RebateFromObj'
+    updateRebateForm_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    submitRebate_req:
+      type: object
+      properties:
+        rebateId:
+          type: string
+        rebateInfo:
+          type: object
+          properties:
+            companyName:
+              type: string
+            contactName:
+              type: string
+            phoneNumber:
+              type: string
+            email:
+              type: string
+        rebateAddress:
+          type: object
+          properties:
+            address:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            zip:
+              type: string
+        rebateCustomInfo:
+          type: object
+        rebateMailingAddress:
+          type: object
+    RebateFromObj:
+      type: object
+      properties:
+        rebateId:
+          type: string
+        rebateName:
+          type: string
+        ableSubmit:
+          type: boolean
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/RebateFromInputDTOObj'
+    RedeemDetailsDTOObj:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        header:
+          $ref: '#/components/schemas/RedeemSummeryDTOObj'
+        body:
+          type: array
+          items:
+            $ref: '#/components/schemas/RedeemDetailDTOObj'
+    RebateItemObj:
+      type: object
+      properties:
+        image:
+          type: string
+        rebateName:
+          type: string
+        action:
+          type: string
+        rebateId:
+          type: string
+        brandName:
+          type: string
+        ableUpdate:
+          type: boolean
+        submittedRebateInfoId:
+          type: string
+        lastSubmittedDate:
+          type: string
+        startDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+        endDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+        deactivationDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

@@ -1,0 +1,107 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Job Service API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Job Service
+paths:
+  /getCurrentUserLastSelectedJobInfo:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Job Service
+      summary: Get last selected job info of current user
+      description: This service returns the last selected job info of current user
+      parameters:
+      - in: query
+        name: jobNumber
+        description: Job Number, optional, if empty, will return profile last selected job number info; if not empty, will return this given job number info
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "message": "Validation exception" }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getCurrentUserLastSelectedJobInfoRep'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, user do not login
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getGetCurrentUserLastSelectedJobInfo
+      x-operation-id-source: derived
+components:
+  schemas:
+    getCurrentUserLastSelectedJobInfoRep:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+        phoneNumberDigitally:
+          type: string
+        customerName:
+          type: string
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

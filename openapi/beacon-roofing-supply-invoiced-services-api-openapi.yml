@@ -1,0 +1,228 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services (Use for Internal) Invoiced Services…
+  version: 24PI-4-Sprint-3
+  description: 'This version of APIs do not require the user to login, to be able to access
+
+    services.'
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
+tags:
+- name: Invoiced Services
+paths:
+  /invoice:
+    get:
+      tags:
+      - Invoiced Services
+      summary: List invoiced Data under the account
+      description: This service will list the invoiced Data
+      parameters:
+      - in: query
+        name: accountId
+        description: Account ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: company
+        description: Company Number
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: branchNumber
+        description: Branch number
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: pageSize
+        description: Default page size is 25, max 100
+        schema:
+          type: integer
+      - in: query
+        name: pageNo
+        description: Default page no is 1
+        schema:
+          type: integer
+      - in: query
+        name: searchBy
+        schema:
+          type: string
+        description: 'searchBy enumeration
+
+          * OrderPlacedDate
+
+          * OrderNumber
+
+          * OrderStatus
+
+          * UUID
+
+          * OrderId
+
+          '
+      - in: query
+        name: searchTerm
+        schema:
+          type: string
+        description: 'When ''searchBy'' is one of the following enumeration, the ''searchTerm'' should be populated
+
+          * OrderNumber
+
+          * UUID
+
+          * OrderId
+
+          '
+      - in: query
+        name: searchStartDate
+        schema:
+          type: string
+          format: MM-DD-YYYY
+        description: 'When ''searchBy'' is ''OrderPlacedDate'', the ''searchStartDate'' should be populated, format should be ''MM-DD-YYYY'', e.g. ''01-05-2021'',the searchStartDate limit  to the past year.
+
+          '
+      - in: query
+        name: searchEndDate
+        schema:
+          type: string
+          format: MM-DD-YYYY
+        description: 'When ''searchBy'' is ''OrderPlacedDate'', the ''searchEndDate'' should be populated, format should be ''MM-DD-YYYY'', e.g. ''01-05-2021''
+
+          '
+      - in: query
+        name: searchEnum
+        schema:
+          type: string
+        description: 'When ''searchBy'' is ''OrderStatus'', the ''searchEnum'' should be one of the following enumeration:
+
+          * Delivered
+
+          * Invoiced
+
+          * Pending
+
+          * Processing
+
+          * ReadyDeliveryOrPickUp
+
+          * DeliveredOrInvoiced
+
+          '
+      - in: query
+        name: queryCompany
+        description: Default queryCompany is true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: 'successful operation
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orderInvoiceRep'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getInvoice
+      x-operation-id-source: derived
+components:
+  schemas:
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    orderInvoice:
+      type: object
+      properties:
+        apiSiteId:
+          type: string
+        accountId:
+          type: string
+        accountName:
+          type: string
+        orderNumber:
+          type: string
+        orderPlacedDate:
+          type: string
+          format: date
+        invoiceDate:
+          type: string
+          format: date
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        purchaseOrderNumber:
+          type: string
+        sales:
+          type: number
+          format: double
+        otherCharges:
+          type: number
+          format: double
+        salesPlusOtherCharges:
+          type: number
+          format: double
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    orderInvoiceRep:
+      type: object
+      properties:
+        invoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderInvoice'
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+  securitySchemes:
+    internalAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token

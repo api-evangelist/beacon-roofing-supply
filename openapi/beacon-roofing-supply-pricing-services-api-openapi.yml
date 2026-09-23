@@ -1,0 +1,175 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services (Use for Internal) Pricing Services API
+  version: 24PI-4-Sprint-3
+  description: 'This version of APIs do not require the user to login, to be able to access
+
+    services.'
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
+tags:
+- name: Pricing Services
+paths:
+  /orderPricing:
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - Pricing Services
+      summary: query order price
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/priceRequest'
+      responses:
+        '200':
+          description: 'Refer to API Uniform Format
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/itemPricingResp'
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postOrderPricing
+      x-operation-id-source: derived
+  /quotePricing:
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - Pricing Services
+      summary: query quote price
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/quotePriceRequest'
+      responses:
+        '200':
+          description: 'Refer to API Uniform Format
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/itemPricingResp'
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postQuotePricing
+      x-operation-id-source: derived
+components:
+  schemas:
+    quotePriceRequest:
+      type: object
+      required:
+      - account
+      - brnNumber
+      - item
+      properties:
+        account:
+          type: string
+        jobNumber:
+          type: string
+        branchNumber:
+          type: string
+        bidNumber:
+          type: string
+        item:
+          type: array
+          items:
+            $ref: '#/components/schemas/pricingItem'
+    priceRequest:
+      type: object
+      required:
+      - account
+      - brnNumber
+      - item
+      properties:
+        account:
+          type: string
+        jobNumber:
+          type: string
+        branchNumber:
+          type: string
+        item:
+          type: array
+          items:
+            $ref: '#/components/schemas/pricingItem'
+    pricingItem:
+      type: object
+      required:
+      - itemNumber
+      properties:
+        itemNumber:
+          type: string
+        quantity:
+          type: number
+          format: long
+          description: Default value is 1
+        unitOfMeasure:
+          type: string
+    itemPrice:
+      type: object
+      properties:
+        requestUnitOfMeasure:
+          type: string
+        requestQuantity:
+          type: number
+          format: long
+        requestExtendedPrice:
+          type: number
+          format: double
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        orderUnitOfMeasure:
+          type: string
+        requestNetPrice:
+          type: number
+          format: double
+        orderNetPrice:
+          type: number
+          format: double
+        orderQuantity:
+          type: number
+          format: long
+        orderExtendedPrice:
+          type: number
+          format: double
+        itemDescription:
+          type: string
+        error:
+          type: string
+        warning:
+          type: string
+    itemPricingResp:
+      type: object
+      properties:
+        bizItemPrices:
+          type: array
+          items:
+            $ref: '#/components/schemas/itemPrice'
+  securitySchemes:
+    internalAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token

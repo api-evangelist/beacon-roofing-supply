@@ -1,0 +1,2116 @@
+openapi: 3.2.0
+info:
+  title: Beacon Roofing Supply Eagle View Order API
+  version: 24PI-4-Sprint-3
+  description: 'Operations tagged Eagle View Order across 2 of this provider''s published API definitions: beacon-roofing-supply-internal-openapi.yml, beacon-roofing-supply-v2-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
+tags:
+- name: Eagle View Order
+paths:
+  /saveEagleViewOrderBilling:
+    post:
+      tags:
+      - Eagle View Order
+      summary: Store EV order bill data
+      description: 'Available Status
+
+        * Created
+
+        * InProcess
+
+        * Pending
+
+        * Closed
+
+        * Completed
+
+
+        Available ProductType
+
+        * `1` - PremiumResidential
+
+        * `2` - PremiumCommercial
+
+        * `3` - StandardResidential
+
+        * `9` - Images
+
+        * `10` - ParkingLot
+
+        * `11` - EagleView Inform Essentials+
+
+        * `12` - EagleView Inform Essentials+ for Commercial
+
+        * `13` - ClaimsReadyResidential
+
+        * `14` - ClaimsReadyCommercial
+
+        * `15` - AA2D
+
+        * `16` - AA3DResidential
+
+        * `17` - SketchOnly
+
+        * `18` - AA3DCommercial
+
+        * `20` - InstallerReport
+
+        * `25` - EC3DResidential
+
+        * `26` - EC3DCommercial
+
+        * `27` - EC2DResidential
+
+        * `28` - EC2DCommercial
+
+        * `29` - PremiumAWResidential
+
+        * `30` - PremiumAWCommercial
+
+        * `31` - ECPremiumResidential
+
+        * `32` - ECPremiumCommercial
+
+        * `34` - PremiumResidentialWallonly
+
+        * `35` - PremiumCommercialWallonly
+
+        * `37` - RiskManagementResidential
+
+        * `38` - RiskManagementCommercial
+
+        * `39` - Estimate
+
+        * `40` - RoofGeometryResidential
+
+        * `41` - CarrierEstimate
+
+        * `44` - QuickSquares
+
+        * `46` - GutterResidential
+
+        * `47` - GutterCommercial
+
+        * `48` - DiagramResidential
+
+        * `49` - DiagramCommercial
+
+        * `51` - WallsLite
+
+        * `55` - QuickSquares-Multi-Family
+
+        * `62` - EagleView Inform Advanced
+
+        * `63` - EagleView Inform Advanced for Commercial
+
+        * `84` - Bid Perfect
+
+        * `85` - Walls, Windows, & Doors
+
+        * `86` - Walls'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/saveEagleViewOrderBilling_req'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/saveEagleViewOrderBilling_res'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postSaveEagleViewOrderBilling
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
+  /placeEagleViewOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Eagle View Order
+      summary: Create the eagle view order
+      description: This service is the primary mechanism of the eagle view ordering process, as it will actually create the order. A successful PlaceOrder call will return a unique Report Id, which can then be used in other method calls.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/eagleViewPlaceOrder_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "message": "Validation exception" }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eagleViewPlaceOrder_resp'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, user do not login
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postPlaceEagleViewOrder
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /placeEagleViewUpgradeOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Eagle View Order
+      summary: Upgrading a report to a premium report
+      description: This service is used for upgrading a report to a premium report.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/eagleViewPlaceUpgradeOrder_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "message": "Validation exception" }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eagleViewPlaceUpgradeOrder_resp'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, user do not login
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postPlaceEagleViewUpgradeOrder
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getEagleViewOrderReport:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Eagle View Order
+      summary: Get eagle view order report
+      description: This service will return information about a single report.
+      parameters:
+      - in: query
+        name: reportId
+        description: Report Id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "message": "Validation exception" }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getEagleViewOrderReport_resp'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, user do not login
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getGetEagleViewOrderReport
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getEagleViewOrderUpgradeProducts:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Eagle View Order
+      summary: Get eagle view order upgrade products
+      description: This service is useful in determining to which products the specified report can be upgraded.
+      parameters:
+      - in: query
+        name: reportId
+        description: Report Id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "message": "Validation exception" }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getEagleViewOrderUpgradeProducts_resp'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, user do not login
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getGetEagleViewOrderUpgradeProducts
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getEagleViewOrderReportV3:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Eagle View Order
+      summary: Get eagle view order report use v3
+      description: This service will return information about a single report.
+      parameters:
+      - in: query
+        name: reportId
+        description: Report Id.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "message": "Validation exception" }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getEagleViewOrderReportV3_resp'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, user do not login
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getGetEagleViewOrderReportV3
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getOktaEagleViewLoginUrl:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Eagle View Order
+      summary: Generate Current user okta eagle view redirect url
+      description: This service will return okta eagle view redirect url
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "message": "Validation exception" }
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  oktaLoginLink:
+                    type: string
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, user do not login
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getGetOktaEagleViewLoginUrl
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /exchangeOktaEagleViewAuthorizationCode:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Eagle View Order
+      summary: Exchange token by authorizationCode
+      description: 'This service exchange access token by authorizationCode
+
+
+        ## Examples:
+
+        ###
+
+        ```
+
+        {
+
+        "code":"xxxxx",
+
+        "state":"xxxxxxx",
+
+        "error":"xxxxx",
+
+        "errorDescription":"xxxxx"
+
+        }
+
+        ```'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                state:
+                  type: string
+                error:
+                  type: string
+                errorDescription:
+                  type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postExchangeOktaEagleViewAuthorizationCode
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /unlinkEVAccount:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Eagle View Order
+      summary: unlink current user private eagle view token
+      description: This service will unlink okta eagle view token
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "message": "Validation exception" }
+
+            '
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, user do not login
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getUnlinkEVAccount
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getEagleViewOrderReports:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Eagle View Order
+      summary: Get specific pieces of data for a range of reports
+      description: This service is generally used as a means of searching reports on the authenticated user's account.
+      parameters:
+      - in: query
+        name: page
+        description: Page number.
+        required: true
+        schema:
+          type: integer
+          default: 1
+      - in: query
+        name: count
+        description: Count of reports to return.
+        required: true
+        schema:
+          type: integer
+          default: 10
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetEagleViewOrderReports_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEagleViewOrderReports_resp'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postGetEagleViewOrderReports
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getEagleViewOrderReportFileAnyFormat (under development):
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Eagle View Order
+      summary: This service allows the authenticating user to retrieve files generated for a…
+      description: This service allows the authenticating user to retrieve files generated for a report.Please note that a report file can only be retrieved if it has been generated
+      parameters:
+      - in: query
+        name: reportId
+        description: ReportId of the order placed.
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: fileType
+        required: true
+        schema:
+          type: integer
+        description: "Available DeliveryFileTypes.\n * `2` - Invoice of the order.\n * `3` - Premium report.\n * `4` - Neighborhood report.\n * `5` - Exclusive cover page.\n * `6` - Top image of the property.\n * `7` - Parking lot report.\n * `8` - SunSite report.\n * `12` - Property owner report.\n * `13` - Pre-standard report.\n * `17` - Images only report.\n * `18` - EagleView xml.\n * `22` - North image of the property.\n * `23` - South image of the property.\n * `24` - East image of the property.\n * `25` - West image of the property.\n * `26` - Autodesk DXF file.\n * `27` - Applicad Roof Exchange Format file (RXF).\n * `28` - Length diagram from the report.\n * `29` - Notes diagram from the report.\n * `31` - Pitch diagram from the report.\n * `32` - Area diagram from the report.\n * `42` - Detailed length diagram from the report.\n * `43` - Notes diagram with no labels from the report.\n * `51` - ClaimsReady report.\n * `52` - AA3D report.\n * `53` - AA2D report.\n * `71` - EC3D report.\n * `73` - EC2D report.\n * `75` - EC Premium report.\n * `76` - Premium AW report.\n * `77` - Walls add-on report.\n * `79` - Wall area diagram from the report.\n * `80` - Alternate wall view from the report.\n * `81` - Missing wall diagram from the report.\n * `82` - North elevation diagram from the report.\n * `83` - South elevation diagram from the report.\n * `84` - East elevation diagram from the report.\n * `85` - West elevation diagram from the report.\n * `86` - Roof penetration diagram from the report.\n * `87` - WallsOnly report.\n * `88` - WallsOnly meta data.\n * `89` - Risk Management meta data.\n * `90` - Living area diagram from the report.\n * `91` - Walls diagram with no labels from the report.\n * `92` - Area view image from the report.\n * `93` - Pitch roof penetration diagram from the report.\n * `94` - Building footprint diagram from the report.\n * `95` - Sitemap diagram from the report.\n * `96` - Outbuilding diagram from the report.\n * `98` - Roof geometry report.\n * `105` - QuickSquares report.\n * `107` - EagleView measurement JSON.\n * `109` - Gutter report.\n * `111` - Diagram report.\n * `116` - QuickSquares EC report.\n * `118` - EC2D Pre-pitch Report.\n * `121` - WallsLite report.\n * `132` - SunSite Complete Report.\n"
+      responses:
+        '200':
+          content:
+            application/*:
+              schema:
+                type: object
+                format: byte
+                description: 'Example
+
+
+                  { ByteArrayContent of the file }
+
+                  '
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "message": "Validation exception" }
+
+            '
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, user do not login
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getGetEagleViewOrderReportFileAnyFormat (under development)
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+components:
+  schemas:
+    saveEagleViewOrderBilling_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              value:
+                type: string
+        result:
+          type: object
+          properties:
+            billId:
+              type: string
+    saveEagleViewOrderBilling_req:
+      type: object
+      properties:
+        reportId:
+          type: string
+          description: report id
+        reportDate:
+          type: string
+          example: yyyy-MM-dd hh:mm:ss
+          description: date of report
+        reportAddresses:
+          type: object
+          properties:
+            address1:
+              type: string
+            address2:
+              type: string
+            zipCode:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+        cost:
+          type: number
+          format: double
+          description: cost
+        status:
+          type: string
+          description: status
+        productType:
+          type: string
+          description: product type
+        source:
+          type: string
+          description: source from atg/webhook
+    getEagleViewOrderReport_resp:
+      type: object
+      properties:
+        ReportId:
+          type: integer
+          description: Report Id of report.
+        Street:
+          type: string
+          description: Street address of report.
+        BuildingId:
+          type: string
+          description: BuildingId of report.
+        City:
+          type: string
+          description: City of report.
+        State:
+          type: string
+          description: State of report.
+        Zip:
+          type: string
+          description: Zip of report.
+        Latitude:
+          type: integer
+          description: Latitude of report.
+        Longitude:
+          type: integer
+          description: Longitude of report.
+        ClaimNumber:
+          type: string
+          description: Claim number of report.
+        ClaimInfo:
+          type: string
+          description: Claim information of report.
+        BatchId:
+          type: string
+          description: Batch ID of report.
+        CatId:
+          type: string
+          description: Custom catastrophe ID field.
+        DatePlaced:
+          type: string
+          format: date-time
+          description: Date and time report was placed.
+        DateCompleted:
+          type: string
+          format: date-time
+          description: Date and time report was completed. Null if not completed.
+        PONumber:
+          type: string
+          description: PO number for report.
+        Comments:
+          type: string
+          description: Customer comments from report.
+        ReportImage:
+          type: array
+          description: Customer image data for report.
+          items:
+            $ref: '#/components/schemas/ReportImage'
+        ReferenceId:
+          type: string
+          description: ReferenceId for report.
+        InsuredName:
+          type: string
+          description: Insured name for report.
+        MeasurementRequestType:
+          type: integer
+          description: "Available MeasurementRequestTypes\n * `1` - PrimaryPlusDetachedGarage\n * `2` - PrimaryStructureOnly\n * `3` - AllStructuresOnParcel\n * `4` - CommercialComplex\n * `5` - Other\n"
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+        ReportDownloadLink:
+          type: string
+          description: URL to download latest report PDF.
+        EligibleForUpgrade:
+          type: boolean
+          description: Indicates if report can be upgraded from QuickSquares to a Premium Report.
+        Status:
+          type: string
+          description: "Status-SubStatus of Report.\n * Created\n * Created - Customer\n * Created - Processing\n * InProcess\n * InProcess - UnderReview\n * InProcess - ProcessStarted\n * InProcess - ReadyToSend\n * InProcess - AddressVerified\n * InProcess - RTCVerified\n * InProcess - ReadyToCapturePayment\n * InProcess - PendingClosure\n * InProcess - ClosureDenied\n * InProcess - Cancellation\n * Pending\n * Pending - SiteMap\n * Pending - NeedToID\n * Pending - ReportTypeChange\n * Pending - CustomerResponse\n * Pending - CreditCardFailure\n * Pending - MeasurementData\n * Closed\n * Closed - Duplicate\n * Closed - CanceledByClient\n * Closed - PoorImages\n * Closed - NoID\n * Closed - TrainingFile\n * Closed - ReportTypeChange\n * Closed - NoImages\n * Closed - Other\n * Closed - System\n * Closed - CardRejected\n * Closed - WrongHouse\n * Closed - UnsupportedStructure\n * Closed - ImageResolutionRestriction\n * Closed - ImageAgeRestriction\n * Closed - UnableToCollect\n * Completed\n * Completed - CanceledByClient\n * Completed - NotSent\n * Completed - WorkFinished\n * Completed - Submitted\n * Completed - Cancelled\n"
+        Area:
+          type: string
+          description: Total area of report.
+        Pitch:
+          type: string
+          description: Primary pitch of report.
+        LengthRidge:
+          type: string
+          description: Total length of all ridges for report.
+        LengthValley:
+          type: string
+          description: Total length of all valleys for report.
+        LengthEave:
+          type: string
+          description: Total length of all eaves for report.
+        LengthRake:
+          type: string
+          description: Total length of all rakes for report.
+        ProductPrimaryId:
+          type: integer
+          description: ID of the primary product.
+        ProductPrimary:
+          type: string
+          description: Name of the primary product.
+        ProductDeliveryId:
+          type: integer
+          description: ID of the delivery product.
+        ProductDelivery:
+          type: string
+          description: Name of the delivery product.
+        AddOnProductIds:
+          type: string
+          description: Comma-seperated list of any Add-On products.
+        AllowsUserSubmittedPhotos:
+          type: boolean
+          description: Indicates if user submitted photos will appear on report if uploaded by user.
+        LengthHip:
+          type: string
+          description: Total length of all hips for report.
+        SubstituteFromProduct:
+          type: integer
+          description: Previous product name if substitution was made.
+        SubstituteToProduct:
+          type: string
+          description: Current product name if sustitution was made.
+        CanCancelReport:
+          type: string
+          description: Determines if the report can be canceled based on its current status.
+    DeliveryProduct:
+      type: object
+      properties:
+        productID:
+          type: integer
+          description: Product Id.
+        name:
+          type: string
+          description: Product name.
+        description:
+          type: string
+          description: Product description.
+        isTemporarilyUnavailable:
+          type: boolean
+          description: Indicates if the product is temporarily unavailable.
+        priceMin:
+          type: number
+          format: double
+          description: Value of the minimum price.
+        priceMax:
+          type: number
+          format: double
+          description: Value of the maximum price.
+        deliveryProductIds:
+          type: array
+          items:
+            type: integer
+        DetailedDescription:
+          type: string
+    getEagleViewOrderReportV3_resp:
+      type: object
+      properties:
+        ReportId:
+          type: integer
+          description: Report Id of report.
+        Street:
+          type: string
+          description: Street address of report.
+        BuildingId:
+          type: string
+          description: BuildingId of report.
+        City:
+          type: string
+          description: City of report.
+        State:
+          type: string
+          description: State of report.
+        Zip:
+          type: string
+          description: Zip of report.
+        Latitude:
+          type: integer
+          description: Latitude of report.
+        Longitude:
+          type: integer
+          description: Longitude of report.
+        ClaimNumber:
+          type: string
+          description: Claim number of report.
+        ClaimInfo:
+          type: string
+          description: Claim information of report.
+        BatchId:
+          type: string
+          description: Batch ID of report.
+        CatId:
+          type: string
+          description: Custom catastrophe ID field.
+        DatePlaced:
+          type: string
+          format: date-time
+          description: Date and time report was placed.
+        DateCompleted:
+          type: string
+          format: date-time
+          description: Date and time report was completed. Null if not completed.
+        PONumber:
+          type: string
+          description: PO number for report.
+        Comments:
+          type: string
+          description: Customer comments from report.
+        ReportImage:
+          type: array
+          description: Customer image data for report.
+          items:
+            $ref: '#/components/schemas/ReportImage'
+        ReferenceId:
+          type: string
+          description: ReferenceId for report.
+        InsuredName:
+          type: string
+          description: Insured name for report.
+        MeasurementRequestType:
+          type: integer
+          description: "Available MeasurementRequestTypes\n * `1` - PrimaryPlusDetachedGarage\n * `2` - PrimaryStructureOnly\n * `3` - AllStructuresOnParcel\n * `4` - CommercialComplex\n * `5` - Other\n"
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+        ReportDownloadLink:
+          type: string
+          description: URL to download latest report PDF.
+        EligibleForUpgrade:
+          type: boolean
+          description: Indicates if report can be upgraded from QuickSquares to a Premium Report.
+        Status:
+          type: string
+          description: "Status-SubStatus of Report.\n * Created\n * Created - Customer\n * Created - Processing\n * InProcess\n * InProcess - UnderReview\n * InProcess - ProcessStarted\n * InProcess - ReadyToSend\n * InProcess - AddressVerified\n * InProcess - RTCVerified\n * InProcess - ReadyToCapturePayment\n * InProcess - PendingClosure\n * InProcess - ClosureDenied\n * InProcess - Cancellation\n * Pending\n * Pending - SiteMap\n * Pending - NeedToID\n * Pending - ReportTypeChange\n * Pending - CustomerResponse\n * Pending - CreditCardFailure\n * Pending - MeasurementData\n * Closed\n * Closed - Duplicate\n * Closed - CanceledByClient\n * Closed - PoorImages\n * Closed - NoID\n * Closed - TrainingFile\n * Closed - ReportTypeChange\n * Closed - NoImages\n * Closed - Other\n * Closed - System\n * Closed - CardRejected\n * Closed - WrongHouse\n * Closed - UnsupportedStructure\n * Closed - ImageResolutionRestriction\n * Closed - ImageAgeRestriction\n * Closed - UnableToCollect\n * Completed\n * Completed - CanceledByClient\n * Completed - NotSent\n * Completed - WorkFinished\n * Completed - Submitted\n * Completed - Cancelled\n"
+        Area:
+          type: string
+          description: Total area of report.
+        Pitch:
+          type: string
+          description: Primary pitch of report.
+        LengthRidge:
+          type: string
+          description: Total length of all ridges for report.
+        LengthValley:
+          type: string
+          description: Total length of all valleys for report.
+        LengthEave:
+          type: string
+          description: Total length of all eaves for report.
+        LengthRake:
+          type: string
+          description: Total length of all rakes for report.
+        ProductPrimaryId:
+          type: integer
+          description: ID of the primary product.
+        ProductPrimary:
+          type: string
+          description: Name of the primary product.
+        ProductDeliveryId:
+          type: integer
+          description: ID of the delivery product.
+        ProductDelivery:
+          type: string
+          description: Name of the delivery product.
+        AddOnProductIds:
+          type: string
+          description: Comma-seperated list of any Add-On products.
+        AllowsUserSubmittedPhotos:
+          type: boolean
+          description: Indicates if user submitted photos will appear on report if uploaded by user.
+        LengthHip:
+          type: string
+          description: Total length of all hips for report.
+        SubstituteFromProduct:
+          type: integer
+          description: Previous product name if substitution was made.
+        SubstituteToProduct:
+          type: string
+          description: Current product name if sustitution was made.
+        CanCancelReport:
+          type: string
+          description: Determines if the report can be canceled based on its current status.
+        StatusId:
+          type: integer
+          description: "The primary status Id for the report.\n * `1` - Created\n * `2` - InProcess\n * `3` - Pending\n * `4` - Closed\n * `5` - Completed\n"
+        SubStatusId:
+          type: integer
+          description: "The SubStatus Id for the report.\n * `5` - UnderReview\n * `6` - ProcessStarted\n * `8` - NeedToID\n * `9` - Duplicate\n * `10` - CanceledByClient\n * `11` - PoorImages\n * `12` - NoID\n * `14` - ReportTypeChange\n * `15` - NoImages\n * `16` - Other\n * `18` - CardRejected\n * `19` - Sent\n * `20` - Sent\n * `21` - CustomerResponse\n * `24` - WrongHouse\n * `26` - ReadyToSend\n * `27` - CreditCardFailure\n * `28` - UnSketchable\n * `29` - AddressVerified\n * `30` - NotSent\n * `31` - Processing\n * `32` - MeasurementData\n * `38` - UnsupportedStructure\n * `40` - Submitted\n * `43` - ReadyToCapturePayment\n * `49` - PendingClosure\n * `50` - ClosureDenied\n * `55` - Cancelled\n"
+        DisplayStatus:
+          type: string
+          description: The display status string description.
+        DateOfLoss:
+          type: string
+          description: Date of loss for the report claim (mm/dd/yyyy). Empty if not available.
+        DeliveryFilesAvailable:
+          type: array
+          description: List of files that are available for delivery (e.g., image files used in the report, diagrams, etc.).
+          items:
+            $ref: '#/components/schemas/DeliveryFilesAvailable'
+        AdditionalRecipients:
+          type: string
+          description: List of additional emails to include for delivery.
+        TotalCost:
+          type: number
+          description: Total cost of the report.
+        PaymentType:
+          type: string
+          description: List of additional emails to include for delivery.
+        MeasurementByStructure:
+          type: array
+          description: Gets the list of measurements by structure.
+          items:
+            $ref: '#/components/schemas/StructureMeasurement'
+        PrimaryProductDisplayName:
+          type: string
+          description: The display name of the primary product.
+        AddOnProducts:
+          type: array
+          description: Details of the AddOn products.
+          items:
+            $ref: '#/components/schemas/AddOnProductDetailsModel'
+        TypeOfStructure:
+          type: integer
+          description: "Available AddOnProductIds.\n * `0` - NotSet\n * `1` - Residential\n * `2` - Commercial\n * `3` - MultiFamily\n"
+        ProductSubstitution:
+          type: object
+          properties:
+            From:
+              type: object
+              $ref: '#/components/schemas/ProductSubstitutionDetails'
+              description: Product details for the initial product of the report.
+            To:
+              type: object
+              $ref: '#/components/schemas/ProductSubstitutionDetails'
+              description: Product details for the new product of the report.
+        TotalMeasurements:
+          type: object
+          $ref: '#/components/schemas/StructureMeasurement'
+          description: Total combined measurements for all structures.
+        JobName:
+          type: string
+        CanEditReportInformation:
+          type: boolean
+        SuggestedWasteFactorAvailable:
+          type: boolean
+    getEagleViewOrderUpgradeProducts_resp:
+      type: object
+      properties:
+        AvailableProducts:
+          type: array
+          description: Collection of GetAvailableProductsResponseModel.
+          items:
+            $ref: '#/components/schemas/AvailableProduct'
+        CurrentOrder:
+          $ref: '#/components/schemas/CurrentOrder'
+          description: Details of the current order.
+    EagleViewOrderReports_report_ReportProducts:
+      type: object
+      properties:
+        ProductPrimaryId:
+          type: integer
+          description: Primary product Id.
+        ProductPrimary:
+          type: string
+          description: Primary product name.
+        ProductDeliveryId:
+          type: integer
+          description: Delivery product Id.
+        ProductDelivery:
+          type: string
+          description: Delivery product name.
+    eagleViewPlaceOrder_resp:
+      type: object
+      properties:
+        mincronOrderId:
+          type: string
+        orderId:
+          type: integer
+        reportIds:
+          type: array
+          items:
+            type: integer
+        modelState:
+          type: object
+          properties:
+            modelKey:
+              type: string
+            modelValue:
+              type: array
+              items:
+                type: string
+    EagleViewOrderReports_report_ReportStatus:
+      type: object
+      properties:
+        StatusId:
+          type: integer
+          description: Current status Id of the report.
+        Status:
+          type: string
+          description: Current status name of the report.
+        SubStatusId:
+          type: integer
+          description: Current sub-status Id of the report.
+        SubStatus:
+          type: string
+          description: Current sub-status name of the report.
+        DisplayStatus:
+          type: string
+          description: Current display status of the report.
+    EagleViewOrderStatusId:
+      type: string
+      description: "The primary status Id for the report.\n * `1` - Created\n * `2` - InProcess\n * `3` - Pending\n * `4` - Closed\n * `5` - Completed\n"
+      enum:
+      - '1'
+      - '2'
+      - '3'
+      - '4'
+      - '5'
+    CurrentOrder:
+      type: object
+      properties:
+        ReportId:
+          type: integer
+          description: Report Id.
+        MeasurementRequestTypeId:
+          type: integer
+          description: "Available MeasurementRequestTypes\n * `1` - PrimaryPlusDetachedGarage\n * `2` - PrimaryStructureOnly\n * `3` - AllStructuresOnParcel\n * `4` - CommercialComplex\n * `5` - Other\n"
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+        ProductId:
+          type: integer
+          description: "Available PrimaryProductIds\n * `1` - PremiumResidential\n * `2` - PremiumCommercial\n * `3` - StandardResidential\n * `9` - Images\n * `10` - ParkingLot\n * `11` - EagleView Inform Essentials+\n * `12` - EagleView Inform Essentials+ for Commercial\n * `13` - ClaimsReadyResidential\n * `14` - ClaimsReadyCommercial\n * `15` - AA2D\n * `16` - AA3DResidential\n * `17` - SketchOnly\n * `18` - AA3DCommercial\n * `20` - InstallerReport\n * `25` - EC3DResidential\n * `26` - EC3DCommercial\n * `27` - EC2DResidential\n * `28` - EC2DCommercial\n * `29` - PremiumAWResidential\n * `30` - PremiumAWCommercial\n * `31` - ECPremiumResidential\n * `32` - ECPremiumCommercial\n * `34` - PremiumResidentialWallonly\n * `35` - PremiumCommercialWallonly\n * `37` - RiskManagementResidential\n * `38` - RiskManagementCommercial\n * `39` - Estimate\n * `40` - RoofGeometryResidential\n * `41` - CarrierEstimate\n * `44` - QuickSquares\n * `46` - GutterResidential\n * `47` - GutterCommercial\n * `48` - DiagramResidential\n * `49` - DiagramCommercial\n * `51` - WallsLite\n * `55` - QuickSquares-Multi-Family\n * `62` - EagleView Inform Advanced\n * `63` - EagleView Inform Advanced for Commercial\n"
+          enum:
+          - 1
+          - 2
+          - 3
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 20
+          - 25
+          - 26
+          - 27
+          - 28
+          - 29
+          - 30
+          - 31
+          - 32
+          - 34
+          - 35
+          - 37
+          - 38
+          - 39
+          - 40
+          - 41
+          - 44
+          - 46
+          - 47
+          - 48
+          - 49
+          - 51
+          - 55
+          - 62
+          - 63
+        ProductDeliveryId:
+          type: integer
+          description: "Available PrimaryProductIds\n * `4` - ExpressDelivery\n * `7` - ThreeHourDelivery\n * `8` - RegularDelivery\n * `45` - QuickDelivery\n"
+          enum:
+          - 4
+          - 7
+          - 8
+          - 45
+        AddOnProductIds:
+          type: array
+          items:
+            type: integer
+            description: "Available AddOnProductIds\n * `19` - EagleViewXML\n * `33` - Walls\n * `54` - WallsLite\n"
+            enum:
+            - 19
+            - 33
+            - 54
+        AdditionalEmails:
+          type: string
+          description: Email addresses currently CC'ed for this report.
+        ClaimNumber:
+          type: string
+          description: Claim number.
+        ClaimInfo:
+          type: string
+          description: Claim information.
+        PONumber:
+          type: string
+          description: PO number.
+        DateOfLoss:
+          type: string
+          description: Date of loss.
+          format: date-time
+        CatId:
+          type: string
+          description: Cat Id.
+        JobName:
+          type: string
+    EagleViewOrderReports_report_AddOnProducts:
+      type: object
+      properties:
+        ProductId:
+          type: integer
+        DisplayName:
+          type: string
+    EagleViewOrderReports_report_addOns:
+      type: object
+      properties:
+        ProductID:
+          type: integer
+          description: AddOn Product Id.
+        Name:
+          type: string
+          description: AddOn Product name.
+        Description:
+          type: string
+          description: Product description.
+    GetEagleViewOrderReports_req:
+      type: object
+      properties:
+        productsToFiterBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/EagleViewOrderProducts'
+        statusesToFilterBy:
+          type: array
+          items:
+            $ref: '#/components/schemas/EagleViewOrderStatusId'
+        subStatusToFilterBy:
+          $ref: '#/components/schemas/EagleViewOrderSubStatusId'
+        fieldsToFilterBy:
+          type: array
+          items:
+            type: string
+            description: "The SubStatus Id for the report.\n * `ID` - Unique identifier generated by EagleView.\n * `ClaimNumber` - Customer provided claim number.\n * `CatID` - Customer provided catastrophe ID.\n * `Address` - Street address.\n"
+            enum:
+            - ID
+            - ClaimNumber
+            - CatID
+            - Address
+        textToFilterBy:
+          type: string
+          description: 'Text to apply in the field filter.
+
+            '
+        sortBy:
+          type: string
+          description: "Available SortByFields.\n * `DatePlaced` - Date the report was placed.\n * `ID` - Unique identifier generated by EagleView. Used by default.\n"
+          enum:
+          - DatePlaced
+          - ID
+        sortAscending:
+          type: boolean
+          description: 'Indicates if the sort can be ascending or descending.
+
+            '
+        referenceId:
+          type: string
+        emailCC:
+          type: string
+        fromDate:
+          type: string
+          format: date
+        toDate:
+          type: string
+          format: date
+    EagleViewOrderProducts:
+      type: integer
+      description: "Available ProductIds.\n * `1` - PremiumResidential\n * `2` - PremiumCommercial\n * `3` - StandardResidential\n * `9` - Images\n * `10` - ParkingLot\n * `11` - EagleView Inform Essentials+\n * `12` - EagleView Inform Essentials+ for Commercial\n * `13` - ClaimsReadyResidential\n * `14` - ClaimsReadyCommercial\n * `15` - AA2D\n * `16` - AA3DResidential\n * `17` - SketchOnly\n * `18` - AA3DCommercial\n * `20` - InstallerReport\n * `25` - EC3DResidential\n * `26` - EC3DCommercial\n * `27` - EC2DResidential\n * `28` - EC2DCommercial\n * `29` - PremiumAWResidential\n * `30` - PremiumAWCommercial\n * `31` - ECPremiumResidential\n * `32` - ECPremiumCommercial\n * `34` - PremiumResidentialWallonly\n * `35` - PremiumCommercialWallonly\n * `37` - RiskManagementResidential\n * `38` - RiskManagementCommercial\n * `39` - Estimate\n * `40` - RoofGeometryResidential\n * `41` - CarrierEstimate\n * `44` - QuickSquares\n * `46` - GutterResidential\n * `47` - GutterCommercial\n * `48` - DiagramResidential\n * `49` - DiagramCommercial\n * `51` - WallsLite\n * `55` - QuickSquares-Multi-Family\n * `62` - EagleView Inform Advanced\n * `63` - EagleView Inform Advanced for Commercial\n"
+      enum:
+      - 1
+      - 2
+      - 3
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+      - 16
+      - 17
+      - 18
+      - 20
+      - 25
+      - 26
+      - 27
+      - 28
+      - 29
+      - 30
+      - 31
+      - 32
+      - 34
+      - 35
+      - 37
+      - 38
+      - 39
+      - 40
+      - 41
+      - 44
+      - 46
+      - 47
+      - 48
+      - 49
+      - 51
+      - 55
+      - 62
+      - 63
+    StructureMeasurement:
+      type: object
+      properties:
+        BuildingName:
+          type: string
+          description: Name of the building.
+        Area:
+          type: string
+          description: Total area of the building.
+        PrimaryPitch:
+          type: string
+          description: Primary pitch of the building.
+        LengthRidge:
+          type: string
+          description: Total length of the building's ridges.
+        LengthValley:
+          type: string
+          description: Total length of the buliding's valleys.
+        LengthEave:
+          type: string
+          description: Total length of the building's eaves.
+        LengthRake:
+          type: string
+          description: Total length of the building's rakes.
+        LengthHip:
+          type: string
+          description: Total length of the building's hips.
+    GetEagleViewOrderReports_resp:
+      type: object
+      properties:
+        ReportList:
+          type: array
+          items:
+            $ref: '#/components/schemas/EagleViewOrderReports_report'
+        TotalOfReports:
+          type: integer
+          description: Total number of reports.
+    ReportAddresses:
+      type: object
+      required:
+      - Address
+      - City
+      - State
+      - Zip
+      properties:
+        Address:
+          type: string
+          description: Street address.
+          maxLength: 50
+        City:
+          type: string
+          description: City of address.
+          maxLength: 50
+        State:
+          type: string
+          description: State of address.
+          maxLength: 50
+        Zip:
+          type: string
+          description: Zip code of address.
+          maxLength: 50
+        Country:
+          type: string
+          description: Country of address.
+          maxLength: 50
+        Latitude:
+          type: number
+          description: Latitude of address.
+        Longitude:
+          type: number
+          description: Longitude of address.
+    AddOnProductDetailsModel:
+      type: object
+      properties:
+        DisplayName:
+          type: string
+          description: The display name of the product.
+        ProductId:
+          type: integer
+          description: "Available AddOnProductIds.\n * `19` - EagleViewXML\n * `33` - Walls\n * `54` - WallsLite\n"
+    eagleViewPlaceUpgradeOrder_req:
+      type: object
+      required:
+      - ReportId
+      - UUID
+      properties:
+        ReportId:
+          type: integer
+          description: ReportId returned from placeEagleViewOrder call.
+        MeasurementRequestTypeId:
+          type: integer
+          description: "Available MeasurementRequestTypes\n * `1` - PrimaryPlusDetachedGarage\n * `2` - PrimaryStructureOnly\n * `3` - AllStructuresOnParcel\n * `4` - CommercialComplex\n * `5` - Other\n"
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+        ProductId:
+          type: integer
+          description: "Available ProductIds.\n * `1` - PremiumResidential\n * `2` - PremiumCommercial\n * `3` - StandardResidential\n * `9` - Images\n * `10` - ParkingLot\n * `11` - EagleView Inform Essentials+\n * `12` - EagleView Inform Essentials+ for Commercial\n * `13` - ClaimsReadyResidential\n * `14` - ClaimsReadyCommercial\n * `15` - AA2D\n * `16` - AA3DResidential\n * `17` - SketchOnly\n * `18` - AA3DCommercial\n * `20` - InstallerReport\n * `25` - EC3DResidential\n * `26` - EC3DCommercial\n * `27` - EC2DResidential\n * `28` - EC2DCommercial\n * `29` - PremiumAWResidential\n * `30` - PremiumAWCommercial\n * `31` - ECPremiumResidential\n * `32` - ECPremiumCommercial\n * `34` - PremiumResidentialWallonly\n * `35` - PremiumCommercialWallonly\n * `37` - RiskManagementResidential\n * `38` - RiskManagementCommercial\n * `39` - Estimate\n * `40` - RoofGeometryResidential\n * `41` - CarrierEstimate\n * `44` - QuickSquares\n * `46` - GutterResidential\n * `47` - GutterCommercial\n * `48` - DiagramResidential\n * `49` - DiagramCommercial\n * `51` - WallsLite\n * `55` - QuickSquares-Multi-Family\n * `62` - EagleView Inform Advanced\n * `63` - EagleView Inform Advanced for Commercial\n"
+          enum:
+          - 1
+          - 2
+          - 3
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 20
+          - 25
+          - 26
+          - 27
+          - 28
+          - 29
+          - 30
+          - 31
+          - 32
+          - 34
+          - 35
+          - 37
+          - 38
+          - 39
+          - 40
+          - 41
+          - 44
+          - 46
+          - 47
+          - 48
+          - 49
+          - 51
+          - 55
+          - 62
+          - 63
+        ProductDeliveryId:
+          type: integer
+          description: "Available DeliveryProductIds.\n * `4` - ExpressDelivery\n * `7` - ThreeHourDelivery\n * `8` - RegularDelivery\n * `45` - QuickDelivery\n"
+          enum:
+          - 4
+          - 7
+          - 8
+          - 45
+        AddOnProductIds:
+          type: array
+          items:
+            type: integer
+            description: "Available AddOnProductIds\n * `19` - EagleViewXML\n * `33` - Walls\n * `54` - WallsLite\n"
+            enum:
+            - 19
+            - 33
+            - 54
+        AdditionalEmails:
+          type: string
+          description: Comma separated list of emails to be added as delivery recipients.
+        ClaimNumber:
+          type: string
+          description: Custom claim number field.
+          maxLength: 100
+        ClaimInfo:
+          type: string
+          description: Custom claim information field.
+          maxLength: 100
+        PONumber:
+          type: string
+          description: Custom purchase order number field.
+          maxLength: 45
+        DateOfLoss:
+          type: string
+          description: Date of loss.
+          format: date-time
+        CatId:
+          type: string
+          description: Custom catastrophe Id field.
+          maxLength: 50
+        UUID:
+          type: string
+          format: uuid
+          description: The UUID.
+    DeliveryFilesAvailable:
+      type: object
+      properties:
+        DeliveryFileTypeId:
+          type: integer
+          description: "Available DeliveryFileTypes.\n * `2` - Invoice\n * `3` - PremiumReport\n * `4` - NeighborhoodReport\n * `5` - ExclusiveCover\n * `6` - TopImage\n * `7` - ParkingLotReport\n * `8` - SunSiteReport\n * `12` - PropertyOwner\n * `13` - PreStandard\n * `17` - ImagesOnly\n * `18` - EagleViewXML\n * `22` - NorthImage\n * `23` - SouthImage\n * `24` - EastImage\n * `25` - WestImage\n * `26` - AutoCAD\n * `27` - AppliCAD\n * `28` - LengthDiagram\n * `29` - NotesDiagram\n * `31` - PitchDiagram\n * `32` - AreaDiagram\n * `42` - DetailedLengthDiagram\n * `43` - NotesNoLabelDiagram\n * `51` - ClaimsReadyReport\n * `52` - AA3DReport\n * `53` - AA2DReport\n * `71` - EC3DReport\n * `73` - EC2DReport\n * `75` - ECPremiumReport\n * `76` - PremiumAWReport\n * `77` - WallsAddOn\n * `79` - WallAreaDiagram\n * `80` - AlternateWallView\n * `81` - MissingWallDiagram\n * `82` - NorthElevationDiagram\n * `83` - SouthElevationDiagram\n * `84` - EastElevationDiagram\n * `85` - WestElevationDiagram\n * `86` - RoofPenetrationDiagram\n * `87` - WallsOnlyReport\n * `88` - WallsOnlyMetadata\n * `89` - RiskManagementMetadata\n * `90` - LivingAreaDiagram\n * `91` - WallsNoLabelsDiagram\n * `92` - AreaViewImage\n * `93` - PitchRoofPenetrationDiagram\n * `94` - BldgFootprintDiagram\n * `95` - SiteMapDiagram\n * `96` - OutbuildingDiagram\n * `98` - RoofGeometryReport\n * `105` - QuickSquaresReport\n * `107` - EVMeasurementJSON\n * `109` - GutterReport\n * `111` - DiagramReport\n * `116` - QuickSquaresECReport\n * `118` - EC2DPrePitchReport\n * `121` - WallsLiteReport\n * `132` - SunSiteCompleteReport\n"
+        EffectiveDate:
+          type: string
+          description: Date and time which the file was generated.
+    eagleViewPlaceOrder_req:
+      type: object
+      required:
+      - OrderReports
+      - accountId
+      - email
+      - UUID
+      properties:
+        OrderReports:
+          type: array
+          description: Collection of OrderReportModels, each representing a report to be ordered.
+          items:
+            $ref: '#/components/schemas/OrderReports'
+          minLength: 1
+          maxLength: 40
+        PromoCode:
+          type: string
+          description: Promotional code for report discount.
+        PlaceOrderUser:
+          type: string
+          description: Email address of account to place orders on. Only required if not the authenticated user.
+        accountId:
+          type: string
+          description: The account id
+        email:
+          type: string
+          description: The user email
+        projectName:
+          type: string
+          description: The project name
+        beaconPrice:
+          type: number
+          description: The price
+        UUID:
+          type: string
+          format: uuid
+          description: The UUID.
+    EagleViewOrderReports_report:
+      type: object
+      properties:
+        Id:
+          type: integer
+        Street1:
+          type: string
+        Street2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        Zip:
+          type: string
+        Country:
+          type: string
+        Latitude:
+          type: number
+        Longitude:
+          type: number
+        ClaimNumber:
+          type: string
+        ClaimInfo:
+          type: string
+        BatchId:
+          type: string
+        CatId:
+          type: string
+        DatePlaced:
+          type: string
+          format: date-time
+        DateCompleted:
+          type: string
+          format: date-time
+        ReportProducts:
+          $ref: '#/components/schemas/EagleViewOrderReports_report_ReportProducts'
+        ReportStatus:
+          $ref: '#/components/schemas/EagleViewOrderReports_report_ReportStatus'
+        ReportDownloadLink:
+          type: string
+        EligibleForUpgrade:
+          type: boolean
+        numberOfImages:
+          type: number
+        addOns:
+          type: array
+          items:
+            $ref: '#/components/schemas/EagleViewOrderReports_report_addOns'
+        AllowsUserSubmittedPhotos:
+          type: boolean
+        CanCancelReport:
+          type: boolean
+        DateOfLoss:
+          type: string
+          format: date-time
+        DeliveryFilesAvailable:
+          type: array
+          description: List of files that are available for delivery (e.g., image files used in the report, diagrams, etc.).
+          items:
+            $ref: '#/components/schemas/DeliveryFilesAvailable'
+        TopDownIsAvailable:
+          type: boolean
+        BuildingId:
+          type: string
+        PrimaryProductDisplayName:
+          type: string
+        AddOnProducts:
+          type: array
+          description: List of AddOn products.
+          items:
+            $ref: '#/components/schemas/EagleViewOrderReports_report_AddOnProducts'
+        TypeOfStructure:
+          type: integer
+        JobName:
+          type: string
+        EmailCC:
+          type: string
+        ReferenceId:
+          type: string
+        privateOrGlobal:
+          type: string
+          description: the value is private or global
+    ReportAttibutes:
+      type: object
+      required:
+      - Attribute
+      properties:
+        Attribute:
+          type: integer
+          description: "Available Attributes\n * `9` - StandardReportOk\n * `10` - PremiumReportOk\n * `24` - EmailCc\n * `107` - ReportOptionsCustomCover\n * `119` - AccuracyWaiverOk\n * `120` - Residential2CommercialOk\n * `155` - Ec3DReportOk\n * `156` - Ec2DReportOk\n * `246` - QuickSquaresToQsecOk\n * `247` - QuickSquaresToEc2DOk\n * `272` - WallsOnlyToWallsLiteOk\n"
+          enum:
+          - 9
+          - 10
+          - 24
+          - 107
+          - 119
+          - 120
+          - 155
+          - 156
+          - 246
+          - 247
+          - 272
+        Value:
+          type: string
+    AvailableProduct:
+      type: object
+      properties:
+        productID:
+          type: integer
+          description: "Available PrimaryProductIds\n * `1` - PremiumResidential\n * `2` - PremiumCommercial\n * `3` - StandardResidential\n * `9` - Images\n * `10` - ParkingLot\n * `11` - EagleView Inform Essentials+\n * `12` - EagleView Inform Essentials+ for Commercial\n * `13` - ClaimsReadyResidential\n * `14` - ClaimsReadyCommercial\n * `15` - AA2D\n * `16` - AA3DResidential\n * `17` - SketchOnly\n * `18` - AA3DCommercial\n * `20` - InstallerReport\n * `25` - EC3DResidential\n * `26` - EC3DCommercial\n * `27` - EC2DResidential\n * `28` - EC2DCommercial\n * `29` - PremiumAWResidential\n * `30` - PremiumAWCommercial\n * `31` - ECPremiumResidential\n * `32` - ECPremiumCommercial\n * `34` - PremiumResidentialWallonly\n * `35` - PremiumCommercialWallonly\n * `37` - RiskManagementResidential\n * `38` - RiskManagementCommercial\n * `39` - Estimate\n * `40` - RoofGeometryResidential\n * `41` - CarrierEstimate\n * `44` - QuickSquares\n * `46` - GutterResidential\n * `47` - GutterCommercial\n * `48` - DiagramResidential\n * `49` - DiagramCommercial\n * `51` - WallsLite\n * `55` - QuickSquares-Multi-Family\n * `62` - EagleView Inform Advanced\n * `63` - EagleView Inform Advanced for Commercial\n"
+          enum:
+          - 1
+          - 2
+          - 3
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 20
+          - 25
+          - 26
+          - 27
+          - 28
+          - 29
+          - 30
+          - 31
+          - 32
+          - 34
+          - 35
+          - 37
+          - 38
+          - 39
+          - 40
+          - 41
+          - 44
+          - 46
+          - 47
+          - 48
+          - 49
+          - 51
+          - 55
+          - 62
+          - 63
+        name:
+          type: string
+          description: Product name.
+        description:
+          type: string
+          description: Product description.
+        productGroup:
+          type: string
+          description: Product group name.
+        isTemporarilyUnavailable:
+          type: boolean
+          description: Indicates if the product is temporarily unavailable.
+        priceMin:
+          type: number
+          format: double
+          description: Value of the minimum price.
+        priceMax:
+          type: number
+          format: double
+          description: Value of the maximum price.
+        deliveryProducts:
+          type: array
+          description: List of delivery products.
+          items:
+            $ref: '#/components/schemas/DeliveryProduct'
+        addOnProducts:
+          type: array
+          description: List of AddOn products.
+          items:
+            $ref: '#/components/schemas/DeliveryProduct'
+        measurementInstructionTypes:
+          type: array
+          items:
+            type: integer
+        TypeOfStructure:
+          type: integer
+          description: "Available StructureTypes.\n * `0` - NotSet\n * `1` - Residential\n * `2` - Commercial\n * `3` - MultiFamily\n"
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+        IsRoofProduct:
+          type: boolean
+          description: Indicates if this is a roof product.
+        SortOrder:
+          type: integer
+          description: Order to display products.
+        AllowsUserSubmittedPhotos:
+          type: boolean
+          description: Determines if this report PDF can display user submitted photos.
+        DetailedDescription:
+          type: string
+    OrderReports:
+      type: object
+      required:
+      - ReportAddresses
+      - PrimaryProductId
+      - DeliveryProductId
+      - MeasurementInstructionType
+      - ChangesInLast4Years
+      properties:
+        ReportAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportAddresses'
+          minLength: 1
+          maxLength: 4
+        BuildingId:
+          type: string
+          description: Building Id for this structure. Used to identify different structures with the same address.
+          maxLength: 50
+        PrimaryProductId:
+          type: integer
+          description: "Available PrimaryProductIds\n * `1` - PremiumResidential\n * `2` - PremiumCommercial\n * `3` - StandardResidential\n * `9` - Images\n * `10` - ParkingLot\n * `11` - EagleView Inform Essentials+\n * `12` - EagleView Inform Essentials+ for Commercial\n * `13` - ClaimsReadyResidential\n * `14` - ClaimsReadyCommercial\n * `15` - AA2D\n * `16` - AA3DResidential\n * `17` - SketchOnly\n * `18` - AA3DCommercial\n * `20` - InstallerReport\n * `25` - EC3DResidential\n * `26` - EC3DCommercial\n * `27` - EC2DResidential\n * `28` - EC2DCommercial\n * `29` - PremiumAWResidential\n * `30` - PremiumAWCommercial\n * `31` - ECPremiumResidential\n * `32` - ECPremiumCommercial\n * `34` - PremiumResidentialWallonly\n * `35` - PremiumCommercialWallonly\n * `37` - RiskManagementResidential\n * `38` - RiskManagementCommercial\n * `39` - Estimate\n * `40` - RoofGeometryResidential\n * `41` - CarrierEstimate\n * `44` - QuickSquares\n * `46` - GutterResidential\n * `47` - GutterCommercial\n * `48` - DiagramResidential\n * `49` - DiagramCommercial\n * `51` - WallsLite\n * `55` - QuickSquares-Multi-Family\n * `62` - EagleView Inform Advanced\n * `63` - EagleView Inform Advanced for Commercial\n"
+          enum:
+          - 1
+          - 2
+          - 3
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 20
+          - 25
+          - 26
+          - 27
+          - 28
+          - 29
+          - 30
+          - 31
+          - 32
+          - 34
+          - 35
+          - 37
+          - 38
+          - 39
+          - 40
+          - 41
+          - 44
+          - 46
+          - 47
+          - 48
+          - 49
+          - 51
+          - 55
+          - 62
+          - 63
+        DeliveryProductId:
+          type: integer
+          description: "Available PrimaryProductIds\n * `4` - ExpressDelivery\n * `7` - ThreeHourDelivery\n * `8` - RegularDelivery\n * `45` - QuickDelivery\n"
+          enum:
+          - 4
+          - 7
+          - 8
+          - 45
+        AddOnProductIds:
+          type: array
+          items:
+            type: integer
+            description: "Available AddOnProductIds\n * `19` - EagleViewXML\n * `33` - Walls\n * `54` - WallsLite\n"
+            enum:
+            - 19
+            - 33
+            - 54
+        MeasurementInstructionType:
+          type: integer
+          description: "Available MeasurementRequestTypes\n * `1` - PrimaryPlusDetachedGarage\n * `2` - PrimaryStructureOnly\n * `3` - AllStructuresOnParcel\n * `4` - CommercialComplex\n * `5` - Other\n"
+          enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+        ReportAttibutes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportAttibutes'
+        ClaimNumber:
+          type: string
+          description: Customer provided claim number for this report.
+          maxLength: 50
+        ClaimInfo:
+          type: string
+          description: Customer provided claim information for this report.
+          maxLength: 50
+        BatchId:
+          type: string
+          description: Customer provided batch Id for this report.
+          maxLength: 50
+        CatId:
+          type: string
+          description: Customer provided catastrophe Id for this report.
+          maxLength: 50
+        ChangesInLast4Years:
+          type: boolean
+          description: Boolean to indicate if there have been changes at this address in the past 4 years
+        PONumber:
+          type: string
+          description: Customer provided PO number for this report.
+          maxLength: 45
+        Comments:
+          type: string
+          description: Customer notes for this report.
+          maxLength: 512
+        ReferenceId:
+          type: string
+          description: Customer provided referenceId used for returning data to customer APIs.
+          maxLength: 100
+        InsuredName:
+          type: string
+          description: Customer provided insured name for this report.
+          maxLength: 100
+        UpgradeFromReportId:
+          type: integer
+          description: Id of earlier report upgrading from.
+        PolicyNumber:
+          type: string
+          description: Customer provided policy number for this report.
+          maxLength: 100
+        DateOfLoss:
+          type: string
+          description: Date of loss.
+          format: date-time
+        propertyType:
+          type: string
+          description: Property Type.
+          maxLength: 50
+        reportType:
+          type: string
+          description: Report Type.
+          maxLength: 50
+        deliveryType:
+          type: string
+          description: Delivery Type.
+          maxLength: 50
+        addOns:
+          type: string
+          description: Add Ons.
+          maxLength: 50
+        structures:
+          type: string
+          description: Structures.
+          maxLength: 50
+    eagleViewPlaceUpgradeOrder_resp:
+      type: object
+      properties:
+        mincronOrderId:
+          type: string
+        reportId:
+          type: integer
+        modelState:
+          type: object
+          properties:
+            modelKey:
+              type: string
+            modelValue:
+              type: array
+              items:
+                type: string
+    ProductSubstitutionDetails:
+      type: object
+      properties:
+        PrimaryProductId:
+          type: integer
+          description: Primary product Id.
+        PrimaryProductDisplayName:
+          type: string
+          description: Display name of the primary product Id.
+        TypeOfStructure:
+          type: integer
+          description: "Available AddOnProductIds.\n * `0` - NotSet\n * `1` - Residential\n * `2` - Commercial\n * `3` - MultiFamily\n"
+    EagleViewOrderSubStatusId:
+      type: string
+      description: "The SubStatus Id for the report.\n * `5` - UnderReview\n * `6` - ProcessStarted\n * `8` - NeedToID\n * `9` - Duplicate\n * `10` - CanceledByClient\n * `11` - PoorImages\n * `12` - NoID\n * `14` - ReportTypeChange\n * `15` - NoImages\n * `16` - Other\n * `18` - CardRejected\n * `19` - Sent\n * `20` - Sent\n * `21` - CustomerResponse\n * `24` - WrongHouse\n * `26` - ReadyToSend\n * `27` - CreditCardFailure\n * `28` - UnSketchable\n * `29` - AddressVerified\n * `30` - NotSent\n * `31` - Processing\n * `32` - MeasurementData\n * `38` - UnsupportedStructure\n * `40` - Submitted\n * `43` - ReadyToCapturePayment\n * `49` - PendingClosure\n * `50` - ClosureDenied\n * `55` - Cancelled\n"
+      enum:
+      - '5'
+      - '6'
+      - '8'
+      - '9'
+      - '10'
+      - '11'
+      - '12'
+      - '13'
+      - '14'
+      - '15'
+      - '16'
+      - '17'
+      - '18'
+      - '19'
+      - '20'
+      - '21'
+      - '24'
+      - '26'
+      - '27'
+      - '28'
+      - '29'
+      - '31'
+      - '32'
+      - '38'
+      - '40'
+      - '43'
+      - '49'
+      - '50'
+      - '55'
+    ReportImage:
+      type: object
+      properties:
+        sequenceNumber:
+          type: integer
+        imageId:
+          type: integer
+        ProductId:
+          type: integer
+          description: "Available ProductIds.\n * `1` - PremiumResidential\n * `2` - PremiumCommercial\n * `3` - StandardResidential\n * `9` - Images\n * `10` - ParkingLot\n * `11` - EagleView Inform Essentials+\n * `12` - EagleView Inform Essentials+ for Commercial\n * `13` - ClaimsReadyResidential\n * `14` - ClaimsReadyCommercial\n * `15` - AA2D\n * `16` - AA3DResidential\n * `17` - SketchOnly\n * `18` - AA3DCommercial\n * `20` - InstallerReport\n * `25` - EC3DResidential\n * `26` - EC3DCommercial\n * `27` - EC2DResidential\n * `28` - EC2DCommercial\n * `29` - PremiumAWResidential\n * `30` - PremiumAWCommercial\n * `31` - ECPremiumResidential\n * `32` - ECPremiumCommercial\n * `34` - PremiumResidentialWallonly\n * `35` - PremiumCommercialWallonly\n * `37` - RiskManagementResidential\n * `38` - RiskManagementCommercial\n * `39` - Estimate\n * `40` - RoofGeometryResidential\n * `41` - CarrierEstimate\n * `44` - QuickSquares\n * `46` - GutterResidential\n * `47` - GutterCommercial\n * `48` - DiagramResidential\n * `49` - DiagramCommercial\n * `51` - WallsLite\n * `55` - QuickSquares-Multi-Family\n * `62` - EagleView Inform Advanced\n * `63` - EagleView Inform Advanced for Commercial\n"
+          enum:
+          - 1
+          - 2
+          - 3
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 20
+          - 25
+          - 26
+          - 27
+          - 28
+          - 29
+          - 30
+          - 31
+          - 32
+          - 34
+          - 35
+          - 37
+          - 38
+          - 39
+          - 40
+          - 41
+          - 44
+          - 46
+          - 47
+          - 48
+          - 49
+          - 51
+          - 55
+          - 62
+          - 63
+        ProductDeliveryId:
+          type: integer
+          description: "Available DeliveryProductIds.\n * `4` - ExpressDelivery\n * `7` - ThreeHourDelivery\n * `8` - RegularDelivery\n * `45` - QuickDelivery\n"
+          enum:
+          - 4
+          - 7
+          - 8
+          - 45
+        AddOnProductIds:
+          type: array
+          items:
+            type: integer
+            description: "Available AddOnProductIds\n * `19` - EagleViewXML\n * `33` - Walls\n * `54` - WallsLite\n"
+            enum:
+            - 19
+            - 33
+            - 54
+        AdditionalEmails:
+          type: string
+          description: Comma separated list of emails to be added as delivery recipients.
+        ClaimNumber:
+          type: string
+          description: Custom claim number field.
+          maxLength: 100
+        ClaimInfo:
+          type: string
+          description: Custom claim information field.
+          maxLength: 100
+        PONumber:
+          type: string
+          description: Custom purchase order number field.
+          maxLength: 45
+        DateOfLoss:
+          type: string
+          description: Date of loss.
+          format: date-time
+        CatId:
+          type: string
+          description: Custom catastrophe Id field.
+          maxLength: 50
+  securitySchemes:
+    internalAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId
+x-refined-from:
+- beacon-roofing-supply-internal-openapi.yml
+- beacon-roofing-supply-v2-openapi.yml

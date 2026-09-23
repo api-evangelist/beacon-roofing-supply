@@ -1,0 +1,1111 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Order History Services…
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Order History Services
+paths:
+  /orderhistory:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Order History Services
+      summary: List all the orders in the account
+      description: This service will list the history orders
+      parameters:
+      - in: query
+        name: accountId
+        description: Account ID
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: pageSize
+        description: Default page size is 0
+        schema:
+          type: integer
+      - in: query
+        name: pageNo
+        description: Default page no is 0
+        schema:
+          type: integer
+      - in: query
+        name: filter
+        description: '
+
+          ##### Notice
+
+
+          The filter value should be URL encoded to avoid special characters
+
+          issues (e.g. % with numbers)
+
+
+          ##### filter enumeration
+
+
+          * UPPER(OrderNumber) like UPPER(''%XX%'')
+
+
+          * ShippingAddress1 like ''%XXX%'' or UPPER(ShippingAddress2) like
+
+          UPPER(''%XXX%'')
+
+
+          * UPPER(PurchaseOrderNumber) like  UPPER(''%XX%'') or UPPER(ExtendedCustomerPO) like UPPER(''%XX%'')
+
+
+          * UPPER(JobName) like  UPPER(''%XX%'')
+
+
+          * UPPER(AtgUUID) like  UPPER(''%XX%'')
+
+
+          * UPPER(Ordered) &gt; ''YYYY-MM-DD'' and UPPER(Ordered) &lt;
+
+          ''YYYY-MM-DD''
+
+
+          * UPPER(OrderStatusCode) in (''C'',''K'')
+
+
+          * UPPER(OrderStatusCode) in (''I'')
+
+
+          * UPPER(OrderStatusCode) in (''O'')
+
+
+          * UPPER(OrderStatusCode) in (''N'')
+
+
+          * UPPER(OrderStatusCode) in (''P'',''R'')
+
+
+          * UPPER(ItemOrProductDescription) like UPPER(''%XXX%'') or
+
+          ItemNumber like ''%XXX%''
+
+
+          * UPPER(SourceOfSale) like UPPER(''C'') or UPPER(SourceOfSale) like UPPER(''E'')
+
+
+          * UPPER(SourceOfSale) in (''C'') or UPPER(SourceOfSale) in (''E'')
+
+
+          * UPPER(SourceOfSale) = ''C'' or UPPER(SourceOfSale) = ''E''
+
+
+          * UPPER(PaymentStatus) like UPPER(''Fully Paid'')
+
+
+          * UPPER(PaymentStatus) like UPPER(''Partially Paid'')
+
+
+          * UPPER(PaymentStatus) like UPPER(''Unpaid'')
+
+
+          ##### OrderStatusCode mapping
+
+
+          * C,K: Processing
+
+
+          * I: Invoiced
+
+
+          * O: Ready Delivery/Pick up
+
+
+          * N: Pending
+
+
+          * P,R: Delivered
+
+
+          #### SourceOfSale mapping
+
+
+          * C: In-Store
+
+
+          * E: Online
+
+          '
+        schema:
+          type: string
+      - in: query
+        name: orderBy
+        description: '### orderBy enumeration
+
+          * OrderNumber ASC/DESC
+
+          * ShippingAddress1 ASC/DESC
+
+          * Total ASC/DESC
+
+          * OrderStatusCode ASC/DESC
+
+          * SourceOfSale ASC/DESC
+
+          '
+        schema:
+          type: string
+      - in: query
+        name: queryCompany
+        description: Default queryCompany is true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orderhistoryRep'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getOrderhistory
+      x-operation-id-source: derived
+  /orderhistory_v2:
+    get:
+      tags:
+      - Order History Services
+      summary: List all the orders in the account
+      description: This service will list the history orders
+      parameters:
+      - in: query
+        name: accountId
+        description: Account ID
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: pageSize
+        description: Default page size is 25
+        schema:
+          type: integer
+      - in: query
+        name: pageNo
+        description: Default page no is 1
+        schema:
+          type: integer
+      - in: query
+        name: searchBy
+        schema:
+          type: string
+        description: '
+
+          ##### searchBy enumeration
+
+
+          * JobName
+
+          * ProductOrSKU
+
+          * OrderPlacedDate
+
+          * MincronOrderNumber
+
+          * OrderStatus
+
+          * CustPO
+
+          * IsPROPlusOrder
+
+          * Street
+
+          * UUID
+
+          * PaymentStatus
+
+          '
+      - in: query
+        name: searchTerm
+        schema:
+          type: string
+        description: '
+
+          ##### When ''searchBy'' is one of the following enumeration, the ''searchTerm'' should be populated
+
+          * JobName
+
+          * ProductOrSKU
+
+          * MincronOrderNumber
+
+          * CustPO
+
+          * Street
+
+          * UUID
+
+          * PaymentStatus (searchTerm should be ''Fully Paid'' or ''Partially Paid'' or ''Unpaid'')
+
+          '
+      - in: query
+        name: searchStartDate
+        schema:
+          type: string
+          format: MM-DD-YYYY
+        description: '
+
+          ##### When ''searchBy'' is ''OrderPlacedDate'', the ''searchStartDate'' should be populated, format should be ''MM-DD-YYYY'', e.g. ''01-05-2021''
+
+          '
+      - in: query
+        name: searchEndDate
+        schema:
+          type: string
+          format: MM-DD-YYYY
+        description: '
+
+          ##### When ''searchBy'' is ''OrderPlacedDate'', the ''searchEndDate'' should be populated, format should be ''MM-DD-YYYY'', e.g. ''01-05-2021''
+
+          '
+      - in: query
+        name: searchEnum
+        schema:
+          type: string
+        description: '
+
+          ##### When ''searchBy'' is ''OrderStatus'', the ''searchEnum'' should be one of the following enumeration:
+
+          * Delivered
+
+          * Invoiced
+
+          * Pending
+
+          * Processing
+
+          * ReadyDeliveryOrPickUp
+
+          * DeliveredOrInvoiced
+
+
+          ##### When ''searchBy'' is ''IsPROPlusOrder'', the ''searchEnum'' should be one of the following enumeration:
+
+          * No
+
+          * Yes
+
+          '
+      - in: query
+        name: orderBy
+        description: '### orderBy enumeration
+
+          * MincronOrderNumber ASC/DESC
+
+          * Details ASC/DESC
+
+          * IsPROPlusOrder ASC/DESC
+
+          * TotalOrderAmount ASC/DESC
+
+          * OrderStatus ASC/DESC
+
+          '
+        schema:
+          type: string
+      - in: query
+        name: queryCompany
+        description: Default queryCompany is true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orderhistoryRep'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getOrderhistoryV2
+      x-operation-id-source: derived
+  /orderdetail:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Order History Services
+      summary: Get details of the order by Id
+      description: 'This service will calls order detail service and return order data.
+
+
+        For eagleView order, specialInstruction field in response will be replaced with report address.'
+      parameters:
+      - in: query
+        name: orderId
+        description: Order ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: accountId
+        description: Account ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: accountToken
+        description: Account Token
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: showDT
+        description: flag to show/hide DT order status info, default is true.
+        schema:
+          type: string
+      - in: query
+        name: queryCompany
+        description: Default queryCompany is true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+
+            If faild to parameter validation, will return null result with error message, refer to *API Response Message Code*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orderdetailRep'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getOrderdetail
+      x-operation-id-source: derived
+  /downloadOrderDetailAsPDF:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Order History Services
+      summary: Download order detail as PDF
+      description: This service can download order detail as PDF.
+      parameters:
+      - in: query
+        name: orderId
+        description: Order ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: accountId
+        description: Account ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: accountToken
+        description: Account Token
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: branchId
+        description: Branch ID
+        schema:
+          type: string
+      - in: query
+        name: showBackToOrderDetailPageLink
+        schema:
+          type: boolean
+        description: show back to order detail page link on download PDF or not
+      - in: query
+        name: showPrice
+        schema:
+          type: boolean
+        description: show price on download PDF or not
+      - in: query
+        name: showShipTips
+        schema:
+          type: boolean
+        description: show shipping tips on download PDF or not
+      - in: query
+        name: enableSwitchOrderQty
+        schema:
+          type: boolean
+        description: if order items quantity is enable to be switched between shipped quantity and ordered quantity
+      - in: query
+        name: showShipQty
+        schema:
+          type: boolean
+        description: show order items shipping quantity on download PDF or not
+      - in: query
+        name: queryCompany
+        description: Default queryCompany is true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: byte
+          description: 'successful operation
+
+
+            return the PDF file in bytes
+
+
+            Failed operation
+
+
+            return ''application/json'' and refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getDownloadOrderDetailAsPDF
+      x-operation-id-source: derived
+  /getDTOrderDetail:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Order History Services
+      summary: Get DT order detail by order Id
+      description: This service will calls DT order detail service and return data.
+      parameters:
+      - in: query
+        name: orderId
+        description: Order ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: showDT
+        description: flag to show/hide DT order status info, default is true.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DTOrderdetailRep'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetDTOrderDetail
+      x-operation-id-source: derived
+  /invoiceHistory:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Order History Services
+      summary: Get invoice history for the given account
+      parameters:
+      - in: query
+        name: apiSiteId
+        description: Site Id
+        schema:
+          type: string
+      - in: query
+        name: accountId
+        description: Account ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: company
+        description: Company Number
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: branchNumber
+        description: Branch number
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: pageSize
+        description: Default page size is 25, max 100
+        schema:
+          type: integer
+      - in: query
+        name: pageNo
+        description: Default page no is 1
+        schema:
+          type: integer
+      - in: query
+        name: searchBy
+        schema:
+          type: string
+        description: 'searchBy enumeration
+
+          * OrderPlacedDate
+
+          * OrderNumber
+
+          * OrderStatus
+
+          * UUID
+
+          * OrderId
+
+          '
+      - in: query
+        name: searchTerm
+        schema:
+          type: string
+        description: 'When ''searchBy'' is one of the following enumeration, the ''searchTerm'' should be populated
+
+          * OrderNumber
+
+          * UUID
+
+          * OrderId
+
+          '
+      - in: query
+        name: searchStartDate
+        schema:
+          type: string
+          format: MM-DD-YYYY
+        description: 'When ''searchBy'' is ''OrderPlacedDate'', the ''searchStartDate'' should be populated, format should be ''MM-DD-YYYY'', e.g. ''01-05-2021'',the searchStartDate limit  to the past year.
+
+          '
+      - in: query
+        name: searchEndDate
+        schema:
+          type: string
+          format: MM-DD-YYYY
+        description: 'When ''searchBy'' is ''OrderPlacedDate'', the ''searchEndDate'' should be populated, format should be ''MM-DD-YYYY'', e.g. ''01-05-2021''
+
+          '
+      - in: query
+        name: searchEnum
+        schema:
+          type: string
+        description: 'When ''searchBy'' is ''OrderStatus'', the ''searchEnum'' should be one of the following enumeration:
+
+          * Delivered
+
+          * Invoiced
+
+          * Pending
+
+          * Processing
+
+          * ReadyDeliveryOrPickUp
+
+          * DeliveredOrInvoiced
+
+          '
+      - in: query
+        name: queryCompany
+        description: Default queryCompany is true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/invoiceHistoryRes'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: getInvoiceHistory
+      x-operation-id-source: derived
+components:
+  schemas:
+    orderHistoryObj:
+      type: object
+      properties:
+        total:
+          type: number
+          format: double
+        totalNull:
+          type: boolean
+        displayTotalMsg:
+          type: boolean
+        totalMsg:
+          type: string
+        sellingBranch:
+          type: string
+        accountId:
+          type: string
+        inStore:
+          type: string
+        source:
+          type: string
+        accountToken:
+          type: string
+        job:
+          $ref: '#/components/schemas/jobObj'
+        purchaseOrderNo:
+          type: string
+        creditHold:
+          type: string
+        shipping:
+          type: object
+          properties:
+            shippingBranch:
+              type: integer
+            shippingBranchDisplayName:
+              type: string
+            address:
+              $ref: '#/components/schemas/branchAddressObj'
+            shippingMethod:
+              type: string
+        orderPlacedDate:
+          type: string
+        tax:
+          type: number
+          format: double
+        taxNull:
+          type: boolean
+        jobTaxExempt:
+          type: boolean
+        orderStatusCode:
+          type: string
+          description: 'Order status: C,K -> Processing, I -> Invoiced, O -> Ready Delivery/Pick up, N -> Pending, P,R -> Delivered'
+          enum:
+          - I
+          - R
+          - P
+          - C
+          - O
+          - K
+          - N
+        onHold:
+          type: boolean
+        orderStatusValue:
+          type: string
+        subTotal:
+          type: number
+          format: double
+        subTotalNull:
+          type: boolean
+        orderId:
+          type: string
+        specialInstruction:
+          type: string
+        showDeliveryNotification:
+          type: boolean
+        showDropDown:
+          type: boolean
+        showShipTips:
+          type: boolean
+        shipTipsMsg:
+          type: string
+        orderRelatedDocuments:
+          type: array
+          items:
+            type: string
+        creditCardTokenExists:
+          type: boolean
+        UUID:
+          type: string
+        invoicedDate:
+          type: string
+        paymentStatus:
+          type: string
+        orderNotes:
+          type: string
+        digital:
+          type: string
+    jobObj:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    orderhistoryRep:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderHistoryObj'
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+    orderdetailRep:
+      type: object
+      properties:
+        order:
+          $ref: '#/components/schemas/orderHistoryObj'
+        lineItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderHistoryLineItemObj'
+        DTStatus:
+          $ref: '#/components/schemas/DTStatusObj'
+        DTPhotos:
+          type: array
+          items:
+            $ref: '#/components/schemas/DTPhotosObj'
+        branchDTEnabled:
+          type: boolean
+        DTEnabled:
+          type: boolean
+        EVReportId:
+          type: integer
+        EVEligibleForUpgrade:
+          type: boolean
+        hasDTError:
+          type: boolean
+        warranties:
+          type: array
+          items:
+            type: object
+            properties:
+              itemNumber:
+                type: string
+              skuPDPDisplayTitle:
+                type: string
+              resource:
+                type: object
+                additionalProperties:
+                  type: string
+                example:
+                  Warranty: http://www.xxx.com/download.php,
+        documents:
+          type: array
+          items:
+            type: object
+            properties:
+              itemNumber:
+                type: string
+              skuPDPDisplayTitle:
+                type: string
+              categoryName:
+                type: string
+              resource:
+                type: object
+                additionalProperties:
+                  type: string
+                example:
+                  General Instructrions: http://www.xxx.com/download.php,
+                  MSDS: http://www.xxx.com/download.php,
+                  Brochure: http://www.xxx.com/download.php,
+    DTOrderdetailRep:
+      type: object
+      properties:
+        DTStatus:
+          $ref: '#/components/schemas/DTStatusObj'
+        DTPhotos:
+          type: array
+          items:
+            $ref: '#/components/schemas/DTPhotosObj'
+        branchDTEnabled:
+          type: boolean
+        DTEnabled:
+          type: boolean
+        hasDTError:
+          type: boolean
+    orderInvoice:
+      type: object
+      properties:
+        apiSiteId:
+          type: string
+        accountId:
+          type: string
+        accountName:
+          type: string
+        orderNumber:
+          type: string
+        orderPlacedDate:
+          type: string
+          format: date
+        invoiceDate:
+          type: string
+          format: date
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        purchaseOrderNumber:
+          type: string
+        sales:
+          type: number
+          format: double
+        otherCharges:
+          type: number
+          format: double
+        salesPlusOtherCharges:
+          type: number
+          format: double
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    invoiceHistoryRes:
+      type: object
+      properties:
+        invoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderInvoice'
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+    DTPhotosObj:
+      type: object
+      properties:
+        thumbnailUrl:
+          type: string
+        largeUrl:
+          type: string
+        timestamp:
+          type: string
+          example: '2018-05-02T13:49:39.85'
+    branchAddressObj:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+    DTStatusObj:
+      type: object
+      properties:
+        displayName:
+          type: string
+        contKey:
+          type: string
+        contValue:
+          type: string
+        statusEndDate:
+          type: string
+          example: 05/05/2018
+        infos:
+          type: array
+          items:
+            type: object
+            properties:
+              defaultValue:
+                type: string
+              imageUrl:
+                type: string
+              active:
+                type: boolean
+              key:
+                type: string
+              value:
+                type: string
+    orderHistoryLineItemObj:
+      type: object
+      properties:
+        description:
+          type: string
+        productOrItemNumber:
+          type: string
+        subTotal:
+          type: number
+          format: double
+        subTotalNull:
+          type: boolean
+        itemOrProductDescription:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        unitPriceNull:
+          type: boolean
+        quantity:
+          type: integer
+        itemNumber:
+          type: string
+        unitOfMeasure:
+          type: string
+        unitOfMeasureDisplay:
+          type: string
+        productImageUrl:
+          type: string
+        productOnErrorImageUrl:
+          type: string
+        productId:
+          type: string
+        pdpUrl:
+          type: string
+        skuPDPDisplayTitle:
+          type: string
+        displayQuantityMsg:
+          type: boolean
+        quantityMsg:
+          type: string
+        productOrItemDescription:
+          type: string
+        extendedDescription:
+          type: string
+        lineComments:
+          type: string
+        isAddedToFavorites:
+          type: boolean
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

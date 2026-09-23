@@ -1,0 +1,2482 @@
+openapi: 3.2.0
+info:
+  title: Beacon Roofing Supply Catalog ITEM Services API
+  version: '1.0'
+  description: 'Operations tagged Catalog ITEM Services across 2 of this provider''s published API definitions: beacon-roofing-supply-v2-openapi.yml, beacon-roofing-supply-v3-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+- url: https://beaconproplus.com/v3/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of the all_api spec: ''Version 3: https://beaconproplus.com/v3/rest/com/becn''; probed 2026-09-04 -> 401 JSON envelope'
+tags:
+- name: Catalog ITEM Services
+paths:
+  /typeAhead:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Get type ahead items
+      description: This service will get type ahead items information.
+      parameters:
+      - in: query
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: filter
+        required: true
+        description: "Search terms\n\nThis parameter also support the following syntax:\n\n* `productId:ID1,ID2...IDn`\n  * Filter by given product ID list, separated by comma. e.g. \"productId:C-010001,C-010002,C-010003\"\n"
+        schema:
+          type: string
+      - in: query
+        name: maxSearchSuggestions
+        description: Max returned type ahead items size, default is 6
+        schema:
+          type: number
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/typeAhead_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getTypeAhead
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /itemlist:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Get list of items
+      description: 'This service will list all the products for selected account, based on availability.
+
+        ### Request Parameters:
+
+        * If recentlyPurchase:true in facetsFilter but accountId is empty, will return no results.'
+      parameters:
+      - in: query
+        name: accountId
+        schema:
+          type: string
+        description: Account ID
+        required: true
+      - in: query
+        name: pageSize
+        description: Default page size is 21. Max Page Size can be configured in BCC, maxPageSize default value is 30. If pageSize exceeds maxPageSize, the amount of maxPageSize items return.
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: pageNo
+        description: Default page no is 1, the first page
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: filter
+        description: "Search terms\n\nThis parameter also support the following syntax:\n\n* `productId:ID1,ID2...IDn`\n  * Filter by given product ID list, separated by comma. e.g. \"productId:C-010001,C-010002,C-010003\"\n"
+        schema:
+          type: string
+      - in: query
+        name: cateFilter
+        description: Category search terms
+        schema:
+          type: string
+      - in: query
+        name: facetsFilter
+        description: "Filter syntax:\n* `recentlyPurchase:true`\n  * Default is false, if true, will filter the results with recently purchase\n* `frequentlyPurchase:true`\n  * Default is false, if true, will filter the results with frequently purchase, frequentlyPurchase and recentlyPurchase can not be use together.\n* Facets search IDs, separated by comma\n  * e.g. \"4294965847,4294965836\"\n* Indicate which dimension to search, `<facet type>:<facet name>`, separated by comma, case insensitive, ignore white space\n  * e.g. \"size:0ft x 2ft,packaging:100 bag,thickness:102mm,style:A Slop,color: Beige\"\n* Special charactors should be URL encoded then append to query string\n  * e.g. raw: 'facetsFilter=Thickness:20_,Thickness:20\",Thickness:20mm,Size:\"9 x \"12,Size:#12,Size:1! x 1!,Size:1-5/8\",Size:10\" x 15\",Size:100' x 200',Size:2-7/8\",Size:6> x 500<'\n  * e.g. URL encoded: 'facetsFilter=Thickness%3a20_%2cThickness%3a20%22%2cThickness%3a20mm%2cSize%3a%229+x+%2212%2cSize%3a%2312%2cSize%3a1!+x+1!%2cSize%3a1-5%2f8%22%2cSize%3a10%22+x+15%22%2cSize%3a100%27+x+200%27%2cSize%3a2-7%2f8%22%2cSize%3a6%3e+x+500%3c'\n* The above syntax can be mixed together\n  * e.g. \"size:0ft x 2ft,4294965847,packaging:100 bag,thickness:102mm,4294965836,style:A Slop,color: Beige\"\n"
+        schema:
+          type: string
+      - in: query
+        name: showSkuList
+        description: if "true", display sku list
+        schema:
+          type: string
+      - in: query
+        name: enableAutoCorrection
+        description: Default is true, will enable auto correction for `filter`
+        schema:
+          type: string
+      - in: query
+        name: enableDidYouMean
+        description: Default is true, will enable did you mean features for `filter`
+        schema:
+          type: string
+      - in: query
+        name: showFacets
+        description: if "false", do not display facets. Default is "true"
+        schema:
+          type: string
+      - in: query
+        name: showHoverAttrs
+        description: if "true", display Hover attributes
+        schema:
+          type: string
+      - in: query
+        name: hoverSearch
+        description: if "true", display Hover version of search
+        schema:
+          type: string
+      - in: query
+        name: matchMode
+        description: "Usage :\n* It can combine with parameter \"cateFilter\" to filter items,only support \"all\" or \"any\".\n* `all`\n  * Default value, returns items that category matches the entire search category term.\n* `any`\n  * Returns items that category matches at least one category in the search category terms, if exist multi categories, separated by '+'.\n"
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/itemlistRep'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getItemlist
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /itemDetails:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Get items details
+      description: This service returns product details based on Product or item Id.
+      parameters:
+      - in: query
+        name: productId
+        schema:
+          type: string
+        description: Product ID
+      - in: query
+        name: itemNumber
+        schema:
+          type: string
+        description: Item number(SKU ID)
+      - in: query
+        name: accountId
+        description: Account ID
+        schema:
+          type: string
+      - in: query
+        name: jobNumber
+        schema:
+          type: string
+        description: Job Number
+      - in: query
+        name: uom
+        schema:
+          type: string
+        description: Unit of Measure
+      - in: query
+        name: showHoverAttrs
+        description: if "true", display hover attributes
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/itemDetailsRep'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getItemDetails
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /pricing:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Get price and Unit of Measures (UoMs) for multiple line items
+      description: 'Returns price and unit of measure for each line item
+
+
+        If some of the UoM is empty, will return "EMPTY_UOM" in response
+
+
+        e.g.
+
+
+        "priceInfo": {
+
+        {
+
+        "unitPrice": 10.47,
+
+        "itemNumber": "397547",
+
+        "uom": "EMPTY_UOM",
+
+        "available": true
+
+        }
+
+        }'
+      parameters:
+      - in: query
+        name: skuIds
+        required: true
+        schema:
+          type: string
+        description: 'SKU ID list long string, seperated by commas
+
+
+          e.g. "253729,253737,253740"
+
+
+          If query with UOM(optional), should add UOM after each sku id and seperated by colon
+
+
+          e.g. "253729:BDL,253737,253740:PC"
+
+
+          If UOM is empty, will get price of all UOMs for this SKU
+
+          '
+      - in: query
+        name: accountId
+        description: Account ID
+        schema:
+          type: string
+      - in: query
+        name: jobNumber
+        schema:
+          type: string
+        description: Job Number
+      responses:
+        '200':
+          description: "successful operation\n\nrefer to *API Uniform Format*\n\nResponse fields explanation:\n\n* `priceInfo.<key>`: SKU ID. e.g. `priceInfo[\"253729\"]`\n* `priceInfo.<value>`: SKU UOM and Price pairs. e.g. `priceInfo[\"253729\"] = {\"BDL\": 125.67, \"PC\": 10.86}`\n* `priceInfo.<value>.<key>`: SKU UOM. e.g. `priceInfo[\"253729\"][\"BDL\"]`\n* `priceInfo.<value>.<value>`: SKU Price of this UOM. e.g. `priceInfo[\"253729\"][\"BDL\"] = 125.67`\n\nThe example below presents:\n\n * SKU `253729`'s price: `125.67`(with UOM `BDL`) and `10.86`(with UOM `PC`)\n * SKU `253737`'s price: `3663.22`(with UOM `CTN`)\n * SKU `253740`'s price: `2384.34`(with UOM `CTN`) and `834.43`(with UOM `PC`)\n"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pricingRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getPricing
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getProductVariation:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Get product variation
+      description: This service returns product variations based on productId.
+      parameters:
+      - in: query
+        name: productId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: skuId
+        description: choosed sku id under product
+        schema:
+          type: string
+      - in: query
+        name: vendorColorId
+        schema:
+          type: string
+        description: the sku choosed vendor color
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/productVarationRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetProductVariation
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getQuoteProductVariation:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Get quote product variation
+      description: This service returns quote product variations based on productId.
+      parameters:
+      - in: query
+        name: productId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: skuId
+        description: choosed sku id under product
+        schema:
+          type: string
+      - in: query
+        name: vendorColorId
+        schema:
+          type: string
+        description: the sku choosed vendor color
+      - in: query
+        name: quoteOrderId
+        description: quote order id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/productVarationRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetQuoteProductVariation
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getMultipleProductVariation:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Get mutilple product variation
+      description: 'This service returns mutilple product variations based on productId.
+
+
+        ## Request body: required
+
+
+        * productId: required'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/multipleProductVarationReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/multipleProductVarationRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postGetMultipleProductVariation
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getMultipleQuoteProductVariation:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Get mutilple product variation
+      description: 'This service returns mutilple product variations based on productId.
+
+
+        ## Request body: required
+
+
+        * productId: required'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/multipleQuoteProductVarationReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/multipleProductVarationRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postGetMultipleQuoteProductVariation
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getFavoriteProducts:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Get favorite products
+      description: This service returns favorite products based on account ID.
+      parameters:
+      - in: query
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: displaySize
+        description: Default is 3, max is 100
+        schema:
+          type: string
+      - in: query
+        name: checkImageExist
+        schema:
+          type: boolean
+        description: Default is true, will only return the items which images are exists
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getFavoriteProducts_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetFavoriteProducts
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /categories:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: List categories
+      description: This service list categories
+      parameters:
+      - in: query
+        name: account
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: showSubCategories
+        description: Default is false, will return only one level sub categories, if true, will return all levels sub categories
+        schema:
+          type: boolean
+      - in: query
+        name: categoryNameOrId
+        schema:
+          type: string
+        description: Category Name or ID filter
+      - in: query
+        name: showRecordCount
+        schema:
+          type: string
+        description: Default is false, if true, will return the record count of each category
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/categories_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getCategories
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getProductBranchOrRegionAvailability:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Get Product Branch Or Region Availability
+      description: This service returns products' childSKUs' with flag isSKUAvailableAtBranch/isSKUAvailableAtRegion
+      parameters:
+      - in: query
+        name: productIds
+        required: true
+        description: product ids,seperated by comma
+        schema:
+          type: string
+      - in: query
+        name: branchId
+        required: false
+        description: branch legacy number
+        schema:
+          type: string
+      - in: query
+        name: regionId
+        required: false
+        description: region legacy number
+        schema:
+          type: string
+      - in: query
+        name: marketId
+        required: false
+        description: market ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: "successful operation\n\nIf failed, return messageCode, refer to *API Response Message Code*.\n\nExample\n\n{\n    \"result\": null,\n    \"success\": false,\n    \"messages\": [\n        {\n            \"code\": 1001,\n            \"type\": \"error\",\n            \"value\": \"productIds is required.\",\n            \"key\": null\n        }\n    ]\n}\n"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getProductBranchOrRegionAvailabilityRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetProductBranchOrRegionAvailability
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getSKUBranchOrRegionAvailability:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Get SKU Branch Or Region Availability
+      description: This service returns skus with flag isSKUAvailableAtBranch/isSKUAvailableAtRegion
+      parameters:
+      - in: query
+        name: skuIds
+        required: true
+        description: sku ids,seperated by comma
+        schema:
+          type: string
+      - in: query
+        name: branchId
+        required: false
+        description: branch legacy number
+        schema:
+          type: string
+      - in: query
+        name: regionId
+        required: false
+        description: region legacy number
+        schema:
+          type: string
+      - in: query
+        name: marketId
+        required: false
+        description: market ID
+        schema:
+          type: string
+      - in: query
+        name: templateId
+        required: false
+        description: Template ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: "successful operation\n\nIf failed, return messageCode, refer to *API Response Message Code*.\n\nExample\n\n{\n    \"result\": null,\n    \"success\": false,\n    \"messages\": [\n        {\n            \"code\": 1001,\n            \"type\": \"error\",\n            \"value\": \"skuIds is required.\",\n            \"key\": null\n        }\n    ]\n}\n"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSKUBranchOrRegionAvailabilityRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetSKUBranchOrRegionAvailability
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getATGItemMapping:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Get ATG Item Mapping
+      description: 'This service returns ATG item mapping
+
+
+        The query condition in request body can be in any combination
+
+
+        e.g.
+
+
+        ```
+
+        {
+
+        "materialID": "string",
+
+        "MFRName": "string",
+
+        "branchId": "string"
+
+        }
+
+        ```
+
+
+        ```
+
+        {
+
+        "materialID": "string",
+
+        "accountId": "string"
+
+        }
+
+        ```
+
+
+        ```
+
+        {
+
+        "accountId": "string",
+
+        "description": "string"
+
+        }
+
+        ```
+
+
+        If cannot find the uniqueness result based on the query condition, will return error code with message'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ATGItemMapping_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getATGItemMapping_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postGetATGItemMapping
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /updateOrderAlert:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Update order alert
+      description: 'This service update order alert
+
+
+        The query condition in request body can be in any combination,
+
+        alertType can be one of email,sms,emailAndsms and none
+
+        e.g.
+
+
+        ```
+
+        {
+
+        "orderId ": "string",
+
+        "alertType": "email",
+
+        "phoneNumber": "string",
+
+        "emailAddress": "string",
+
+        "saveToProfile": "true"
+
+        }
+
+        ```
+
+
+        ```
+
+        {
+
+        "orderNumber": "string",
+
+        "alertType": "sms",
+
+        "phoneNumber": "string",
+
+        "emailAddress": "string",
+
+        "saveToProfile": "false"
+
+        }
+
+        ```
+
+
+        ```
+
+        {
+
+        "savedOrderId": "string",
+
+        "alertType": "emailAndsms",
+
+        "phoneNumber": "string",
+
+        "emailAddress": "string",
+
+        "saveToProfile": "true"
+
+        }
+
+        ```
+
+
+        If cannot find the uniqueness result based on the query condition, will return error code with message'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrderAlert_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateOrderAlert
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /uploadOrderRelatedDocuments:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Upload order related documents
+      description: This service can upload order related documents.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UploadOrderRelatedDocument_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUploadOrderRelatedDocuments
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /deleteOrderRelatedDocuments:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Delete order related documents
+      description: This service can delete order related documents.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteOrderRelatedDocument_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postDeleteOrderRelatedDocuments
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /downloadOrderDocument:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Download order related document
+      description: This service can download order document.
+      parameters:
+      - in: query
+        name: orderId
+        description: It can support mincron order id, saved order id, atg order id and quote order id.
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: documentName
+        description: Document Name. e.g JT80814.pdf
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: byte
+            application/x-xls:
+              schema:
+                type: string
+                format: byte
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: byte
+            image/png:
+              schema:
+                type: string
+                format: byte
+            image/jpeg:
+              schema:
+                type: string
+                format: byte
+          description: 'successful operation
+
+
+            return the PDF file in bytes
+
+
+            Failed operation
+
+
+            return ''application/json'' and refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getDownloadOrderDocument
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getGenericBrands:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Catalog ITEM Services
+      summary: Get Catalog all brands
+      description: This service returns Catalog all available brands
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  brands:
+                    type: array
+                    items:
+                      type: string
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetGenericBrands
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /getBranchItemQty:
+    get:
+      tags:
+      - Catalog ITEM Services
+      summary: query branch item quantity
+      parameters:
+      - in: query
+        name: itemNumbers
+        schema:
+          type: string
+        description: one or more item number, mutil value should separate by comma
+        required: true
+      - in: query
+        name: accountId
+        schema:
+          type: string
+      - in: query
+        name: branchId
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/queryBranchItemQtyRep'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getGetBranchItemQty
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /downloadCatalogItemData:
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+      - Catalog ITEM Services
+      summary: Download catalog item data(include branches, branches skus and skus.)
+      description: This service can download catalog item data.
+      responses:
+        '200':
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+          description: 'successful operation
+
+
+            return the zip file
+
+
+            Failed operation
+
+
+            return ''application/json'' and refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getDownloadCatalogItemData
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v3/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of the all_api spec: ''Version 3: https://beaconproplus.com/v3/rest/com/becn''; probed 2026-09-04 -> 401 JSON envelope'
+  /skuData:
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+      - Catalog ITEM Services
+      summary: Download catalog sku item data
+      description: This service can download catalog sku item data.
+      parameters:
+      - in: query
+        name: branchNumber
+        schema:
+          type: string
+        description: Branch Number
+        required: false
+      - in: query
+        name: pageNo
+        schema:
+          type: string
+        description: Page Number, default value is 1
+        required: false
+      - in: query
+        name: pageSize
+        schema:
+          type: string
+        description: Page Size, default value is 1000
+        required: false
+      responses:
+        '200':
+          content:
+            application/zip:
+              schema:
+                type: object
+                format: binary
+          description: 'successful operation
+
+
+            return the zip file
+
+
+            Failed operation
+
+
+            return ''application/json'' and refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getSkuData
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v3/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of the all_api spec: ''Version 3: https://beaconproplus.com/v3/rest/com/becn''; probed 2026-09-04 -> 401 JSON envelope'
+  /branchData:
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+      - Catalog ITEM Services
+      summary: Download catalog branch item data
+      description: This service can download catalog branch item data.
+      parameters:
+      - in: query
+        name: pageNo
+        schema:
+          type: string
+        description: Page Number, default value is 1
+        required: false
+      - in: query
+        name: pageSize
+        schema:
+          type: string
+        description: Page Size, default value is 500
+        required: false
+      responses:
+        '200':
+          content:
+            application/zip:
+              schema:
+                type: object
+                format: binary
+          description: 'successful operation
+
+
+            return the csv file
+
+
+            Failed operation
+
+
+            return ''application/json'' and refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getBranchData
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v3/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of the all_api spec: ''Version 3: https://beaconproplus.com/v3/rest/com/becn''; probed 2026-09-04 -> 401 JSON envelope'
+  /productAvailabilityData:
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+      - Catalog ITEM Services
+      summary: Download catalog product availability item data
+      description: This service can download catalog product availability item data.
+      parameters:
+      - in: query
+        name: region
+        description: Region Number
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: branchNumber
+        description: Branch Number
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: market
+        description: Market Number
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: pageNo
+        schema:
+          type: string
+        description: Page Number, default value is 1
+        required: false
+      - in: query
+        name: pageSize
+        schema:
+          type: string
+        description: Page Size, default value is 1000
+        required: false
+      responses:
+        '200':
+          content:
+            application/zip:
+              schema:
+                type: object
+                format: binary
+          description: 'successful operation
+
+
+            return the zip file
+
+
+            Failed operation
+
+
+            return ''application/json'' and refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getProductAvailabilityData
+      x-operation-id-source: derived
+    servers:
+    - url: https://beaconproplus.com/v3/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of the all_api spec: ''Version 3: https://beaconproplus.com/v3/rest/com/becn''; probed 2026-09-04 -> 401 JSON envelope'
+components:
+  schemas:
+    getFavoriteProducts_rep:
+      type: object
+      properties:
+        totalNumRecs:
+          type: number
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              productName:
+                type: string
+              url:
+                type: string
+              productImage:
+                type: string
+              productOnErrorImage:
+                type: string
+    pricingRep:
+      type: object
+      properties:
+        priceInfo:
+          type: object
+          additionalProperties:
+            type: object
+          example:
+            '253729':
+              BDL: 125.67
+              PC: 10.86
+            '253737':
+              CTN: 3663.22
+            '253740':
+              CTN: 2384.34
+              PC: 834.43
+        orderPricing:
+          type: object
+          additionalProperties:
+            type: object
+          example:
+            '253729':
+              BDL: 125.67
+            '253737':
+              CTN: 3663.22
+            '253740':
+              PC: 834.43
+        unavailableSkuList:
+          type: array
+          items:
+            type: string
+    PDPskusVariationObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        color:
+        - White
+        - Dover
+        size:
+        - 12x10
+        thickness:
+        - 2mm
+    itemlistRep:
+      type: object
+      properties:
+        message:
+          type: string
+        totalNumRecs:
+          type: integer
+        pageNumRecs:
+          type: integer
+        didYouMean:
+          $ref: '#/components/schemas/didYouMeanAndAutoCorrectionObj'
+        autoCorrection:
+          $ref: '#/components/schemas/didYouMeanAndAutoCorrectionObj'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/productObj_itemlist'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/categoryObj2'
+        facets:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/facetObj'
+          example:
+            Categories:
+            - facetId: '2136008660'
+              facetName: Residential Roofing
+              selected: false
+              children:
+              - facetId: '2136009260'
+                facetName: Residential Accessories
+                recordCount: 216
+                selected: true
+                children:
+                - facetId: '2136009261'
+                  facetName: Adhesives, Caulk, & Sealants
+                  recordCount: 1
+                  selected: false
+                - facetId: '2136009263'
+                  facetName: Fasteners
+                  recordCount: 1
+                  selected: false
+                - facetId: '2136009269'
+                  facetName: Flashings
+                  recordCount: 1
+                  selected: false
+            Color:
+            - facetId: '4294967258'
+              facetName: Grey
+              recordCount: 15
+              selected: false
+            - facetId: '4294967259'
+              facetName: Blue
+              recordCount: 23
+              selected: false
+            Product Style:
+            - facetId: '4294967260'
+              facetName: R-11
+              recordCount: 54
+              selected: true
+            - facetId: '4294967261'
+              facetName: R-13
+              recordCount: 785
+              selected: true
+            - facetId: '4294967262'
+              facetName: R-15
+              recordCount: 642
+              selected: false
+            Brand:
+            - facetId: '4294967263'
+              facetName: Johns Manville
+              recordCount: 54
+              selected: true
+            - facetId: '4294967264'
+              facetName: Owens Corning
+              recordCount: 2354
+              selected: false
+    heroImagesObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+      - image: /images/large/357583_default_hero.jpg
+      - image: /images/large/357583_1_hero.jpg
+      - image: /images/large/357583_2_hero.jpg
+    skusVariationObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        '600001':
+          color:
+          - White
+          - Dover
+          size:
+          - 12x10
+          thickness:
+          - 2mm
+        '600002':
+          color:
+          - White
+          size:
+          - 4x4
+          thickness:
+          - 4mm
+        '300003':
+          color:
+          - Dover
+          size:
+          - 4x4
+          thickness:
+          - 6mm
+    multiVariationDataObj:
+      type: object
+      properties:
+        currentSkuId:
+          type: string
+        skus:
+          $ref: '#/components/schemas/skusVariationObj'
+        variations:
+          $ref: '#/components/schemas/variationsObj'
+        vendorColors:
+          type: array
+          items:
+            $ref: '#/components/schemas/vendorColorsObj'
+        allVariationTypes:
+          type: array
+          items:
+            type: string
+        currentVariations:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            color: please_select
+            size: 2ft x 4ft
+            diameter: 3d
+            thickness: 5nm'
+            style: slope 002
+            packaging: 5 gallon pail
+            MFG: please_select
+        variationKeyMFG:
+          type: string
+        variationKeyColor:
+          type: string
+        variationGroups:
+          type: array
+          items:
+            type: object
+            properties:
+              variationTypes:
+                type: array
+                items:
+                  type: string
+        maxVariationGroupSize:
+          type: integer
+    categories_rep:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryElement'
+    UpdateOrderAlert_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+        orderNumber:
+          type: string
+        savedOrderId:
+          type: string
+        alertType:
+          type: string
+        phoneNumber:
+          type: string
+        emailAddress:
+          type: string
+        saveToProfile:
+          type: boolean
+    BranchItemQty_BranchInfo:
+      type: object
+      properties:
+        branchId:
+          type: string
+        company:
+          type: string
+        division:
+          type: string
+        region:
+          type: string
+        market:
+          type: string
+    BranchItemQty:
+      type: object
+      properties:
+        itemNumber:
+          type: string
+        uom:
+          type: string
+        totalShipQty30Days:
+          type: string
+        availableQty:
+          type: string
+        avgQty30Days:
+          type: string
+        avgQty7Days:
+          type: string
+    multipleQuoteProductVarationObj:
+      type: object
+      required:
+      - productId
+      properties:
+        productId:
+          type: string
+        skuId:
+          type: string
+        vendorColorId:
+          type: string
+        quoteOrderId:
+          type: string
+    DeleteOrderRelatedDocument_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: The ATG order id, saved order id or quote order id.
+        fileNames:
+          description: The file name(s) to delete.
+          type: array
+          items:
+            type: string
+    didYouMeanAndAutoCorrectionObj:
+      type: object
+      properties:
+        message:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              filter:
+                type: string
+    multipleQuoteProductVarationReq:
+      type: array
+      items:
+        $ref: '#/components/schemas/multipleQuoteProductVarationObj'
+    vendorColorsObj:
+      type: object
+      properties:
+        id:
+          type: string
+        MFG:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        sku:
+          type: string
+        color:
+          type: string
+    productVarationRep:
+      type: object
+      properties:
+        productId:
+          type: string
+        productMultiVariation:
+          $ref: '#/components/schemas/multiVariationDataObj'
+        variationContentKeyMap:
+          type: object
+    currentSkuObj:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        manufactureNumber:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        uomlist:
+          type: array
+          items:
+            type: string
+        itemImage:
+          type: string
+        heroImages:
+          $ref: '#/components/schemas/heroImagesObj'
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          $ref: '#/components/schemas/auxiliaryImagesObj'
+        variations:
+          $ref: '#/components/schemas/PDPskusVariationObj'
+        hoverAttributes:
+          $ref: '#/components/schemas/hoverAttributesObj'
+        isAddedToFavorites:
+          type: boolean
+    getATGItemMapping_rep:
+      type: array
+      items:
+        type: object
+        properties:
+          MFCode:
+            type: string
+          MFRName:
+            type: string
+          branchId:
+            type: string
+          itemNumber:
+            type: string
+          incomingUOM:
+            type: string
+          becnUOM:
+            type: string
+          materialID:
+            type: string
+          conversionFactor:
+            type: string
+          becnProductId:
+            type: string
+          description:
+            type: string
+          accountId:
+            type: string
+          integrationName:
+            type: string
+          APISiteId:
+            type: string
+    getSKUBranchOrRegionAvailabilityRep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              sku_id:
+                type: string
+              div:
+                type: string
+                description: division
+              reg:
+                type: string
+                description: region
+              market:
+                type: string
+                description: market
+              cmp:
+                type: string
+                description: company
+              brn:
+                type: string
+                description: branch legacy item number
+              isSKUAvailableAtBranch:
+                type: string
+                example: yes/no
+              isSKUAvailableAtRegion:
+                type: string
+                example: yes/no
+    BranchItemQtyResult:
+      type: object
+      properties:
+        items:
+          $ref: '#/components/schemas/BranchItemQty'
+        branchInfo:
+          $ref: '#/components/schemas/BranchItemQty_BranchInfo'
+    skuListObj_itemlist:
+      type: object
+      properties:
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        itemImage:
+          type: string
+          example: /images/large/404191_default_hero.jpg
+        swatchImage:
+          type: string
+          example: /images/large/404191_default_swatch.jpg
+        skuShortDesc:
+          type: string
+        manufactureNumber:
+          type: string
+        variations:
+          $ref: '#/components/schemas/PDPskusVariationObj'
+        hoverAttributes:
+          $ref: '#/components/schemas/hoverAttributesObj'
+        isAddedToFavorites:
+          type: boolean
+    hoverAttributesObj:
+      type: object
+      properties:
+        sellingUom:
+          type: string
+        piecesPerUom:
+          type: string
+        coverageUom:
+          type: string
+        ppCoverageUom:
+          type: string
+        lengthExposure:
+          type: string
+        widthExposure:
+          type: string
+        lengthHover:
+          type: string
+        widthHover:
+          type: string
+        ncpSellingUom:
+          type: string
+        gcpSellingUom:
+          type: string
+        sslvoDimensionIn:
+          type: string
+        sswhoDimensionOption1In:
+          type: string
+        sswhoDimensionOption2In:
+          type: string
+        sswhoDimensionOption3In:
+          type: string
+        lslvoDimensionIn:
+          type: string
+        lswhoDimensionIn:
+          type: string
+        rvlvoDimensionIn:
+          type: string
+        rvwhoDimensionIn:
+          type: string
+        nfvaHover:
+          type: string
+        nfvaUomHover:
+          type: string
+        fhLapIn:
+          type: string
+        fvLapIn:
+          type: string
+        chLapIn:
+          type: string
+        cvLapIn:
+          type: string
+        cfmValue:
+          type: string
+        cfmUom:
+          type: string
+    auxiliaryImagesObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+      - image: /images/large/357583_1_thumb.jpg
+      - image: /images/large/357583_2_thumb.jpg
+      - image: /video/Video_Demo.mp4
+        videoUrl: /images/default_video.jpg
+    UploadOrderRelatedDocument_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: The ATG order id, saved order id or quote order id.
+        relatedDocuments:
+          type: string
+          format: binary
+          description: 'The Upload Document File
+
+
+            Accepted File Types should be: *.jpg,*.pdf,*.xls(x)
+
+
+            File size should between 0KB~5MB
+
+
+            File count should between 0-10
+
+            '
+    multipleProductVarationReq:
+      type: array
+      items:
+        $ref: '#/components/schemas/multipleProductVarationObj'
+    productObj_itemlist:
+      type: object
+      properties:
+        productImage:
+          type: string
+        productOnErrorImage:
+          type: string
+        productAdditionalOnErrorImage:
+          type: string
+        longDesc:
+          type: string
+        brand:
+          type: string
+        manufactureNumber:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/categoryObj'
+        shortDesc:
+          type: string
+        itemNumber:
+          type: string
+        productName:
+          type: string
+        productId:
+          type: string
+        baseProductName:
+          type: string
+        internalProductName:
+          type: string
+        url:
+          type: string
+        isAddedToFavorites:
+          type: boolean
+        currentSKU:
+          $ref: '#/components/schemas/currentSkuObj'
+        skuList:
+          type: array
+          items:
+            $ref: '#/components/schemas/skuListObj_itemlist'
+    categoryObj2:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+        recordCount:
+          type: integer
+          example: 32
+        facetId:
+          type: string
+    ATGItemMapping_req:
+      type: object
+      properties:
+        MFCode:
+          type: string
+        MFRName:
+          type: string
+        branchId:
+          type: string
+        itemNumber:
+          type: string
+        incomingUOM:
+          type: string
+        becnUOM:
+          type: string
+        materialID:
+          type: string
+        conversionFactor:
+          type: string
+        becnProductId:
+          type: string
+        description:
+          type: string
+        accountId:
+          type: string
+        integrationName:
+          type: string
+    getProductBranchOrRegionAvailabilityRep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              sku_id:
+                type: string
+              product_id:
+                type: string
+              div:
+                type: string
+                description: division
+              reg:
+                type: string
+                description: region
+              market:
+                type: string
+                description: market
+              cmp:
+                type: string
+                description: company
+              brn:
+                type: string
+                description: branch legacy item number
+              isSKUAvailableAtBranch:
+                type: string
+                example: yes/no
+              isSKUAvailableAtRegion:
+                type: string
+                example: yes/no
+    CategoryElement:
+      type: object
+      properties:
+        categoryLevel:
+          type: number
+        recordCount:
+          type: number
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+        subCategories:
+          type: array
+          items:
+            type: object
+            example: <the same structure of one category element>
+    relatedProductsObj:
+      type: object
+      properties:
+        productImage:
+          type: string
+        url:
+          type: string
+        productName:
+          type: string
+        productId:
+          type: string
+        internalProductName:
+          type: string
+        brand:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/categoryObj'
+    itemDetailsRep:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/productObj_itemDetails'
+        message:
+          type: string
+        specification:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            Shingles_Per_Square: 80,
+            Algae_Resistance: 10 years,
+            Coverage_Per_Square: 100 sq. ft,
+            Bundles_Per_Square: 3,
+            Nominal_Size: 12\x36\,
+            Net_Free_Vent_Area__NFVA_: Vent Area,
+            Exposure: 5\,
+            Wind_Resistance: 60mph
+        resource:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            General Instructrions: http://www.xxx.com/download.php,
+            Warranty: http://www.xxx.com/download.php,
+            MSDS: http://www.xxx.com/download.php,
+            Brochure: http://www.xxx.com/download.php,
+        currentSKU:
+          $ref: '#/components/schemas/currentSkuObj'
+        skuList:
+          type: array
+          items:
+            $ref: '#/components/schemas/skuObj'
+        variations:
+          $ref: '#/components/schemas/variationsObj'
+    categoryObj:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+        facetId:
+          type: string
+    skuObj:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        itemImage:
+          type: string
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          $ref: '#/components/schemas/auxiliaryImagesObj'
+        variations:
+          $ref: '#/components/schemas/PDPskusVariationObj'
+        hoverAttributes:
+          $ref: '#/components/schemas/hoverAttributesObj'
+        isAddedToFavorites:
+          type: boolean
+    multipleProductVarationObj:
+      type: object
+      required:
+      - productId
+      properties:
+        productId:
+          type: string
+        skuId:
+          type: string
+        vendorColorId:
+          type: string
+    variationsObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        color:
+          White:
+          - '100001'
+          - '200002'
+          Dover:
+          - '100001'
+          - '300003'
+        size:
+          12x10:
+          - '100001'
+          4x4:
+          - '200002'
+          - '300003'
+        thickness:
+          2mm:
+          - '100001'
+          4mm:
+          - '200002'
+          6mm:
+          - '300003'
+    facetObj:
+      type: object
+      properties:
+        facetId:
+          type: string
+        facetName:
+          type: string
+        recordCount:
+          type: integer
+          example: 32
+        selected:
+          type: boolean
+    queryBranchItemQtyRep:
+      type: object
+      properties:
+        messages:
+          type: string
+        success:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/BranchItemQtyResult'
+    multipleProductVarationRep:
+      type: array
+      items:
+        $ref: '#/components/schemas/productVarationRep'
+    productObj_itemDetails:
+      type: object
+      properties:
+        productImage:
+          type: string
+        productOnErrorImage:
+          type: string
+        productAdditionalOnErrorImage:
+          type: string
+        longDesc:
+          type: string
+        manufactureNumber:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/categoryObj'
+        shortDesc:
+          type: string
+        itemNumber:
+          type: string
+        productName:
+          type: string
+        productId:
+          type: string
+        baseProductName:
+          type: string
+        internalProductName:
+          type: string
+        brand:
+          type: string
+        url:
+          type: string
+        relatedProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/relatedProductsObj'
+    typeAhead_rep:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              baseProductName:
+                type: string
+              searchTypeAheadLink:
+                type: string
+        seeMoreLink:
+          type: string
+    currentSkuObj_2:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        manufactureNumber:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        uomlist:
+          type: array
+          items:
+            type: string
+        itemImage:
+          type: string
+        heroImages:
+          $ref: '#/components/schemas/heroImagesObj'
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          $ref: '#/components/schemas/auxiliaryImagesObj'
+        variations:
+          $ref: '#/components/schemas/PDPskusVariationObj'
+        hoverAttributes:
+          $ref: '#/components/schemas/hoverAttributesObj'
+    skuObj_2:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        itemImage:
+          type: string
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          $ref: '#/components/schemas/auxiliaryImagesObj'
+        variations:
+          $ref: '#/components/schemas/PDPskusVariationObj'
+        hoverAttributes:
+          $ref: '#/components/schemas/hoverAttributesObj'
+    skuListObj_itemlist_2:
+      type: object
+      properties:
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        itemImage:
+          type: string
+          example: /images/large/404191_default_hero.jpg
+        swatchImage:
+          type: string
+          example: /images/large/404191_default_swatch.jpg
+        skuShortDesc:
+          type: string
+        manufactureNumber:
+          type: string
+        variations:
+          $ref: '#/components/schemas/PDPskusVariationObj'
+        hoverAttributes:
+          $ref: '#/components/schemas/hoverAttributesObj'
+    productObj_itemlist_2:
+      type: object
+      properties:
+        productImage:
+          type: string
+        productOnErrorImage:
+          type: string
+        productAdditionalOnErrorImage:
+          type: string
+        longDesc:
+          type: string
+        brand:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/categoryObj'
+        shortDesc:
+          type: string
+        productName:
+          type: string
+        productId:
+          type: string
+        baseProductName:
+          type: string
+        internalProductName:
+          type: string
+        url:
+          type: string
+        skuList:
+          type: array
+          items:
+            $ref: '#/components/schemas/skuListObj_itemlist_2'
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+x-refined-from:
+- beacon-roofing-supply-v2-openapi.yml
+- beacon-roofing-supply-v3-openapi.yml

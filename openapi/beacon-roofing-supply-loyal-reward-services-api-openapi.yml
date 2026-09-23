@@ -1,0 +1,191 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Loyal Reward Services API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Loyal Reward Services
+paths:
+  /loyalreward:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Loyal Reward Services
+      summary: Get the loyal info for the given account
+      parameters:
+      - in: query
+        name: accountId
+        required: false
+        description: Account ID - Optional, it will get the Last Selected Account from profile if the parameter accountId is absent
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loyalreward_rep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: getLoyalreward
+      x-operation-id-source: derived
+components:
+  schemas:
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    loyalreward_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/loyalUserResult'
+    balanceInfo:
+      type: object
+      properties:
+        goal:
+          type: number
+          format: double
+        balance:
+          type: number
+          format: double
+        pending:
+          type: number
+          format: double
+        redeemed:
+          type: number
+          format: double
+        earned:
+          type: number
+          format: double
+    loyalUserResult:
+      type: object
+      properties:
+        accountId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        enrollmentDate:
+          type: string
+          format: date
+        isEnrolled:
+          type: boolean
+        isUserActive:
+          type: boolean
+        division:
+          type: string
+        branch:
+          type: string
+        region:
+          type: string
+        status:
+          type: object
+          properties:
+            statusCode:
+              type: string
+            statusMessage:
+              type: string
+        rewards:
+          type: array
+          items:
+            $ref: '#/components/schemas/rewardInfo'
+        balance:
+          $ref: '#/components/schemas/balanceInfo'
+        goals:
+          type: array
+          items:
+            $ref: '#/components/schemas/goalInfo'
+    goalInfo:
+      type: object
+      properties:
+        goalId:
+          type: integer
+        goal:
+          type: number
+          format: double
+        current:
+          type: number
+          format: double
+        percentToGoal:
+          type: number
+          format: double
+        hasGoal:
+          type: boolean
+        isDefault:
+          type: boolean
+        enrollmentId:
+          type: integer
+        userId:
+          type: string
+    rewardInfo:
+      type: object
+      properties:
+        campaignName:
+          type: string
+        currentPurchases:
+          type: string
+        dollars:
+          type: number
+          format: double
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

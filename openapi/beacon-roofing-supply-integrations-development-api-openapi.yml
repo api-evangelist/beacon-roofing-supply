@@ -1,0 +1,62 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Integrations - Development API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Integrations - Development
+paths:
+  /api/integrations/itemlist:
+    get:
+      operationId: IntegrationsController_test
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Integrations - Development
+      summary: Integrations controller test
+      x-summary-source: derived
+  /api/integrations/submitOrder:
+    post:
+      operationId: IntegrationsController_submitOrder
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations - Development
+      summary: Integrations controller submit order
+      x-summary-source: derived

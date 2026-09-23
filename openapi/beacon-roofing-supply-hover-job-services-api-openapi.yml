@@ -1,0 +1,397 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Hover Job Services API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Hover Job Services
+paths:
+  /getHoverJobList:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Hover Job Services
+      summary: List hover jobs
+      description: This service will list the hover jobs
+      parameters:
+      - in: query
+        name: pageSize
+        description: Default page size is 1
+        schema:
+          type: integer
+      - in: query
+        name: pageNo
+        description: Default page no is 20
+        schema:
+          type: integer
+      - in: query
+        name: filter
+        description: Search filter/terms
+        schema:
+          type: string
+      - in: query
+        name: orderBy
+        description: 'Default is ''updated_at asc''
+
+          ### orderBy enumeration
+
+          * created_at asc/desc
+
+          * updated_at asc/desc
+
+          '
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getHoverJobList_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetHoverJobList
+      x-operation-id-source: derived
+  /getHoverJobListImage:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Hover Job Services
+      summary: Get hover job image
+      description: This service will return the hover job image
+      parameters:
+      - in: query
+        name: jobId
+        description: Job ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getHoverJobListImage_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetHoverJobListImage
+      x-operation-id-source: derived
+  /getHoverJobDetail:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Hover Job Services
+      summary: Get hover detail
+      description: This service will return the hover job detail
+      parameters:
+      - in: query
+        name: jobId
+        description: Job ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getHoverJobDetail_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetHoverJobDetail
+      x-operation-id-source: derived
+  /getHoverJobDetailImage:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Hover Job Services
+      summary: Get hover job detail image
+      description: This service will return the hover job detail image
+      parameters:
+      - in: query
+        name: imageId
+        description: Image ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getHoverJobDetailImage_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetHoverJobDetailImage
+      x-operation-id-source: derived
+components:
+  schemas:
+    getHoverJobList_rep:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HoverJobListItem'
+    getHoverJobListImage_rep:
+      type: string
+      example: https://hover.to/.../xxxxxx.jpg?version=...
+    HoverJobListItem:
+      type: object
+      properties:
+        jobId:
+          type: string
+        time:
+          type: string
+        title:
+          type: string
+        location:
+          type: string
+        cityAndRegion:
+          type: string
+        completedAt:
+          type: string
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    getHoverJobDetail_rep:
+      type: object
+      properties:
+        approved:
+          type: string
+        approved_at:
+          type: string
+        archived:
+          type: string
+        archived_at:
+          type: string
+        client_identifier:
+          type: string
+        completed_at:
+          type: string
+        created_at:
+          type: string
+        deliverable_id:
+          type: string
+        estimated_hours_to_completion:
+          type: string
+        example:
+          type: string
+        id:
+          type: string
+        location_city:
+          type: string
+        location_country:
+          type: string
+        location_lat:
+          type: string
+        location_line_1:
+          type: string
+        location_line_2:
+          type: string
+        location_lon:
+          type: string
+        location_postal_code:
+          type: string
+        location_region:
+          type: string
+        name:
+          type: string
+        org_id:
+          type: string
+        roof_estimate_access_level:
+          type: string
+        state:
+          type: string
+        updated_at:
+          type: string
+        user_id:
+          type: string
+        via_job_share:
+          type: string
+        creator:
+          type: string
+        archive_number:
+          type: string
+        contractor_estimate_sent_to:
+          type: string
+        customer_contact:
+          type: string
+        customer_contact_only_by_email:
+          type: string
+        customer_email:
+          type: string
+        customer_first_name:
+          type: string
+        customer_name:
+          type: string
+        customer_notes:
+          type: string
+        customer_phone:
+          type: string
+        estimates_count:
+          type: string
+        mobile_application_id:
+          type: string
+        org_job_accesses_assigned_lead_count:
+          type: string
+        original_job_id:
+          type: string
+        quote_user_id:
+          type: string
+        reported_at:
+          type: string
+        shared:
+          type: string
+        uploaded_at:
+          type: string
+        pdf:
+          type: string
+        threeDimensions:
+          type: string
+        orderMaterials:
+          type: string
+        machete_features:
+          type: array
+          items:
+            type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/HoverJobDetailImage'
+    getHoverJobDetailImage_rep:
+      type: string
+      example: https://hover.to/.../xxxxxx.jpg?version=...
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    HoverJobDetailImage:
+      type: object
+      properties:
+        id:
+          type: string
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

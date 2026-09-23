@@ -1,0 +1,1703 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Checkout API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Checkout
+paths:
+  /cartItems:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: Get items in the cart
+      description: 'This service returns existing items in the cart for the user profile and
+
+        selected account'
+      parameters:
+      - in: query
+        name: showItemVariations
+        required: false
+        description: 'Default is false, if "true", display variations of each item
+
+          item'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cartItemsFullRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getCartItems
+      x-operation-id-source: derived
+  /orderSummary:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: Get order summary from current shopping cart
+      description: This service returns the order summary of current shopping cart
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orderSummaryRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getOrderSummary
+      x-operation-id-source: derived
+  /clearCart:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: Clear all items in the cart
+      description: This service can clear all the items in the current shopping cart, but '/cartItems' should be called before clearing cart and validate if the commerceItemIds match with both the API to avoid version update exception.
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postClearCart
+      x-operation-id-source: derived
+  /removeItemFromCart:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: Remove one item from the cart
+      description: This service can remove one given item from the current shopping cart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                commerceItemId:
+                  type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postRemoveItemFromCart
+      x-operation-id-source: derived
+  /updateCart:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: Update the cart
+      description: This service can update the quantities of items in current shopping cart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateCartReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateCart
+      x-operation-id-source: derived
+  /proceedToCheckout:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: Proceed to checkout page
+      description: 'This service can proceed to checkout page, if item in current shopping
+
+        cart is invalid, will return error message
+
+
+        This service returns the checkout page url'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/proceedToCheckoutRep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postProceedToCheckout
+      x-operation-id-source: derived
+  /updateCurrentOrderJobNumber:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: Update current order job number
+      description: This service can change job number of the current order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateCurrentOrderJobNumberReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateCurrentOrderJobNumber
+      x-operation-id-source: derived
+  /getOrderShippingInfo:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: Get current order shipping info
+      description: This service returns the current order shipping info
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getOrderShippingInfo_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetOrderShippingInfo
+      x-operation-id-source: derived
+  /addOrderShippingInfo:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: Add/Update current order shipping info
+      description: 'This service can Add/Update the current order shipping info
+
+
+        ### deliveryOptionValue enum:
+
+        * SCHEDULED
+
+        * ONHOLD
+
+
+        ### shippingMethodValue enum:
+
+        * PICK_UP
+
+        * SHIP_TO
+
+
+        ## Examples:
+
+
+        ### SCHEDULED, PICK_UP:
+
+        ```
+
+        {
+
+        "deliveryOptionValue":"SCHEDULED",
+
+        "deliveryDate":"08-20-2020",
+
+        "deliveryTime":"13",
+
+        "shippingMethodValue":"PICK_UP",
+
+        "changeShippingAddressLocation":true,
+
+        "shippingAddress":{
+
+        "branchName": "a",
+
+        "address1":"b",
+
+        "city":"c",
+
+        "stateValue":"LA",
+
+        "postalCode": 11111,
+
+        "phoneNumber":1234567890
+
+        },
+
+        "specialInstruction":"a"
+
+        }
+
+        ```
+
+
+        ### ONHOLD, SHIP_TO, not Save to Address Book in Profile:
+
+        ```
+
+        {
+
+        "deliveryOptionValue":"ONHOLD",
+
+        "shippingMethodValue":"SHIP_TO",
+
+        "shippingAddress":{
+
+        "nickName":"1",
+
+        "firstName":"2",
+
+        "lastName":"3",
+
+        "address1":"4",
+
+        "address2":"5",
+
+        "city":"6",
+
+        "stateValue":"AK",
+
+        "postalCode":11111,
+
+        "countryValue":"8",
+
+        "phoneNumber":1234567890
+
+        },
+
+        "specialInstruction":"a"
+
+        }
+
+        ```
+
+
+        ### ONHOLD, SHIP_TO, save to Address Book in Profile:
+
+        ```
+
+        {
+
+        "deliveryOptionValue":"onHold",
+
+        "shippingMethodValue":"SHIP_TO",
+
+        "shippingAddress":{
+
+        "addressBookId":"41840007",
+
+        "nickName":"asdasdas",
+
+        "firstName":"2",
+
+        "lastName":"3",
+
+        "address1":"4",
+
+        "address2":"5",
+
+        "city":"6",
+
+        "stateValue":"AK",
+
+        "postalCode":11111,
+
+        "countryValue":"8",
+
+        "phoneNumber":1234567890
+
+        },
+
+        "saveShippingAddressToAddressBook":true,
+
+        "specialInstruction":"a"
+
+        }
+
+        ```'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addOrderShippingInfo_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postAddOrderShippingInfo
+      x-operation-id-source: derived
+  /getCurrentOrderReview:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: Get current order review info
+      description: '1. This service returns the current order review info
+
+
+        2. Job name and number combination rule:
+
+
+        1). Job Account Drop Down: the option is selected in drop-down will be filled into job number field when when invoking /submitCurrentOrder endpoint.
+
+
+        2). Job name text field: the value will be filled into job name field when invoking /submitCurrentOrder endpoint.
+
+
+        Condition
+
+
+        Display Rule
+
+
+        showJobName
+
+
+        jobNameRequired
+
+
+        showJobNumber
+
+
+        jobNumberRequired
+
+
+        Job Account Drop Down
+
+
+        Job Name Text Field
+
+
+        N
+
+        N
+
+        Y
+
+        Y
+
+        Show Job Account Drop Down, option values are retrieved from jobs array in the response payload. It is a required field
+
+        Hide Job Name Text Field
+
+
+        Y
+
+        Y
+
+        N
+
+        N
+
+        Hide Job Account Drop Down
+
+        Show Job Name Text Field, customer is able to enter job name freely, and it''s required
+
+
+        Y
+
+        N
+
+        N
+
+        N
+
+        Hide Job Account Drop Down
+
+        Show Job Name Text Field, but it is optional
+
+
+        Y
+
+        Y
+
+        Y
+
+        N
+
+        Show Job Account Drop Down, but it is optional
+
+        Show Job Name Text Field, and it is required. Customer is able to enter job name freely, or choose an option from job account drop down, but job name text field will be auto filled once job account selected
+
+
+        Y
+
+        N
+
+        Y
+
+        N
+
+        Show Job Account Drop Down, but it is optional
+
+        Show Job Name Text Field, and it is optional. Customer is able to enter job name freely, or choose an option from job account drop down, but job name text field will be auto filled once job account selected
+
+
+        ### PONumber and ExtendedPO Rule:
+
+        1. The [shownExtendedPO, extendedPORequired, poRequired] fields can be obtained from ''/jobs'', ''/getCurrentOrderReview''.
+
+        2. If shownExtendedPO is Yes, only the extended PO needs to be displayed, and extendedPORequired is used to verify whether the extended PO is Required.
+
+        3. If shownExtendedPO is NO, only the regular PO needs to be displayed, and poRequired is used to verify whether the regular PO is Required.
+
+
+        Required
+
+
+        shownExtendedPO
+
+
+        extendedPORequired
+
+
+        poRequired
+
+
+        Display Rule
+
+
+        Y
+
+        Y
+
+        /
+
+        Only show Extended PO Text Field, and it is required.
+
+
+        Y
+
+        N
+
+        /
+
+        Only show Extended PO Text Field, but it is optional.
+
+
+        N
+
+        /
+
+        Y
+
+        Only show PO Text Field, and it is required.
+
+
+        N
+
+        /
+
+        N
+
+        Only show PO Text Field, but it is optional.'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getCurrentOrderReviewInfo_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetCurrentOrderReview
+      x-operation-id-source: derived
+  /submitCurrentOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: Submit current order
+      description: 'This service can submit current order
+
+        apiSiteId is optional.
+
+        ## Examples:
+
+        ### For input po job
+
+        ```
+
+        {
+
+        "apiSiteId":"PWR",
+
+        "poName":"poTest",
+
+        "jobNumber":"SHOP"
+
+        }
+
+        ```
+
+
+        ### For submit order for approver
+
+        ```
+
+        {
+
+        "savedOrderName":"myTestSaveorder1",
+
+        "approverId":"####",
+
+        }
+
+        ```'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/submitCurrentOrder_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/submitCurrentOrder_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postSubmitCurrentOrder
+      x-operation-id-source: derived
+  /getSubmitOrderResult:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: Get submit order result
+      description: This service can get submit order result
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getSubmitOrderResult_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSubmitOrderResult_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postGetSubmitOrderResult
+      x-operation-id-source: derived
+  /validateOrderByLocation:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: validate order pick up location inventory
+      description: 'This service can validate order pick up location inventory.
+
+
+        Request sample 1: Search with SkuIds and branchId combination
+
+
+        /v2/rest/com/becn/validateOrderByLocation?skuIds=10001:15,10002:3,10003:1&branchId=181&address=&apiSiteId=
+
+
+        Request sample 2: Search with orderId and branchId combination
+
+
+        /v2/rest/com/becn/validateOrderByLocation?orderId=o31435120&branchId=181&address=&apiSiteId=
+
+
+        Request sample 3: Search with branch''s address and postcode
+
+
+        /v2/rest/com/becn/validateOrderByLocation?orderId=o31435120&address=14200%20E%20MONCRIEFF%20PLACE&postCode=90230&apiSiteId=&
+
+
+        OR
+
+
+        /v2/rest/com/becn/validateOrderByLocation?skuIds=10001:15,10002:3,10003:1&address=14200%20E%20MONCRIEFF%20PLACE&postCode=90230&apiSiteId=&'
+      parameters:
+      - in: query
+        name: orderId
+        description: ATG Order ID, or Saved Order ID, or Quote Order ID. Either orderId or skuIds is required.
+        schema:
+          type: string
+      - in: query
+        name: skuIds
+        description: itemNumber:Quantity. e.g. skIds=10001:15,10002:3,10003:1. Either orderId or skuIds is required.
+        schema:
+          type: string
+      - in: query
+        name: branchId
+        description: Branch legacy id
+        schema:
+          type: string
+      - in: query
+        name: address
+        description: Branch address2
+        schema:
+          type: string
+      - in: query
+        name: postCode
+        description: Branch address postCode
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getValidateOrderByLocation
+      x-operation-id-source: derived
+  /updateOrderCCBillingAddress:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Checkout
+      summary: Update Order CC Billing Address Info
+      description: 'Update order CC billing address information and send a request to the Credit Purchase API.
+
+
+        FE needs to obtain the token from LVT and pass in Expiration Date.
+
+
+        Customers can choose/switch which payment method to use to submit their order. The Back-end will verify the credit card information only if the customer selects "payWithCredit": true,
+
+        otherwise the customer does not need to send credit card information.
+
+
+        ## Examples:
+
+        #### payWithCredit = true
+
+        ```
+
+        {
+
+        "payWithCredit": true, -- required, submitted by credit card
+
+        "cardInfo": {
+
+        "ExpMM": "string", -- required, the month is a positive integer less than 12
+
+        "ExpYY": "string", -- required, the year is 2 digits
+
+        "Type": "string", -- required
+
+        "FullName": "string" -- optional
+
+        },
+
+        "encryptionTokenData": {
+
+        "LowValueToken": "string" -- required, length <= 30
+
+        },
+
+        "addressVerificationData": {
+
+        "AVSZIPCode": "string" -- optional, format is xxxxx or xxxxx-xxxx
+
+        }
+
+        }
+
+        ```
+
+        #### payWithCredit = false
+
+        ```
+
+        {
+
+        "payWithCredit": false -- required, submitted by cash
+
+        }
+
+        ```'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/creditpurchase_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateOrderCCBillingAddress
+      x-operation-id-source: derived
+components:
+  schemas:
+    updateCurrentOrderJobNumberReq:
+      type: object
+      properties:
+        jobNumber:
+          type: string
+    getOrderShippingInfo_rep:
+      type: object
+      properties:
+        deliveryOption:
+          type: string
+        deliveryOptionValue:
+          type: string
+        deliveryOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        deliveryTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        expressDeliveryTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        shippingMethod:
+          type: string
+        shippingMethodValue:
+          type: string
+        shippingMethods:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddressV2Rep_getOrderShippingInfo'
+        addressBooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBook_getOrderShippingInfo'
+        addressBook:
+          $ref: '#/components/schemas/AddressBook_savedorder'
+        branchAddress:
+          $ref: '#/components/schemas/BranchAddress_getOrderShippingInfo'
+        instructions:
+          type: string
+        evOrderId:
+          type: string
+    submitCurrentOrder_rep:
+      type: object
+      properties:
+        deliveryOption:
+          type: string
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        shippingMethod:
+          type: string
+        instructions:
+          type: string
+        jobNumber:
+          type: string
+        jobName:
+          type: string
+        poName:
+          type: string
+        approverFirstName:
+          type: string
+        approverLastName:
+          type: string
+        approverEmail:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/CurrentOrderReview_shippingAdrress'
+        items:
+          $ref: '#/components/schemas/cartItemsRep'
+        orderSummary:
+          $ref: '#/components/schemas/orderSummaryRep'
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+        orderRelatedDocuments:
+          items:
+            type: string
+        nextPage:
+          $ref: '#/components/schemas/proceedToCheckoutRep'
+    accountObjWithRewardsEligible:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        rewardsEligible:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+        canAccessEVSmartOrder:
+          type: boolean
+        customerType:
+          $ref: '#/components/schemas/customerType'
+        hasMincronRebate:
+          type: boolean
+        loyaltyEnrolled:
+          type: boolean
+        nationalAccount:
+          type: boolean
+        loyaltyFlag:
+          type: boolean
+    skusVariationObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        '600001':
+          color:
+          - White
+          - Dover
+          size:
+          - 12x10
+          thickness:
+          - 2mm
+        '600002':
+          color:
+          - White
+          size:
+          - 4x4
+          thickness:
+          - 4mm
+        '300003':
+          color:
+          - Dover
+          size:
+          - 4x4
+          thickness:
+          - 6mm
+    multiVariationDataObj:
+      type: object
+      properties:
+        currentSkuId:
+          type: string
+        skus:
+          $ref: '#/components/schemas/skusVariationObj'
+        variations:
+          $ref: '#/components/schemas/variationsObj'
+        vendorColors:
+          type: array
+          items:
+            $ref: '#/components/schemas/vendorColorsObj'
+        allVariationTypes:
+          type: array
+          items:
+            type: string
+        currentVariations:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            color: please_select
+            size: 2ft x 4ft
+            diameter: 3d
+            thickness: 5nm'
+            style: slope 002
+            packaging: 5 gallon pail
+            MFG: please_select
+        variationKeyMFG:
+          type: string
+        variationKeyColor:
+          type: string
+        variationGroups:
+          type: array
+          items:
+            type: object
+            properties:
+              variationTypes:
+                type: array
+                items:
+                  type: string
+        maxVariationGroupSize:
+          type: integer
+    cartItemsRep:
+      type: array
+      items:
+        type: object
+        properties:
+          commerceItemId:
+            type: string
+          url:
+            type: string
+          productImageUrl:
+            type: string
+          productOnErrorImageUrl:
+            type: string
+          itemOrProductDescription:
+            type: string
+          catalogRefId:
+            type: string
+          productId:
+            type: string
+          quantity:
+            type: integer
+          uom:
+            type: string
+          unitPrice:
+            type: integer
+            format: double
+          totalPrice:
+            type: integer
+            format: double
+    cartItemList:
+      type: object
+      properties:
+        commerceItemId:
+          type: string
+        url:
+          type: string
+        productImageUrl:
+          type: string
+        productOnErrorImageUrl:
+          type: string
+        itemOrProductDescription:
+          type: string
+        catalogRefId:
+          type: string
+        productId:
+          type: string
+        quantity:
+          type: integer
+        uom:
+          type: string
+        unitPrice:
+          type: integer
+          format: double
+        totalPrice:
+          type: integer
+          format: double
+        productMultiVariation:
+          $ref: '#/components/schemas/multiVariationDataObj'
+    submitCurrentOrder_req:
+      type: object
+      properties:
+        apiSiteId:
+          type: string
+        poName:
+          type: string
+        extendedPO:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+        savedOrderName:
+          type: string
+        approverId:
+          type: string
+        uuid:
+          type: string
+        UUID:
+          type: string
+    RadioButton_savedorder:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+    CurrentOrderReview_jobAccounts:
+      type: object
+      properties:
+        unavailable:
+          type: boolean
+        unavailableMsg:
+          type: string
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrentOrderReview_jobInfo'
+    vendorColorsObj:
+      type: object
+      properties:
+        id:
+          type: string
+        MFG:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        sku:
+          type: string
+        color:
+          type: string
+    getSubmitOrderResult_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+        savedOrderId:
+          type: string
+    getCurrentOrderReviewInfo_rep:
+      type: object
+      properties:
+        deliveryOption:
+          type: string
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        shippingMethod:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/CurrentOrderReview_shippingAdrress'
+        poJob:
+          $ref: '#/components/schemas/CurrentOrderReview_poJob'
+        instructions:
+          type: string
+        additionalRecipients:
+          items:
+            type: string
+        orderRelatedDocuments:
+          items:
+            type: string
+        payWithCredit:
+          type: boolean
+        evOrderId:
+          type: string
+        nextPage:
+          $ref: '#/components/schemas/proceedToCheckoutRep'
+    addOrderShippingInfo_req:
+      type: object
+      properties:
+        deliveryOptionValue:
+          type: string
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        shippingMethodValue:
+          type: string
+        changeShippingAddressLocation:
+          type: boolean
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddressV2Req'
+        saveShippingAddressToAddressBook:
+          type: boolean
+        specialInstruction:
+          type: string
+    customerType:
+      type: object
+      properties:
+        name:
+          type: string
+        realm:
+          type: string
+        isDefault:
+          type: boolean
+    AddressBook_savedorder:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress_savedorder'
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
+    proceedToCheckoutRep:
+      type: object
+      properties:
+        nextUrl:
+          type: string
+    orderSummaryRep:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: double
+        itemsTotal:
+          type: integer
+          format: double
+        tax:
+          type: integer
+          format: double
+        otherCharges:
+          type: integer
+          format: double
+        displayTotalMsg:
+          type: boolean
+        totalMsg:
+          type: string
+        jobTaxExempt:
+          type: boolean
+    ContactInfo_savedorder:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        phoneNumber:
+          type: string
+    BranchAddress_getOrderShippingInfo:
+      type: object
+      properties:
+        displayName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+    updateCartReq:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              commerceItemId:
+                type: string
+              skuId:
+                type: string
+              uom:
+                type: string
+              quantity:
+                type: integer
+    ShippingAddressV2Rep_getOrderShippingInfo:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        stateValue:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        postalCode:
+          type: string
+        countryValue:
+          type: string
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        phoneNumber:
+          type: string
+    ShippingAddressV2Req:
+      type: object
+      properties:
+        branchName:
+          type: string
+        addressBookId:
+          type: string
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        countryValue:
+          type: string
+        phoneNumber:
+          type: string
+    CurrentOrderReview_shippingAdrress:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        postalCode:
+          type: string
+        nickName:
+          type: string
+        branchName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phoneNumber:
+          type: string
+    getSubmitOrderResult_rep:
+      type: object
+      properties:
+        orderNumber:
+          type: string
+        orderNumberTips:
+          type: string
+        orderConfirmationTips:
+          type: string
+        state:
+          type: string
+        orderHistoryDetailLinkUrl:
+          type: string
+        orderHistoryListLinkUrl:
+          type: string
+        mincronResponseError:
+          type: boolean
+        ATGFailedStatus:
+          type: string
+        ATGOrderError:
+          type: boolean
+        evOrderId:
+          type: string
+    cartItemsFullRep:
+      type: object
+      properties:
+        atgOrderId:
+          type: string
+        lastSelectedJob:
+          type: object
+          properties:
+            jobName:
+              type: string
+            jobNumber:
+              type: string
+        cartLineItems:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/cartItemList'
+        lastSelectedAccount:
+          $ref: '#/components/schemas/accountObjWithRewardsEligible'
+    variationsObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        color:
+          White:
+          - '100001'
+          - '200002'
+          Dover:
+          - '100001'
+          - '300003'
+        size:
+          12x10:
+          - '100001'
+          4x4:
+          - '200002'
+          - '300003'
+        thickness:
+          2mm:
+          - '100001'
+          4mm:
+          - '200002'
+          6mm:
+          - '300003'
+    CurrentOrderReview_jobInfo:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        checked:
+          type: boolean
+    ShippingAddress_savedorder:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        postalCode:
+          type: string
+    AddressBook_getOrderShippingInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+    creditpurchase_req:
+      type: object
+      properties:
+        payWithCredit:
+          type: boolean
+        cardInfo:
+          type: object
+          properties:
+            ExpMM:
+              type: string
+            ExpYY:
+              type: string
+            Type:
+              type: string
+            FullName:
+              type: string
+        encryptionTokenData:
+          type: object
+          properties:
+            LowValueToken:
+              type: string
+        addressVerificationData:
+          type: object
+          properties:
+            AVSZIPCode:
+              type: string
+    CurrentOrderReview_poJob:
+      type: object
+      properties:
+        poRequired:
+          type: boolean
+        jobNameRequired:
+          type: boolean
+        jobNumberRequired:
+          type: boolean
+        showJobName:
+          type: boolean
+        showJobNumber:
+          type: boolean
+        poName:
+          type: string
+        jobNumber:
+          type: string
+        jobName:
+          type: string
+        jobAccounts:
+          $ref: '#/components/schemas/CurrentOrderReview_jobAccounts'
+        showExtendedPO:
+          type: boolean
+        extendedPORequired:
+          type: boolean
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

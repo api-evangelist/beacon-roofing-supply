@@ -1,0 +1,146 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) User Tour Services API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: User Tour Services
+paths:
+  /updateNewUserTour:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - User Tour Services
+      summary: collect user tour
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateNewUserTourReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postUpdateNewUserTour
+      x-operation-id-source: derived
+  /getNewUserTour:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - User Tour Services
+      summary: get user tour
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getNewUserTourResp'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getGetNewUserTour
+      x-operation-id-source: derived
+components:
+  schemas:
+    getNewUserTourResp:
+      type: object
+      properties:
+        homePageTour:
+          $ref: '#/components/schemas/UserTour'
+        templatesLandingTour:
+          $ref: '#/components/schemas/UserTour'
+        templatesDetailTour:
+          $ref: '#/components/schemas/UserTour'
+        orderHistoryLandingTour:
+          $ref: '#/components/schemas/UserTour'
+        orderHistoryDetailTour:
+          $ref: '#/components/schemas/UserTour'
+        shoppingCartLandingTour:
+          $ref: '#/components/schemas/UserTour'
+        checkoutTour:
+          $ref: '#/components/schemas/UserTour'
+        optOutOfAllTours:
+          type: boolean
+    UserTour:
+      type: object
+      properties:
+        firstRecordedTour:
+          type: string
+          format: timestamp
+        lastRecordedTour:
+          type: string
+          format: timestamp
+        nextScheduledTour:
+          type: string
+          format: timestamp
+        optOut:
+          type: boolean
+    updateNewUserTourReq:
+      type: object
+      properties:
+        type:
+          type: string
+        firstRecordedTour:
+          type: string
+          format: timestamp
+        lastRecordedTour:
+          type: string
+          format: timestamp
+        optOut:
+          type: boolean
+        optOutOfAllTours:
+          type: boolean
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

@@ -1,0 +1,722 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Delivery Tracking…
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Delivery Tracking Service
+paths:
+  /updateStatusChange:
+    post:
+      tags:
+      - Delivery Tracking Service
+      summary: delivery status change notification (Non-App)
+      description: 'The actions is to update user receive delivery tracking notification
+
+        1. Requested,Scheduled,Enroute,Arrived,Delivered,Cancelled,Missed value should be one of "none","email","sms","emailAndsms";
+
+
+        2.`dtStatusChangeNotification` presents current user status change
+
+        notification;
+
+
+        3. `dtAdminStatusChangeNotification` presents other user status change notification with same account of current user;
+
+
+        4. `dtAccountStatusChangeNotification` presents current user with account mapping status change notification; this is new to configure DT setting per account.If "dtAccountStatusChangeNotification" is empty, system will send notification by setting of "dtAdminStatusChangeNotification" or "dtStatusChangeNotification"'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/statusChangeNotification_req'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/statusChangeNotification_rep'
+        '403':
+          description: Unauthorized user or invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/statusChangeNotification_rep'
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/statusChangeNotification_rep'
+      operationId: postUpdateStatusChange
+      x-operation-id-source: derived
+  /getStatusChange:
+    get:
+      tags:
+      - Delivery Tracking Service
+      summary: get delivery status change notification
+      description: 'If query parameter is empty, return profile level status change notification;
+
+
+        `accountId` is optional, if not in the parameter, will return all account mapping items.
+
+
+        In response
+
+
+        `dtStatusChangeNotification` presents current user status change notification;
+
+
+        `dtAdminStatusChangeNotification` presents other user status change notification with same account of current user;
+
+
+        `dtAccountStatusChangeNotification` presents current user with account mapping status change notification; this is new to configure DT setting per account.If "dtAccountStatusChangeNotification" is empty, system will send notification by setting of "dtAdminStatusChangeNotification" or "dtStatusChangeNotification"
+
+
+        If `orderId` or `orderNumber` or `savedOrderId` is not empty, return order level status change notification;
+
+
+        In response
+
+
+        `dtOrderStatusChangeNotification` presents current order status change notification'
+      parameters:
+      - in: query
+        name: orderId
+        schema:
+          type: string
+        description: ATG Order ID
+      - in: query
+        name: orderNumber
+        schema:
+          type: string
+        description: Order ID
+      - in: query
+        name: savedOrderId
+        schema:
+          type: string
+        description: Saved Order ID
+      - in: query
+        name: accountId
+        schema:
+          type: string
+        description: Account Legacy Number
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getStatusChangeNotification_rep'
+        '403':
+          description: Unauthorized user or invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/statusChangeNotification_rep'
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/statusChangeNotification_rep'
+      operationId: getGetStatusChange
+      x-operation-id-source: derived
+  /upcomingDeliveries:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Delivery Tracking Service
+      summary: Get upcoming deliveries
+      description: This service will calls DT salesforce service to get upcoming deliveries data.
+      parameters:
+      - in: query
+        name: accountId
+        description: Account ID
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: startDate
+        description: The startDate for the delivery tracking
+        schema:
+          type: string
+      - in: query
+        name: endDate
+        description: The endDate for the delivery tracking
+        schema:
+          type: string
+      - in: query
+        name: pageSize
+        description: Default page size is 100
+        schema:
+          type: integer
+      - in: query
+        name: page
+        description: Default page number is 1
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpcomingDeliveriesRep'
+        '400':
+          description: Bad Request, accountId is invalid
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getUpcomingDeliveries
+      x-operation-id-source: derived
+  /saveDeliverySetting:
+    post:
+      tags:
+      - Delivery Tracking Service
+      summary: save Delivery Notification Setting (Mobile)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/saveDeliverySettingReq'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/saveDeliverySetting_rep'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postSaveDeliverySetting
+      x-operation-id-source: derived
+  /getDeliverySetting:
+    get:
+      tags:
+      - Delivery Tracking Service
+      summary: get Delivery Notification Setting
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getDeliverySetting_rep'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getGetDeliverySetting
+      x-operation-id-source: derived
+  /getNotifications:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Delivery Tracking Service
+      summary: Get user notifications
+      parameters:
+      - in: query
+        name: pageSize
+        description: Default page size is 10
+        schema:
+          type: integer
+      - in: query
+        name: pageNo
+        description: Default page no is 1
+        schema:
+          type: integer
+      - in: query
+        name: accountID
+        description: Account number
+        schema:
+          type: string
+      - in: query
+        name: isRead
+        description: query all notifications when isRead is null and query the corresponding notifications when isRead is true or false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: 'successful operation
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getNotifications_rep'
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: getGetNotifications
+      x-operation-id-source: derived
+  /modifyReadStatus:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Delivery Tracking Service
+      summary: Modify notification read status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserNotificationModification_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: postModifyReadStatus
+      x-operation-id-source: derived
+  /deleteNotifications:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Delivery Tracking Service
+      summary: Delete Notifications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteNotifications_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: postDeleteNotifications
+      x-operation-id-source: derived
+  /deleteAllNotifications:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Delivery Tracking Service
+      summary: Delete All Notifications
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '400':
+          description: Bad Request, the request method is not valid
+        '401':
+          description: Unauthorized, user do not login
+        '500':
+          description: Internal exception
+      operationId: postDeleteAllNotifications
+      x-operation-id-source: derived
+components:
+  schemas:
+    getStatusChangeNotification_rep:
+      type: object
+      properties:
+        messageCode:
+          type: string
+        message:
+          type: string
+        emailAddress:
+          type: string
+        dtPhoneNumber:
+          type: string
+        dtStatusChangeNotification:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryStatusObj'
+        dtAdminStatusChangeNotification:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryStatusObj'
+        dtAccountStatusChangeNotification:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryStatusObjWithAccount'
+        dtOrderStatusChangeNotification:
+          type: object
+          properties:
+            notifications:
+              type: array
+              items:
+                $ref: '#/components/schemas/radioButtonObj'
+    deleteNotifications_req:
+      type: object
+      properties:
+        deleteNotificationIds:
+          type: string
+    UpcomingDeliveriesRep:
+      type: object
+      properties:
+        upcomingDeliveries:
+          type: array
+          items:
+            $ref: '#/components/schemas/UpcomingDeliveryObj'
+    UserNotificationModification_req:
+      type: object
+      properties:
+        userNotifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserNotificationModification'
+    statusChangeNotification_req:
+      type: object
+      properties:
+        dtEmailAddress:
+          type: string
+        dtPhoneNumber:
+          type: string
+        dtStatusChangeNotification:
+          $ref: '#/components/schemas/statusChangeNotification'
+        dtAdminStatusChangeNotification:
+          $ref: '#/components/schemas/statusChangeNotification'
+        dtAccountStatusChangeNotification:
+          type: array
+          items:
+            $ref: '#/components/schemas/accountStatusChangeNotification'
+    UserNotificationItem:
+      type: object
+      properties:
+        id:
+          type: string
+        accountId:
+          type: string
+        orderId:
+          type: string
+          description: Order number.
+        accountToken:
+          type: string
+          description: Account Token for order.
+        status:
+          type: string
+          description: (Received, Scheduled, Delivered, EnRoute, Arrived).
+        read:
+          type: boolean
+          description: Read status (has customer read notification) true or false.
+        title:
+          type: string
+        subtitle:
+          type: string
+        timestamp:
+          type: number
+          format: long
+          description: Timestamp notification was created.
+    getDeliverySetting_rep:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            dtNotificationSettings:
+              type: object
+              properties:
+                received:
+                  type: boolean
+                scheduled:
+                  type: boolean
+                ordered:
+                  type: boolean
+                enRoute:
+                  type: boolean
+                arrived:
+                  type: boolean
+            quoteNotificationSettings:
+              type: object
+              properties:
+                readyForReview:
+                  type: boolean
+            disableStatus:
+              type: boolean
+            changeTime:
+              type: string
+        success:
+          type: boolean
+        message:
+          type: string
+    saveDeliverySetting_rep:
+      type: object
+      properties:
+        result:
+          type: string
+        message:
+          type: string
+        success:
+          type: boolean
+    saveDeliverySettingReq:
+      type: object
+      properties:
+        dtNotificationSettings:
+          type: object
+          properties:
+            received:
+              type: boolean
+            scheduled:
+              type: boolean
+            ordered:
+              type: boolean
+            enRoute:
+              type: boolean
+            arrived:
+              type: boolean
+        disableStatus:
+          type: boolean
+        changeTime:
+          type: string
+        accounts:
+          type: array
+          items:
+            type: string
+        quoteNotificationSettings:
+          type: object
+          properties:
+            readyForReview:
+              type: boolean
+    statusChangeNotification_rep:
+      type: object
+      properties:
+        messageCode:
+          type: string
+        message:
+          type: string
+    radioButtonObj:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+    deliveryStatusObj:
+      type: object
+      properties:
+        displayName:
+          type: string
+        label:
+          type: string
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/radioButtonObj'
+    UpcomingDeliveryObj:
+      type: object
+      properties:
+        jobNumber:
+          type: string
+        jobName:
+          type: string
+        branchNo:
+          type: string
+        customerNo:
+          type: string
+        street:
+          type: string
+        mincronOrderNo:
+          type: string
+        estimatedArrival:
+          type: string
+        estimatedArrivalDate:
+          type: string
+        plannedArrival:
+          type: string
+        plannedArrivalDate:
+          type: string
+        actualArrival:
+          type: string
+        salesPeople:
+          type: string
+        dtStatus:
+          type: string
+        dtDate:
+          type: string
+        po:
+          type: string
+        orderDetailLink:
+          type: string
+    getNotifications_pagination:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        userNotifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserNotificationItem'
+    accountStatusChangeNotification:
+      type: object
+      properties:
+        requested:
+          type: string
+        scheduled:
+          type: string
+        delivered:
+          type: string
+        accountId:
+          type: string
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    deliveryStatusObjWithAccount:
+      type: object
+      properties:
+        accountId:
+          type: string
+        statusLabels:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryStatusObj'
+    getNotifications_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          type: string
+        result:
+          $ref: '#/components/schemas/getNotifications_pagination'
+    statusChangeNotification:
+      type: object
+      properties:
+        requested:
+          type: string
+        scheduled:
+          type: string
+        delivered:
+          type: string
+    UserNotificationModification:
+      type: object
+      properties:
+        userNotificationId:
+          type: string
+        readStatus:
+          type: boolean
+          description: Read status (has customer read notification) true or false.
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

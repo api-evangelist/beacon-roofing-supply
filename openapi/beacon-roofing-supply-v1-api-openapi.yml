@@ -1,0 +1,1153 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services V1 API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: v1
+paths:
+  /login:
+    post:
+      operationId: V1Controller_login
+      summary: Logs user into system
+      description: Logs user into system with email as username and unique password. Log in session lasts 1 hour. To extend login session to 7 days, use the “RememberMe” flag. The `siteId` will always be `homeSite`.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/login'
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loginResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - v1
+  /logout:
+    post:
+      operationId: V1Controller_logout
+      summary: Logs user out of system
+      description: Logs user out of system and ends current session.
+      parameters: []
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/logoutResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - v1
+  /getLoginDeclaration:
+    get:
+      operationId: V1Controller_getLoginDeclaration
+      summary: Returns Terms and Conditions for persistent login
+      description: If user clicks on “keep me signed in” on the login page, user will need to agree to the terms and conditions to remain logged into PRO+.
+      parameters:
+      - name: siteId
+        required: false
+        in: path
+        description: Default is `homeSite`, should be one of `homeSite`, `dealersChoice`
+        schema:
+          type: string
+      - name: persistentLoginType
+        required: false
+        in: path
+        description: Default is `RememberMe`, should be one of `RememberMe`, `RememberPassword`
+        schema:
+          type: string
+      - name: userAgent
+        required: false
+        in: path
+        description: Default is `desktop`, should be one of `desktop`, `tablet`, `mobile`
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getLoginDeclarationResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - v1
+  /accounts:
+    get:
+      operationId: V1Controller_accounts
+      summary: Lists available accounts for a user
+      description: Returns available accounts for a user using the profile Id from GET/getCurrentUserInfo.
+      parameters:
+      - name: profileId
+        required: true
+        in: path
+        description: User profile Id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/accountResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - v1
+  /switchAccount:
+    post:
+      operationId: V1Controller_switchAccount
+      summary: Changes account for a user
+      description: Allows Beacon customer to change from one customer account to another account associated with that user profile.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/switchAccountBody'
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/switchAccountResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - v1
+  /branchlist:
+    get:
+      operationId: V1Controller_branchlist
+      summary: Lists all available branches
+      description: Returns available branches within a zip code or city.
+      parameters:
+      - name: zipCode
+        required: false
+        in: path
+        description: Branch postal code
+        schema:
+          type: string
+      - name: city
+        required: false
+        in: path
+        description: Branch city
+        schema:
+          type: string
+      - name: pageSize
+        required: false
+        in: path
+        description: Default page size is 21
+        schema:
+          type: number
+      - name: pageNo
+        required: false
+        in: path
+        description: Default page number is 1, the first page
+        schema:
+          type: number
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/branchListResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - v1
+  /jobs:
+    get:
+      operationId: V1Controller_jobs
+      summary: Lists available job names for an account
+      description: Returns available job names and job numbers for an account.
+      parameters:
+      - name: accountId
+        required: true
+        in: path
+        description: Account Id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/jobsResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - v1
+  /items:
+    get:
+      operationId: V1Controller_items
+      summary: Returns item details
+      description: Returns item details based on product Id or item Id.
+      parameters:
+      - name: productId
+        required: false
+        in: path
+        description: Product Id
+        schema:
+          type: string
+      - name: itemNumber
+        required: false
+        in: path
+        description: Item number(SKU ID)
+        schema:
+          type: string
+      - name: accountId
+        required: false
+        in: path
+        description: Account Id
+        schema:
+          type: string
+      - name: jobNumber
+        required: false
+        in: path
+        description: Job Number
+        schema:
+          type: string
+      - name: uom
+        required: false
+        in: path
+        description: Unit of Measure
+        schema:
+          type: string
+      - name: showHoverAttrs
+        required: false
+        in: path
+        description: if "true", display hover attributes
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getItemsResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - v1
+  /getProductInfo:
+    get:
+      operationId: V1Controller_getProductInfo
+      summary: Returns list of accounts by Product Id
+      description: Returns list of accounts where product is available for Hover.
+      parameters:
+      - name: productId
+        required: false
+        in: path
+        description: Product Id
+        schema:
+          type: string
+      - name: accountInfo
+        required: true
+        in: path
+        description: If true, return all accounts as a list for which the product should be served (accounts that have the product as available). Default is false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getProductInfoResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - v1
+  /getSkuUom:
+    get:
+      operationId: V1Controller_getSkuUom
+      summary: Returns Unit of Measures (UoM) for an item number
+      description: 'Returns all Unit of Measures (UoM) options for an item number. Item number examples: 253729, 253733. Unit of Measure examples: BDL, PC, CTN.'
+      parameters:
+      - name: skuId
+        required: false
+        in: path
+        description: Item Number
+        schema:
+          type: string
+      - name: skuIds
+        required: false
+        in: path
+        description: 'Multiple Item Number string, separated by commas<br><br>Example: "253729,253737,253740"'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSkuUomResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - v1
+components:
+  schemas:
+    SkuIdsUomList:
+      type: object
+      properties:
+        '253729':
+          type: array
+          items:
+            type: string
+        '253733':
+          type: array
+          items:
+            type: string
+        '253740':
+          type: array
+          items:
+            type: string
+      required:
+      - '253729'
+      - '253733'
+      - '253740'
+    AccountBranch:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+      required:
+      - address
+      - branchNumber
+      - branchName
+      - branchPhone
+      - branchRegionId
+      - company
+      - companyName
+      - division
+      - divisionName
+      - market
+    Account:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        rewardsEligible:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+        branch:
+          $ref: '#/components/schemas/Branch'
+      required:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - rewardsEligible
+      - cashAccount
+      - isAccountClosed
+      - branch
+    LastSelectedAccount:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+      required:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - cashAccount
+      - isAccountClosed
+    SkuList:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        color:
+          type: string
+        unitPrice:
+          type: number
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        itemImage:
+          type: string
+        heroImage:
+          type: string
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          type: array
+          items:
+            type: string
+      required:
+      - currentUOM
+      - color
+      - unitPrice
+      - itemNumber
+      - productNumber
+      - itemImage
+      - heroImage
+      - thumbImage
+      - swatchImage
+      - skuShortDesc
+      - auxiliaryImages
+    Resource:
+      type: object
+      properties:
+        General Instructrions:
+          type: string
+        Warranty:
+          type: string
+        MSDS:
+          type: string
+        Brochure:
+          type: string
+      required:
+      - General Instructrions
+      - Warranty
+      - MSDS
+      - Brochure
+    loginResponse:
+      type: object
+      properties:
+        messageInfo:
+          $ref: '#/components/schemas/MessageInfo'
+      required:
+      - messageInfo
+    HoverAttributes:
+      type: object
+      properties:
+        sellingUom:
+          type: string
+        piecesPerUom:
+          type: string
+        coverageUom:
+          type: string
+        ppCoverageUom:
+          type: string
+        lengthExposure:
+          type: string
+        widthExposure:
+          type: string
+        lengthHover:
+          type: string
+        widthHover:
+          type: string
+        ncpSellingUom:
+          type: string
+        gcpSellingUom:
+          type: string
+        sslvoDimensionIn:
+          type: string
+        sswhoDimensionOption1In:
+          type: string
+        sswhoDimensionOption2In:
+          type: string
+        sswhoDimensionOption3In:
+          type: string
+        lslvoDimensionIn:
+          type: string
+        lswhoDimensionIn:
+          type: string
+        rvlvoDimensionIn:
+          type: string
+        rvwhoDimensionIn:
+          type: string
+        nfvaHover:
+          type: string
+        nfvaUomHover:
+          type: string
+        fhLapIn:
+          type: string
+        fvLapIn:
+          type: string
+        chLapIn:
+          type: string
+        cvLapIn:
+          type: string
+        cfmValue:
+          type: string
+        cfmUom:
+          type: string
+      required:
+      - sellingUom
+      - piecesPerUom
+      - coverageUom
+      - ppCoverageUom
+      - lengthExposure
+      - widthExposure
+      - lengthHover
+      - widthHover
+      - ncpSellingUom
+      - gcpSellingUom
+      - sslvoDimensionIn
+      - sswhoDimensionOption1In
+      - sswhoDimensionOption2In
+      - sswhoDimensionOption3In
+      - lslvoDimensionIn
+      - lswhoDimensionIn
+      - rvlvoDimensionIn
+      - rvwhoDimensionIn
+      - nfvaHover
+      - nfvaUomHover
+      - fhLapIn
+      - fvLapIn
+      - chLapIn
+      - cvLapIn
+      - cfmValue
+      - cfmUom
+    DeliveryTrackingSettings:
+      type: object
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+        myOrders:
+          $ref: '#/components/schemas/MyOrders'
+        allOrders:
+          $ref: '#/components/schemas/MyOrders'
+        dtAccount:
+          $ref: '#/components/schemas/MyOrders'
+      required:
+      - email
+      - phone
+      - myOrders
+      - allOrders
+      - dtAccount
+    Product:
+      type: object
+      properties:
+        productImage:
+          type: string
+        productOnErrorImage:
+          type: string
+        longDesc:
+          type: string
+        manufactureNumber:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        shortDesc:
+          type: string
+        itemNumber:
+          type: string
+        hoverAttributes:
+          $ref: '#/components/schemas/HoverAttributes'
+        productName:
+          type: string
+        productId:
+          type: string
+        baseProductName:
+          type: string
+        internalProductName:
+          type: string
+        brand:
+          type: string
+        url:
+          type: string
+        relatedProducts:
+          type: array
+          items:
+            type: string
+      required:
+      - productImage
+      - productOnErrorImage
+      - longDesc
+      - manufactureNumber
+      - categories
+      - shortDesc
+      - itemNumber
+      - hoverAttributes
+      - productName
+      - productId
+      - baseProductName
+      - internalProductName
+      - brand
+      - url
+      - relatedProducts
+    MyOrders:
+      type: object
+      properties:
+        requested:
+          type: string
+        scheduled:
+          type: string
+        delivered:
+          type: string
+      required:
+      - requested
+      - scheduled
+      - delivered
+    login:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        siteId:
+          type: string
+          default: homeSite
+        persistentLoginType:
+          type: string
+          default: RememberMe
+        userAgent:
+          type: string
+          default: desktop
+      required:
+      - username
+      - password
+      - siteId
+      - persistentLoginType
+      - userAgent
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    Category:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+      required:
+      - categoryName
+      - categoryId
+    Branch:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+      required:
+      - address
+      - branchNumber
+      - branchName
+      - branchPhone
+      - branchRegionId
+      - company
+      - companyName
+      - division
+      - divisionName
+      - market
+    jobsResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        hasJobAccount:
+          type: boolean
+        hasJobNumber:
+          type: boolean
+        isJobAccountRequired:
+          type: boolean
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+      required:
+      - message
+      - hasJobAccount
+      - hasJobNumber
+      - isJobAccountRequired
+      - jobs
+    logoutResponse:
+      type: object
+      properties:
+        messageInfo:
+          type: object
+          default: Logout Successful
+      required:
+      - messageInfo
+    Specification:
+      type: object
+      properties:
+        Shingles_Per_Square:
+          type: string
+        Algae_Resistance:
+          type: string
+        Coverage_Per_Square:
+          type: string
+        Bundles_Per_Square:
+          type: string
+        Nominal_Size:
+          type: string
+        Net_Free_Vent_Area__NFVA_:
+          type: string
+        Exposure:
+          type: string
+        Wind_Resistance:
+          type: string
+      required:
+      - Shingles_Per_Square
+      - Algae_Resistance
+      - Coverage_Per_Square
+      - Bundles_Per_Square
+      - Nominal_Size
+      - Net_Free_Vent_Area__NFVA_
+      - Exposure
+      - Wind_Resistance
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber
+    MessageInfo:
+      type: object
+      properties:
+        accountBranch:
+          $ref: '#/components/schemas/AccountBranch'
+        lastName:
+          type: string
+        cartLineItems:
+          type: number
+        profileId:
+          type: string
+        firstName:
+          type: string
+        internalUser:
+          type: boolean
+        userType:
+          type: string
+        rewardsEligible:
+          type: boolean
+        lastSelectedAccount:
+          $ref: '#/components/schemas/LastSelectedAccount'
+      required:
+      - accountBranch
+      - lastName
+      - cartLineItems
+      - profileId
+      - firstName
+      - internalUser
+      - userType
+      - rewardsEligible
+      - lastSelectedAccount
+    getSkuUomResponse:
+      type: object
+      properties:
+        skuIdUomList:
+          type: array
+          items:
+            type: string
+        skuIdsUomList:
+          $ref: '#/components/schemas/SkuIdsUomList'
+      required:
+      - skuIdUomList
+      - skuIdsUomList
+    branchListResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        totalNumRecs:
+          type: number
+        pageNumRecs:
+          type: number
+        branches:
+          type: array
+          items:
+            $ref: '#/components/schemas/Branch'
+      required:
+      - message
+      - totalNumRecs
+      - pageNumRecs
+      - branches
+    getItemsResponse:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+        message:
+          type: string
+        specification:
+          $ref: '#/components/schemas/Specification'
+        resource:
+          $ref: '#/components/schemas/Resource'
+        currentSKU:
+          $ref: '#/components/schemas/CurrentSKU'
+        skuList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkuList'
+      required:
+      - product
+      - message
+      - specification
+      - resource
+      - currentSKU
+      - skuList
+    switchAccountResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        accountBranch:
+          $ref: '#/components/schemas/AccountBranch'
+        lastName:
+          type: string
+        cartLineItems:
+          type: number
+        profileId:
+          type: string
+        firstName:
+          type: string
+        email:
+          type: string
+        login:
+          type: string
+        internalUser:
+          type: boolean
+        userType:
+          type: string
+        roleType:
+          type: string
+        rewardsEligible:
+          type: boolean
+        lastActivity:
+          type: string
+        lastPasswordUpdate:
+          type: string
+        registrationDate:
+          type: string
+        firstLoggedInDate:
+          type: string
+        defaultOrganization:
+          type: string
+        defaultOrganizationId:
+          type: string
+        lastSelectedAccount:
+          $ref: '#/components/schemas/LastSelectedAccount'
+        deliveryTrackingSettings:
+          $ref: '#/components/schemas/DeliveryTrackingSettings'
+        hasPrivateEVAccount:
+          type: boolean
+      required:
+      - message
+      - accountBranch
+      - lastName
+      - cartLineItems
+      - profileId
+      - firstName
+      - email
+      - login
+      - internalUser
+      - userType
+      - roleType
+      - rewardsEligible
+      - lastActivity
+      - lastPasswordUpdate
+      - registrationDate
+      - firstLoggedInDate
+      - defaultOrganization
+      - defaultOrganizationId
+      - lastSelectedAccount
+      - deliveryTrackingSettings
+      - hasPrivateEVAccount
+    getProductInfoResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        hoverAttributes:
+          $ref: '#/components/schemas/HoverAttributes'
+        accounts:
+          type: array
+          items:
+            type: string
+      required:
+      - message
+      - hoverAttributes
+      - accounts
+    getLoginDeclarationResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        titles:
+          type: array
+          items:
+            type: string
+        declarationContent:
+          type: string
+        CTA:
+          type: array
+          items:
+            type: string
+      required:
+      - message
+      - titles
+      - declarationContent
+      - CTA
+    switchAccountBody:
+      type: object
+      properties:
+        accountId:
+          type: string
+      required:
+      - accountId
+    accountResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        totalNumRecs:
+          type: number
+        pageNumRecs:
+          type: number
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+      required:
+      - message
+      - totalNumRecs
+      - pageNumRecs
+      - accounts
+    CurrentSKU:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        color:
+          type: string
+        manufactureNumber:
+          type: string
+        unitPrice:
+          type: number
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        uomlist:
+          type: array
+          items:
+            type: string
+        itemImage:
+          type: string
+        heroImage:
+          type: string
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          type: array
+          items:
+            type: string
+      required:
+      - currentUOM
+      - color
+      - manufactureNumber
+      - unitPrice
+      - itemNumber
+      - productNumber
+      - uomlist
+      - itemImage
+      - heroImage
+      - thumbImage
+      - swatchImage
+      - skuShortDesc
+      - auxiliaryImages

@@ -1,0 +1,390 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services (Use for Internal) Journal Services API
+  version: 24PI-4-Sprint-3
+  description: 'This version of APIs do not require the user to login, to be able to access
+
+    services.'
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
+tags:
+- name: Journal Services
+paths:
+  /validateJournal (Deprecated):
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - Journal Services
+      summary: submit validation journal service to mincron service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/journalValidateReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/journalResp'
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postValidateJournal (Deprecated)
+      x-operation-id-source: derived
+  /createJournal (Deprecated):
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - Journal Services
+      summary: create journal data to mincron service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/journalCreateReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/journalResp'
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postCreateJournal (Deprecated)
+      x-operation-id-source: derived
+  /validateCAJournal (Deprecated):
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - Journal Services
+      summary: submit validation journal service to mincron service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/journalValidateReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/journalResp'
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postValidateCAJournal (Deprecated)
+      x-operation-id-source: derived
+  /createCAJournal (Deprecated):
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - Journal Services
+      summary: create journal data to mincron service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/journalCreateReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/journalResp'
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postCreateCAJournal (Deprecated)
+      x-operation-id-source: derived
+  /operateJournal:
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - Journal Services
+      summary: journal operation to mincron service
+      description: 'request journal header value:
+
+        - journal_created: create journal to US endpoint
+
+        - journal_created_CA: create journal to CA endpoint
+
+        - journal_validation: validation journal to US endpoint
+
+        - journal_validation_CA: validation journal to CA endpoint'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/journalReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/journalResp'
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postOperateJournal
+      x-operation-id-source: derived
+components:
+  schemas:
+    journalReq:
+      type: object
+      properties:
+        header:
+          type: object
+          properties:
+            JRNBLID:
+              type: string
+            JRNTRANSACTIONCURRENCY:
+              type: string
+            JRNINSTANCE:
+              type: string
+            JRNJOURNALTYPE:
+              type: string
+            JRNPURPOSE:
+              type: string
+            JRNREVERSALDATE:
+              type: string
+            PREPARERID:
+              type: string
+            JRNACCOUNTINGPERIOD:
+              type: string
+              format: date
+            JOURNALURL:
+              type: string
+            JRNJOURNALREFERENCECODE:
+              type: string
+            JOURNAL_HEADER:
+              type: string
+            JESOURCECODE:
+              type: string
+        item:
+          type: array
+          items:
+            type: object
+            properties:
+              JRNLLINENUMBER:
+                type: string
+              JRNLCOMPANY:
+                type: string
+              JRNLBRANCH:
+                type: string
+              JRNLDEPARTMENT:
+                type: string
+              JRNLMAINACCOUNT:
+                type: string
+              JRNLSUBACCOUNT:
+                type: string
+              JRNLAMOUNT:
+                type: string
+              JRNLTRANSACTIONCURRENCY:
+                type: string
+              JRNLTRANSACTIONDESCRIPTION:
+                type: string
+    journalResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            rcode:
+              type: string
+            rtext:
+              type: string
+            scmd:
+              type: array
+              items:
+                type: object
+                properties:
+                  mtype:
+                    type: string
+                  mtext:
+                    type: string
+                  mclas:
+                    type: string
+                  mnumb:
+                    type: string
+        success:
+          example: true
+        messages:
+          type: string
+    journalCreateReq:
+      type: object
+      properties:
+        header:
+          type: object
+          properties:
+            JRNBLID:
+              type: string
+            JRNTRANSACTIONCURRENCY:
+              type: string
+            JRNINSTANCE:
+              type: string
+            JRNJOURNALTYPE:
+              type: string
+            JRNPURPOSE:
+              type: string
+            JRNREVERSALDATE:
+              type: string
+              format: date
+            PREPARERID:
+              type: string
+            JRNACCOUNTINGPERIOD:
+              type: string
+              format: date
+            JOURNALURL:
+              type: string
+            JRNJOURNALREFERENCECODE:
+              type: string
+        item:
+          type: array
+          items:
+            type: object
+            properties:
+              JRNLLINENUMBER:
+                type: string
+              JRNLCOMPANY:
+                type: string
+              JRNLBRANCH:
+                type: string
+              JRNLDEPARTMENT:
+                type: string
+              JRNLMAINACCOUNT:
+                type: string
+              JRNLSUBACCOUNT:
+                type: string
+              JRNLAMOUNT:
+                type: string
+              JRNLTRANSACTIONCURRENCY:
+                type: string
+              JRNLTRANSACTIONDESCRIPTION:
+                type: string
+    journalValidateReq:
+      type: object
+      properties:
+        header:
+          type: object
+          properties:
+            JRNBLID:
+              type: string
+            JRNTRANSACTIONCURRENCY:
+              type: string
+            JRNINSTANCE:
+              type: string
+            JRNJOURNALTYPE:
+              type: string
+            JRNPURPOSE:
+              type: string
+            JRNREVERSALDATE:
+              type: string
+            PREPARERID:
+              type: string
+            JRNACCOUNTINGPERIOD:
+              type: string
+              format: date
+            JOURNALURL:
+              type: string
+            JRNJOURNALREFERENCECODE:
+              type: string
+            JOURNAL_HEADER:
+              type: string
+        item:
+          type: array
+          items:
+            type: object
+            properties:
+              JRNLLINENUMBER:
+                type: string
+              JRNLCOMPANY:
+                type: string
+              JRNLBRANCH:
+                type: string
+              JRNLDEPARTMENT:
+                type: string
+              JRNLMAINACCOUNT:
+                type: string
+              JRNLSUBACCOUNT:
+                type: string
+              JRNLAMOUNT:
+                type: string
+              JRNLTRANSACTIONCURRENCY:
+                type: string
+              JRNLTRANSACTIONDESCRIPTION:
+                type: string
+              JRNLVENDOR:
+                type: string
+  securitySchemes:
+    internalAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token

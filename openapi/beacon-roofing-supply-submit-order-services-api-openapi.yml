@@ -1,0 +1,325 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Submit Order Services API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Submit Order Services
+paths:
+  /submitOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+        rememberPassword: []
+      tags:
+      - Submit Order Services
+      summary: Submit order
+      description: 'This service is used to submit order.
+
+        #### Request Body Validation
+
+        * apiSiteId: String, Required
+
+        * accountId: String, Max Length:6, Required
+
+        * job.jobName: String, Max Length:15
+
+        * job.jobNumber: String, Max Length:7
+
+        * purchaseOrderNo: String, Max Length:22
+
+        * extendedPO: String, Max Length:50
+
+        * shipping.shippingMethod: String, Max Length:1
+
+        * shipping.shippingBranch: String, Max Length:4
+
+        * shipping.address.address1: String, Max Length:30
+
+        * shipping.address.address2: String, Max Length:30
+
+        * shipping.address.city: String, Max Length:25
+
+        * shipping.address.postalCode: String, Max Length:10
+
+        * shipping.address.state: String, Max Length:2
+
+        * sellingBranch: String, Max Length:4
+
+        * payment.cardInfo.ExpMM: String, The month is a positive integer less than 12, Required
+
+        * payment.cardInfo.ExpYY: String, Year is 2 digits, Required
+
+        * payment.cardInfo.Type: String, Required
+
+        * payment.cardInfo.FullName: String, Optional
+
+        * payment.encryptionTokenData.LowValueToken: String, Required
+
+        * payment.addressVerificationData.AVSZIPCode: String, format is xxxxx or xxxxx-xxxx, Required
+
+        * specialInstruction: String, Max Length:234
+
+        * lineItems: Required
+
+        * lineItems.itemNumber: String, Max Length:6
+
+        * lineItems.quantity: Integer, Max Length:10, Required
+
+        * lineItems.unitOfMeasure: String, Max Length:3
+
+        * lineItems.description: String, Max Length:128
+
+        * lineItems.lineComments: String, Max Length:2048
+
+        * lineItems.productNumber: String, Max Length:40
+
+        * lineItems.ATGItemMapping.materialID: String, Max Length:40
+
+        * lineItems.ATGItemMapping.branchId: String, Max Length:40
+
+        * lineItems.ATGItemMapping.MFRName: String, Max Length:254
+
+        * lineItems.ATGItemMapping.itemNumber: String, Max Length:40
+
+        * lineItems.ATGItemMapping.integrationName: String, Max Length:254
+
+        * pickupDate: String, Format: yyyy-mm-dd
+
+        * pickupTime: String, Recommended values: ["Morning", "Afternoon", "Anytime", "Special Request"]
+
+        * UUID: String, Max Length:100
+
+        * attachFile.fileName: String, Max Length:40
+
+        * attachFile.fileType: String, Max Length:20
+
+        * attachFile.attachEncodeFile: Base64, File Max Size:5MB
+
+
+        If "checkForAvailability" is "no", will not check availability of lineItems, otherwise will do check availability of lineItems
+
+
+        "Payment" is optional. If payment is passed in the parameter, payWithCredit defaults to true, and the credit card process is carried out and verified. If payment is not passed in the parameter, the pay with cash process is carried out.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/submitOrderReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "message": "Validation exception" }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/submitOrderRep'
+        '401':
+          description: Unauthorized, user do not login
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postSubmitOrder
+      x-operation-id-source: derived
+components:
+  schemas:
+    submitOrderReq:
+      type: object
+      properties:
+        accountId:
+          type: string
+        job:
+          type: object
+          properties:
+            jobName:
+              type: string
+            jobNumber:
+              type: string
+        purchaseOrderNo:
+          type: string
+        extendedPO:
+          type: string
+        orderStatusCode:
+          type: string
+          description: 'Order status: C,K -> Processing, I -> Invoiced, O -> Ready Delivery/Pick up, N -> Pending, P,R -> Delivered'
+          enum:
+          - I
+          - R
+          - P
+          - C
+          - O
+          - K
+          - N
+        apiSiteId:
+          type: string
+          description: Api Site Id
+        lineItems:
+          type: array
+          items:
+            type: object
+            properties:
+              itemNumber:
+                type: string
+              quantity:
+                type: integer
+              unitOfMeasure:
+                type: string
+              description:
+                type: string
+              lineComments:
+                type: string
+              productNumber:
+                type: string
+              ATGItemMapping:
+                $ref: '#/components/schemas/ATGItemMapping_req'
+        shipping:
+          $ref: '#/components/schemas/shippingObj'
+        payment:
+          $ref: '#/components/schemas/creditpurchase_req'
+        sellingBranch:
+          type: string
+        specialInstruction:
+          type: string
+        checkForAvailability:
+          type: string
+          default: 'yes'
+        pickupDate:
+          type: string
+          format: date(yyyy-mm-dd)
+        pickupTime:
+          type: string
+        onHold:
+          type: boolean
+          example: false
+        UUID:
+          type: string
+        attachFile:
+          type: object
+          properties:
+            fileName:
+              type: string
+            fileType:
+              type: string
+            attachEncodeFile:
+              type: string
+    ATGItemMapping_req:
+      type: object
+      properties:
+        MFCode:
+          type: string
+        MFRName:
+          type: string
+        branchId:
+          type: string
+        itemNumber:
+          type: string
+        incomingUOM:
+          type: string
+        becnUOM:
+          type: string
+        materialID:
+          type: string
+        conversionFactor:
+          type: string
+        becnProductId:
+          type: string
+        description:
+          type: string
+        accountId:
+          type: string
+        integrationName:
+          type: string
+    submitOrderRep:
+      type: object
+      properties:
+        orderId:
+          type: string
+        mincronCCMsg:
+          type: string
+    shippingObj:
+      type: object
+      properties:
+        shippingMethod:
+          type: string
+        shippingBranch:
+          type: string
+        address:
+          type: object
+          properties:
+            address1:
+              type: string
+            address2:
+              type: string
+            city:
+              type: string
+            postalCode:
+              type: string
+            state:
+              type: string
+    creditpurchase_req:
+      type: object
+      properties:
+        payWithCredit:
+          type: boolean
+        cardInfo:
+          type: object
+          properties:
+            ExpMM:
+              type: string
+            ExpYY:
+              type: string
+            Type:
+              type: string
+            FullName:
+              type: string
+        encryptionTokenData:
+          type: object
+          properties:
+            LowValueToken:
+              type: string
+        addressVerificationData:
+          type: object
+          properties:
+            AVSZIPCode:
+              type: string
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

@@ -1,7 +1,9 @@
 ---
 title: 'In case you missed it: From private label roofing products ...'
 url: https://www.facebook.com/RoofingContractor/posts/in-case-you-missed-it-from-private-label-roofing-products-%EF%B8%8F-to-ai-powered-logist/1405757331590241/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Beacon Roofing Supply" press release artificial intelligence'
 position: 3
 source: serpapi-google

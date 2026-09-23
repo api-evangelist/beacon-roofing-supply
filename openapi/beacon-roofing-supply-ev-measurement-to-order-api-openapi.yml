@@ -1,0 +1,820 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) EV Measurement to Order…
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: EV Measurement to Order
+paths:
+  /createEVOrder:
+    post:
+      tags:
+      - EV Measurement to Order
+      summary: Create a new EV order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createEVOrder_req'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createEVOrder_res'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postCreateEVOrder
+      x-operation-id-source: derived
+  /getEVOrderCategories:
+    get:
+      tags:
+      - EV Measurement to Order
+      summary: Get given categories
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getEVOrderCategory_res'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getGetEVOrderCategories
+      x-operation-id-source: derived
+  /getEVOrder:
+    get:
+      tags:
+      - EV Measurement to Order
+      summary: Get given EV order
+      parameters:
+      - in: query
+        name: evOrderId
+        schema:
+          type: string
+        required: true
+        description: EV Order ID
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getEVOrder_res'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getGetEVOrder
+      x-operation-id-source: derived
+  /editEVOrder:
+    post:
+      tags:
+      - EV Measurement to Order
+      summary: Edit user given EV order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/editEVOrder_req'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/editEVOrder_res'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postEditEVOrder
+      x-operation-id-source: derived
+  /deleteEVOrder:
+    post:
+      tags:
+      - EV Measurement to Order
+      summary: Delete given EV order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteEVOrder_req'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteEVOrder_res'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postDeleteEVOrder
+      x-operation-id-source: derived
+  /deleteEVOrderItem:
+    post:
+      tags:
+      - EV Measurement to Order
+      summary: Delete exist item from given order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteEVItem_req'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deleteEVItem_res'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postDeleteEVOrderItem
+      x-operation-id-source: derived
+  /addEVOrderItem:
+    post:
+      tags:
+      - EV Measurement to Order
+      summary: Add EV item to given order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addEVOrderItem_req'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addEVOrderItem_res'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postAddEVOrderItem
+      x-operation-id-source: derived
+  /editEVOrderItem:
+    post:
+      tags:
+      - EV Measurement to Order
+      summary: Edit exist item for given order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/editEVOrderItem_req'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/editEVOrderItem_res'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postEditEVOrderItem
+      x-operation-id-source: derived
+  /doMeasurementCalculation:
+    post:
+      tags:
+      - EV Measurement to Order
+      summary: Get recommend quantity by measurement data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/measurementCalculation_req'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/measurementCalculation_res'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postDoMeasurementCalculation
+      x-operation-id-source: derived
+  /saveAllToEVOrder:
+    post:
+      tags:
+      - EV Measurement to Order
+      summary: Save all items to EV order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/saveAll_req'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getEVOrder_res'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postSaveAllToEVOrder
+      x-operation-id-source: derived
+  /EVOrderList:
+    get:
+      tags:
+      - EV Measurement to Order
+      summary: Get all EV orders of current user
+      parameters:
+      - in: query
+        name: searchBy
+        schema:
+          type: string
+        description: '
+
+          ##### searchBy enumeration
+
+
+          * isCompleted
+
+          '
+      - in: query
+        name: searchTerm
+        schema:
+          type: string
+        description: '
+
+          ##### When ''searchBy'' is one of the following enumeration, the ''searchTerm'' should be populated.
+
+          * isCompleted
+
+          ##### When ''searchBy'' is ''isCompleted'', the searchTerm must be true or false.
+
+          '
+      - in: query
+        name: pageSize
+        schema:
+          type: string
+        description: Default page size is 20
+      - in: query
+        name: pageNo
+        schema:
+          type: string
+        description: Default page No is 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evOrderListRep'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getEVOrderList
+      x-operation-id-source: derived
+  /convertEVOrderToATGOrder:
+    post:
+      tags:
+      - EV Measurement to Order
+      summary: Convert EV order to atg order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/convertEVOrderToAtgOrder_req'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/convertEVOrderToAtgOrder_res'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postConvertEVOrderToATGOrder
+      x-operation-id-source: derived
+components:
+  schemas:
+    EVItemDetail_variationOption:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    editEVOrderItem_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/EVOrderItemDetail'
+    deleteEVItem_req:
+      type: object
+      properties:
+        evOrderId:
+          type: string
+        itemId:
+          type: string
+    addEVOrderItem_req:
+      type: object
+      properties:
+        evOrderId:
+          type: string
+        itemNumber:
+          type: string
+    EVOrderItemDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        itemNumber:
+          type: string
+        productId:
+          type: string
+        itemName:
+          type: string
+        itemImage:
+          type: string
+          description: sku image url
+        mainCategory:
+          type: string
+        category:
+          $ref: '#/components/schemas/EVItemCategory'
+        wasteFactor:
+          type: string
+          description: item level of waste factor.
+        quantity:
+          type: number
+          format: long
+        manualQuantity:
+          type: boolean
+        support3DMeasurement:
+          type: boolean
+        uom:
+          type: string
+        price:
+          type: number
+          format: double
+        variationOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/EVItemDetail_variationOption'
+    EVCategory:
+      type: object
+      properties:
+        category:
+          type: string
+          description: category name
+        subCategories:
+          type: array
+          items:
+            type: object
+            properties:
+              categoryId:
+                type: string
+    createEVOrder_req:
+      type: object
+      required:
+      - reportId
+      properties:
+        reportId:
+          type: string
+          description: 49216847 / can get from EV services
+    evOrderListRep:
+      type: object
+      properties:
+        messages:
+          type: string
+        success:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/evOrderListResult'
+    deleteEVOrder_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+    editEVOrder_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+    EVItemCategory:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+    deleteEVOrder_req:
+      type: object
+      properties:
+        evOrderId:
+          type: string
+    Summary:
+      type: object
+      properties:
+        colorSelection:
+          $ref: '#/components/schemas/ColorSelection'
+        recommendQuantity:
+          type: number
+          format: long
+        calculatedQuantity:
+          type: string
+        wasteFactor:
+          type: string
+        dividend:
+          type: string
+        divisor:
+          type: string
+        price:
+          type: number
+          format: double
+          description: unit price
+        uom:
+          type: string
+    EVOrderSummaryObj:
+      type: object
+      properties:
+        subTotal:
+          type: string
+        total:
+          type: string
+    editEVOrder_req:
+      type: object
+      required:
+      - evOrderId
+      properties:
+        evOrderId:
+          type: string
+          description: any existed EV orderId
+        templateId:
+          type: string
+          description: gl396520213 / any existed template
+        baseWasteFactor:
+          type: string
+          description: 0-100 / two-decimal is available
+        selectedJobNumber:
+          type: string
+          description: job number
+    createEVOrder_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        evOrderId:
+          type: string
+    addEVOrderItem_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/EVOrderItemDetail'
+    LocationObj:
+      type: object
+      properties:
+        address:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        postcode:
+          type: string
+    getEVOrderCategory_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/EVCategory'
+    measurementCalculation_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/Summary'
+    editEVOrderItem_req:
+      type: object
+      properties:
+        evOrderId:
+          type: string
+        id:
+          type: string
+          description: EV item id
+        itemNumber:
+          type: string
+        wasteFactor:
+          type: string
+        quantity:
+          type: number
+          format: long
+        manualQuantity:
+          type: boolean
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    getEVOrder_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/EVOrder'
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    deleteEVItem_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    convertEVOrderToAtgOrder_req:
+      type: object
+      properties:
+        evOrderId:
+          type: string
+    convertEVOrderToAtgOrder_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/convertEVOrderToAtgOrder_obj'
+    saveAll_req:
+      type: object
+      required:
+      - evOrderId
+      - items
+      properties:
+        evOrderId:
+          type: string
+          description: any exist EV orderId
+        baseWasteFactor:
+          type: string
+        selectedJobNumber:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/saveAll_ev_item'
+    ColorSelection:
+      type: object
+      properties:
+        itemNumber:
+          type: string
+        displayName:
+          type: string
+          description: color display name
+        image:
+          type: string
+          description: color image url
+        price:
+          type: number
+          format: double
+        uom:
+          type: string
+    EVOrder:
+      type: object
+      properties:
+        evOrderId:
+          type: string
+        userId:
+          type: string
+        completed:
+          type: boolean
+          description: if smart order has been convert to ATG order and also submit to Mincorn, then it be think as completed.
+        template:
+          $ref: '#/components/schemas/Template'
+        report:
+          $ref: '#/components/schemas/ReportObj'
+        baseWasteFactor:
+          type: string
+          description: order level of waste factor.
+        selectedJobNumber:
+          type: string
+        summary:
+          $ref: '#/components/schemas/EVOrderSummaryObj'
+        evItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/EVOrderItemDetail'
+    saveAll_ev_item:
+      type: object
+      required:
+      - productId
+      - itemNumber
+      properties:
+        productId:
+          type: string
+        itemNumber:
+          type: string
+        wasteFactor:
+          type: string
+        quantity:
+          type: number
+          format: long
+        manualQuantity:
+          type: boolean
+    ReportObj:
+      type: object
+      properties:
+        reportId:
+          type: string
+        location:
+          $ref: '#/components/schemas/LocationObj'
+        rootArea:
+          type: string
+        lengthEave:
+          type: string
+        lengthRake:
+          type: string
+        lengthRidge:
+          type: string
+        lengthHip:
+          type: string
+        reportDownloadLink:
+          type: string
+    Template:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+    convertEVOrderToAtgOrder_obj:
+      type: object
+      properties:
+        atgOrderId:
+          type: string
+    measurementCalculation_req:
+      type: object
+      properties:
+        evOrderId:
+          type: string
+          description: any exist EV orderId
+        evItemId:
+          type: string
+          description: get from the response of getEVOrder named "id"
+        wasteFactor:
+          type: string
+          description: 0-100 / two-decimal is available
+        location:
+          type: string
+          description: It's required for category "Starter Shingles", only can be "Eaves", "Rakes" and "both".
+        inputOverlap:
+          type: string
+          description: The category "Underlayment" need overlap.
+        inputSubtractRidge:
+          type: string
+          description: customer must choose subtracting ridges or using entire length before VENTILATION 3D+ calculation.
+    evOrderListResult:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        evOrders:
+          type: array
+          items:
+            $ref: '#/components/schemas/EVOrder'
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

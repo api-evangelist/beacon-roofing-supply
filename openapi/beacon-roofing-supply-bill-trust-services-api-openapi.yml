@@ -1,0 +1,102 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Bill Trust Services API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Bill Trust Services
+paths:
+  /downloadBillTrustInvoiceAsPDF:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Bill Trust Services
+      summary: Download bill trust invoice as PDF
+      description: This service can download bill trust invoice as PDF.
+      parameters:
+      - in: query
+        name: accountId
+        description: 'Account ID
+
+
+          Example
+
+          280381
+
+          '
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: invoiceNumbers
+        description: 'Invoice Numbers
+
+
+          Example
+
+          N20546 or N20546,N20547
+
+          '
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: byte
+          description: 'successful operation
+
+
+            return the PDF file in bytes
+
+
+            Failed operation
+
+
+            return ''application/json'' and refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '403':
+          description: Forbidden, user do not has permission to access this API
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getDownloadBillTrustInvoiceAsPDF
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

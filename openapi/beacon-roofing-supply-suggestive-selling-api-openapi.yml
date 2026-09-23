@@ -1,0 +1,170 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Suggestive Selling API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Suggestive Selling
+paths:
+  /suggestiveSelling:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Suggestive Selling
+      summary: Get suggestive selling info
+      description: 'This service is able to get suggestive selling info
+
+
+        The templateId or itemNumber to be an optional parameter but either of them should be available.'
+      parameters:
+      - in: query
+        name: account
+        required: false
+        description: If not empty, will filter result by given account id
+        schema:
+          type: string
+      - in: query
+        name: brandName
+        required: false
+        description: The brand name, default is 'TRI-BUILT'
+        schema:
+          type: string
+      - in: query
+        name: templateId
+        required: false
+        description: Template ID, if empty, the 'itemNumber' is required
+        schema:
+          type: string
+      - in: query
+        name: itemNumber
+        required: false
+        description: Item Number, separated by comma, e.g. "241177,900612", if empty, the 'templateId' is required
+        schema:
+          type: string
+      - in: query
+        name: excludeCategory
+        required: false
+        description: Exclude category names or dimension IDs, separated by `###`, default is empty
+        schema:
+          type: string
+      - in: query
+        name: excludeBrand
+        required: false
+        description: Exclude brand names or dimension IDs, separated by `###`, default is empty
+        schema:
+          type: string
+      - in: query
+        name: jobNumber
+        required: false
+        description: The job number
+        schema:
+          type: string
+      - in: query
+        name: showItemDetails
+        required: false
+        description: If true, will show item details. If false, will show item number. default is true.
+        schema:
+          type: boolean
+      - in: query
+        name: showPrice
+        required: false
+        description: "If true, will show the newest price. If false, will show 0. default is true. \nIf showItemDetails is false, it will be set as false.\n"
+        schema:
+          type: boolean
+      - in: query
+        name: pageSize
+        required: false
+        description: The page size, default is 3
+        schema:
+          type: string
+      - in: query
+        name: pageNo
+        required: false
+        description: The page number, default is 3
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/suggestiveSelling_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getSuggestiveSelling
+      x-operation-id-source: derived
+components:
+  schemas:
+    SuggestiveSellingProduct:
+      type: object
+      properties:
+        productId:
+          type: string
+        productName:
+          type: string
+        productNameNotTruncate:
+          type: string
+        pdpUrl:
+          type: string
+        defaultItem:
+          $ref: '#/components/schemas/SuggestiveSellingSku'
+    suggestiveSelling_rep:
+      type: array
+      items:
+        $ref: '#/components/schemas/SuggestiveSellingProduct'
+    SuggestiveSellingSku:
+      type: object
+      properties:
+        itemNumber:
+          type: string
+        unitOfMeasure:
+          type: string
+        price:
+          type: number
+          format: double
+        vendorColorId:
+          type: string
+        itemImage:
+          type: string
+        itemOnErrorImage:
+          type: string
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

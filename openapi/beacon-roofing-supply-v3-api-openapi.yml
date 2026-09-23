@@ -1,0 +1,851 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services V3 API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: v3
+paths:
+  /itemlist:
+    get:
+      operationId: V3Controller_itemlist
+      summary: Get list of items
+      description: This service will list all the products for selected account, based on availability.
+      parameters:
+      - name: accountId
+        required: false
+        in: query
+        description: Account Id
+        schema:
+          type: string
+      - name: pageSize
+        required: false
+        in: query
+        description: Default page size is 21. Max Page Size can be configured in BCC, maxPageSize default value is 30. If pageSize exceeds maxPageSize, the amount of maxPageSize items return.
+        schema:
+          type: number
+      - name: pageNo
+        required: false
+        in: query
+        description: Default page no is 1, the first page
+        schema:
+          type: number
+      - name: filter
+        required: false
+        in: query
+        description: 'Search terms<br><br>This parameter also support the following syntax:<br><blockquote>&#9679;`productId:ID1,ID2...IDn`<blockquote>&#9675;Filter by given product Id list, separated by comma. Example: "productId:C-010001,C-010002,C-010003"</blockquote></blockquote>'
+        schema:
+          type: string
+      - name: cateFilter
+        required: false
+        in: query
+        description: Category search terms
+        schema:
+          type: string
+      - name: facetsFilter
+        required: false
+        in: query
+        description: 'Filter syntax:<br><br><blockquote>&#9679;Facets search IDs, separated by comma<blockquote>&#9675; Example: "4294965847,4294965836"</blockquote></blockquote><blockquote>&#9679;Indicate which dimension to search, < facet type >: <facet name >, separated by comma, case insensitive, ignore white space<blockquote>&#9675; Example: "size:0ft x 2ft,packaging:100 bag,thickness:102mm,style:A Slop,color: Beige"</blockquote></blockquote><blockquote>&#9679;Special charactors should be URL encoded then append to query string<blockquote>&#9675; Example:raw: "facetsFilter=Thickness:20_,Thickness:20",Thickness:20mm,Size:"9 x "12,Size:#12,Size:1! x 1!,Size:1-5/8",Size:10" x 15",Size:100" x 200",Size:2-7/8",Size:6> x 500<"</blockquote><blockquote>&#9675; Example:URL encoded: "facetsFilter=Thickness%3a20_%2cThickness%3a20%22%2cThickness%3a20mm%2cSize%3a%229+x+%2212%2cSize%3a%2312%2cSize%3a1!+x+1!%2cSize%3a1-5%2f8%22%2cSize%3a10%22+x+15%22%2cSize%3a100%27+x+200%27%2cSize%3a2-7%2f8%22%2cSize%3a6%3e+x+500%3c"</blockquote></blockquote><blockquote>&#9679;The above syntax can be mixed together<blockquote>&#9675; Example: "size:0ft x 2ft,4294965847,packaging:100 bag,thickness:102mm,4294965836,style:A Slop,color: Beige"</blockquote></blockquote>'
+        schema:
+          type: string
+      - name: showSkuList
+        required: false
+        in: query
+        description: if "false", display sku list
+        schema:
+          type: string
+      - name: showFacets
+        required: false
+        in: query
+        description: if "false", do not display facets. Default is "false"
+        schema:
+          type: string
+      - name: enableAutoCorrection
+        required: false
+        in: query
+        description: Default is false, will enable auto correction for `filter`
+        schema:
+          type: string
+      - name: enableDidYouMean
+        required: false
+        in: query
+        description: Default is false, will enable did you mean features for `filter`
+        schema:
+          type: string
+      - name: showHoverAttrs
+        required: false
+        in: query
+        description: if "false", display Hover attributes
+        schema:
+          type: string
+      - name: hoverSearch
+        required: false
+        in: query
+        description: if "false", display Hover version of search
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation<br/><br/>If failed, return messageCode, refer to messageCode doc.<br/><br/>Example<br/><br/>{ "messageCode": "1001", "message": "Validation exception" }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/itemListResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      security:
+      - basic: []
+      tags:
+      - v3
+  /itemDetails:
+    get:
+      operationId: V3Controller_itemDetails
+      summary: Get items details
+      description: This service returns product details based on Product or item Id.
+      parameters:
+      - name: productId
+        required: true
+        in: query
+        description: Product Id
+        schema:
+          type: string
+      - name: itemNumber
+        required: false
+        in: query
+        description: Item number(SKU ID)
+        schema:
+          type: string
+      - name: accountId
+        required: false
+        in: query
+        description: Account Id
+        schema:
+          type: string
+      - name: jobNumber
+        required: false
+        in: query
+        description: Job Number
+        schema:
+          type: string
+      - name: uom
+        required: false
+        in: query
+        description: Unit of Measure
+        schema:
+          type: string
+      - name: showHoverAttrs
+        required: false
+        in: query
+        description: if "true", display hover attributes
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/itemDetailsResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      security:
+      - basic: []
+      tags:
+      - v3
+  /downloadCatalogItemData:
+    get:
+      operationId: V3Controller_downloadCatalogItemData
+      summary: Downloads catalog item data
+      description: Downloads a zipped folder that contains sets of .csv files for branch data, SKU availability data, and SKU detail data.
+      parameters:
+      - name: productId
+        required: true
+        in: query
+        description: Product Id
+        schema:
+          type: string
+      - name: itemNumber
+        required: false
+        in: query
+        description: Item number(SKU ID)
+        schema:
+          type: string
+      - name: accountId
+        required: false
+        in: query
+        description: Account Id
+        schema:
+          type: string
+      - name: jobNumber
+        required: false
+        in: query
+        description: Job Number
+        schema:
+          type: string
+      - name: uom
+        required: false
+        in: query
+        description: Unit of Measure
+        schema:
+          type: string
+      - name: showHoverAttrs
+        required: false
+        in: query
+        description: if "true", display hover attributes
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      security:
+      - basic: []
+      tags:
+      - v3
+  /mincronMapping:
+    get:
+      operationId: V3Controller_mincronMapping
+      summary: Returns Mincron mapping products
+      description: Returns products mapped to an item number from the product description for a specific customer.
+      parameters:
+      - name: accountId
+        required: true
+        in: query
+        description: Account Id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mincronMappingResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      security:
+      - basic: []
+      tags:
+      - v3
+components:
+  schemas:
+    itemListResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        totalNumRecs:
+          type: number
+        pageNumRecs:
+          type: number
+        didYouMean:
+          $ref: '#/components/schemas/DidYouMean'
+        autoCorrection:
+          $ref: '#/components/schemas/DidYouMean'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item2'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category2'
+        facets:
+          $ref: '#/components/schemas/Facets'
+      required:
+      - message
+      - totalNumRecs
+      - pageNumRecs
+      - didYouMean
+      - autoCorrection
+      - items
+      - categories
+      - facets
+    Item2:
+      type: object
+      properties:
+        productImage:
+          type: string
+        productOnErrorImage:
+          type: string
+        longDesc:
+          type: string
+        brand:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        shortDesc:
+          type: string
+        hoverAttributes:
+          $ref: '#/components/schemas/HoverAttributes'
+        productName:
+          type: string
+        productId:
+          type: string
+        baseProductName:
+          type: string
+        internalProductName:
+          type: string
+        url:
+          type: string
+      required:
+      - productImage
+      - productOnErrorImage
+      - longDesc
+      - brand
+      - categories
+      - shortDesc
+      - hoverAttributes
+      - productName
+      - productId
+      - baseProductName
+      - internalProductName
+      - url
+    Resource:
+      type: object
+      properties:
+        General Instructrions:
+          type: string
+        Warranty:
+          type: string
+        MSDS:
+          type: string
+        Brochure:
+          type: string
+      required:
+      - General Instructrions
+      - Warranty
+      - MSDS
+      - Brochure
+    SkuList:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        color:
+          type: string
+        unitPrice:
+          type: number
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        itemImage:
+          type: string
+        heroImage:
+          type: string
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          type: array
+          items:
+            type: string
+      required:
+      - currentUOM
+      - color
+      - unitPrice
+      - itemNumber
+      - productNumber
+      - itemImage
+      - heroImage
+      - thumbImage
+      - swatchImage
+      - skuShortDesc
+      - auxiliaryImages
+    Category3:
+      type: object
+      properties:
+        facetId:
+          type: string
+        facetName:
+          type: string
+        selected:
+          type: boolean
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/Child2'
+      required:
+      - facetId
+      - facetName
+      - selected
+      - children
+    HoverAttributes:
+      type: object
+      properties:
+        sellingUom:
+          type: string
+        piecesPerUom:
+          type: string
+        coverageUom:
+          type: string
+        ppCoverageUom:
+          type: string
+        lengthExposure:
+          type: string
+        widthExposure:
+          type: string
+        lengthHover:
+          type: string
+        widthHover:
+          type: string
+        ncpSellingUom:
+          type: string
+        gcpSellingUom:
+          type: string
+        sslvoDimensionIn:
+          type: string
+        sswhoDimensionOption1In:
+          type: string
+        sswhoDimensionOption2In:
+          type: string
+        sswhoDimensionOption3In:
+          type: string
+        lslvoDimensionIn:
+          type: string
+        lswhoDimensionIn:
+          type: string
+        rvlvoDimensionIn:
+          type: string
+        rvwhoDimensionIn:
+          type: string
+        nfvaHover:
+          type: string
+        nfvaUomHover:
+          type: string
+        fhLapIn:
+          type: string
+        fvLapIn:
+          type: string
+        chLapIn:
+          type: string
+        cvLapIn:
+          type: string
+        cfmValue:
+          type: string
+        cfmUom:
+          type: string
+      required:
+      - sellingUom
+      - piecesPerUom
+      - coverageUom
+      - ppCoverageUom
+      - lengthExposure
+      - widthExposure
+      - lengthHover
+      - widthHover
+      - ncpSellingUom
+      - gcpSellingUom
+      - sslvoDimensionIn
+      - sswhoDimensionOption1In
+      - sswhoDimensionOption2In
+      - sswhoDimensionOption3In
+      - lslvoDimensionIn
+      - lswhoDimensionIn
+      - rvlvoDimensionIn
+      - rvwhoDimensionIn
+      - nfvaHover
+      - nfvaUomHover
+      - fhLapIn
+      - fvLapIn
+      - chLapIn
+      - cvLapIn
+      - cfmValue
+      - cfmUom
+    Product:
+      type: object
+      properties:
+        productImage:
+          type: string
+        productOnErrorImage:
+          type: string
+        longDesc:
+          type: string
+        manufactureNumber:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        shortDesc:
+          type: string
+        itemNumber:
+          type: string
+        hoverAttributes:
+          $ref: '#/components/schemas/HoverAttributes'
+        productName:
+          type: string
+        productId:
+          type: string
+        baseProductName:
+          type: string
+        internalProductName:
+          type: string
+        brand:
+          type: string
+        url:
+          type: string
+        relatedProducts:
+          type: array
+          items:
+            type: string
+      required:
+      - productImage
+      - productOnErrorImage
+      - longDesc
+      - manufactureNumber
+      - categories
+      - shortDesc
+      - itemNumber
+      - hoverAttributes
+      - productName
+      - productId
+      - baseProductName
+      - internalProductName
+      - brand
+      - url
+      - relatedProducts
+    itemDetailsResponse:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+        message:
+          type: string
+        specification:
+          $ref: '#/components/schemas/Specification'
+        resource:
+          $ref: '#/components/schemas/Resource'
+        currentSKU:
+          $ref: '#/components/schemas/CurrentSKU'
+        skuList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkuList'
+        variations:
+          $ref: '#/components/schemas/Variations2'
+      required:
+      - product
+      - message
+      - specification
+      - resource
+      - currentSKU
+      - skuList
+      - variations
+    Thickness:
+      type: object
+      properties:
+        2mm:
+          type: array
+          items:
+            type: string
+        4mm:
+          type: array
+          items:
+            type: string
+        6mm:
+          type: array
+          items:
+            type: string
+      required:
+      - 2mm
+      - 4mm
+      - 6mm
+    Variations2:
+      type: object
+      properties:
+        color:
+          $ref: '#/components/schemas/Color'
+        size:
+          $ref: '#/components/schemas/Size'
+        thickness:
+          $ref: '#/components/schemas/Thickness'
+      required:
+      - color
+      - size
+      - thickness
+    Category:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+      required:
+      - categoryName
+      - categoryId
+    Child:
+      type: object
+      properties:
+        facetId:
+          type: string
+        facetName:
+          type: string
+        recordCount:
+          type: number
+        selected:
+          type: boolean
+      required:
+      - facetId
+      - facetName
+      - recordCount
+      - selected
+    Category2:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+        recordCount:
+          type: number
+        facetId:
+          type: string
+      required:
+      - categoryName
+      - categoryId
+      - recordCount
+      - facetId
+    Specification:
+      type: object
+      properties:
+        Shingles_Per_Square:
+          type: string
+        Algae_Resistance:
+          type: string
+        Coverage_Per_Square:
+          type: string
+        Bundles_Per_Square:
+          type: string
+        Nominal_Size:
+          type: string
+        Net_Free_Vent_Area__NFVA_:
+          type: string
+        Exposure:
+          type: string
+        Wind_Resistance:
+          type: string
+      required:
+      - Shingles_Per_Square
+      - Algae_Resistance
+      - Coverage_Per_Square
+      - Bundles_Per_Square
+      - Nominal_Size
+      - Net_Free_Vent_Area__NFVA_
+      - Exposure
+      - Wind_Resistance
+    DidYouMean:
+      type: object
+      properties:
+        message:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+      required:
+      - message
+      - items
+    Facets:
+      type: object
+      properties:
+        Categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category3'
+        Color:
+          type: array
+          items:
+            $ref: '#/components/schemas/Child'
+        Product Style:
+          type: array
+          items:
+            $ref: '#/components/schemas/Child'
+        Brand:
+          type: array
+          items:
+            $ref: '#/components/schemas/Child'
+      required:
+      - Categories
+      - Color
+      - Product Style
+      - Brand
+    Size:
+      type: object
+      properties:
+        12x10:
+          type: array
+          items:
+            type: string
+        4x4:
+          type: array
+          items:
+            type: string
+      required:
+      - 12x10
+      - 4x4
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter
+    mincronMappingResponse:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+      required:
+      - products
+    Color:
+      type: object
+      properties:
+        White:
+          type: array
+          items:
+            type: string
+        Dover:
+          type: array
+          items:
+            type: string
+      required:
+      - White
+      - Dover
+    Child2:
+      type: object
+      properties:
+        facetId:
+          type: string
+        facetName:
+          type: string
+        recordCount:
+          type: number
+        selected:
+          type: boolean
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/Child'
+      required:
+      - facetId
+      - facetName
+      - recordCount
+      - selected
+      - children
+    CurrentSKU:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        color:
+          type: string
+        manufactureNumber:
+          type: string
+        unitPrice:
+          type: number
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        uomlist:
+          type: array
+          items:
+            type: string
+        itemImage:
+          type: string
+        heroImage:
+          type: string
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          type: array
+          items:
+            type: string
+      required:
+      - currentUOM
+      - color
+      - manufactureNumber
+      - unitPrice
+      - itemNumber
+      - productNumber
+      - uomlist
+      - itemImage
+      - heroImage
+      - thumbImage
+      - swatchImage
+      - skuShortDesc
+      - auxiliaryImages

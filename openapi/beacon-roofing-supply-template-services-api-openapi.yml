@@ -1,0 +1,1423 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Ver 2 (OAuth) Template Services API
+  version: 24PI-4-Sprint-3
+  description: This version uses OAuth authorization method to access API services.
+servers:
+- url: https://beaconproplus.com/v2/rest/com/becn
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+tags:
+- name: Template Services
+paths:
+  /template:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Template Services
+      summary: List all templates and details for the current user
+      description: 'This service is able to list all templates and the details for the
+
+        current user'
+      parameters:
+      - in: query
+        name: account
+        required: false
+        description: If not empty, will filter result by given account id
+        schema:
+          type: string
+      - in: query
+        name: showItems
+        required: false
+        description: Default is false, if "true", display template items
+        schema:
+          type: string
+      - in: query
+        name: showItemVariations
+        required: false
+        description: 'Default is false, if "true", display variations of each template
+
+          item'
+        schema:
+          type: string
+      - in: query
+        name: showPricing
+        description: Default is false, if "true", display pricing of each template item
+        schema:
+          type: string
+      - in: query
+        name: showItemAvailable
+        description: Default is true, if "false", do not display item region availability
+        schema:
+          type: string
+      - in: query
+        name: pageSize
+        description: Default is 10, max is 100, record count of each page
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: pageNo
+        description: Default is 1, the first page, page number or page index
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: filterBy
+        description: 'The search key
+
+
+          #### filterBy enumeration
+
+          * templateName
+
+          * dataLastModified
+
+          * account
+
+          * createdBy
+
+          '
+        schema:
+          type: string
+      - in: query
+        name: filter
+        description: 'The search terms
+
+          '
+        schema:
+          type: string
+      - in: query
+        name: orderBy
+        description: 'Default is ''dataLastModified desc''
+
+
+          #### orderBy enumeration
+
+          * templateName asc/desc
+
+          * dataLastModified asc/desc
+
+          * account asc/desc
+
+          * createdBy asc/desc
+
+          '
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+
+            `color,size etc. are variation`
+
+
+            `White,Dover etc. are variation option`
+
+
+            `100001, 200002 etc. variation option id.`
+
+
+            `600001, 600002 under skusVariation is sku id.`
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/templatelistRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getTemplate
+      x-operation-id-source: derived
+  /getTemplateDetail:
+    get:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Template Services
+      summary: Get template details for a given template
+      description: This service provides templates details for a given template Id.
+      parameters:
+      - in: query
+        name: templateId
+        required: true
+        description: This is required
+        schema:
+          type: string
+      - in: query
+        name: account
+        required: true
+        description: This is required
+        schema:
+          type: string
+      - in: query
+        name: showItems
+        required: false
+        description: Default is false, if "true", display template items
+        schema:
+          type: string
+      - in: query
+        name: showItemVariations
+        required: false
+        description: 'Default is false, if "true", display variations of each template
+
+          item'
+        schema:
+          type: string
+      - in: query
+        name: showPricing
+        description: Default is false, if "true", display pricing of each template item
+        schema:
+          type: string
+      - in: query
+        name: showItemAvailable
+        description: Default is true, if "false", do not display item region availability
+        schema:
+          type: string
+      - in: query
+        name: invokeBy
+        description: If value is 'store', will do the store logic
+        schema:
+          type: string
+      - in: query
+        name: jobNumber
+        description: THe job number
+        schema:
+          type: string
+      - in: query
+        name: pageSize
+        description: Default is 15, record count of each page
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: pageNo
+        description: Default is 1, the first page, page number or page index
+        schema:
+          type: integer
+          format: int32
+      - in: query
+        name: pagination
+        description: enable pagination for items,default is false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+
+            `color,size etc. are variation`
+
+
+            `White,Dover etc. are variation option`
+
+
+            `100001, 200002 etc. variation option id.`
+
+
+            `600001, 600002 under skusVariation is sku id.`
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/templateDetailRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: getGetTemplateDetail
+      x-operation-id-source: derived
+  /createTemplate:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Template Services
+      summary: Create template for current user
+      description: 'This service can create template
+
+
+        ### Request body: required
+
+
+        * templateName: required
+
+
+        * account: required
+
+
+        * jobNumber: optional
+
+
+        ### Items: optional
+
+
+        * itemNumber: required
+
+
+        * unitOfMeasure: required if invokeBy is ''store'', otherwise this value
+
+        will be optional
+
+
+        * quantity: required
+
+
+        * matchColor: optional, format: "vendor color name(code)", e.g. "Gunmetal
+
+        Grey(010)" or just "vendor color name", e.g. "Gunmetal Grey"
+
+
+        * matchMFG: optional'
+      parameters:
+      - in: query
+        name: invokeBy
+        description: If value is 'store', will do the store logic
+        schema:
+          type: string
+      - in: query
+        name: ignoreInvalidItems
+        description: 'if "true", will ignore invalid items and continue add valid items to
+
+          cart, otherwise will return invalid items'
+        schema:
+          type: boolean
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createTemplateReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTemplateRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postCreateTemplate
+      x-operation-id-source: derived
+  /getTemplateCategories:
+    get:
+      tags:
+      - Template Services
+      summary: Get given template categories
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTemplateCategory_res'
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: getGetTemplateCategories
+      x-operation-id-source: derived
+  /updateTemplateItemDisplayOrder:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Template Services
+      summary: Update template item of display order
+      description: The 'templateItems' is an array, it must contain all template items and its new display positions.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateTemplateItemDisplayOrderReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateTemplateItemDisplayOrder
+      x-operation-id-source: derived
+  /updateTemplate:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Template Services
+      summary: Update template
+      description: 'This service can update template such as changing tempate name or
+
+        modifying
+
+
+        template items.
+
+
+        ### Request body: required
+
+
+        * templateId: required
+
+
+        * account: required
+
+
+        * templateName: required
+
+
+        * jobNumber: optional
+
+
+        * action: optional
+
+
+        ### items: optional
+
+
+        ##### action is ''createItem''
+
+
+        * itemNumber: required
+
+
+        * unitOfMeasure: optional if invokeBy is ''store'', otherwise this value
+
+        will be required
+
+
+        * quantity: required
+
+
+        * matchColor: optional, format: "vendor color name(code)", e.g. "Gunmetal
+
+        Grey(010)" or just "vendor color name", e.g. "Gunmetal Grey"
+
+
+        * matchMFG: optional
+
+
+        ##### action is ''updateItem''
+
+
+        * templateItemId: required
+
+
+        * itemNumber: required
+
+
+        * unitOfMeasure: optional if invokeBy is ''store'', otherwise this value
+
+        will be required
+
+
+        * quantity: required
+
+
+        * matchColor: optional, format: "vendor color name(code)", e.g. "Gunmetal
+
+        Grey(010)" or just "vendor color name", e.g. "Gunmetal Grey"
+
+
+        * matchMFG: optional
+
+
+        ##### action is ''deleteItem''
+
+
+        * templateItemId: required
+
+
+        other fields not listed above will be ignored.'
+      parameters:
+      - in: query
+        name: invokeBy
+        description: If value is 'store', will do the store logic
+        schema:
+          type: string
+      - in: query
+        name: ignoreInvalidItems
+        description: 'if "true", will ignore invalid items and continue add valid items to
+
+          cart, otherwise will return invalid items'
+        schema:
+          type: boolean
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateTemptemItemReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateTemptemItemRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateTemplate
+      x-operation-id-source: derived
+  /deleteTemplate:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Template Services
+      summary: Delete template
+      description: This service can delete template(s) for current user.
+      parameters:
+      - in: query
+        name: templateId
+        required: true
+        description: 'The template Id list, separated by comma, e.g.
+
+          "gl35140002,gl35140003,gl35140004"'
+        schema:
+          type: string
+      - in: query
+        name: account
+        required: true
+        description: The account Id
+        schema:
+          type: string
+      - in: query
+        name: invokeBy
+        description: If value is "store", will do the store logic
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postDeleteTemplate
+      x-operation-id-source: derived
+  /copyTemplate:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Template Services
+      summary: Copy template
+      description: This service can copy template(s) to the current account.
+      parameters:
+      - in: query
+        name: templateId
+        required: true
+        description: 'The template Id list, separated by comma, e.g.
+
+          "gl35140002,gl35140003,gl35140004"'
+        schema:
+          type: string
+      - in: query
+        name: account
+        required: true
+        description: The account Id
+        schema:
+          type: string
+      - in: query
+        name: invokeBy
+        description: If value is "store", will do the store logic
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postCopyTemplate
+      x-operation-id-source: derived
+  /addPerfectOrderToTemplate:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Template Services
+      summary: Create a template of Perfect Order
+      description: This service can create a new template and add perfect order items to the newly created template.
+      parameters:
+      - in: query
+        name: templateName
+        required: true
+        description: The template Name
+        schema:
+          type: string
+      - in: query
+        name: account
+        required: true
+        description: The account Id
+        schema:
+          type: string
+      - in: query
+        name: perfectOrderId
+        required: true
+        description: The main product id for product template or product style id for product style
+        schema:
+          type: string
+      - in: query
+        name: brandName
+        required: true
+        description: The brand name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            If failed, return messageCode, refer to *API Response Message Code*.
+
+
+            Example
+
+
+            { "messageCode": "1001", "messages": [{"type":"error", "value":
+
+            "Validation exception", "code":"1001"}], "success":false }
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addPerfectOrderToTemplateRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postAddPerfectOrderToTemplate
+      x-operation-id-source: derived
+  /updateSingleTemplateLineItem:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Template Services
+      summary: Update single template line item
+      description: 'This service can update template line item such as changing template name or
+
+        modifying single template line item.
+
+
+        ### Request body: required
+
+
+        * templateId: required
+
+
+        * account: required
+
+
+        * templateName: required
+
+
+        * jobNumber: optional
+
+
+        ### item: required
+
+
+        * templateItemId: required
+
+
+        * itemNumber: required
+
+
+        * unitOfMeasure: optional
+
+
+        * quantity: required
+
+
+        * matchColor: optional, format: "vendor color name(code)", e.g. "Gunmetal
+
+        Grey(010)" or just "vendor color name", e.g. "Gunmetal Grey"
+
+
+        * matchMFG: optional
+
+
+        other fields not listed above will be ignored.'
+      parameters:
+      - in: query
+        name: ignoreInvalidItems
+        description: 'if "true", will ignore invalid items and continue add valid items to
+
+          cart, otherwise will return invalid items'
+        schema:
+          type: boolean
+      - in: query
+        name: showItemVariations
+        description: Default is false, if "true", display variations for line item
+        schema:
+          type: string
+      - in: query
+        name: showPricing
+        description: Default is false, if "true", display pricing for line item
+        schema:
+          type: string
+      - in: query
+        name: showItemAvailable
+        description: Default is true, if "false", do not display item region availability
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateSingleTemplateLineItemReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateSingleTemplateLineItemRep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postUpdateSingleTemplateLineItem
+      x-operation-id-source: derived
+  /validateTemplateItems:
+    post:
+      security:
+      - JSESSIONID: []
+        DYN_USER_ID: []
+        DYN_USER_CONFIRM: []
+        siteId: []
+      tags:
+      - Template Services
+      summary: Validate template items
+      description: This service can validate the items of given template
+      parameters:
+      - in: query
+        name: invokeBy
+        description: If value is 'store', will do the store logic
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/validateTemplateItems_req'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validateTemplateItems_rep'
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '419':
+          description: Unauthorized, the authorization bearer token is expired
+        '500':
+          description: Internal exception
+      operationId: postValidateTemplateItems
+      x-operation-id-source: derived
+components:
+  schemas:
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    createTemplateReq:
+      type: object
+      properties:
+        templateName:
+          type: string
+        account:
+          type: string
+        jobNumber:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              itemNumber:
+                type: string
+              unitOfMeasure:
+                type: string
+              quantity:
+                type: integer
+              matchColor:
+                type: string
+              matchMFG:
+                type: string
+    getTemplateCategory_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateCategory'
+    skusVariationObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        '600001':
+          color:
+          - White
+          - Dover
+          size:
+          - 12x10
+          thickness:
+          - 2mm
+        '600002':
+          color:
+          - White
+          size:
+          - 4x4
+          thickness:
+          - 4mm
+        '300003':
+          color:
+          - Dover
+          size:
+          - 4x4
+          thickness:
+          - 6mm
+    itemCategoryObj:
+      type: object
+      properties:
+        categoryId:
+          type: string
+        categoryName:
+          type: string
+    multiVariationDataObj:
+      type: object
+      properties:
+        currentSkuId:
+          type: string
+        skus:
+          $ref: '#/components/schemas/skusVariationObj'
+        variations:
+          $ref: '#/components/schemas/variationsObj'
+        vendorColors:
+          type: array
+          items:
+            $ref: '#/components/schemas/vendorColorsObj'
+        allVariationTypes:
+          type: array
+          items:
+            type: string
+        currentVariations:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            color: please_select
+            size: 2ft x 4ft
+            diameter: 3d
+            thickness: 5nm'
+            style: slope 002
+            packaging: 5 gallon pail
+            MFG: please_select
+        variationKeyMFG:
+          type: string
+        variationKeyColor:
+          type: string
+        variationGroups:
+          type: array
+          items:
+            type: object
+            properties:
+              variationTypes:
+                type: array
+                items:
+                  type: string
+        maxVariationGroupSize:
+          type: integer
+    addPerfectOrderToTemplateRep:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        lastModifiedDate:
+          type: string
+        accountLegacyId:
+          type: string
+        accountName:
+          type: string
+        messageCode:
+          type: string
+        message:
+          type: string
+    templateDetailObj:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        jobNumber:
+          type: string
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          $ref: '#/components/schemas/profileObj'
+        accountLegacyId:
+          type: string
+        isAccountClosed:
+          type: boolean
+        accountName:
+          type: string
+        createdByUser:
+          $ref: '#/components/schemas/profileObj'
+        templateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/templateDetailItemObj'
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+    updateTemptemItemReq:
+      type: object
+      properties:
+        templateId:
+          type: string
+        account:
+          type: string
+        templateName:
+          type: string
+        jobNumber:
+          type: string
+        action:
+          type: string
+          example: The action operate on tempalte items.the value should be one of createItem,updateItem,deleteItem and empty for do nothing on items
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              templateItemId:
+                type: string
+              itemNumber:
+                type: string
+              nickName:
+                type: string
+              unitOfMeasure:
+                type: string
+              quantity:
+                type: integer
+              matchColor:
+                type: string
+              matchMFG:
+                type: string
+    templateListItemObj:
+      type: object
+      properties:
+        templateItemId:
+          type: string
+        productImageUrl:
+          type: string
+        productOnErrorImageUrl:
+          type: string
+        itemOrProductDescription:
+          type: string
+        itemNumber:
+          type: string
+        nickName:
+          type: string
+        productOrItemNumber:
+          type: string
+        internalProductName:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        unitOfMeasure:
+          type: string
+        quantity:
+          type: integer
+        available:
+          type: boolean
+        imageUrl:
+          $ref: '#/components/schemas/imageUrlObj'
+        variations:
+          $ref: '#/components/schemas/variationsObj'
+        skusVariation:
+          $ref: '#/components/schemas/skusVariationObj'
+        pdpUrl:
+          type: string
+        multiVariationData:
+          $ref: '#/components/schemas/multiVariationDataObj'
+    templateListObj:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        jobNumber:
+          type: string
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          $ref: '#/components/schemas/profileObj'
+        accountLegacyId:
+          type: string
+        isAccountClosed:
+          type: boolean
+        accountName:
+          type: string
+        createdByUser:
+          $ref: '#/components/schemas/profileObj'
+        templateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/templateListItemObj'
+    vendorColorsObj:
+      type: object
+      properties:
+        id:
+          type: string
+        MFG:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        sku:
+          type: string
+        color:
+          type: string
+    createTemplateRep:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        jobNumber:
+          type: string
+        lastModifiedDate:
+          type: string
+        accountLegacyId:
+          type: string
+        accountName:
+          type: string
+        allItemsUnavailable:
+          type: boolean
+        itemTotal:
+          type: integer
+        itemSuccessTotal:
+          type: integer
+        detailUrl:
+          type: string
+          example: /myAccount/templateDetail?activeTab=template&giftlistId=gl12345678
+        callBackParam:
+          type: string
+    profileObj:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    updateTemplateItemDisplayOrderReq:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateItems:
+          type: array
+          items:
+            type: object
+            properties:
+              itemNumber:
+                type: string
+              displayOrder:
+                type: integer
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    templateDetailRep:
+      $ref: '#/components/schemas/templateDetailObj'
+    imageUrlObj:
+      type: object
+      properties:
+        thumbnail:
+          type: string
+        large:
+          type: string
+        swatch:
+          type: string
+    updateSingleTemplateLineItemRep:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        jobNumber:
+          type: string
+        accountLegacyId:
+          type: string
+        templateItem:
+          $ref: '#/components/schemas/templateDetailItemObj'
+    validateTemplateItems_rep:
+      type: object
+      properties:
+        invalidTemplateItems:
+          type: array
+          items:
+            type: object
+            properties:
+              templateItemId:
+                type: string
+    templateDetailItemObj:
+      type: object
+      properties:
+        templateItemId:
+          type: string
+        productImageUrl:
+          type: string
+        productOnErrorImageUrl:
+          type: string
+        itemOrProductDescription:
+          type: string
+        itemNumber:
+          type: string
+        nickName:
+          type: string
+        productOrItemNumber:
+          type: string
+        internalProductName:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        unitOfMeasure:
+          type: string
+        quantity:
+          type: integer
+        available:
+          type: boolean
+        displayOrder:
+          type: integer
+        imageUrl:
+          $ref: '#/components/schemas/imageUrlObj'
+        variations:
+          $ref: '#/components/schemas/variationsObj'
+        skusVariation:
+          $ref: '#/components/schemas/skusVariationObj'
+        pdpUrl:
+          type: string
+        multiVariationData:
+          $ref: '#/components/schemas/multiVariationDataObj'
+        isAddedToFavorites:
+          type: boolean
+        mainCategory:
+          type: string
+        category:
+          $ref: '#/components/schemas/itemCategoryObj'
+    updateTemptemItemRep:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        jobNumber:
+          type: string
+        lastModifiedDate:
+          type: string
+        accountLegacyId:
+          type: string
+        accountName:
+          type: string
+        allItemsUnavailable:
+          type: boolean
+        itemTotal:
+          type: integer
+        itemSuccessTotal:
+          type: integer
+        detailUrl:
+          type: string
+          example: /myAccount/templateDetail?activeTab=template&giftlistId=gl12345678
+    variationsObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        color:
+          White:
+          - '100001'
+          - '200002'
+          Dover:
+          - '100001'
+          - '300003'
+        size:
+          12x10:
+          - '100001'
+          4x4:
+          - '200002'
+          - '300003'
+        thickness:
+          2mm:
+          - '100001'
+          4mm:
+          - '200002'
+          6mm:
+          - '300003'
+    validateTemplateItems_req:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateItems:
+          type: array
+          items:
+            type: object
+            properties:
+              templateItemId:
+                type: string
+    TemplateCategory:
+      type: object
+      properties:
+        category:
+          type: string
+          description: category name
+        subCategories:
+          type: array
+          items:
+            type: object
+            properties:
+              categoryId:
+                type: string
+    templatelistRep:
+      type: object
+      properties:
+        totalNumRecs:
+          type: integer
+        pageNumRecs:
+          type: integer
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/templateListObj'
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    updateSingleTemplateLineItemReq:
+      type: object
+      properties:
+        templateId:
+          type: string
+        account:
+          type: string
+        templateName:
+          type: string
+        jobNumber:
+          type: string
+        item:
+          type: object
+          properties:
+            templateItemId:
+              type: string
+            itemNumber:
+              type: string
+            nickName:
+              type: string
+            unitOfMeasure:
+              type: string
+            quantity:
+              type: integer
+            matchColor:
+              type: string
+            matchMFG:
+              type: string
+  securitySchemes:
+    JSESSIONID:
+      type: apiKey
+      in: cookie
+      name: JSESSIONID
+    DYN_USER_ID:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_ID
+    DYN_USER_CONFIRM:
+      type: apiKey
+      in: cookie
+      name: DYN_USER_CONFIRM
+    siteId:
+      type: apiKey
+      in: cookie
+      name: siteId
+    rememberPassword:
+      type: apiKey
+      in: cookie
+      name: siteId

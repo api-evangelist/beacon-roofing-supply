@@ -1,3 +1,5 @@
+# x-archived-from: beacon-roofing-supply-v3-openapi.yml
+# x-archived-on: 2026-09-16
 servers:
   - url: https://beaconproplus.com/v3/rest/com/becn
     description: >-
