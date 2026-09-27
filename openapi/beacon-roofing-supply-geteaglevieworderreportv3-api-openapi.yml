@@ -1,0 +1,361 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Eagle View Order Report V3 API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetEagleViewOrderReportV3
+paths:
+  /getEagleViewOrderReportV3:
+    get:
+      operationId: V2Controller_getEagleViewOrderReportV3
+      summary: Returns information for an Eagle View report
+      description: Returns information about a single Eagle View report including measurements and product substitutions.
+      parameters:
+      - name: reportId
+        required: false
+        in: path
+        description: Report Id.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getEagleViewOrderReportV3Response'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetEagleViewOrderReportV3
+components:
+  schemas:
+    ReportImage:
+      type: object
+      properties:
+        sequenceNumber:
+          type: number
+        imageId:
+          type: number
+        ProductId:
+          type: number
+        ProductDeliveryId:
+          type: number
+        AddOnProductIds:
+          type: array
+          items:
+            type: number
+        AdditionalEmails:
+          type: string
+        ClaimNumber:
+          type: string
+        ClaimInfo:
+          type: string
+        PONumber:
+          type: string
+        DateOfLoss:
+          type: string
+        CatId:
+          type: string
+      required:
+      - sequenceNumber
+      - imageId
+      - ProductId
+      - ProductDeliveryId
+      - AddOnProductIds
+      - AdditionalEmails
+      - ClaimNumber
+      - ClaimInfo
+      - PONumber
+      - DateOfLoss
+      - CatId
+    From:
+      type: object
+      properties:
+        PrimaryProductId:
+          type: number
+        PrimaryProductDisplayName:
+          type: string
+        TypeOfStructure:
+          type: number
+      required:
+      - PrimaryProductId
+      - PrimaryProductDisplayName
+      - TypeOfStructure
+    AddOnProduct:
+      type: object
+      properties:
+        DisplayName:
+          type: string
+        ProductId:
+          type: number
+      required:
+      - DisplayName
+      - ProductId
+    DeliveryFilesAvailable:
+      type: object
+      properties:
+        DeliveryFileTypeId:
+          type: number
+        EffectiveDate:
+          type: string
+      required:
+      - DeliveryFileTypeId
+      - EffectiveDate
+    getEagleViewOrderReportV3Response:
+      type: object
+      properties:
+        ReportId:
+          type: number
+        Street:
+          type: string
+        BuildingId:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        Zip:
+          type: string
+        Latitude:
+          type: number
+        Longitude:
+          type: number
+        ClaimNumber:
+          type: string
+        ClaimInfo:
+          type: string
+        BatchId:
+          type: string
+        CatId:
+          type: string
+        DatePlaced:
+          type: string
+        DateCompleted:
+          type: string
+        PONumber:
+          type: string
+        Comments:
+          type: string
+        ReportImage:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportImage'
+        ReferenceId:
+          type: string
+        InsuredName:
+          type: string
+        MeasurementRequestTypeId:
+          type: number
+        ReportDownloadLink:
+          type: string
+        EligibleForUpgrade:
+          type: boolean
+        Status:
+          type: string
+        Area:
+          type: string
+        Pitch:
+          type: string
+        LengthRidge:
+          type: string
+        LengthValley:
+          type: string
+        LengthEave:
+          type: string
+        LengthRake:
+          type: string
+        ProductPrimaryId:
+          type: number
+        ProductPrimary:
+          type: string
+        ProductDeliveryId:
+          type: number
+        ProductDelivery:
+          type: string
+        AddOnProductIds:
+          type: string
+        AllowsUserSubmittedPhotos:
+          type: boolean
+        LengthHip:
+          type: string
+        SubstituteFromProduct:
+          type: number
+        SubstituteToProduct:
+          type: string
+        CanCancelReport:
+          type: string
+        StatusId:
+          type: number
+        SubStatusId:
+          type: number
+        DisplayStatus:
+          type: string
+        DateOfLoss:
+          type: string
+        DeliveryFilesAvailable:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryFilesAvailable'
+        AdditionalRecipients:
+          type: string
+        TotalCost:
+          type: number
+        PaymentType:
+          type: string
+        MeasurementByStructure:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeasurementByStructure'
+        PrimaryProductDisplayName:
+          type: string
+        AddOnProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddOnProduct'
+        TypeOfStructure:
+          type: number
+        ProductSubstitution:
+          $ref: '#/components/schemas/ProductSubstitution'
+        TotalMeasurements:
+          $ref: '#/components/schemas/MeasurementByStructure'
+        JobName:
+          type: string
+        CanEditReportInformation:
+          type: boolean
+        SuggestedWasteFactorAvailable:
+          type: boolean
+      required:
+      - ReportId
+      - Street
+      - BuildingId
+      - City
+      - State
+      - Zip
+      - Latitude
+      - Longitude
+      - ClaimNumber
+      - ClaimInfo
+      - BatchId
+      - CatId
+      - DatePlaced
+      - DateCompleted
+      - PONumber
+      - Comments
+      - ReportImage
+      - ReferenceId
+      - InsuredName
+      - MeasurementRequestTypeId
+      - ReportDownloadLink
+      - EligibleForUpgrade
+      - Status
+      - Area
+      - Pitch
+      - LengthRidge
+      - LengthValley
+      - LengthEave
+      - LengthRake
+      - ProductPrimaryId
+      - ProductPrimary
+      - ProductDeliveryId
+      - ProductDelivery
+      - AddOnProductIds
+      - AllowsUserSubmittedPhotos
+      - LengthHip
+      - SubstituteFromProduct
+      - SubstituteToProduct
+      - CanCancelReport
+      - StatusId
+      - SubStatusId
+      - DisplayStatus
+      - DateOfLoss
+      - DeliveryFilesAvailable
+      - AdditionalRecipients
+      - TotalCost
+      - PaymentType
+      - MeasurementByStructure
+      - PrimaryProductDisplayName
+      - AddOnProducts
+      - TypeOfStructure
+      - ProductSubstitution
+      - TotalMeasurements
+      - JobName
+      - CanEditReportInformation
+      - SuggestedWasteFactorAvailable
+    MeasurementByStructure:
+      type: object
+      properties:
+        BuildingName:
+          type: string
+        Area:
+          type: string
+        PrimaryPitch:
+          type: string
+        LengthRidge:
+          type: string
+        LengthValley:
+          type: string
+        LengthEave:
+          type: string
+        LengthRake:
+          type: string
+        LengthHip:
+          type: string
+      required:
+      - BuildingName
+      - Area
+      - PrimaryPitch
+      - LengthRidge
+      - LengthValley
+      - LengthEave
+      - LengthRake
+      - LengthHip
+    ProductSubstitution:
+      type: object
+      properties:
+        From:
+          $ref: '#/components/schemas/From'
+        To:
+          $ref: '#/components/schemas/From'
+      required:
+      - From
+      - To

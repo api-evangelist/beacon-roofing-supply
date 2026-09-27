@@ -1,0 +1,346 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Template API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Template
+paths:
+  /template:
+    get:
+      operationId: V2Controller_template
+      summary: Lists templates and template details for current user
+      description: Lists templates and the template details for the current user.
+      parameters:
+      - name: Account
+        required: false
+        in: path
+        description: If not empty, will filter result by given account id
+        schema:
+          type: string
+      - name: showItems
+        required: false
+        in: path
+        description: Default is false. If "true", response will display template items
+        schema:
+          type: string
+      - name: showItemVariations
+        required: false
+        in: path
+        description: Default is false. If "true", response will display variations of each template item
+        schema:
+          type: string
+      - name: showPricing
+        required: false
+        in: path
+        description: Default is false. If "true", response will display pricing of each template item
+        schema:
+          type: string
+      - name: showItemAvailable
+        required: false
+        in: path
+        description: Default is true. If "false", response will not display item availability in region
+        schema:
+          type: string
+      - name: pageSize
+        required: false
+        in: path
+        description: Default is 10 and max is 100 for record count of each page
+        schema:
+          type: number
+      - name: pageNo
+        required: false
+        in: path
+        description: Default is 1, the first page. Specifies returned starting page number or page index.
+        schema:
+          type: number
+      - name: invokeBy
+        required: false
+        in: path
+        description: If value is "store", will do the store logic which is the legacy logic in place to enable search function or filtering.
+        schema:
+          type: string
+      - name: filterBy
+        required: false
+        in: path
+        description: If "invokeBy=store", the search key feature is enabled.<br><br>filterBy enumeration<ul><li>templateName</li><li>dataLastModified</li><li>account</li><li>createdBy</li></ul>
+        schema:
+          type: string
+      - name: filter
+        required: false
+        in: path
+        description: If "invokeBy=store", the search terms feature is enabled.
+        schema:
+          type: string
+      - name: orderBy
+        required: false
+        in: path
+        description: Default is "dataLastModified desc". This feature is enabled only when "invokeBy = store"<br><br>orderBy enumeration<ul><li>templateName asc/desc</li><li>dataLastModified asc/desc</li><li>account asc/desc</li><li>createdBy asc/desc</li></ul>
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/templateResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - Template
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    templateResponse:
+      type: object
+      properties:
+        totalNumRecs:
+          type: number
+        pageNumRecs:
+          type: number
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+      - totalNumRecs
+      - pageNumRecs
+      - templates
+      - pagination
+    Template:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          $ref: '#/components/schemas/LastModifiedUser'
+        accountLegacyId:
+          type: string
+        isAccountClosed:
+          type: boolean
+        accountName:
+          type: string
+        createdByUser:
+          $ref: '#/components/schemas/LastModifiedUser'
+        templateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateItem'
+      required:
+      - templateId
+      - templateName
+      - lastModifiedDate
+      - lastModifiedUser
+      - accountLegacyId
+      - isAccountClosed
+      - accountName
+      - createdByUser
+      - templateItems
+    ImageUrl:
+      type: object
+      properties:
+        thumbnail:
+          type: string
+        large:
+          type: string
+      required:
+      - thumbnail
+      - large
+    TemplateItem:
+      type: object
+      properties:
+        templateItemId:
+          type: string
+        productImageUrl:
+          type: string
+        productOnErrorImageUrl:
+          type: string
+        itemOrProductDescription:
+          type: string
+        itemNumber:
+          type: string
+        nickName:
+          type: string
+        productOrItemNumber:
+          type: string
+        internalProductName:
+          type: string
+        currentVariation:
+          $ref: '#/components/schemas/CurrentVariation'
+        variations:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrentVariation'
+        unitPrice:
+          type: number
+        unitOfMeasure:
+          type: string
+        quantity:
+          type: number
+        available:
+          type: boolean
+        imageUrl:
+          $ref: '#/components/schemas/ImageUrl'
+      required:
+      - templateItemId
+      - productImageUrl
+      - productOnErrorImageUrl
+      - itemOrProductDescription
+      - itemNumber
+      - nickName
+      - productOrItemNumber
+      - internalProductName
+      - currentVariation
+      - variations
+      - unitPrice
+      - unitOfMeasure
+      - quantity
+      - available
+      - imageUrl
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
+    LastModifiedUser:
+      type: object
+      properties:
+        profileId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        emailAddress:
+          type: string
+      required:
+      - profileId
+      - firstName
+      - lastName
+      - emailAddress
+    Pagination:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        previous:
+          $ref: '#/components/schemas/Next'
+        pageSize:
+          type: number
+        currentPage:
+          type: number
+        totalCount:
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - next
+      - previous
+      - pageSize
+      - currentPage
+      - totalCount
+      - results
+    Option:
+      type: object
+      properties:
+        optionId:
+          type: string
+        optionName:
+          type: string
+        opectionChecked:
+          type: boolean
+        skuId:
+          type: string
+      required:
+      - optionId
+      - optionName
+      - opectionChecked
+      - skuId
+    CurrentVariation:
+      type: object
+      properties:
+        typeId:
+          type: string
+        typeName:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+      required:
+      - typeId
+      - typeName
+      - options

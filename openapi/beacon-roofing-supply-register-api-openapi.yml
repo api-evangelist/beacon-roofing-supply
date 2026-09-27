@@ -1,0 +1,145 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Register API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Register
+paths:
+  /register:
+    post:
+      operationId: V2Controller_register
+      summary: Registers user
+      description: Registers user once account information is validated for user after user signs up for PRO+.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/registerBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/registerResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - Register
+components:
+  schemas:
+    AccountInfo:
+      type: object
+      properties:
+        accountId:
+          type: string
+        accountName:
+          type: string
+        branchId:
+          type: string
+      required:
+      - accountId
+      - accountName
+      - branchId
+    registerResponse:
+      type: object
+      properties:
+        needLogin:
+          type: boolean
+        needRetry:
+          type: boolean
+        needContactSupport:
+          type: boolean
+        needGetUserRegisterToken:
+          type: boolean
+        registerSuccess:
+          type: boolean
+      required:
+      - needLogin
+      - needRetry
+      - needContactSupport
+      - needGetUserRegisterToken
+      - registerSuccess
+    registerBody:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        zipCode:
+          type: string
+        phoneNumber:
+          type: string
+        companyName:
+          type: string
+        account:
+          type: string
+        invoice:
+          type: string
+        invoiceDate:
+          type: string
+        accountInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountInfo'
+        internalUser:
+          type: string
+        token:
+          type: string
+      required:
+      - emailAddress
+      - firstName
+      - lastName
+      - zipCode
+      - phoneNumber
+      - companyName
+      - account
+      - invoice
+      - invoiceDate
+      - accountInfos
+      - internalUser
+      - token

@@ -1,0 +1,138 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Place Eagle View Upgrade Order API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: PlaceEagleViewUpgradeOrder
+paths:
+  /placeEagleViewUpgradeOrder:
+    post:
+      operationId: V2Controller_placeEagleViewUpgradeOrder
+      summary: Upgrades a report to a premium report
+      description: Upgrades report from Quick Squares to Premium where a 3D diagram of the roof and 5 aerial images of the structure are included.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/placeEagleViewUpgradeOrderBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/placeEagleViewUpgradeOrderResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - PlaceEagleViewUpgradeOrder
+components:
+  schemas:
+    placeEagleViewUpgradeOrderResponse:
+      type: object
+      properties:
+        mincronOrderId:
+          type: string
+        reportId:
+          type: number
+        modelState:
+          $ref: '#/components/schemas/ModelState'
+      required:
+      - mincronOrderId
+      - reportId
+      - modelState
+    placeEagleViewUpgradeOrderBody:
+      type: object
+      properties:
+        ReportId:
+          type: number
+        MeasurementRequestTypeId:
+          type: number
+        ProductId:
+          type: number
+        ProductDeliveryId:
+          type: number
+        AddOnProductIds:
+          type: array
+          items:
+            type: number
+        AdditionalEmails:
+          type: string
+        ClaimNumber:
+          type: string
+        ClaimInfo:
+          type: string
+        PONumber:
+          type: string
+        DateOfLoss:
+          type: string
+        CatId:
+          type: string
+        UUID:
+          type: string
+      required:
+      - ReportId
+      - MeasurementRequestTypeId
+      - ProductId
+      - ProductDeliveryId
+      - AddOnProductIds
+      - AdditionalEmails
+      - ClaimNumber
+      - ClaimInfo
+      - PONumber
+      - DateOfLoss
+      - CatId
+      - UUID
+    ModelState:
+      type: object
+      properties:
+        modelKey:
+          type: string
+        modelValue:
+          type: array
+          items:
+            type: string
+      required:
+      - modelKey
+      - modelValue

@@ -1,0 +1,101 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Download Catalog Item Data API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: DownloadCatalogItemData
+paths:
+  /downloadCatalogItemData:
+    get:
+      operationId: V3Controller_downloadCatalogItemData
+      summary: Downloads catalog item data
+      description: Downloads a zipped folder that contains sets of .csv files for branch data, SKU availability data, and SKU detail data.
+      parameters:
+      - name: productId
+        required: true
+        in: query
+        description: Product Id
+        schema:
+          type: string
+      - name: itemNumber
+        required: false
+        in: query
+        description: Item number(SKU ID)
+        schema:
+          type: string
+      - name: accountId
+        required: false
+        in: query
+        description: Account Id
+        schema:
+          type: string
+      - name: jobNumber
+        required: false
+        in: query
+        description: Job Number
+        schema:
+          type: string
+      - name: uom
+        required: false
+        in: query
+        description: Unit of Measure
+        schema:
+          type: string
+      - name: showHoverAttrs
+        required: false
+        in: query
+        description: if "true", display hover attributes
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      security:
+      - basic: []
+      tags:
+      - DownloadCatalogItemData

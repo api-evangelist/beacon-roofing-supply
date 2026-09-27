@@ -1,0 +1,96 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Clear Cart API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: ClearCart
+paths:
+  /clearCart:
+    post:
+      operationId: V2Controller_clearCart
+      summary: Clears items in the current cart
+      description: This service clears all items in the current shopping cart. Use /cartItems to validate commerceItemIds match to avoid version update exception. If Hover customer started order in PRO+ and moved to Hover to complete the order, the cart needs to be cleared in PRO+ first to successfully submit order through Hover.
+      parameters: []
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clearCartResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - ClearCart
+components:
+  schemas:
+    clearCartResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        success:
+          type: boolean
+        messages:
+          type: object
+      required:
+      - result
+      - success
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage

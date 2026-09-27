@@ -968,11 +968,55 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    updateCurrentOrderJobNumberReq:
+    getSubmitOrderResult_req:
       type: object
       properties:
-        jobNumber:
+        orderId:
           type: string
+        savedOrderId:
+          type: string
+    CurrentOrderReview_jobAccounts:
+      type: object
+      properties:
+        unavailable:
+          type: boolean
+        unavailableMsg:
+          type: string
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrentOrderReview_jobInfo'
+    accountObjWithRewardsEligible:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        rewardsEligible:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+        canAccessEVSmartOrder:
+          type: boolean
+        customerType:
+          $ref: '#/components/schemas/customerType'
+        hasMincronRebate:
+          type: boolean
+        loyaltyEnrolled:
+          type: boolean
+        nationalAccount:
+          type: boolean
+        loyaltyFlag:
+          type: boolean
     getOrderShippingInfo_rep:
       type: object
       properties:
@@ -1018,104 +1062,85 @@ components:
           type: string
         evOrderId:
           type: string
-    submitCurrentOrder_rep:
+    updateCurrentOrderJobNumberReq:
       type: object
       properties:
-        deliveryOption:
+        jobNumber:
           type: string
-        deliveryDate:
+    cartItemList:
+      type: object
+      properties:
+        commerceItemId:
           type: string
-        deliveryTime:
+        url:
           type: string
-        shippingMethod:
+        productImageUrl:
           type: string
-        instructions:
+        productOnErrorImageUrl:
+          type: string
+        itemOrProductDescription:
+          type: string
+        catalogRefId:
+          type: string
+        productId:
+          type: string
+        quantity:
+          type: integer
+        uom:
+          type: string
+        unitPrice:
+          type: integer
+          format: double
+        totalPrice:
+          type: integer
+          format: double
+        productMultiVariation:
+          $ref: '#/components/schemas/multiVariationDataObj'
+    CurrentOrderReview_jobInfo:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        checked:
+          type: boolean
+    CurrentOrderReview_poJob:
+      type: object
+      properties:
+        poRequired:
+          type: boolean
+        jobNameRequired:
+          type: boolean
+        jobNumberRequired:
+          type: boolean
+        showJobName:
+          type: boolean
+        showJobNumber:
+          type: boolean
+        poName:
           type: string
         jobNumber:
           type: string
         jobName:
           type: string
-        poName:
-          type: string
-        approverFirstName:
-          type: string
-        approverLastName:
-          type: string
-        approverEmail:
-          type: string
-        shippingAddress:
-          $ref: '#/components/schemas/CurrentOrderReview_shippingAdrress'
-        items:
-          $ref: '#/components/schemas/cartItemsRep'
-        orderSummary:
-          $ref: '#/components/schemas/orderSummaryRep'
-        additionalRecipients:
-          type: array
-          items:
-            type: string
-        orderRelatedDocuments:
-          items:
-            type: string
-        nextPage:
-          $ref: '#/components/schemas/proceedToCheckoutRep'
-    accountObjWithRewardsEligible:
+        jobAccounts:
+          $ref: '#/components/schemas/CurrentOrderReview_jobAccounts'
+        showExtendedPO:
+          type: boolean
+        extendedPORequired:
+          type: boolean
+    AddressBook_savedorder:
       type: object
       properties:
-        accountName:
+        id:
           type: string
-        accountEnabled:
-          type: boolean
-        accountLegacyId:
+        displayName:
           type: string
-        accountViewPrices:
-          type: boolean
-        addCustomSteel:
-          type: boolean
-        rewardsEligible:
-          type: boolean
-        cashAccount:
-          type: boolean
-        isAccountClosed:
-          type: boolean
-        canAccessEVSmartOrder:
-          type: boolean
-        customerType:
-          $ref: '#/components/schemas/customerType'
-        hasMincronRebate:
-          type: boolean
-        loyaltyEnrolled:
-          type: boolean
-        nationalAccount:
-          type: boolean
-        loyaltyFlag:
-          type: boolean
-    skusVariationObj:
-      type: object
-      additionalProperties:
-        type: object
-      example:
-        '600001':
-          color:
-          - White
-          - Dover
-          size:
-          - 12x10
-          thickness:
-          - 2mm
-        '600002':
-          color:
-          - White
-          size:
-          - 4x4
-          thickness:
-          - 4mm
-        '300003':
-          color:
-          - Dover
-          size:
-          - 4x4
-          thickness:
-          - 6mm
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress_savedorder'
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
     multiVariationDataObj:
       type: object
       properties:
@@ -1160,6 +1185,69 @@ components:
                   type: string
         maxVariationGroupSize:
           type: integer
+    CurrentOrderReview_shippingAdrress:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        postalCode:
+          type: string
+        nickName:
+          type: string
+        branchName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phoneNumber:
+          type: string
+    proceedToCheckoutRep:
+      type: object
+      properties:
+        nextUrl:
+          type: string
+    skusVariationObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        '600001':
+          color:
+          - White
+          - Dover
+          size:
+          - 12x10
+          thickness:
+          - 2mm
+        '600002':
+          color:
+          - White
+          size:
+          - 4x4
+          thickness:
+          - 4mm
+        '300003':
+          color:
+          - Dover
+          size:
+          - 4x4
+          thickness:
+          - 6mm
     cartItemsRep:
       type: array
       items:
@@ -1189,59 +1277,24 @@ components:
           totalPrice:
             type: integer
             format: double
-    cartItemList:
+    addOrderShippingInfo_req:
       type: object
       properties:
-        commerceItemId:
+        deliveryOptionValue:
           type: string
-        url:
+        deliveryDate:
           type: string
-        productImageUrl:
+        deliveryTime:
           type: string
-        productOnErrorImageUrl:
+        shippingMethodValue:
           type: string
-        itemOrProductDescription:
-          type: string
-        catalogRefId:
-          type: string
-        productId:
-          type: string
-        quantity:
-          type: integer
-        uom:
-          type: string
-        unitPrice:
-          type: integer
-          format: double
-        totalPrice:
-          type: integer
-          format: double
-        productMultiVariation:
-          $ref: '#/components/schemas/multiVariationDataObj'
-    submitCurrentOrder_req:
-      type: object
-      properties:
-        apiSiteId:
-          type: string
-        poName:
-          type: string
-        extendedPO:
-          type: string
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-        additionalRecipients:
-          type: array
-          items:
-            type: string
-        savedOrderName:
-          type: string
-        approverId:
-          type: string
-        uuid:
-          type: string
-        UUID:
+        changeShippingAddressLocation:
+          type: boolean
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddressV2Req'
+        saveShippingAddressToAddressBook:
+          type: boolean
+        specialInstruction:
           type: string
     RadioButton_savedorder:
       type: object
@@ -1252,38 +1305,12 @@ components:
           type: string
         selected:
           type: boolean
-    CurrentOrderReview_jobAccounts:
-      type: object
-      properties:
-        unavailable:
-          type: boolean
-        unavailableMsg:
-          type: string
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/CurrentOrderReview_jobInfo'
-    vendorColorsObj:
+    AddressBook_getOrderShippingInfo:
       type: object
       properties:
         id:
           type: string
-        MFG:
-          type: string
-        name:
-          type: string
-        code:
-          type: string
-        sku:
-          type: string
-        color:
-          type: string
-    getSubmitOrderResult_req:
-      type: object
-      properties:
-        orderId:
-          type: string
-        savedOrderId:
+        displayName:
           type: string
     getCurrentOrderReviewInfo_rep:
       type: object
@@ -1314,121 +1341,6 @@ components:
           type: string
         nextPage:
           $ref: '#/components/schemas/proceedToCheckoutRep'
-    addOrderShippingInfo_req:
-      type: object
-      properties:
-        deliveryOptionValue:
-          type: string
-        deliveryDate:
-          type: string
-        deliveryTime:
-          type: string
-        shippingMethodValue:
-          type: string
-        changeShippingAddressLocation:
-          type: boolean
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddressV2Req'
-        saveShippingAddressToAddressBook:
-          type: boolean
-        specialInstruction:
-          type: string
-    customerType:
-      type: object
-      properties:
-        name:
-          type: string
-        realm:
-          type: string
-        isDefault:
-          type: boolean
-    AddressBook_savedorder:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddress_savedorder'
-        contactInfo:
-          $ref: '#/components/schemas/ContactInfo_savedorder'
-    proceedToCheckoutRep:
-      type: object
-      properties:
-        nextUrl:
-          type: string
-    orderSummaryRep:
-      type: object
-      properties:
-        total:
-          type: integer
-          format: double
-        itemsTotal:
-          type: integer
-          format: double
-        tax:
-          type: integer
-          format: double
-        otherCharges:
-          type: integer
-          format: double
-        displayTotalMsg:
-          type: boolean
-        totalMsg:
-          type: string
-        jobTaxExempt:
-          type: boolean
-    ContactInfo_savedorder:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        nickName:
-          type: string
-        phoneNumber:
-          type: string
-    BranchAddress_getOrderShippingInfo:
-      type: object
-      properties:
-        displayName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        stateValue:
-          type: string
-        postalCode:
-          type: string
-        phoneNumber:
-          type: string
-    updateCartReq:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              commerceItemId:
-                type: string
-              skuId:
-                type: string
-              uom:
-                type: string
-              quantity:
-                type: integer
     ShippingAddressV2Rep_getOrderShippingInfo:
       type: object
       properties:
@@ -1464,6 +1376,179 @@ components:
             $ref: '#/components/schemas/RadioButton_savedorder'
         phoneNumber:
           type: string
+    submitCurrentOrder_rep:
+      type: object
+      properties:
+        deliveryOption:
+          type: string
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        shippingMethod:
+          type: string
+        instructions:
+          type: string
+        jobNumber:
+          type: string
+        jobName:
+          type: string
+        poName:
+          type: string
+        approverFirstName:
+          type: string
+        approverLastName:
+          type: string
+        approverEmail:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/CurrentOrderReview_shippingAdrress'
+        items:
+          $ref: '#/components/schemas/cartItemsRep'
+        orderSummary:
+          $ref: '#/components/schemas/orderSummaryRep'
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+        orderRelatedDocuments:
+          items:
+            type: string
+        nextPage:
+          $ref: '#/components/schemas/proceedToCheckoutRep'
+    BranchAddress_getOrderShippingInfo:
+      type: object
+      properties:
+        displayName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+    submitCurrentOrder_req:
+      type: object
+      properties:
+        apiSiteId:
+          type: string
+        poName:
+          type: string
+        extendedPO:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+        savedOrderName:
+          type: string
+        approverId:
+          type: string
+        uuid:
+          type: string
+        UUID:
+          type: string
+    creditpurchase_req:
+      type: object
+      properties:
+        payWithCredit:
+          type: boolean
+        cardInfo:
+          type: object
+          properties:
+            ExpMM:
+              type: string
+            ExpYY:
+              type: string
+            Type:
+              type: string
+            FullName:
+              type: string
+        encryptionTokenData:
+          type: object
+          properties:
+            LowValueToken:
+              type: string
+        addressVerificationData:
+          type: object
+          properties:
+            AVSZIPCode:
+              type: string
+    updateCartReq:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              commerceItemId:
+                type: string
+              skuId:
+                type: string
+              uom:
+                type: string
+              quantity:
+                type: integer
+    ContactInfo_savedorder:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        phoneNumber:
+          type: string
+    getSubmitOrderResult_rep:
+      type: object
+      properties:
+        orderNumber:
+          type: string
+        orderNumberTips:
+          type: string
+        orderConfirmationTips:
+          type: string
+        state:
+          type: string
+        orderHistoryDetailLinkUrl:
+          type: string
+        orderHistoryListLinkUrl:
+          type: string
+        mincronResponseError:
+          type: boolean
+        ATGFailedStatus:
+          type: string
+        ATGOrderError:
+          type: boolean
+        evOrderId:
+          type: string
+    customerType:
+      type: object
+      properties:
+        name:
+          type: string
+        realm:
+          type: string
+        isDefault:
+          type: boolean
     ShippingAddressV2Req:
       type: object
       properties:
@@ -1493,7 +1578,7 @@ components:
           type: string
         phoneNumber:
           type: string
-    CurrentOrderReview_shippingAdrress:
+    ShippingAddress_savedorder:
       type: object
       properties:
         address1:
@@ -1514,39 +1599,42 @@ components:
             $ref: '#/components/schemas/RadioButton_savedorder'
         postalCode:
           type: string
-        nickName:
-          type: string
-        branchName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        phoneNumber:
-          type: string
-    getSubmitOrderResult_rep:
+    vendorColorsObj:
       type: object
       properties:
-        orderNumber:
+        id:
           type: string
-        orderNumberTips:
+        MFG:
           type: string
-        orderConfirmationTips:
+        name:
           type: string
-        state:
+        code:
           type: string
-        orderHistoryDetailLinkUrl:
+        sku:
           type: string
-        orderHistoryListLinkUrl:
+        color:
           type: string
-        mincronResponseError:
+    orderSummaryRep:
+      type: object
+      properties:
+        total:
+          type: integer
+          format: double
+        itemsTotal:
+          type: integer
+          format: double
+        tax:
+          type: integer
+          format: double
+        otherCharges:
+          type: integer
+          format: double
+        displayTotalMsg:
           type: boolean
-        ATGFailedStatus:
+        totalMsg:
           type: string
-        ATGOrderError:
+        jobTaxExempt:
           type: boolean
-        evOrderId:
-          type: string
     cartItemsFullRep:
       type: object
       properties:
@@ -1592,94 +1680,6 @@ components:
           - '200002'
           6mm:
           - '300003'
-    CurrentOrderReview_jobInfo:
-      type: object
-      properties:
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-        checked:
-          type: boolean
-    ShippingAddress_savedorder:
-      type: object
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        states:
-          type: array
-          items:
-            $ref: '#/components/schemas/RadioButton_savedorder'
-        postalCode:
-          type: string
-    AddressBook_getOrderShippingInfo:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-    creditpurchase_req:
-      type: object
-      properties:
-        payWithCredit:
-          type: boolean
-        cardInfo:
-          type: object
-          properties:
-            ExpMM:
-              type: string
-            ExpYY:
-              type: string
-            Type:
-              type: string
-            FullName:
-              type: string
-        encryptionTokenData:
-          type: object
-          properties:
-            LowValueToken:
-              type: string
-        addressVerificationData:
-          type: object
-          properties:
-            AVSZIPCode:
-              type: string
-    CurrentOrderReview_poJob:
-      type: object
-      properties:
-        poRequired:
-          type: boolean
-        jobNameRequired:
-          type: boolean
-        jobNumberRequired:
-          type: boolean
-        showJobName:
-          type: boolean
-        showJobNumber:
-          type: boolean
-        poName:
-          type: string
-        jobNumber:
-          type: string
-        jobName:
-          type: string
-        jobAccounts:
-          $ref: '#/components/schemas/CurrentOrderReview_jobAccounts'
-        showExtendedPO:
-          type: boolean
-        extendedPORequired:
-          type: boolean
   securitySchemes:
     JSESSIONID:
       type: apiKey

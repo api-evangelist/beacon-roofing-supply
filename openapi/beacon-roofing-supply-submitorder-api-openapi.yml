@@ -1,0 +1,217 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Submit Order API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: SubmitOrder
+paths:
+  /submitOrder:
+    post:
+      operationId: V2Controller_submitOrder
+      summary: Submits order
+      description: This service submits an order to the assigned branch for the selected account. Account holder can require jobNumber for each order processed within that account. Use get/jobs service to see if jobNumber is required for account. The “purchaseOrderNo” is assigned by account and does not need to be unique. The ""apiSiteId"" is is required to submit an order. The “itemNumber” or ""productOrItemDescription"", “quantity,” and “unitOfMeasure” fields are required lineItems. The “checkForAvailability” field should always be “No” to ensure orders are actually received by a branch representative. The “UUID” field is an optional field to send in UUID value to track orders.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/submitOrderBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/submitOrderResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - SubmitOrder
+components:
+  schemas:
+    submitOrderBody:
+      type: object
+      properties:
+        accountId:
+          type: string
+        job:
+          $ref: '#/components/schemas/Job'
+        purchaseOrderNo:
+          type: string
+        orderStatusCode:
+          type: string
+        apiSiteId:
+          type: string
+        lineItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/LineItem'
+        shipping:
+          $ref: '#/components/schemas/Shipping'
+        sellingBranch:
+          type: string
+        specialInstruction:
+          type: string
+        checkForAvailability:
+          type: string
+        pickupDate:
+          type: string
+        pickupTime:
+          type: string
+        onHold:
+          type: boolean
+        UUID:
+          type: string
+      required:
+      - accountId
+      - job
+      - purchaseOrderNo
+      - orderStatusCode
+      - apiSiteId
+      - lineItems
+      - shipping
+      - sellingBranch
+      - specialInstruction
+      - checkForAvailability
+      - pickupDate
+      - pickupTime
+      - onHold
+      - UUID
+    LineItem:
+      type: object
+      properties:
+        specialInstructions:
+          type: string
+        productOrItemNumber:
+          type: string
+        subTotal:
+          type: number
+        itemOrProductDescription:
+          type: string
+        unitPrice:
+          type: number
+        quantity:
+          type: number
+        itemNumber:
+          type: string
+        unitOfMeasure:
+          type: string
+        productImageUrl:
+          type: string
+        productOnErrorImageUrl:
+          type: string
+        productOrItemDescription:
+          type: string
+        extendedDescription:
+          type: string
+        lineComments:
+          type: string
+      required:
+      - specialInstructions
+      - productOrItemNumber
+      - subTotal
+      - itemOrProductDescription
+      - unitPrice
+      - quantity
+      - itemNumber
+      - unitOfMeasure
+      - productImageUrl
+      - productOnErrorImageUrl
+      - productOrItemDescription
+      - extendedDescription
+      - lineComments
+    Shipping:
+      type: object
+      properties:
+        shippingBranch:
+          type: number
+        address:
+          $ref: '#/components/schemas/Address'
+        shippingMethod:
+          type: string
+      required:
+      - shippingBranch
+      - address
+      - shippingMethod
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    submitOrderResponse:
+      type: object
+      properties:
+        orderId:
+          type: string
+      required:
+      - orderId
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber

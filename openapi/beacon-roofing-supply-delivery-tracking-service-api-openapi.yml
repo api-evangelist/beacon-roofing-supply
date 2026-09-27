@@ -384,41 +384,52 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    getStatusChangeNotification_rep:
+    saveDeliverySettingReq:
       type: object
       properties:
-        messageCode:
-          type: string
-        message:
-          type: string
-        emailAddress:
-          type: string
-        dtPhoneNumber:
-          type: string
-        dtStatusChangeNotification:
-          type: array
-          items:
-            $ref: '#/components/schemas/deliveryStatusObj'
-        dtAdminStatusChangeNotification:
-          type: array
-          items:
-            $ref: '#/components/schemas/deliveryStatusObj'
-        dtAccountStatusChangeNotification:
-          type: array
-          items:
-            $ref: '#/components/schemas/deliveryStatusObjWithAccount'
-        dtOrderStatusChangeNotification:
+        dtNotificationSettings:
           type: object
           properties:
-            notifications:
-              type: array
-              items:
-                $ref: '#/components/schemas/radioButtonObj'
-    deleteNotifications_req:
+            received:
+              type: boolean
+            scheduled:
+              type: boolean
+            ordered:
+              type: boolean
+            enRoute:
+              type: boolean
+            arrived:
+              type: boolean
+        disableStatus:
+          type: boolean
+        changeTime:
+          type: string
+        accounts:
+          type: array
+          items:
+            type: string
+        quoteNotificationSettings:
+          type: object
+          properties:
+            readyForReview:
+              type: boolean
+    BCPaginationDataObj:
       type: object
       properties:
-        deleteNotificationIds:
-          type: string
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
     UpcomingDeliveriesRep:
       type: object
       properties:
@@ -426,13 +437,120 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UpcomingDeliveryObj'
-    UserNotificationModification_req:
+    saveDeliverySetting_rep:
       type: object
       properties:
+        result:
+          type: string
+        message:
+          type: string
+        success:
+          type: boolean
+    getDeliverySetting_rep:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            dtNotificationSettings:
+              type: object
+              properties:
+                received:
+                  type: boolean
+                scheduled:
+                  type: boolean
+                ordered:
+                  type: boolean
+                enRoute:
+                  type: boolean
+                arrived:
+                  type: boolean
+            quoteNotificationSettings:
+              type: object
+              properties:
+                readyForReview:
+                  type: boolean
+            disableStatus:
+              type: boolean
+            changeTime:
+              type: string
+        success:
+          type: boolean
+        message:
+          type: string
+    UpcomingDeliveryObj:
+      type: object
+      properties:
+        jobNumber:
+          type: string
+        jobName:
+          type: string
+        branchNo:
+          type: string
+        customerNo:
+          type: string
+        street:
+          type: string
+        mincronOrderNo:
+          type: string
+        estimatedArrival:
+          type: string
+        estimatedArrivalDate:
+          type: string
+        plannedArrival:
+          type: string
+        plannedArrivalDate:
+          type: string
+        actualArrival:
+          type: string
+        salesPeople:
+          type: string
+        dtStatus:
+          type: string
+        dtDate:
+          type: string
+        po:
+          type: string
+        orderDetailLink:
+          type: string
+    statusChangeNotification:
+      type: object
+      properties:
+        requested:
+          type: string
+        scheduled:
+          type: string
+        delivered:
+          type: string
+    getNotifications_pagination:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
         userNotifications:
           type: array
           items:
-            $ref: '#/components/schemas/UserNotificationModification'
+            $ref: '#/components/schemas/UserNotificationItem'
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    getNotifications_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          type: string
+        result:
+          $ref: '#/components/schemas/getNotifications_pagination'
     statusChangeNotification_req:
       type: object
       properties:
@@ -475,76 +593,35 @@ components:
           type: number
           format: long
           description: Timestamp notification was created.
-    getDeliverySetting_rep:
+    deleteNotifications_req:
       type: object
       properties:
-        result:
-          type: object
-          properties:
-            dtNotificationSettings:
-              type: object
-              properties:
-                received:
-                  type: boolean
-                scheduled:
-                  type: boolean
-                ordered:
-                  type: boolean
-                enRoute:
-                  type: boolean
-                arrived:
-                  type: boolean
-            quoteNotificationSettings:
-              type: object
-              properties:
-                readyForReview:
-                  type: boolean
-            disableStatus:
-              type: boolean
-            changeTime:
-              type: string
-        success:
-          type: boolean
-        message:
+        deleteNotificationIds:
           type: string
-    saveDeliverySetting_rep:
+    UserNotificationModification:
       type: object
       properties:
-        result:
+        userNotificationId:
           type: string
-        message:
-          type: string
-        success:
+        readStatus:
           type: boolean
-    saveDeliverySettingReq:
+          description: Read status (has customer read notification) true or false.
+    UserNotificationModification_req:
       type: object
       properties:
-        dtNotificationSettings:
-          type: object
-          properties:
-            received:
-              type: boolean
-            scheduled:
-              type: boolean
-            ordered:
-              type: boolean
-            enRoute:
-              type: boolean
-            arrived:
-              type: boolean
-        disableStatus:
-          type: boolean
-        changeTime:
-          type: string
-        accounts:
+        userNotifications:
           type: array
           items:
-            type: string
-        quoteNotificationSettings:
-          type: object
-          properties:
-            readyForReview:
-              type: boolean
+            $ref: '#/components/schemas/UserNotificationModification'
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
     statusChangeNotification_rep:
       type: object
       properties:
@@ -561,61 +638,45 @@ components:
           type: string
         selected:
           type: boolean
-    deliveryStatusObj:
+    getStatusChangeNotification_rep:
       type: object
       properties:
-        displayName:
+        messageCode:
           type: string
-        label:
+        message:
           type: string
-        notifications:
+        emailAddress:
+          type: string
+        dtPhoneNumber:
+          type: string
+        dtStatusChangeNotification:
           type: array
           items:
-            $ref: '#/components/schemas/radioButtonObj'
-    UpcomingDeliveryObj:
-      type: object
-      properties:
-        jobNumber:
-          type: string
-        jobName:
-          type: string
-        branchNo:
-          type: string
-        customerNo:
-          type: string
-        street:
-          type: string
-        mincronOrderNo:
-          type: string
-        estimatedArrival:
-          type: string
-        estimatedArrivalDate:
-          type: string
-        plannedArrival:
-          type: string
-        plannedArrivalDate:
-          type: string
-        actualArrival:
-          type: string
-        salesPeople:
-          type: string
-        dtStatus:
-          type: string
-        dtDate:
-          type: string
-        po:
-          type: string
-        orderDetailLink:
-          type: string
-    getNotifications_pagination:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
-        userNotifications:
+            $ref: '#/components/schemas/deliveryStatusObj'
+        dtAdminStatusChangeNotification:
           type: array
           items:
-            $ref: '#/components/schemas/UserNotificationItem'
+            $ref: '#/components/schemas/deliveryStatusObj'
+        dtAccountStatusChangeNotification:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryStatusObjWithAccount'
+        dtOrderStatusChangeNotification:
+          type: object
+          properties:
+            notifications:
+              type: array
+              items:
+                $ref: '#/components/schemas/radioButtonObj'
+    deliveryStatusObjWithAccount:
+      type: object
+      properties:
+        accountId:
+          type: string
+        statusLabels:
+          type: array
+          items:
+            $ref: '#/components/schemas/deliveryStatusObj'
     accountStatusChangeNotification:
       type: object
       properties:
@@ -627,78 +688,17 @@ components:
           type: string
         accountId:
           type: string
-    BCPaginationDataObj:
+    deliveryStatusObj:
       type: object
       properties:
-        next:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        previous:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        pageSize:
-          type: integer
-        currentPage:
-          type: integer
-        totalCount:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPaginationObj'
-    BCPaginationObj:
-      type: object
-      properties:
-        enable:
-          type: boolean
-        page:
-          type: integer
-        currentPage:
-          type: boolean
-        type:
+        displayName:
           type: string
-    deliveryStatusObjWithAccount:
-      type: object
-      properties:
-        accountId:
-          type: string
-        statusLabels:
-          type: array
-          items:
-            $ref: '#/components/schemas/deliveryStatusObj'
-    getNotifications_rep:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          type: string
-        result:
-          $ref: '#/components/schemas/getNotifications_pagination'
-    statusChangeNotification:
-      type: object
-      properties:
-        requested:
-          type: string
-        scheduled:
-          type: string
-        delivered:
-          type: string
-    UserNotificationModification:
-      type: object
-      properties:
-        userNotificationId:
-          type: string
-        readStatus:
-          type: boolean
-          description: Read status (has customer read notification) true or false.
-    BCOtherPaginationObj:
-      type: object
-      properties:
-        available:
-          type: boolean
         label:
           type: string
-        page:
-          type: integer
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/radioButtonObj'
   securitySchemes:
     JSESSIONID:
       type: apiKey

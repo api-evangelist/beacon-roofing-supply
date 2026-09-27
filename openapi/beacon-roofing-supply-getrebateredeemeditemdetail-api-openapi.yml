@@ -1,0 +1,256 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Rebate Redeemed Item Detail API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetRebateRedeemedItemDetail
+paths:
+  /getRebateRedeemedItemDetail:
+    post:
+      operationId: V2Controller_getRebateRedeemedItemDetail
+      summary: Returns redeemed rebate details
+      description: 'Returns rebate details for redeemed by rebate Id.
+
+
+        "rebateId" is required field, optional fields include "searchKey", "searchValue", "pageNum".
+
+
+        param "searchKey" should be one of values["invoiceDate", "orderNumber", "category", "itemDesc"].
+
+
+        invoiceDate is formatted "MM-dd-yyyy" Example: "07-16-2019".'
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getRebateRedeemedItemDetailBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getRebateRedeemedItemDetailResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetRebateRedeemedItemDetail
+components:
+  schemas:
+    getRebateRedeemedItemDetailBody:
+      type: object
+      properties:
+        rebateId:
+          type: string
+        searchKey:
+          type: string
+        searchValue:
+          type: string
+        pageNum:
+          type: string
+      required:
+      - rebateId
+      - searchKey
+      - searchValue
+      - pageNum
+    Header:
+      type: object
+      properties:
+        promotionDates:
+          type: string
+        accountId:
+          type: string
+        submitDate:
+          type: string
+        id:
+          type: string
+        brand:
+          type: string
+        rebateId:
+          type: string
+        PDFUrl:
+          type: string
+        currencyUnit:
+          type: string
+        promotion:
+          type: string
+        projectedRebate:
+          type: string
+      required:
+      - promotionDates
+      - accountId
+      - submitDate
+      - id
+      - brand
+      - rebateId
+      - PDFUrl
+      - currencyUnit
+      - promotion
+      - projectedRebate
+    getRebateRedeemedItemDetailResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        header:
+          $ref: '#/components/schemas/Header'
+        body:
+          type: array
+          items:
+            $ref: '#/components/schemas/Body'
+      required:
+      - pagination
+      - header
+      - body
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    Body:
+      type: object
+      properties:
+        orderNumber:
+          type: string
+        itemStockUnitOfMeasure:
+          type: string
+        invoiceDate:
+          type: string
+        showSalesAmountAsPrice:
+          type: boolean
+        customerName:
+          type: string
+        projectedRebate:
+          type: string
+        promotionDates:
+          type: string
+        accountId:
+          type: string
+        quantityShipped:
+          type: string
+        salesAmount:
+          type: string
+        id:
+          type: string
+        itemDescription:
+          type: string
+        category:
+          type: string
+        projectedPromotionRebate:
+          type: string
+        rebateId:
+          type: string
+        currencyUnit:
+          type: string
+        promotion:
+          type: string
+      required:
+      - orderNumber
+      - itemStockUnitOfMeasure
+      - invoiceDate
+      - showSalesAmountAsPrice
+      - customerName
+      - projectedRebate
+      - promotionDates
+      - accountId
+      - quantityShipped
+      - salesAmount
+      - id
+      - itemDescription
+      - category
+      - projectedPromotionRebate
+      - rebateId
+      - currencyUnit
+      - promotion
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
+    Pagination:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        previous:
+          $ref: '#/components/schemas/Next'
+        pageSize:
+          type: number
+        currentPage:
+          type: number
+        totalCount:
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - next
+      - previous
+      - pageSize
+      - currentPage
+      - totalCount
+      - results

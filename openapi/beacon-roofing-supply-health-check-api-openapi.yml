@@ -26,6 +26,26 @@ paths:
           description: Internal exception
       operationId: getHealthCheck
       x-operation-id-source: derived
+  /V4/healthCheck:
+    get:
+      operationId: V4Controller_healthCheck
+      summary: Check if becn.com and mincron are up and running
+      parameters:
+      - name: siteId
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: sendEmail
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Health Check
 components:
   securitySchemes:
     JSESSIONID:

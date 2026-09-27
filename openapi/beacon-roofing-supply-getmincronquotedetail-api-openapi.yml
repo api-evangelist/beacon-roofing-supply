@@ -1,0 +1,124 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Mincron Quote Detail API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetMincronQuoteDetail
+paths:
+  /getMincronQuoteDetail:
+    post:
+      operationId: V2Controller_getMincronQuoteDetail
+      summary: Returns quote details for specific quote Id
+      description: Returns quote details for a specific quote Id from Mincron.
+      parameters:
+      - name: quoteId
+        required: false
+        in: path
+        description: Quote Id
+        schema:
+          type: string
+      - name: account
+        required: false
+        in: path
+        description: Account Id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getMincronQuoteDetailResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetMincronQuoteDetail
+components:
+  schemas:
+    getMincronQuoteDetailResponse:
+      type: object
+      properties:
+        quote:
+          $ref: '#/components/schemas/Quote'
+      required:
+      - quote
+    Quote:
+      type: object
+      properties:
+        edit:
+          type: boolean
+        upload:
+          type: boolean
+        submit:
+          type: boolean
+        update:
+          type: boolean
+        submitForm:
+          type: boolean
+        queryList:
+          type: boolean
+        queryListOpen:
+          type: boolean
+        queryListInProgress:
+          type: boolean
+        queryListProcessed:
+          type: boolean
+        queryDetailOpen:
+          type: boolean
+        queryDetailInProgress:
+          type: boolean
+        queryDetailProcessed:
+          type: boolean
+      required:
+      - edit
+      - upload
+      - submit
+      - update
+      - submitForm
+      - queryList
+      - queryListOpen
+      - queryListInProgress
+      - queryListProcessed
+      - queryDetailOpen
+      - queryDetailInProgress
+      - queryDetailProcessed

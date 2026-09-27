@@ -1,0 +1,261 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Switch Account API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: SwitchAccount
+paths:
+  /switchAccount:
+    post:
+      operationId: V1Controller_switchAccount
+      summary: Changes account for a user
+      description: Allows Beacon customer to change from one customer account to another account associated with that user profile.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/switchAccountBody'
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/switchAccountResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - SwitchAccount
+components:
+  schemas:
+    LastSelectedAccount:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+      required:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - cashAccount
+      - isAccountClosed
+    DeliveryTrackingSettings:
+      type: object
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+        myOrders:
+          $ref: '#/components/schemas/MyOrders'
+        allOrders:
+          $ref: '#/components/schemas/MyOrders'
+        dtAccount:
+          $ref: '#/components/schemas/MyOrders'
+      required:
+      - email
+      - phone
+      - myOrders
+      - allOrders
+      - dtAccount
+    MyOrders:
+      type: object
+      properties:
+        requested:
+          type: string
+        scheduled:
+          type: string
+        delivered:
+          type: string
+      required:
+      - requested
+      - scheduled
+      - delivered
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    switchAccountBody:
+      type: object
+      properties:
+        accountId:
+          type: string
+      required:
+      - accountId
+    switchAccountResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        accountBranch:
+          $ref: '#/components/schemas/AccountBranch'
+        lastName:
+          type: string
+        cartLineItems:
+          type: number
+        profileId:
+          type: string
+        firstName:
+          type: string
+        email:
+          type: string
+        login:
+          type: string
+        internalUser:
+          type: boolean
+        userType:
+          type: string
+        roleType:
+          type: string
+        rewardsEligible:
+          type: boolean
+        lastActivity:
+          type: string
+        lastPasswordUpdate:
+          type: string
+        registrationDate:
+          type: string
+        firstLoggedInDate:
+          type: string
+        defaultOrganization:
+          type: string
+        defaultOrganizationId:
+          type: string
+        lastSelectedAccount:
+          $ref: '#/components/schemas/LastSelectedAccount'
+        deliveryTrackingSettings:
+          $ref: '#/components/schemas/DeliveryTrackingSettings'
+        hasPrivateEVAccount:
+          type: boolean
+      required:
+      - message
+      - accountBranch
+      - lastName
+      - cartLineItems
+      - profileId
+      - firstName
+      - email
+      - login
+      - internalUser
+      - userType
+      - roleType
+      - rewardsEligible
+      - lastActivity
+      - lastPasswordUpdate
+      - registrationDate
+      - firstLoggedInDate
+      - defaultOrganization
+      - defaultOrganizationId
+      - lastSelectedAccount
+      - deliveryTrackingSettings
+      - hasPrivateEVAccount
+    AccountBranch:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+      required:
+      - address
+      - branchNumber
+      - branchName
+      - branchPhone
+      - branchRegionId
+      - company
+      - companyName
+      - division
+      - divisionName
+      - market

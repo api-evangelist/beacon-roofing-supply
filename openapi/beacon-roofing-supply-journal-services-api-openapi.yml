@@ -251,84 +251,6 @@ components:
                 type: string
               JRNLTRANSACTIONDESCRIPTION:
                 type: string
-    journalResp:
-      type: object
-      properties:
-        result:
-          type: object
-          properties:
-            rcode:
-              type: string
-            rtext:
-              type: string
-            scmd:
-              type: array
-              items:
-                type: object
-                properties:
-                  mtype:
-                    type: string
-                  mtext:
-                    type: string
-                  mclas:
-                    type: string
-                  mnumb:
-                    type: string
-        success:
-          example: true
-        messages:
-          type: string
-    journalCreateReq:
-      type: object
-      properties:
-        header:
-          type: object
-          properties:
-            JRNBLID:
-              type: string
-            JRNTRANSACTIONCURRENCY:
-              type: string
-            JRNINSTANCE:
-              type: string
-            JRNJOURNALTYPE:
-              type: string
-            JRNPURPOSE:
-              type: string
-            JRNREVERSALDATE:
-              type: string
-              format: date
-            PREPARERID:
-              type: string
-            JRNACCOUNTINGPERIOD:
-              type: string
-              format: date
-            JOURNALURL:
-              type: string
-            JRNJOURNALREFERENCECODE:
-              type: string
-        item:
-          type: array
-          items:
-            type: object
-            properties:
-              JRNLLINENUMBER:
-                type: string
-              JRNLCOMPANY:
-                type: string
-              JRNLBRANCH:
-                type: string
-              JRNLDEPARTMENT:
-                type: string
-              JRNLMAINACCOUNT:
-                type: string
-              JRNLSUBACCOUNT:
-                type: string
-              JRNLAMOUNT:
-                type: string
-              JRNLTRANSACTIONCURRENCY:
-                type: string
-              JRNLTRANSACTIONDESCRIPTION:
-                type: string
     journalValidateReq:
       type: object
       properties:
@@ -383,6 +305,84 @@ components:
                 type: string
               JRNLVENDOR:
                 type: string
+    journalCreateReq:
+      type: object
+      properties:
+        header:
+          type: object
+          properties:
+            JRNBLID:
+              type: string
+            JRNTRANSACTIONCURRENCY:
+              type: string
+            JRNINSTANCE:
+              type: string
+            JRNJOURNALTYPE:
+              type: string
+            JRNPURPOSE:
+              type: string
+            JRNREVERSALDATE:
+              type: string
+              format: date
+            PREPARERID:
+              type: string
+            JRNACCOUNTINGPERIOD:
+              type: string
+              format: date
+            JOURNALURL:
+              type: string
+            JRNJOURNALREFERENCECODE:
+              type: string
+        item:
+          type: array
+          items:
+            type: object
+            properties:
+              JRNLLINENUMBER:
+                type: string
+              JRNLCOMPANY:
+                type: string
+              JRNLBRANCH:
+                type: string
+              JRNLDEPARTMENT:
+                type: string
+              JRNLMAINACCOUNT:
+                type: string
+              JRNLSUBACCOUNT:
+                type: string
+              JRNLAMOUNT:
+                type: string
+              JRNLTRANSACTIONCURRENCY:
+                type: string
+              JRNLTRANSACTIONDESCRIPTION:
+                type: string
+    journalResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            rcode:
+              type: string
+            rtext:
+              type: string
+            scmd:
+              type: array
+              items:
+                type: object
+                properties:
+                  mtype:
+                    type: string
+                  mtext:
+                    type: string
+                  mclas:
+                    type: string
+                  mnumb:
+                    type: string
+        success:
+          example: true
+        messages:
+          type: string
   securitySchemes:
     internalAuth:
       type: http

@@ -1,0 +1,219 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services User API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: User
+paths:
+  /user:
+    post:
+      operationId: V2Controller_user
+      summary: Returns a list of users for an account
+      description: 'Returns a list of users for an account.
+
+
+        The available values for op field are eq, ne, contains, not_contains, start_with, end_with, not_start_with and not_end_with.
+
+
+        Request sample:
+
+
+        { "orgId":"100001", "query":{ "or": [{ "op":"eq", "property": "email", "value": "abc@example.com" }, { "op":"end_with", "property": "email", "value": "@example.com" }], "and": [{ "op":"eq", "property": "email", "value": "abc@example.com" }, { "op":"end_with", "property": "email", "value": "@example.com" }], "sortBy":"lastModifiedDate", "sortType":"desc", "pageIndex":1, "pageSize":10 } }'
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - User
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        lastActivity:
+          type: string
+        lastModifiedDate:
+          type: string
+        status:
+          type: string
+        rewardsEligible:
+          type: boolean
+      required:
+      - id
+      - email
+      - lastActivity
+      - lastModifiedDate
+      - status
+      - rewardsEligible
+    Query:
+      type: object
+      properties:
+        or:
+          type: array
+          items:
+            $ref: '#/components/schemas/Or'
+        and:
+          type: array
+          items:
+            $ref: '#/components/schemas/Or'
+        sortBy:
+          type: string
+        sortType:
+          type: string
+        pageIndex:
+          type: number
+        pageSize:
+          type: number
+      required:
+      - or
+      - and
+      - sortBy
+      - sortType
+      - pageIndex
+      - pageSize
+    userResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+      required:
+      - pagination
+      - users
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
+    Pagination:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        previous:
+          $ref: '#/components/schemas/Next'
+        pageSize:
+          type: number
+        currentPage:
+          type: number
+        totalCount:
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - next
+      - previous
+      - pageSize
+      - currentPage
+      - totalCount
+      - results
+    Or:
+      type: object
+      properties:
+        op:
+          type: string
+        property:
+          type: string
+        value:
+          $ref: '#/components/schemas/Value'
+      required:
+      - op
+      - property
+      - value
+    Value:
+      type: object
+      properties: {}
+    userBody:
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/Query'
+      required:
+      - query

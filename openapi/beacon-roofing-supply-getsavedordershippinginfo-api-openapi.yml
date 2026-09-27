@@ -1,0 +1,497 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Saved Order Shipping Info API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetSavedOrderShippingInfo
+paths:
+  /getSavedOrderShippingInfo:
+    post:
+      operationId: V2Controller_getSavedOrderShippingInfo
+      summary: Returns saved or pending order shipping information
+      description: Returns saved or pending order shipping information for given saved order Id.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getSavedOrderShippingInfoBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSavedOrderShippingInfoResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetSavedOrderShippingInfo
+components:
+  schemas:
+    BranchAddress:
+      type: object
+      properties:
+        displayName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+      required:
+      - displayName
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+      - state
+      - stateValue
+      - postalCode
+      - phoneNumber
+    getSavedOrderShippingInfoResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        siteId:
+          type: string
+        organizationId:
+          type: string
+        accountNumber:
+          type: string
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo'
+        creationDate:
+          type: string
+        createdUser:
+          type: string
+        submittedDate:
+          type: string
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          type: string
+        assignApproval:
+          $ref: '#/components/schemas/AssignApproval'
+        assignApprovalDisplayText:
+          type: string
+        submitApproval:
+          type: string
+        deleteStatus:
+          type: boolean
+        job:
+          $ref: '#/components/schemas/Job'
+        jobAccounts:
+          $ref: '#/components/schemas/JobAccounts'
+        approvedBy:
+          type: string
+        po:
+          type: string
+        emailAddress:
+          type: array
+          items:
+            type: string
+        deliveryOption:
+          type: string
+        deliveryOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        deliveryTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        shippingMethod:
+          type: string
+        shippingMethodValue:
+          type: string
+        shippingMethods:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        shippingAddressTitle:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress'
+        branchName:
+          type: string
+        branchAddress:
+          $ref: '#/components/schemas/BranchAddress'
+        instructions:
+          type: string
+        commerceItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommerceItem'
+        status:
+          type: string
+        statusDisplayName:
+          type: string
+        mincronId:
+          type: string
+        itemsTotal:
+          type: number
+        taxes:
+          type: number
+        otherCharges:
+          type: number
+        subTotal:
+          type: number
+        addressBooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBook'
+        addressBook:
+          $ref: '#/components/schemas/AddressBook'
+        storeLocatorItemId:
+          type: string
+        rejectReason:
+          type: string
+        rejectUserDisplayText:
+          type: string
+        rejectUser:
+          $ref: '#/components/schemas/AssignApproval'
+        showDeliveryNotification:
+          type: boolean
+        accountBranchState:
+          type: string
+      required:
+      - id
+      - displayName
+      - siteId
+      - organizationId
+      - accountNumber
+      - contactInfo
+      - creationDate
+      - createdUser
+      - submittedDate
+      - lastModifiedDate
+      - lastModifiedUser
+      - assignApproval
+      - assignApprovalDisplayText
+      - submitApproval
+      - deleteStatus
+      - job
+      - jobAccounts
+      - approvedBy
+      - po
+      - emailAddress
+      - deliveryOption
+      - deliveryOptions
+      - deliveryDate
+      - deliveryTime
+      - deliveryTimes
+      - shippingMethod
+      - shippingMethodValue
+      - shippingMethods
+      - shippingAddressTitle
+      - shippingAddress
+      - branchName
+      - branchAddress
+      - instructions
+      - commerceItems
+      - status
+      - statusDisplayName
+      - mincronId
+      - itemsTotal
+      - taxes
+      - otherCharges
+      - subTotal
+      - addressBooks
+      - addressBook
+      - storeLocatorItemId
+      - rejectReason
+      - rejectUserDisplayText
+      - rejectUser
+      - showDeliveryNotification
+      - accountBranchState
+    ContactInfo:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        phoneNumber:
+          type: string
+      required:
+      - firstName
+      - lastName
+      - nickName
+      - phoneNumber
+    AssignApproval:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+      required:
+      - id
+      - name
+      - email
+    ShippingAddress:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        stateValue:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        postalCode:
+          type: string
+        countryValue:
+          type: string
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        phoneNumber:
+          type: string
+      required:
+      - addressBookId
+      - nickName
+      - firstName
+      - lastName
+      - address1
+      - address2
+      - address3
+      - city
+      - stateValue
+      - states
+      - postalCode
+      - countryValue
+      - countries
+      - phoneNumber
+    DeliveryOption:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected
+    JobAccounts:
+      type: object
+      properties:
+        unavailable:
+          type: boolean
+        unavailableMsg:
+          type: string
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+      required:
+      - unavailable
+      - unavailableMsg
+      - jobs
+    AddressBook:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        accountLegacyId:
+          type: string
+        accountName:
+          type: string
+        addressBookInfo:
+          $ref: '#/components/schemas/AddressBookInfo'
+      required:
+      - addressBookId
+      - accountLegacyId
+      - accountName
+      - addressBookInfo
+    getSavedOrderShippingInfoBody:
+      type: object
+      properties:
+        orderId:
+          type: string
+      required:
+      - orderId
+    CommerceItem:
+      type: object
+      properties:
+        id:
+          type: string
+        imageUrl:
+          type: string
+        imageOnErrorUrl:
+          type: string
+        thumbImageUrl:
+          type: string
+        pdpUrl:
+          type: string
+        description:
+          type: string
+        itemNumber:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: number
+        uom:
+          type: string
+        subTotal:
+          type: number
+        deleteStatus:
+          type: boolean
+        vendorColorId:
+          type: string
+        productId:
+          type: string
+        itemGrayOutLevel:
+          type: string
+      required:
+      - id
+      - imageUrl
+      - imageOnErrorUrl
+      - thumbImageUrl
+      - pdpUrl
+      - description
+      - itemNumber
+      - price
+      - quantity
+      - uom
+      - subTotal
+      - deleteStatus
+      - vendorColorId
+      - productId
+      - itemGrayOutLevel
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber
+    AddressBookInfo:
+      type: object
+      properties:
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        countryValue:
+          type: string
+        phoneNumber:
+          type: string
+      required:
+      - nickName
+      - firstName
+      - lastName
+      - address1
+      - address2
+      - city
+      - state
+      - stateValue
+      - postalCode
+      - country
+      - countryValue
+      - phoneNumber

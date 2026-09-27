@@ -1,0 +1,165 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Pricing API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Pricing
+paths:
+  /pricing:
+    get:
+      operationId: V2Controller_pricing
+      summary: Returns price and unit of measure for item number(s)
+      description: Returns price and unit of measure for item numbers. Items with no unit of measure will return “EMPTY_UOM” in response. There is no limit in the number of items in query.
+      parameters:
+      - name: skuIds
+        required: false
+        in: path
+        description: 'skuIds: Separate SKU Id''s with commas.<br><br>Example: "253729,253737,253740"<br><br>If querying for items specified by unit of measure, add unit of measure followed by colon.<br><br>Example: "253729:BDL,253737,253740:PC"'
+        schema:
+          type: string
+      - name: accountId
+        required: false
+        in: path
+        description: Account Id
+        schema:
+          type: string
+      - name: jobNumber
+        required: false
+        in: path
+        description: Job Number
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pricingResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - Pricing
+components:
+  schemas:
+    pricingResponse:
+      type: object
+      properties:
+        priceInfo:
+          $ref: '#/components/schemas/PriceInfo'
+        orderPricing:
+          $ref: '#/components/schemas/OrderPricing'
+        unavailableSkuList:
+          type: array
+          items:
+            type: string
+      required:
+      - priceInfo
+      - orderPricing
+      - unavailableSkuList
+    _2537402:
+      type: object
+      properties:
+        PC:
+          type: number
+      required:
+      - PC
+    _253729:
+      type: object
+      properties:
+        BDL:
+          type: number
+        PC:
+          type: number
+      required:
+      - BDL
+      - PC
+    _253737:
+      type: object
+      properties:
+        CTN:
+          type: number
+      required:
+      - CTN
+    PriceInfo:
+      type: object
+      properties:
+        '253729':
+          $ref: '#/components/schemas/_253729'
+        '253737':
+          $ref: '#/components/schemas/_253737'
+        '253740':
+          $ref: '#/components/schemas/_253740'
+      required:
+      - '253729'
+      - '253737'
+      - '253740'
+    _253740:
+      type: object
+      properties:
+        CTN:
+          type: number
+        PC:
+          type: number
+      required:
+      - CTN
+      - PC
+    OrderPricing:
+      type: object
+      properties:
+        '253729':
+          $ref: '#/components/schemas/_2537292'
+        '253737':
+          $ref: '#/components/schemas/_253737'
+        '253740':
+          $ref: '#/components/schemas/_2537402'
+      required:
+      - '253729'
+      - '253737'
+      - '253740'
+    _2537292:
+      type: object
+      properties:
+        BDL:
+          type: number
+      required:
+      - BDL

@@ -1,0 +1,71 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Upload Order Related Documents API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: UploadOrderRelatedDocuments
+paths:
+  /uploadOrderRelatedDocuments:
+    post:
+      operationId: V2Controller_uploadOrderRelatedDocuments
+      summary: Uploads order related documents
+      description: Uploads order related documents in .jpg,.pdf, or*.xls(x) format to a quote, saved order or completed order.
+      parameters:
+      - name: orderId
+        required: true
+        in: path
+        description: The ATG order number, saved order Id, or quote order Id.
+        schema:
+          type: string
+      - name: relatedDocuments
+        required: false
+        in: path
+        description: The document to attach to quote, saved order or completed order. File size should be between 0KB~5MB and file count should between 0-10. Accepted file types include .jpg,.pdf, or*.xls(x).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - UploadOrderRelatedDocuments

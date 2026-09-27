@@ -1,0 +1,113 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Download Order Detail As PDF API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: DownloadOrderDetailAsPDF
+paths:
+  /downloadOrderDetailAsPDF:
+    get:
+      operationId: V2Controller_downloadOrderDetailAsPDF
+      summary: Returns order detail in PDF
+      description: Returns order details by order number in PDF to download.
+      parameters:
+      - name: orderId
+        required: true
+        in: path
+        description: orderId Order Number
+        schema:
+          type: string
+      - name: accountId
+        required: true
+        in: path
+        description: Account Id
+        schema:
+          type: string
+      - name: accountToken
+        required: false
+        in: path
+        description: Account Token
+        schema:
+          type: string
+      - name: branchId
+        required: false
+        in: path
+        description: branchId Branch Number
+        schema:
+          type: string
+      - name: showBackToOrderDetailPageLink
+        required: false
+        in: path
+        description: Show back to order detail page link on download PDF or not
+        schema:
+          type: boolean
+      - name: showPrice
+        required: false
+        in: path
+        description: Show price on download PDF or not
+        schema:
+          type: boolean
+      - name: showShipTips
+        required: false
+        in: path
+        description: Show shipping tips on download PDF or not
+        schema:
+          type: boolean
+      - name: enableSwitchOrderQty
+        required: false
+        in: path
+        description: If order items quantity is enable to be switched between shipped quantity and ordered quantity
+        schema:
+          type: boolean
+      - name: showShipQty
+        required: false
+        in: path
+        description: Show order items shipping quantity on download PDF or not
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - DownloadOrderDetailAsPDF

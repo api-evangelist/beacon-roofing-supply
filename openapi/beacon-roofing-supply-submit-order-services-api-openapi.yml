@@ -143,6 +143,39 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    creditpurchase_req:
+      type: object
+      properties:
+        payWithCredit:
+          type: boolean
+        cardInfo:
+          type: object
+          properties:
+            ExpMM:
+              type: string
+            ExpYY:
+              type: string
+            Type:
+              type: string
+            FullName:
+              type: string
+        encryptionTokenData:
+          type: object
+          properties:
+            LowValueToken:
+              type: string
+        addressVerificationData:
+          type: object
+          properties:
+            AVSZIPCode:
+              type: string
+    submitOrderRep:
+      type: object
+      properties:
+        orderId:
+          type: string
+        mincronCCMsg:
+          type: string
     submitOrderReq:
       type: object
       properties:
@@ -222,6 +255,26 @@ components:
               type: string
             attachEncodeFile:
               type: string
+    shippingObj:
+      type: object
+      properties:
+        shippingMethod:
+          type: string
+        shippingBranch:
+          type: string
+        address:
+          type: object
+          properties:
+            address1:
+              type: string
+            address2:
+              type: string
+            city:
+              type: string
+            postalCode:
+              type: string
+            state:
+              type: string
     ATGItemMapping_req:
       type: object
       properties:
@@ -249,59 +302,6 @@ components:
           type: string
         integrationName:
           type: string
-    submitOrderRep:
-      type: object
-      properties:
-        orderId:
-          type: string
-        mincronCCMsg:
-          type: string
-    shippingObj:
-      type: object
-      properties:
-        shippingMethod:
-          type: string
-        shippingBranch:
-          type: string
-        address:
-          type: object
-          properties:
-            address1:
-              type: string
-            address2:
-              type: string
-            city:
-              type: string
-            postalCode:
-              type: string
-            state:
-              type: string
-    creditpurchase_req:
-      type: object
-      properties:
-        payWithCredit:
-          type: boolean
-        cardInfo:
-          type: object
-          properties:
-            ExpMM:
-              type: string
-            ExpYY:
-              type: string
-            Type:
-              type: string
-            FullName:
-              type: string
-        encryptionTokenData:
-          type: object
-          properties:
-            LowValueToken:
-              type: string
-        addressVerificationData:
-          type: object
-          properties:
-            AVSZIPCode:
-              type: string
   securitySchemes:
     JSESSIONID:
       type: apiKey

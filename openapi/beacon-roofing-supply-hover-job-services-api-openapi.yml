@@ -206,24 +206,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/HoverJobListItem'
-    getHoverJobListImage_rep:
-      type: string
-      example: https://hover.to/.../xxxxxx.jpg?version=...
-    HoverJobListItem:
+    HoverJobDetailImage:
       type: object
       properties:
-        jobId:
+        id:
           type: string
-        time:
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
           type: string
-        title:
-          type: string
-        location:
-          type: string
-        cityAndRegion:
-          type: string
-        completedAt:
-          type: string
+        page:
+          type: integer
     BCPaginationDataObj:
       type: object
       properties:
@@ -252,6 +248,27 @@ components:
           type: boolean
         type:
           type: string
+    HoverJobListItem:
+      type: object
+      properties:
+        jobId:
+          type: string
+        time:
+          type: string
+        title:
+          type: string
+        location:
+          type: string
+        cityAndRegion:
+          type: string
+        completedAt:
+          type: string
+    getHoverJobDetailImage_rep:
+      type: string
+      example: https://hover.to/.../xxxxxx.jpg?version=...
+    getHoverJobListImage_rep:
+      type: string
+      example: https://hover.to/.../xxxxxx.jpg?version=...
     getHoverJobDetail_rep:
       type: object
       properties:
@@ -357,23 +374,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/HoverJobDetailImage'
-    getHoverJobDetailImage_rep:
-      type: string
-      example: https://hover.to/.../xxxxxx.jpg?version=...
-    BCOtherPaginationObj:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: integer
-    HoverJobDetailImage:
-      type: object
-      properties:
-        id:
-          type: string
   securitySchemes:
     JSESSIONID:
       type: apiKey

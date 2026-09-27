@@ -1,0 +1,176 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Status Change API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetStatusChange
+paths:
+  /getStatusChange:
+    get:
+      operationId: V2Controller_getStatusChange
+      summary: Returns delivery status change for an order
+      description: This returns a request that displays the methods that were used to send delivery tracking notifications for an order.
+      parameters:
+      - name: orderId
+        required: false
+        in: path
+        description: ATG Order Id
+        schema:
+          type: string
+      - name: orderNumber
+        required: false
+        in: path
+        description: Order Id
+        schema:
+          type: string
+      - name: savedOrderId
+        required: false
+        in: path
+        description: Saved Order Id
+        schema:
+          type: string
+      - name: accountId
+        required: false
+        in: path
+        description: Account Legacy Number
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getStatusChangeResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetStatusChange
+components:
+  schemas:
+    DtAccountStatusChangeNotification:
+      type: object
+      properties:
+        requested:
+          type: string
+        scheduled:
+          type: string
+        delivered:
+          type: string
+        accountId:
+          type: string
+      required:
+      - requested
+      - scheduled
+      - delivered
+      - accountId
+    getStatusChangeResponse:
+      type: object
+      properties:
+        messageCode:
+          type: string
+        message:
+          type: string
+        emailAddress:
+          type: string
+        dtPhoneNumber:
+          type: string
+        dtStatusChangeNotifacation:
+          type: array
+          items:
+            $ref: '#/components/schemas/DtStatusChangeNotifacation'
+        dtAdminStatusChangeNotifacaton:
+          type: array
+          items:
+            $ref: '#/components/schemas/DtStatusChangeNotifacation'
+        dtAccountStatusChangeNotification:
+          type: array
+          items:
+            $ref: '#/components/schemas/DtAccountStatusChangeNotification'
+        dtOrderStatusChangeNotifacation:
+          $ref: '#/components/schemas/DtOrderStatusChangeNotifacation'
+      required:
+      - messageCode
+      - message
+      - emailAddress
+      - dtPhoneNumber
+      - dtStatusChangeNotifacation
+      - dtAdminStatusChangeNotifacaton
+      - dtAccountStatusChangeNotification
+      - dtOrderStatusChangeNotifacation
+    Notification:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected
+    DtOrderStatusChangeNotifacation:
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+      required:
+      - notifications
+    DtStatusChangeNotifacation:
+      type: object
+      properties:
+        displayName:
+          type: string
+        label:
+          type: string
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+      required:
+      - displayName
+      - label
+      - notifications

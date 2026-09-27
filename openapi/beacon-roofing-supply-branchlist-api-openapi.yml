@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Branchlist API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Branchlist
+paths:
+  /branchlist:
+    get:
+      operationId: V1Controller_branchlist
+      summary: Lists all available branches
+      description: Returns available branches within a zip code or city.
+      parameters:
+      - name: zipCode
+        required: false
+        in: path
+        description: Branch postal code
+        schema:
+          type: string
+      - name: city
+        required: false
+        in: path
+        description: Branch city
+        schema:
+          type: string
+      - name: pageSize
+        required: false
+        in: path
+        description: Default page size is 21
+        schema:
+          type: number
+      - name: pageNo
+        required: false
+        in: path
+        description: Default page number is 1, the first page
+        schema:
+          type: number
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/branchListResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - Branchlist
+components:
+  schemas:
+    branchListResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        totalNumRecs:
+          type: number
+        pageNumRecs:
+          type: number
+        branches:
+          type: array
+          items:
+            $ref: '#/components/schemas/Branch'
+      required:
+      - message
+      - totalNumRecs
+      - pageNumRecs
+      - branches
+    Branch:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+      required:
+      - address
+      - branchNumber
+      - branchName
+      - branchPhone
+      - branchRegionId
+      - company
+      - companyName
+      - division
+      - divisionName
+      - market
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city

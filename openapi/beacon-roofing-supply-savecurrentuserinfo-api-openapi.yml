@@ -1,0 +1,116 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Save Current User Info API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: SaveCurrentUserInfo
+paths:
+  /saveCurrentUserInfo:
+    post:
+      operationId: V2Controller_saveCurrentUserInfo
+      summary: Saves current user details
+      description: This call updates user account information.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/saveCurrentUserInfoBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - SaveCurrentUserInfo
+components:
+  schemas:
+    saveCurrentUserInfoBody:
+      type: object
+      properties:
+        title:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        contactPhoneNumber:
+          type: string
+        officePhoneNumber:
+          type: string
+        mobilePhoneNumber:
+          type: string
+        subscribeOrder:
+          type: boolean
+        subscribeQuote:
+          type: boolean
+        subscribeAccount:
+          type: boolean
+      required:
+      - title
+      - firstName
+      - lastName
+      - address1
+      - address2
+      - city
+      - state
+      - postalCode
+      - country
+      - contactPhoneNumber
+      - officePhoneNumber
+      - mobilePhoneNumber
+      - subscribeOrder
+      - subscribeQuote
+      - subscribeAccount

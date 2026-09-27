@@ -1,0 +1,103 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Login Declaration API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetLoginDeclaration
+paths:
+  /getLoginDeclaration:
+    get:
+      operationId: V1Controller_getLoginDeclaration
+      summary: Returns Terms and Conditions for persistent login
+      description: If user clicks on “keep me signed in” on the login page, user will need to agree to the terms and conditions to remain logged into PRO+.
+      parameters:
+      - name: siteId
+        required: false
+        in: path
+        description: Default is `homeSite`, should be one of `homeSite`, `dealersChoice`
+        schema:
+          type: string
+      - name: persistentLoginType
+        required: false
+        in: path
+        description: Default is `RememberMe`, should be one of `RememberMe`, `RememberPassword`
+        schema:
+          type: string
+      - name: userAgent
+        required: false
+        in: path
+        description: Default is `desktop`, should be one of `desktop`, `tablet`, `mobile`
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getLoginDeclarationResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetLoginDeclaration
+components:
+  schemas:
+    getLoginDeclarationResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        titles:
+          type: array
+          items:
+            type: string
+        declarationContent:
+          type: string
+        CTA:
+          type: array
+          items:
+            type: string
+      required:
+      - message
+      - titles
+      - declarationContent
+      - CTA

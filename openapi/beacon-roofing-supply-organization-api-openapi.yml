@@ -1,0 +1,313 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Organization API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Organization
+paths:
+  /organization:
+    get:
+      operationId: V2Controller_organization
+      summary: Returns list of organizations for current user
+      description: Returns list of organizations and permissions for current user.
+      parameters: []
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organizationResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - Organization
+components:
+  schemas:
+    Permission2:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+        isGroup:
+          type: boolean
+      required:
+      - name
+      - type
+      - permissions
+      - isGroup
+    organizationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        masterAdmin:
+          $ref: '#/components/schemas/MasterAdmin'
+      required:
+      - id
+      - name
+      - masterAdmin
+    PermissionValues:
+      type: object
+      properties:
+        aa:
+          type: boolean
+        bb:
+          type: boolean
+        cc:
+          type: boolean
+      required:
+      - aa
+      - bb
+      - cc
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission2'
+      required:
+      - id
+      - displayName
+      - permissions
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    Permission:
+      type: object
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        groupId:
+          type: string
+        name:
+          type: string
+        displayName:
+          type: string
+        type:
+          type: string
+        isAuthorised:
+          type: boolean
+        isDisabled:
+          type: boolean
+        isFixed:
+          type: boolean
+      required:
+      - id
+      - key
+      - groupId
+      - name
+      - displayName
+      - type
+      - isAuthorised
+      - isDisabled
+      - isFixed
+    Branch:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+      required:
+      - address
+      - branchNumber
+      - branchName
+      - branchPhone
+      - branchRegionId
+      - company
+      - companyName
+      - division
+      - divisionName
+      - market
+    MasterAdmin:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        assignedAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        lastActivity:
+          type: string
+        lastModifiedDate:
+          type: string
+        status:
+          type: string
+        permissionValues:
+          $ref: '#/components/schemas/PermissionValues'
+        active:
+          type: boolean
+        currentTemplate:
+          type: string
+        lastModifiedUserId:
+          type: string
+        userIsSelf:
+          type: boolean
+        internalUser:
+          type: string
+        userType:
+          type: string
+        rewardsEligible:
+          type: boolean
+      required:
+      - id
+      - firstName
+      - lastName
+      - title
+      - phone
+      - email
+      - role
+      - accounts
+      - assignedAccounts
+      - lastActivity
+      - lastModifiedDate
+      - status
+      - permissionValues
+      - active
+      - currentTemplate
+      - lastModifiedUserId
+      - userIsSelf
+      - internalUser
+      - userType
+      - rewardsEligible
+    Account:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        rewardsEligible:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+        branch:
+          $ref: '#/components/schemas/Branch'
+      required:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - rewardsEligible
+      - cashAccount
+      - isAccountClosed
+      - branch

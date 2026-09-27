@@ -1,0 +1,102 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Favorite Products API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetFavoriteProducts
+paths:
+  /getFavoriteProducts:
+    get:
+      operationId: V2Controller_getFavoriteProducts
+      summary: Returns favorite products
+      description: Returns the top one hundred recently purchased products based on account Id.
+      parameters:
+      - name: accountId
+        required: true
+        in: path
+        description: Account Id
+        schema:
+          type: string
+      - name: displaySize
+        required: false
+        in: path
+        description: Default is 3, max is 100
+        schema:
+          type: string
+      - name: checkImageExist
+        required: false
+        in: path
+        description: Default is true and will return items that have images.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getFavoriteProductsResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetFavoriteProducts
+components:
+  schemas:
+    getFavoriteProductsResponse:
+      type: object
+      properties:
+        totalNumRecs:
+          type: number
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+      required:
+      - totalNumRecs
+      - items
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter

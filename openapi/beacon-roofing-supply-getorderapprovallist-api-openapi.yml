@@ -1,0 +1,306 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Order Approval List API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetOrderApprovalList
+paths:
+  /getOrderApprovalList:
+    post:
+      operationId: V2Controller_getOrderApprovalList
+      summary: Returns list of all saved or pending orders
+      description: 'Returns list of all saved or pending orders.
+
+        If approverId is empty, it will return all saved / pending orders
+
+        If approverId is not empty, it will return "Pending Order by Approver"
+
+
+        1. sortBy value
+
+
+        Pending Order: displayName, accountNumber, createdUser, submittedDate
+
+
+        Saved Order: displayName, accountNumber, lastModifiedDate, status, creationDate, submittedDate
+
+
+        2. status value
+
+
+        Pending Order: READY_FOR_APPROVAL
+
+
+        Saved Order: READY_FOR_SUBMISSION
+
+
+        Rejected Order: REJECTED_ORDER
+
+
+        3. searchBy value
+
+
+        Pending Order: displayName, accountNumber, createdUser.email, submittedDate
+
+
+        Saved: Order: displayName, accountNumber, creationDate, createdUser.name, createdUser.email,
+
+        lastModifiedDate, lastModifiedUser.name, lastModifiedUser.email, submittedDate, submittedUser.name, submittedUser.email
+
+
+        4. searchBy "submittedDate" or "creationDate".Format value is ''MM-dd-yyyy''.eg, 07 - 30 - 2019
+
+
+        5. "sortBy" "searchBy" are not required.But if value is set, response is limited by the given values.'
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getOrderApprovalListBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getOrderApprovalListResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetOrderApprovalList
+components:
+  schemas:
+    getOrderApprovalListResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+      required:
+      - pagination
+      - orders
+    Pagination:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        previous:
+          $ref: '#/components/schemas/Next'
+        pageSize:
+          type: number
+        currentPage:
+          type: number
+        totalCount:
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - next
+      - previous
+      - pageSize
+      - currentPage
+      - totalCount
+      - results
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    Shipping:
+      type: object
+      properties:
+        shippingBranch:
+          type: number
+        address:
+          $ref: '#/components/schemas/Address'
+        shippingMethod:
+          type: string
+      required:
+      - shippingBranch
+      - address
+      - shippingMethod
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
+    getOrderApprovalListBody:
+      type: object
+      properties:
+        approverId:
+          type: string
+        currentPage:
+          type: number
+        pageSize:
+          type: number
+        searchBy:
+          type: string
+        searchTerm:
+          type: string
+        sortBy:
+          type: string
+        sortType:
+          type: string
+        status:
+          type: string
+      required:
+      - approverId
+      - currentPage
+      - pageSize
+      - searchBy
+      - searchTerm
+      - sortBy
+      - sortType
+      - status
+    Order:
+      type: object
+      properties:
+        total:
+          type: number
+        sellingBranch:
+          type: string
+        accountId:
+          type: string
+        orderNumber:
+          type: string
+        job:
+          $ref: '#/components/schemas/Job'
+        purchaseOrderNo:
+          type: string
+        creditHold:
+          type: string
+        shipping:
+          $ref: '#/components/schemas/Shipping'
+        orderPlacedDate:
+          type: string
+        tax:
+          type: number
+        orderStatusCode:
+          type: string
+        subTotal:
+          type: number
+        orderId:
+          type: string
+        specialInstruction:
+          type: string
+        UUID:
+          type: string
+      required:
+      - total
+      - sellingBranch
+      - accountId
+      - orderNumber
+      - job
+      - purchaseOrderNo
+      - creditHold
+      - shipping
+      - orderPlacedDate
+      - tax
+      - orderStatusCode
+      - subTotal
+      - orderId
+      - specialInstruction
+      - UUID
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber

@@ -903,49 +903,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    messagesObj:
-      type: array
-      items:
-        type: object
-        properties:
-          type:
-            type: string
-          value:
-            type: string
-          code:
-            type: string
-    createQuoteItemObj:
-      type: object
-      properties:
-        itemId:
-          type: string
-        itemType:
-          type: string
-        quantity:
-          type: integer
-        uom:
-          type: string
-        color:
-          type: string
-        dimensions:
-          type: string
-        displayName:
-          type: string
-    quote_rep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-        draftQuote:
-          $ref: '#/components/schemas/quoteListObj'
-        inProcessQuote:
-          $ref: '#/components/schemas/quoteListObj'
-        receivedQuote:
-          $ref: '#/components/schemas/quoteListObj'
     EditQuoteInfoBaseObj:
       type: object
       properties:
@@ -989,85 +946,53 @@ components:
         validate:
           type: boolean
           description: default is true, if false, ignore request body validation except quote name.
-    EditDelegatedQuoteInfoObj:
-      allOf:
-      - type: object
-        properties:
-          accountId:
-            type: string
-            description: accountId on whose behalf quote is submitted
-          branchId:
-            type: string
-            description: branchIdId to which the quote is submitted
-          apiSiteId:
-            type: string
-            description: Api Site Id
-      - $ref: '#/components/schemas/EditDelegatedQuoteInfoBaseObj'
-    approveQuote_req:
+    quoteObj:
       type: object
       properties:
         quoteId:
           type: string
-    quoteDetailItemObj:
+        quoteName:
+          type: string
+        creationDate:
+          type: string
+          format: MM-dd-yyyy
+        expirationDate:
+          type: string
+          format: MM-dd-yyyy
+        status:
+          type: string
+        displayStatus:
+          type: string
+          description: The value is one of Available, Partially Available and Complete
+        createdBy:
+          type: string
+    BCPaginationDataObj:
       type: object
       properties:
-        id:
-          type: string
-        itemNumber:
-          type: string
-        itemType:
-          type: string
-        displayName:
-          type: string
-        productId:
-          type: string
-        quantity:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
           type: integer
-          format: long
-        unitOfMeasure:
-          type: string
-        deleteStatus:
-          type: boolean
-        imageURL:
-          type: string
-        imageOnErrorUrl:
-          type: string
-        PDPUrl:
-          type: string
-        productNumber:
-          type: string
-        unitPrice:
+        currentPage:
           type: integer
-          format: long
-        itemDescription:
-          type: string
-        itemTotalPrice:
+        totalCount:
           type: integer
-          format: long
-        currencySymbol:
-          type: string
-        stickerImageURL:
-          type: string
-        formatUnitPrice:
-          type: string
-        formatItemTotalPrice:
-          type: string
-        color:
-          type: string
-        dimensions:
-          type: string
-        itemAvailableQty:
-          type: integer
-          format: long
-        itemUsedupQty:
-          type: integer
-          format: long
-        itemRemainingQty:
-          type: integer
-          format: long
-        itemOrderInfo:
-          $ref: '#/components/schemas/quoteItemOrderInfoObj'
-    EditQuoteInfoObj:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    quoteListObj:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        quoteList:
+          type: array
+          items:
+            $ref: '#/components/schemas/quoteObj'
+    EditDelegatedQuoteInfoBaseObj:
       allOf:
       - $ref: '#/components/schemas/EditQuoteInfoBaseObj'
       - type: object
@@ -1075,21 +1000,7 @@ components:
           quoteItems:
             type: array
             items:
-              $ref: '#/components/schemas/EditQuoteItemObj'
-    submitDelegatedQuote_req:
-      $ref: '#/components/schemas/EditDelegatedQuoteInfoObj'
-    reviseQuote_req:
-      type: object
-      properties:
-        quoteId:
-          type: string
-        quoteNotes:
-          type: string
-    deleteQuote_req:
-      type: object
-      properties:
-        quoteId:
-          type: string
+              $ref: '#/components/schemas/EditDelegatedQuoteItemObj'
     quoteDetailObj:
       type: object
       properties:
@@ -1211,6 +1122,54 @@ components:
           type: string
         jobTaxExempt:
           type: boolean
+    createQuoteItemObj:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemType:
+          type: string
+        quantity:
+          type: integer
+        uom:
+          type: string
+        color:
+          type: string
+        dimensions:
+          type: string
+        displayName:
+          type: string
+    quote_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+        draftQuote:
+          $ref: '#/components/schemas/quoteListObj'
+        inProcessQuote:
+          $ref: '#/components/schemas/quoteListObj'
+        receivedQuote:
+          $ref: '#/components/schemas/quoteListObj'
+    rejectQuote_req:
+      type: object
+      properties:
+        quoteId:
+          type: string
+        reason:
+          type: string
+          description: "Available Reason.\n * Price is Too High\n * Lost Bid\n * Product Not Available\n * Product Will Arrive Late\n * Other\n"
+        additionalReason:
+          type: string
+          description: It's optional, when the user selects 'Other' as a reason, this field accepts an additional reason.
+    getQuoteDetail_rep:
+      type: object
+      properties:
+        quote:
+          $ref: '#/components/schemas/quoteDetailObj'
     updateQuote_req:
       type: object
       properties:
@@ -1268,43 +1227,25 @@ components:
         lastModifiedDate:
           type: string
           format: date
-    EditDelegatedQuoteInfoBaseObj:
-      allOf:
-      - $ref: '#/components/schemas/EditQuoteInfoBaseObj'
-      - type: object
-        properties:
-          quoteItems:
-            type: array
-            items:
-              $ref: '#/components/schemas/EditDelegatedQuoteItemObj'
-    EditDelegatedQuoteItemObj:
-      allOf:
-      - $ref: '#/components/schemas/EditQuoteItemObj'
-      - type: object
-        properties:
-          netPrice:
-            type: string
-            description: net price for each item
-    createQuote_rep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-    rejectQuote_req:
+    deleteQuote_req:
       type: object
       properties:
         quoteId:
           type: string
-        reason:
-          type: string
-          description: "Available Reason.\n * Price is Too High\n * Lost Bid\n * Product Not Available\n * Product Will Arrive Late\n * Other\n"
-        additionalReason:
-          type: string
-          description: It's optional, when the user selects 'Other' as a reason, this field accepts an additional reason.
+    EditDelegatedQuoteInfoObj:
+      allOf:
+      - type: object
+        properties:
+          accountId:
+            type: string
+            description: accountId on whose behalf quote is submitted
+          branchId:
+            type: string
+            description: branchIdId to which the quote is submitted
+          apiSiteId:
+            type: string
+            description: Api Site Id
+      - $ref: '#/components/schemas/EditDelegatedQuoteInfoBaseObj'
     quoteItemOrderInfoObj:
       type: object
       properties:
@@ -1318,23 +1259,39 @@ components:
         backorderQuantity:
           type: integer
           format: long
-    BCPaginationDataObj:
+    submitQuote_rep:
       type: object
       properties:
-        next:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        previous:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        pageSize:
-          type: integer
-        currentPage:
-          type: integer
-        totalCount:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPaginationObj'
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
+          type: boolean
+        result:
+          type: object
+          properties:
+            quoteNumber:
+              type: string
+            quoteStatus:
+              type: string
+    EditDelegatedQuoteItemObj:
+      allOf:
+      - $ref: '#/components/schemas/EditQuoteItemObj'
+      - type: object
+        properties:
+          netPrice:
+            type: string
+            description: net price for each item
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
     BCPaginationObj:
       type: object
       properties:
@@ -1346,6 +1303,114 @@ components:
           type: boolean
         type:
           type: string
+    createQuote_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    EditQuoteItemObj:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemType:
+          type: string
+        quantity:
+          type: integer
+        uom:
+          type: string
+        displayName:
+          type: string
+        color:
+          type: string
+        dimensions:
+          type: string
+    approveQuote_req:
+      type: object
+      properties:
+        quoteId:
+          type: string
+    quoteDetailItemObj:
+      type: object
+      properties:
+        id:
+          type: string
+        itemNumber:
+          type: string
+        itemType:
+          type: string
+        displayName:
+          type: string
+        productId:
+          type: string
+        quantity:
+          type: integer
+          format: long
+        unitOfMeasure:
+          type: string
+        deleteStatus:
+          type: boolean
+        imageURL:
+          type: string
+        imageOnErrorUrl:
+          type: string
+        PDPUrl:
+          type: string
+        productNumber:
+          type: string
+        unitPrice:
+          type: integer
+          format: long
+        itemDescription:
+          type: string
+        itemTotalPrice:
+          type: integer
+          format: long
+        currencySymbol:
+          type: string
+        stickerImageURL:
+          type: string
+        formatUnitPrice:
+          type: string
+        formatItemTotalPrice:
+          type: string
+        color:
+          type: string
+        dimensions:
+          type: string
+        itemAvailableQty:
+          type: integer
+          format: long
+        itemUsedupQty:
+          type: integer
+          format: long
+        itemRemainingQty:
+          type: integer
+          format: long
+        itemOrderInfo:
+          $ref: '#/components/schemas/quoteItemOrderInfoObj'
+    EditQuoteInfoObj:
+      allOf:
+      - $ref: '#/components/schemas/EditQuoteInfoBaseObj'
+      - type: object
+        properties:
+          quoteItems:
+            type: array
+            items:
+              $ref: '#/components/schemas/EditQuoteItemObj'
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
     updateQuoteItemsObj:
       type: object
       properties:
@@ -1372,34 +1437,6 @@ components:
           type: string
         dimensions:
           type: string
-    BCOtherPaginationObj:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: integer
-    getQuoteDetail_rep:
-      type: object
-      properties:
-        quote:
-          $ref: '#/components/schemas/quoteDetailObj'
-    submitQuote_rep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        success:
-          type: boolean
-        result:
-          type: object
-          properties:
-            quoteNumber:
-              type: string
-            quoteStatus:
-              type: string
     submitQuoteForm_req:
       type: object
       properties:
@@ -1430,15 +1467,8 @@ components:
         quoteNotes:
           type: string
           description: The Quote Nodes
-    quoteListObj:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
-        quoteList:
-          type: array
-          items:
-            $ref: '#/components/schemas/quoteObj'
+    submitDelegatedQuote_req:
+      $ref: '#/components/schemas/EditDelegatedQuoteInfoObj'
     createQuote_req:
       type: object
       properties:
@@ -1486,45 +1516,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/createQuoteItemObj'
-    submitQuote_req:
-      $ref: '#/components/schemas/EditQuoteInfoObj'
-    quoteObj:
+    reviseQuote_req:
       type: object
       properties:
         quoteId:
           type: string
-        quoteName:
+        quoteNotes:
           type: string
-        creationDate:
-          type: string
-          format: MM-dd-yyyy
-        expirationDate:
-          type: string
-          format: MM-dd-yyyy
-        status:
-          type: string
-        displayStatus:
-          type: string
-          description: The value is one of Available, Partially Available and Complete
-        createdBy:
-          type: string
-    EditQuoteItemObj:
-      type: object
-      properties:
-        itemId:
-          type: string
-        itemType:
-          type: string
-        quantity:
-          type: integer
-        uom:
-          type: string
-        displayName:
-          type: string
-        color:
-          type: string
-        dimensions:
-          type: string
+    submitQuote_req:
+      $ref: '#/components/schemas/EditQuoteInfoObj'
   securitySchemes:
     JSESSIONID:
       type: apiKey

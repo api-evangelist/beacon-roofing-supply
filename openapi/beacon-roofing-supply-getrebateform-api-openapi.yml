@@ -1,0 +1,162 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Rebate Form API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetRebateForm
+paths:
+  /getRebateForm:
+    get:
+      operationId: V2Controller_getRebateForm
+      summary: Returns rebate form
+      description: Returns rebate form to be completed by customer and submitted to Beacon.
+      parameters:
+      - name: rebateId
+        required: true
+        in: path
+        description: RebateId Id
+        schema:
+          type: string
+      - name: invokeBy
+        required: false
+        in: path
+        description: If value is "store", will store logic
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getRebateFormResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetRebateForm
+components:
+  schemas:
+    getRebateFormResponse:
+      type: object
+      properties:
+        rebateId:
+          type: string
+        rebateName:
+          type: string
+        ableSubmit:
+          type: boolean
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/Row'
+      required:
+      - rebateId
+      - rebateName
+      - ableSubmit
+      - rows
+    Row:
+      type: object
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        placeHolder:
+          type: string
+        value:
+          type: string
+        required:
+          type: boolean
+        type:
+          type: string
+        infoGroup:
+          type: string
+        maxLength:
+          type: number
+        minLength:
+          type: number
+        email:
+          type: boolean
+        phone:
+          type: boolean
+        zip:
+          type: boolean
+        numeric:
+          type: boolean
+        pattern:
+          type: string
+        css:
+          type: string
+        invalidMsg:
+          type: string
+        selectValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/SelectValue'
+      required:
+      - name
+      - label
+      - placeHolder
+      - value
+      - required
+      - type
+      - infoGroup
+      - maxLength
+      - minLength
+      - email
+      - phone
+      - zip
+      - numeric
+      - pattern
+      - css
+      - invalidMsg
+      - selectValues
+    SelectValue:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+      required:
+      - displayName
+      - value

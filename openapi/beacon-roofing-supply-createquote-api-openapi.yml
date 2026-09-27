@@ -1,0 +1,199 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Create Quote API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: CreateQuote
+paths:
+  /createQuote:
+    post:
+      operationId: V2Controller_createQuote
+      summary: Creates quote for current user
+      description: 'Creates quote for a current user.
+
+
+        itemType:
+
+
+        "I": Internal quote item
+
+
+        "E": External quote item. If items vary in color and / or dimensions, select itemType "E"'
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createQuoteBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createQuoteResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - CreateQuote
+components:
+  schemas:
+    QuoteItem:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemType:
+          type: string
+        quantity:
+          type: number
+        uom:
+          type: string
+        color:
+          type: string
+        dimensions:
+          type: string
+        displayName:
+          type: string
+      required:
+      - itemId
+      - itemType
+      - quantity
+      - uom
+      - color
+      - dimensions
+      - displayName
+    Message:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+        code:
+          type: string
+      required:
+      - type
+      - value
+      - code
+    createQuoteBody:
+      type: object
+      properties:
+        quoteName:
+          type: string
+        phoneNumber:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        statusDescription:
+          type: string
+        workType:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        quoteNotes:
+          type: string
+        mailingAddress1:
+          type: string
+        mailingAddress2:
+          type: string
+        mailingAddress3:
+          type: string
+        mailingState:
+          type: string
+        mailingCity:
+          type: string
+        mailingZip:
+          type: string
+        expires:
+          type: string
+        validate:
+          type: boolean
+        quoteItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteItem'
+      required:
+      - quoteName
+      - phoneNumber
+      - address1
+      - address2
+      - city
+      - state
+      - statusDescription
+      - workType
+      - jobName
+      - jobNumber
+      - quoteNotes
+      - mailingAddress1
+      - mailingAddress2
+      - mailingAddress3
+      - mailingState
+      - mailingCity
+      - mailingZip
+      - expires
+      - validate
+      - quoteItems
+    createQuoteResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        messageCode:
+          type: number
+        success:
+          type: boolean
+      required:
+      - messages
+      - messageCode
+      - success

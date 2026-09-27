@@ -1,0 +1,254 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Template Detail API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetTemplateDetail
+paths:
+  /getTemplateDetail:
+    get:
+      operationId: V2Controller_getTemplateDetail
+      summary: Returns template details for a given template
+      description: Returns template details for a given template Id.
+      parameters:
+      - name: templateId
+        required: true
+        in: path
+        description: template Id
+        schema:
+          type: string
+      - name: account
+        required: true
+        in: path
+        description: Account Id
+        schema:
+          type: string
+      - name: showItems
+        required: false
+        in: path
+        description: Default is false. If “true”, response will display template items
+        schema:
+          type: string
+      - name: showItemVariations
+        required: false
+        in: path
+        description: Default is false. If "true", response will display variations of each template item
+        schema:
+          type: string
+      - name: showPricing
+        required: false
+        in: path
+        description: Default is false. If "true", response will display pricing of each template item
+        schema:
+          type: string
+      - name: showItemAvailable
+        required: false
+        in: path
+        description: Default is true. If "false", response will not display item availability in region
+        schema:
+          type: string
+      - name: invokeBy
+        required: false
+        in: path
+        description: If value is "store", will do the store logic which is the legacy logic in place to enable search function or filtering.
+        schema:
+          type: string
+      - name: jobNumber
+        required: false
+        in: path
+        description: The job number.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTemplateDetailResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetTemplateDetail
+components:
+  schemas:
+    ImageUrl:
+      type: object
+      properties:
+        thumbnail:
+          type: string
+        large:
+          type: string
+      required:
+      - thumbnail
+      - large
+    TemplateItem:
+      type: object
+      properties:
+        templateItemId:
+          type: string
+        productImageUrl:
+          type: string
+        productOnErrorImageUrl:
+          type: string
+        itemOrProductDescription:
+          type: string
+        itemNumber:
+          type: string
+        nickName:
+          type: string
+        productOrItemNumber:
+          type: string
+        internalProductName:
+          type: string
+        currentVariation:
+          $ref: '#/components/schemas/CurrentVariation'
+        variations:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrentVariation'
+        unitPrice:
+          type: number
+        unitOfMeasure:
+          type: string
+        quantity:
+          type: number
+        available:
+          type: boolean
+        imageUrl:
+          $ref: '#/components/schemas/ImageUrl'
+      required:
+      - templateItemId
+      - productImageUrl
+      - productOnErrorImageUrl
+      - itemOrProductDescription
+      - itemNumber
+      - nickName
+      - productOrItemNumber
+      - internalProductName
+      - currentVariation
+      - variations
+      - unitPrice
+      - unitOfMeasure
+      - quantity
+      - available
+      - imageUrl
+    LastModifiedUser:
+      type: object
+      properties:
+        profileId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        emailAddress:
+          type: string
+      required:
+      - profileId
+      - firstName
+      - lastName
+      - emailAddress
+    Option:
+      type: object
+      properties:
+        optionId:
+          type: string
+        optionName:
+          type: string
+        opectionChecked:
+          type: boolean
+        skuId:
+          type: string
+      required:
+      - optionId
+      - optionName
+      - opectionChecked
+      - skuId
+    CurrentVariation:
+      type: object
+      properties:
+        typeId:
+          type: string
+        typeName:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+      required:
+      - typeId
+      - typeName
+      - options
+    getTemplateDetailResponse:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          $ref: '#/components/schemas/LastModifiedUser'
+        accountLegacyId:
+          type: string
+        isAccountClosed:
+          type: boolean
+        accountName:
+          type: string
+        createdByUser:
+          $ref: '#/components/schemas/LastModifiedUser'
+        templateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateItem'
+      required:
+      - templateId
+      - templateName
+      - lastModifiedDate
+      - lastModifiedUser
+      - accountLegacyId
+      - isAccountClosed
+      - accountName
+      - createdByUser
+      - templateItems

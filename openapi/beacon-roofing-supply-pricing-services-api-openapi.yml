@@ -77,42 +77,13 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    quotePriceRequest:
+    itemPricingResp:
       type: object
-      required:
-      - account
-      - brnNumber
-      - item
       properties:
-        account:
-          type: string
-        jobNumber:
-          type: string
-        branchNumber:
-          type: string
-        bidNumber:
-          type: string
-        item:
+        bizItemPrices:
           type: array
           items:
-            $ref: '#/components/schemas/pricingItem'
-    priceRequest:
-      type: object
-      required:
-      - account
-      - brnNumber
-      - item
-      properties:
-        account:
-          type: string
-        jobNumber:
-          type: string
-        branchNumber:
-          type: string
-        item:
-          type: array
-          items:
-            $ref: '#/components/schemas/pricingItem'
+            $ref: '#/components/schemas/itemPrice'
     pricingItem:
       type: object
       required:
@@ -161,13 +132,42 @@ components:
           type: string
         warning:
           type: string
-    itemPricingResp:
+    quotePriceRequest:
       type: object
+      required:
+      - account
+      - brnNumber
+      - item
       properties:
-        bizItemPrices:
+        account:
+          type: string
+        jobNumber:
+          type: string
+        branchNumber:
+          type: string
+        bidNumber:
+          type: string
+        item:
           type: array
           items:
-            $ref: '#/components/schemas/itemPrice'
+            $ref: '#/components/schemas/pricingItem'
+    priceRequest:
+      type: object
+      required:
+      - account
+      - brnNumber
+      - item
+      properties:
+        account:
+          type: string
+        jobNumber:
+          type: string
+        branchNumber:
+          type: string
+        item:
+          type: array
+          items:
+            $ref: '#/components/schemas/pricingItem'
   securitySchemes:
     internalAuth:
       type: http

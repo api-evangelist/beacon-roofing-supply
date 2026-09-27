@@ -1,0 +1,260 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Orderhistory API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Orderhistory
+paths:
+  /orderhistory:
+    get:
+      operationId: V2Controller_orderhistory
+      summary: Returns orders listed by order id
+      description: Returns order information for each order including order totals, selling branch, special instructions, and shipping information.
+      parameters:
+      - name: accountId
+        required: true
+        in: path
+        description: Account Id
+        schema:
+          type: number
+      - name: pageSize
+        required: false
+        in: path
+        description: Default page size is 0
+        schema:
+          type: number
+      - name: pageNo
+        required: false
+        in: path
+        description: Default page no is 0
+        schema:
+          type: number
+      - name: filter
+        required: false
+        in: path
+        description: '<h4>Notice</h4><p>The filter value should be URL encoded to avoid special characters issues(e.g. % with numbers)</p><h4>filter enumeration</h4><ul><li>UPPER(OrderNumber) like UPPER("%XX%")</li><li>ShippingAddress1 like "%XXX%" or UPPER(ShippingAddress2) like UPPER("%XXX%")</li><li>UPPER(PurchaseOrderNumber) like UPPER("%XX%")</li><li>UPPER(JobName) like UPPER("%XX%")</li><li>UPPER(Ordered) > "YYYY-MM-DD" and UPPER(Ordered) < "YYYY-MM-DD"</li><li>UPPER(OrderStatusCode) in ("C", "K")</li><li>UPPER(OrderStatusCode) in ("I")</li><li>UPPER(OrderStatusCode) in ("O")</li><li>UPPER(OrderStatusCode) in ("N")</li><li>UPPER(OrderStatusCode) in ("P", "R")</li><li>UPPER(ItemOrProductDescription) like UPPER("%XXX%") or ItemNumber like "%XXX%"</li><li>UPPER(SourceOfSale) like UPPER("C") or UPPER(SourceOfSale) like UPPER("E")</li><li>UPPER(SourceOfSale) in ("C") or UPPER(SourceOfSale) in ("E")</li><li>UPPER(SourceOfSale) = "C" or UPPER(SourceOfSale) = "E"</ul></li><h4>OrderStatusCode mapping</h4><ul><li>C, K: Processing</li><li>I: Invoiced</li><li>O: Ready Delivery / Pick up</li><li>N: Pending</li><li>P, R: Delivered</li></ul><h4>SourceOfSale mapping</h4><ul><li>C: In - Store</li><li>E: Online</li></ul>'
+        schema:
+          type: string
+      - name: orderBy
+        required: false
+        in: path
+        description: <h4>orderBy enumeration</h4><ul><li>OrderNumber ASC/ DESC</li><li>ShippingAddress1 ASC / DESC</li><li>Total ASC / DESC</li><li>OrderStatusCode ASC / DESC</li><li>SourceOfSale ASC / DESC</li></ul>
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orderhistoryResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - Orderhistory
+components:
+  schemas:
+    orderhistoryResponse:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+      - orders
+      - pagination
+    Pagination:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        previous:
+          $ref: '#/components/schemas/Next'
+        pageSize:
+          type: number
+        currentPage:
+          type: number
+        totalCount:
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - next
+      - previous
+      - pageSize
+      - currentPage
+      - totalCount
+      - results
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    Shipping:
+      type: object
+      properties:
+        shippingBranch:
+          type: number
+        address:
+          $ref: '#/components/schemas/Address'
+        shippingMethod:
+          type: string
+      required:
+      - shippingBranch
+      - address
+      - shippingMethod
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
+    Order:
+      type: object
+      properties:
+        total:
+          type: number
+        sellingBranch:
+          type: string
+        accountId:
+          type: string
+        orderNumber:
+          type: string
+        job:
+          $ref: '#/components/schemas/Job'
+        purchaseOrderNo:
+          type: string
+        creditHold:
+          type: string
+        shipping:
+          $ref: '#/components/schemas/Shipping'
+        orderPlacedDate:
+          type: string
+        tax:
+          type: number
+        orderStatusCode:
+          type: string
+        subTotal:
+          type: number
+        orderId:
+          type: string
+        specialInstruction:
+          type: string
+        UUID:
+          type: string
+      required:
+      - total
+      - sellingBranch
+      - accountId
+      - orderNumber
+      - job
+      - purchaseOrderNo
+      - creditHold
+      - shipping
+      - orderPlacedDate
+      - tax
+      - orderStatusCode
+      - subTotal
+      - orderId
+      - specialInstruction
+      - UUID
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber

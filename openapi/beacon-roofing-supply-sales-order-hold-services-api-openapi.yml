@@ -83,28 +83,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    createSalesOrderResp:
-      type: object
-      properties:
-        result:
-          type: object
-          properties:
-            Response:
-              type: object
-              properties:
-                Result:
-                  type: string
-                Message:
-                  type: string
-        success:
-          example: true
-        code:
-          type: number
-    createSalesOrderHoldReq:
-      type: object
-      properties:
-        salesOrderHold-data:
-          $ref: '#/components/schemas/salesOrderHoldData'
     salesOrderHoldData:
       type: object
       properties:
@@ -144,6 +122,28 @@ components:
           type: string
         released-by:
           type: string
+    createSalesOrderHoldReq:
+      type: object
+      properties:
+        salesOrderHold-data:
+          $ref: '#/components/schemas/salesOrderHoldData'
+    createSalesOrderResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            Response:
+              type: object
+              properties:
+                Result:
+                  type: string
+                Message:
+                  type: string
+        success:
+          example: true
+        code:
+          type: number
   securitySchemes:
     internalAuth:
       type: http

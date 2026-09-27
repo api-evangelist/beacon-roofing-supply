@@ -1,0 +1,174 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Product Info API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetProductInfo
+paths:
+  /getProductInfo:
+    get:
+      operationId: V1Controller_getProductInfo
+      summary: Returns list of accounts by Product Id
+      description: Returns list of accounts where product is available for Hover.
+      parameters:
+      - name: productId
+        required: false
+        in: path
+        description: Product Id
+        schema:
+          type: string
+      - name: accountInfo
+        required: true
+        in: path
+        description: If true, return all accounts as a list for which the product should be served (accounts that have the product as available). Default is false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getProductInfoResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetProductInfo
+components:
+  schemas:
+    getProductInfoResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        hoverAttributes:
+          $ref: '#/components/schemas/HoverAttributes'
+        accounts:
+          type: array
+          items:
+            type: string
+      required:
+      - message
+      - hoverAttributes
+      - accounts
+    HoverAttributes:
+      type: object
+      properties:
+        sellingUom:
+          type: string
+        piecesPerUom:
+          type: string
+        coverageUom:
+          type: string
+        ppCoverageUom:
+          type: string
+        lengthExposure:
+          type: string
+        widthExposure:
+          type: string
+        lengthHover:
+          type: string
+        widthHover:
+          type: string
+        ncpSellingUom:
+          type: string
+        gcpSellingUom:
+          type: string
+        sslvoDimensionIn:
+          type: string
+        sswhoDimensionOption1In:
+          type: string
+        sswhoDimensionOption2In:
+          type: string
+        sswhoDimensionOption3In:
+          type: string
+        lslvoDimensionIn:
+          type: string
+        lswhoDimensionIn:
+          type: string
+        rvlvoDimensionIn:
+          type: string
+        rvwhoDimensionIn:
+          type: string
+        nfvaHover:
+          type: string
+        nfvaUomHover:
+          type: string
+        fhLapIn:
+          type: string
+        fvLapIn:
+          type: string
+        chLapIn:
+          type: string
+        cvLapIn:
+          type: string
+        cfmValue:
+          type: string
+        cfmUom:
+          type: string
+      required:
+      - sellingUom
+      - piecesPerUom
+      - coverageUom
+      - ppCoverageUom
+      - lengthExposure
+      - widthExposure
+      - lengthHover
+      - widthHover
+      - ncpSellingUom
+      - gcpSellingUom
+      - sslvoDimensionIn
+      - sswhoDimensionOption1In
+      - sswhoDimensionOption2In
+      - sswhoDimensionOption3In
+      - lslvoDimensionIn
+      - lswhoDimensionIn
+      - rvlvoDimensionIn
+      - rvwhoDimensionIn
+      - nfvaHover
+      - nfvaUomHover
+      - fhLapIn
+      - fvLapIn
+      - chLapIn
+      - cvLapIn
+      - cfmValue
+      - cfmUom

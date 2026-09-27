@@ -1,0 +1,187 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Update Quote API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: UpdateQuote
+paths:
+  /updateQuote:
+    post:
+      operationId: V2Controller_updateQuote
+      summary: Updates quote information
+      description: 'Updates quote information or items in a quote.Items can be created, updated or deleted within an existing quote.
+
+
+        item "action":
+
+
+        UPDATE_QUOTE
+
+
+        CREATE_ITEM
+
+
+        UPDATE_ITEM
+
+
+        DELETE_ITEM'
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateQuoteBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - UpdateQuote
+components:
+  schemas:
+    QuoteItem:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemType:
+          type: string
+        quantity:
+          type: number
+        uom:
+          type: string
+        color:
+          type: string
+        dimensions:
+          type: string
+        displayName:
+          type: string
+      required:
+      - itemId
+      - itemType
+      - quantity
+      - uom
+      - color
+      - dimensions
+      - displayName
+    updateQuoteBody:
+      type: object
+      properties:
+        id:
+          type: string
+        quoteName:
+          type: string
+        phoneNumber:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        workType:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        postalCode:
+          type: string
+        quoteNotes:
+          type: string
+        mailingAddress1:
+          type: string
+        mailingAddress2:
+          type: string
+        mailingAddress3:
+          type: string
+        mailingState:
+          type: string
+        mailingCity:
+          type: string
+        mailingZip:
+          type: string
+        expires:
+          type: string
+        action:
+          type: string
+        quoteItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteItem'
+        deleteItems:
+          type: array
+          items:
+            type: string
+        creationDate:
+          type: string
+        lastModifiedDate:
+          type: string
+      required:
+      - id
+      - quoteName
+      - phoneNumber
+      - address1
+      - address2
+      - city
+      - state
+      - workType
+      - jobName
+      - jobNumber
+      - postalCode
+      - quoteNotes
+      - mailingAddress1
+      - mailingAddress2
+      - mailingAddress3
+      - mailingState
+      - mailingCity
+      - mailingZip
+      - expires
+      - action
+      - quoteItems
+      - deleteItems
+      - creationDate
+      - lastModifiedDate

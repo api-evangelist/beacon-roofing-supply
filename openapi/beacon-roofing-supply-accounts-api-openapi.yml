@@ -1,0 +1,179 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Accounts API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Accounts
+paths:
+  /accounts:
+    get:
+      operationId: V1Controller_accounts
+      summary: Lists available accounts for a user
+      description: Returns available accounts for a user using the profile Id from GET/getCurrentUserInfo.
+      parameters:
+      - name: profileId
+        required: true
+        in: path
+        description: User profile Id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/accountResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - Accounts
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    accountResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        totalNumRecs:
+          type: number
+        pageNumRecs:
+          type: number
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+      required:
+      - message
+      - totalNumRecs
+      - pageNumRecs
+      - accounts
+    Branch:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+      required:
+      - address
+      - branchNumber
+      - branchName
+      - branchPhone
+      - branchRegionId
+      - company
+      - companyName
+      - division
+      - divisionName
+      - market
+    Account:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        rewardsEligible:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+        branch:
+          $ref: '#/components/schemas/Branch'
+      required:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - rewardsEligible
+      - cashAccount
+      - isAccountClosed
+      - branch

@@ -1,0 +1,227 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Mincron Mapping API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: MincronMapping
+paths:
+  /mincronMapping:
+    get:
+      operationId: V3Controller_mincronMapping
+      summary: Returns Mincron mapping products
+      description: Returns products mapped to an item number from the product description for a specific customer.
+      parameters:
+      - name: accountId
+        required: true
+        in: query
+        description: Account Id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mincronMappingResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      security:
+      - basic: []
+      tags:
+      - MincronMapping
+components:
+  schemas:
+    HoverAttributes:
+      type: object
+      properties:
+        sellingUom:
+          type: string
+        piecesPerUom:
+          type: string
+        coverageUom:
+          type: string
+        ppCoverageUom:
+          type: string
+        lengthExposure:
+          type: string
+        widthExposure:
+          type: string
+        lengthHover:
+          type: string
+        widthHover:
+          type: string
+        ncpSellingUom:
+          type: string
+        gcpSellingUom:
+          type: string
+        sslvoDimensionIn:
+          type: string
+        sswhoDimensionOption1In:
+          type: string
+        sswhoDimensionOption2In:
+          type: string
+        sswhoDimensionOption3In:
+          type: string
+        lslvoDimensionIn:
+          type: string
+        lswhoDimensionIn:
+          type: string
+        rvlvoDimensionIn:
+          type: string
+        rvwhoDimensionIn:
+          type: string
+        nfvaHover:
+          type: string
+        nfvaUomHover:
+          type: string
+        fhLapIn:
+          type: string
+        fvLapIn:
+          type: string
+        chLapIn:
+          type: string
+        cvLapIn:
+          type: string
+        cfmValue:
+          type: string
+        cfmUom:
+          type: string
+      required:
+      - sellingUom
+      - piecesPerUom
+      - coverageUom
+      - ppCoverageUom
+      - lengthExposure
+      - widthExposure
+      - lengthHover
+      - widthHover
+      - ncpSellingUom
+      - gcpSellingUom
+      - sslvoDimensionIn
+      - sswhoDimensionOption1In
+      - sswhoDimensionOption2In
+      - sswhoDimensionOption3In
+      - lslvoDimensionIn
+      - lswhoDimensionIn
+      - rvlvoDimensionIn
+      - rvwhoDimensionIn
+      - nfvaHover
+      - nfvaUomHover
+      - fhLapIn
+      - fvLapIn
+      - chLapIn
+      - cvLapIn
+      - cfmValue
+      - cfmUom
+    Product:
+      type: object
+      properties:
+        productImage:
+          type: string
+        productOnErrorImage:
+          type: string
+        longDesc:
+          type: string
+        manufactureNumber:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        shortDesc:
+          type: string
+        itemNumber:
+          type: string
+        hoverAttributes:
+          $ref: '#/components/schemas/HoverAttributes'
+        productName:
+          type: string
+        productId:
+          type: string
+        baseProductName:
+          type: string
+        internalProductName:
+          type: string
+        brand:
+          type: string
+        url:
+          type: string
+        relatedProducts:
+          type: array
+          items:
+            type: string
+      required:
+      - productImage
+      - productOnErrorImage
+      - longDesc
+      - manufactureNumber
+      - categories
+      - shortDesc
+      - itemNumber
+      - hoverAttributes
+      - productName
+      - productId
+      - baseProductName
+      - internalProductName
+      - brand
+      - url
+      - relatedProducts
+    mincronMappingResponse:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+      required:
+      - products
+    Category:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+      required:
+      - categoryName
+      - categoryId

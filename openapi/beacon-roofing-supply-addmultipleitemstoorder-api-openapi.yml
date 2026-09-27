@@ -1,0 +1,191 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Add Multiple Items To Order API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: AddMultipleItemsToOrder
+paths:
+  /addMultipleItemsToOrder:
+    post:
+      operationId: V2Controller_addMultipleItemsToOrder
+      summary: Adds multiple items to the cart
+      description: Adds multiple items to a cart. "items.color" should be either "vendor color name(code)" or "vendor color name".
+      parameters:
+      - name: ignoreInvalidItems
+        required: true
+        in: path
+        description: if "true", will ignore invalid items and continue add valid items to cart, otherwise will return invalid items
+        schema:
+          type: boolean
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addMultipleItemsToOrderBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addMultipleItemsToOrderResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - AddMultipleItemsToOrder
+components:
+  schemas:
+    UnavailableItem:
+      type: object
+      properties:
+        id:
+          type: string
+        failedReason:
+          type: string
+      required:
+      - id
+      - failedReason
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter
+    Shipping:
+      type: object
+      properties:
+        shippingBranch:
+          type: number
+        address:
+          $ref: '#/components/schemas/Address'
+        shippingMethod:
+          type: string
+      required:
+      - shippingBranch
+      - address
+      - shippingMethod
+    VendorColorNotMatchedItem:
+      type: object
+      properties:
+        id:
+          type: string
+        matchColor:
+          type: string
+        matchMFG:
+          type: string
+      required:
+      - id
+      - matchColor
+      - matchMFG
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    addMultipleItemsToOrderBody:
+      type: object
+      properties:
+        addItemCount:
+          type: number
+        accountId:
+          type: string
+        specialInstructions:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        jobNumber:
+          type: string
+        shipping:
+          $ref: '#/components/schemas/Shipping'
+      required:
+      - addItemCount
+      - accountId
+      - specialInstructions
+      - items
+      - jobNumber
+      - shipping
+    addMultipleItemsToOrderResponse:
+      type: object
+      properties:
+        allItemsUnavailable:
+          type: boolean
+        unavailableItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnavailableItem'
+        addedToCartItems:
+          type: array
+          items:
+            type: string
+        vendorColorNotMatchedItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/VendorColorNotMatchedItem'
+      required:
+      - allItemsUnavailable
+      - unavailableItems
+      - addedToCartItems
+      - vendorColorNotMatchedItems

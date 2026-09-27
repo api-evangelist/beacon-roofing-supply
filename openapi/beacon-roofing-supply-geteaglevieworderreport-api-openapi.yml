@@ -1,0 +1,233 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Eagle View Order Report API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetEagleViewOrderReport
+paths:
+  /getEagleViewOrderReport:
+    get:
+      operationId: V2Controller_getEagleViewOrderReport
+      summary: Returns information for an Eagle View report
+      description: Returns information about a single Eagle View Order by report Id.
+      parameters:
+      - name: reportId
+        required: false
+        in: path
+        description: Report Id.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getEagleViewOrderReportResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetEagleViewOrderReport
+components:
+  schemas:
+    getEagleViewOrderReportResponse:
+      type: object
+      properties:
+        ReportId:
+          type: number
+        Street:
+          type: string
+        BuildingId:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        Zip:
+          type: string
+        Latitude:
+          type: number
+        Longitude:
+          type: number
+        ClaimNumber:
+          type: string
+        ClaimInfo:
+          type: string
+        BatchId:
+          type: string
+        CatId:
+          type: string
+        DatePlaced:
+          type: string
+        DateCompleted:
+          type: string
+        PONumber:
+          type: string
+        Comments:
+          type: string
+        ReportImage:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportImage'
+        ReferenceId:
+          type: string
+        InsuredName:
+          type: string
+        MeasurementRequestTypeId:
+          type: number
+        ReportDownloadLink:
+          type: string
+        EligibleForUpgrade:
+          type: boolean
+        Status:
+          type: string
+        Area:
+          type: string
+        Pitch:
+          type: string
+        LengthRidge:
+          type: string
+        LengthValley:
+          type: string
+        LengthEave:
+          type: string
+        LengthRake:
+          type: string
+        ProductPrimaryId:
+          type: number
+        ProductPrimary:
+          type: string
+        ProductDeliveryId:
+          type: number
+        ProductDelivery:
+          type: string
+        AddOnProductIds:
+          type: string
+        AllowsUserSubmittedPhotos:
+          type: boolean
+        LengthHip:
+          type: string
+        SubstituteFromProduct:
+          type: number
+        SubstituteToProduct:
+          type: string
+        CanCancelReport:
+          type: string
+      required:
+      - ReportId
+      - Street
+      - BuildingId
+      - City
+      - State
+      - Zip
+      - Latitude
+      - Longitude
+      - ClaimNumber
+      - ClaimInfo
+      - BatchId
+      - CatId
+      - DatePlaced
+      - DateCompleted
+      - PONumber
+      - Comments
+      - ReportImage
+      - ReferenceId
+      - InsuredName
+      - MeasurementRequestTypeId
+      - ReportDownloadLink
+      - EligibleForUpgrade
+      - Status
+      - Area
+      - Pitch
+      - LengthRidge
+      - LengthValley
+      - LengthEave
+      - LengthRake
+      - ProductPrimaryId
+      - ProductPrimary
+      - ProductDeliveryId
+      - ProductDelivery
+      - AddOnProductIds
+      - AllowsUserSubmittedPhotos
+      - LengthHip
+      - SubstituteFromProduct
+      - SubstituteToProduct
+      - CanCancelReport
+    ReportImage:
+      type: object
+      properties:
+        sequenceNumber:
+          type: number
+        imageId:
+          type: number
+        ProductId:
+          type: number
+        ProductDeliveryId:
+          type: number
+        AddOnProductIds:
+          type: array
+          items:
+            type: number
+        AdditionalEmails:
+          type: string
+        ClaimNumber:
+          type: string
+        ClaimInfo:
+          type: string
+        PONumber:
+          type: string
+        DateOfLoss:
+          type: string
+        CatId:
+          type: string
+      required:
+      - sequenceNumber
+      - imageId
+      - ProductId
+      - ProductDeliveryId
+      - AddOnProductIds
+      - AdditionalEmails
+      - ClaimNumber
+      - ClaimInfo
+      - PONumber
+      - DateOfLoss
+      - CatId

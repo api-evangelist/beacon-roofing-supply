@@ -348,25 +348,122 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    EVItemDetail_variationOption:
+    ColorSelection:
       type: object
       properties:
-        type:
+        itemNumber:
           type: string
-        value:
+        displayName:
           type: string
-    messagesObj:
-      type: array
-      items:
-        type: object
-        properties:
-          type:
-            type: string
-          value:
-            type: string
-          code:
-            type: string
-    editEVOrderItem_res:
+          description: color display name
+        image:
+          type: string
+          description: color image url
+        price:
+          type: number
+          format: double
+        uom:
+          type: string
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    Template:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+    LocationObj:
+      type: object
+      properties:
+        address:
+          type: string
+        state:
+          type: string
+        city:
+          type: string
+        postcode:
+          type: string
+    deleteEVItem_req:
+      type: object
+      properties:
+        evOrderId:
+          type: string
+        itemId:
+          type: string
+    editEVOrderItem_req:
+      type: object
+      properties:
+        evOrderId:
+          type: string
+        id:
+          type: string
+          description: EV item id
+        itemNumber:
+          type: string
+        wasteFactor:
+          type: string
+        quantity:
+          type: number
+          format: long
+        manualQuantity:
+          type: boolean
+    saveAll_ev_item:
+      type: object
+      required:
+      - productId
+      - itemNumber
+      properties:
+        productId:
+          type: string
+        itemNumber:
+          type: string
+        wasteFactor:
+          type: string
+        quantity:
+          type: number
+          format: long
+        manualQuantity:
+          type: boolean
+    evOrderListRep:
+      type: object
+      properties:
+        messages:
+          type: string
+        success:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/evOrderListResult'
+    deleteEVItem_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+    EVOrderSummaryObj:
+      type: object
+      properties:
+        subTotal:
+          type: string
+        total:
+          type: string
+    getEVOrder_res:
       type: object
       properties:
         success:
@@ -374,13 +471,49 @@ components:
         messages:
           $ref: '#/components/schemas/messagesObj'
         result:
-          $ref: '#/components/schemas/EVOrderItemDetail'
-    deleteEVItem_req:
+          $ref: '#/components/schemas/EVOrder'
+    convertEVOrderToAtgOrder_req:
       type: object
       properties:
         evOrderId:
           type: string
-        itemId:
+    ReportObj:
+      type: object
+      properties:
+        reportId:
+          type: string
+        location:
+          $ref: '#/components/schemas/LocationObj'
+        rootArea:
+          type: string
+        lengthEave:
+          type: string
+        lengthRake:
+          type: string
+        lengthRidge:
+          type: string
+        lengthHip:
+          type: string
+        reportDownloadLink:
+          type: string
+    EVItemDetail_variationOption:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+    EVItemCategory:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+    deleteEVOrder_req:
+      type: object
+      properties:
+        evOrderId:
           type: string
     addEVOrderItem_req:
       type: object
@@ -389,6 +522,35 @@ components:
           type: string
         itemNumber:
           type: string
+    Summary:
+      type: object
+      properties:
+        colorSelection:
+          $ref: '#/components/schemas/ColorSelection'
+        recommendQuantity:
+          type: number
+          format: long
+        calculatedQuantity:
+          type: string
+        wasteFactor:
+          type: string
+        dividend:
+          type: string
+        divisor:
+          type: string
+        price:
+          type: number
+          format: double
+          description: unit price
+        uom:
+          type: string
+    deleteEVOrder_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
     EVOrderItemDetail:
       type: object
       properties:
@@ -426,6 +588,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EVItemDetail_variationOption'
+    createEVOrder_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        evOrderId:
+          type: string
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
     EVCategory:
       type: object
       properties:
@@ -439,105 +621,7 @@ components:
             properties:
               categoryId:
                 type: string
-    createEVOrder_req:
-      type: object
-      required:
-      - reportId
-      properties:
-        reportId:
-          type: string
-          description: 49216847 / can get from EV services
-    evOrderListRep:
-      type: object
-      properties:
-        messages:
-          type: string
-        success:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/evOrderListResult'
-    deleteEVOrder_res:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-    editEVOrder_res:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-    EVItemCategory:
-      type: object
-      properties:
-        categoryName:
-          type: string
-        categoryId:
-          type: string
-    deleteEVOrder_req:
-      type: object
-      properties:
-        evOrderId:
-          type: string
-    Summary:
-      type: object
-      properties:
-        colorSelection:
-          $ref: '#/components/schemas/ColorSelection'
-        recommendQuantity:
-          type: number
-          format: long
-        calculatedQuantity:
-          type: string
-        wasteFactor:
-          type: string
-        dividend:
-          type: string
-        divisor:
-          type: string
-        price:
-          type: number
-          format: double
-          description: unit price
-        uom:
-          type: string
-    EVOrderSummaryObj:
-      type: object
-      properties:
-        subTotal:
-          type: string
-        total:
-          type: string
-    editEVOrder_req:
-      type: object
-      required:
-      - evOrderId
-      properties:
-        evOrderId:
-          type: string
-          description: any existed EV orderId
-        templateId:
-          type: string
-          description: gl396520213 / any existed template
-        baseWasteFactor:
-          type: string
-          description: 0-100 / two-decimal is available
-        selectedJobNumber:
-          type: string
-          description: job number
-    createEVOrder_res:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        evOrderId:
-          type: string
-    addEVOrderItem_res:
+    editEVOrderItem_res:
       type: object
       properties:
         success:
@@ -546,80 +630,6 @@ components:
           $ref: '#/components/schemas/messagesObj'
         result:
           $ref: '#/components/schemas/EVOrderItemDetail'
-    LocationObj:
-      type: object
-      properties:
-        address:
-          type: string
-        state:
-          type: string
-        city:
-          type: string
-        postcode:
-          type: string
-    getEVOrderCategory_res:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/EVCategory'
-    measurementCalculation_res:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        result:
-          $ref: '#/components/schemas/Summary'
-    editEVOrderItem_req:
-      type: object
-      properties:
-        evOrderId:
-          type: string
-        id:
-          type: string
-          description: EV item id
-        itemNumber:
-          type: string
-        wasteFactor:
-          type: string
-        quantity:
-          type: number
-          format: long
-        manualQuantity:
-          type: boolean
-    BCPaginationDataObj:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        previous:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        pageSize:
-          type: integer
-        currentPage:
-          type: integer
-        totalCount:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPaginationObj'
-    getEVOrder_res:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        result:
-          $ref: '#/components/schemas/EVOrder'
     BCPaginationObj:
       type: object
       properties:
@@ -631,28 +641,37 @@ components:
           type: boolean
         type:
           type: string
-    deleteEVItem_res:
+    evOrderListResult:
       type: object
       properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-    BCOtherPaginationObj:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: integer
-    convertEVOrderToAtgOrder_req:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        evOrders:
+          type: array
+          items:
+            $ref: '#/components/schemas/EVOrder'
+    measurementCalculation_req:
       type: object
       properties:
         evOrderId:
           type: string
-    convertEVOrderToAtgOrder_res:
+          description: any exist EV orderId
+        evItemId:
+          type: string
+          description: get from the response of getEVOrder named "id"
+        wasteFactor:
+          type: string
+          description: 0-100 / two-decimal is available
+        location:
+          type: string
+          description: It's required for category "Starter Shingles", only can be "Eaves", "Rakes" and "both".
+        inputOverlap:
+          type: string
+          description: The category "Underlayment" need overlap.
+        inputSubtractRidge:
+          type: string
+          description: customer must choose subtracting ridges or using entire length before VENTILATION 3D+ calculation.
+    getEVOrderCategory_res:
       type: object
       properties:
         success:
@@ -660,40 +679,17 @@ components:
         messages:
           $ref: '#/components/schemas/messagesObj'
         result:
-          $ref: '#/components/schemas/convertEVOrderToAtgOrder_obj'
-    saveAll_req:
-      type: object
-      required:
-      - evOrderId
-      - items
-      properties:
-        evOrderId:
-          type: string
-          description: any exist EV orderId
-        baseWasteFactor:
-          type: string
-        selectedJobNumber:
-          type: string
-        items:
           type: array
           items:
-            $ref: '#/components/schemas/saveAll_ev_item'
-    ColorSelection:
+            $ref: '#/components/schemas/EVCategory'
+    createEVOrder_req:
       type: object
+      required:
+      - reportId
       properties:
-        itemNumber:
+        reportId:
           type: string
-        displayName:
-          type: string
-          description: color display name
-        image:
-          type: string
-          description: color image url
-        price:
-          type: number
-          format: double
-        uom:
-          type: string
+          description: 49216847 / can get from EV services
     EVOrder:
       type: object
       properties:
@@ -719,84 +715,88 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EVOrderItemDetail'
-    saveAll_ev_item:
+    editEVOrder_res:
       type: object
-      required:
-      - productId
-      - itemNumber
       properties:
-        productId:
-          type: string
-        itemNumber:
-          type: string
-        wasteFactor:
-          type: string
-        quantity:
-          type: number
-          format: long
-        manualQuantity:
+        success:
           type: boolean
-    ReportObj:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+    addEVOrderItem_res:
       type: object
       properties:
-        reportId:
-          type: string
-        location:
-          $ref: '#/components/schemas/LocationObj'
-        rootArea:
-          type: string
-        lengthEave:
-          type: string
-        lengthRake:
-          type: string
-        lengthRidge:
-          type: string
-        lengthHip:
-          type: string
-        reportDownloadLink:
-          type: string
-    Template:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/EVOrderItemDetail'
+    BCOtherPaginationObj:
       type: object
       properties:
-        templateId:
+        available:
+          type: boolean
+        label:
           type: string
-        templateName:
-          type: string
+        page:
+          type: integer
+    measurementCalculation_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/Summary'
     convertEVOrderToAtgOrder_obj:
       type: object
       properties:
         atgOrderId:
           type: string
-    measurementCalculation_req:
+    saveAll_req:
       type: object
+      required:
+      - evOrderId
+      - items
       properties:
         evOrderId:
           type: string
           description: any exist EV orderId
-        evItemId:
+        baseWasteFactor:
           type: string
-          description: get from the response of getEVOrder named "id"
-        wasteFactor:
+        selectedJobNumber:
           type: string
-          description: 0-100 / two-decimal is available
-        location:
-          type: string
-          description: It's required for category "Starter Shingles", only can be "Eaves", "Rakes" and "both".
-        inputOverlap:
-          type: string
-          description: The category "Underlayment" need overlap.
-        inputSubtractRidge:
-          type: string
-          description: customer must choose subtracting ridges or using entire length before VENTILATION 3D+ calculation.
-    evOrderListResult:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
-        evOrders:
+        items:
           type: array
           items:
-            $ref: '#/components/schemas/EVOrder'
+            $ref: '#/components/schemas/saveAll_ev_item'
+    editEVOrder_req:
+      type: object
+      required:
+      - evOrderId
+      properties:
+        evOrderId:
+          type: string
+          description: any existed EV orderId
+        templateId:
+          type: string
+          description: gl396520213 / any existed template
+        baseWasteFactor:
+          type: string
+          description: 0-100 / two-decimal is available
+        selectedJobNumber:
+          type: string
+          description: job number
+    convertEVOrderToAtgOrder_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/convertEVOrderToAtgOrder_obj'
   securitySchemes:
     JSESSIONID:
       type: apiKey

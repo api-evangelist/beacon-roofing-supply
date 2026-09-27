@@ -1,0 +1,285 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Submit Current Order API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: SubmitCurrentOrder
+paths:
+  /submitCurrentOrder:
+    post:
+      operationId: V2Controller_submitCurrentOrder
+      summary: Submits current order
+      description: 'Submits current order.
+
+
+        Examples:
+
+
+        For a purchase order with job number:
+
+        {
+
+        "apiSiteId": "PWR",
+
+        "poName": "poTest",
+
+        "jobNumber": "SHOP"
+
+        }
+
+
+        For a saved order for an account with approver enabled
+
+        {
+
+        "savedOrderName": "myTestSaveorder1",
+
+        "approverId": "####",
+
+        }'
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/submitCurrentOrderBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/submitCurrentOrderResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - SubmitCurrentOrder
+components:
+  schemas:
+    submitCurrentOrderBody:
+      type: object
+      properties:
+        apiSiteId:
+          type: string
+        poName:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+        savedOrderName:
+          type: string
+        approverId:
+          type: string
+      required:
+      - apiSiteId
+      - poName
+      - jobName
+      - jobNumber
+      - additionalRecipients
+      - savedOrderName
+      - approverId
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter
+    OrderSummary:
+      type: object
+      properties:
+        total:
+          type: number
+        itemsTotal:
+          type: number
+        tax:
+          type: number
+        otherChanges:
+          type: number
+        displayTotalMsg:
+          type: boolean
+        totalMsg:
+          type: string
+      required:
+      - total
+      - itemsTotal
+      - tax
+      - otherChanges
+      - displayTotalMsg
+      - totalMsg
+    ShippingAddress:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        stateValue:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        postalCode:
+          type: string
+        countryValue:
+          type: string
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        phoneNumber:
+          type: string
+      required:
+      - addressBookId
+      - nickName
+      - firstName
+      - lastName
+      - address1
+      - address2
+      - address3
+      - city
+      - stateValue
+      - states
+      - postalCode
+      - countryValue
+      - countries
+      - phoneNumber
+    DeliveryOption:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected
+    submitCurrentOrderResponse:
+      type: object
+      properties:
+        deliveryOption:
+          type: string
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        shippingMethod:
+          type: string
+        instructions:
+          type: string
+        jobNumber:
+          type: string
+        jobName:
+          type: string
+        poName:
+          type: string
+        approverFirstName:
+          type: string
+        approverLastName:
+          type: string
+        approverEmail:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        orderSummary:
+          $ref: '#/components/schemas/OrderSummary'
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+        orderRelatedDocuments:
+          type: array
+          items:
+            type: string
+        nextPage:
+          $ref: '#/components/schemas/NextPage'
+      required:
+      - deliveryOption
+      - deliveryDate
+      - deliveryTime
+      - shippingMethod
+      - instructions
+      - jobNumber
+      - jobName
+      - poName
+      - approverFirstName
+      - approverLastName
+      - approverEmail
+      - shippingAddress
+      - items
+      - orderSummary
+      - additionalRecipients
+      - orderRelatedDocuments
+      - nextPage
+    NextPage:
+      type: object
+      properties:
+        nextUrl:
+          type: string
+      required:
+      - nextUrl

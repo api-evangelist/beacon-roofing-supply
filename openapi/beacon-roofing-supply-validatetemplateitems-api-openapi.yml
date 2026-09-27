@@ -1,0 +1,197 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Validate Template Items API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: ValidateTemplateItems
+paths:
+  /validateTemplateItems:
+    post:
+      operationId: V2Controller_validateTemplateItems
+      summary: Validates template items
+      description: Validates the items of in a template. If items are not consistent with items in template, will return invalid items.
+      parameters:
+      - name: invokeBy
+        required: false
+        in: path
+        description: If value is "store", will do the store logic
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/validateTemplateItemsBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validateTemplateItemsResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - ValidateTemplateItems
+components:
+  schemas:
+    InvalidTemplateItem:
+      type: object
+      properties:
+        templateItemId:
+          type: string
+      required:
+      - templateItemId
+    ImageUrl:
+      type: object
+      properties:
+        thumbnail:
+          type: string
+        large:
+          type: string
+      required:
+      - thumbnail
+      - large
+    TemplateItem:
+      type: object
+      properties:
+        templateItemId:
+          type: string
+        productImageUrl:
+          type: string
+        productOnErrorImageUrl:
+          type: string
+        itemOrProductDescription:
+          type: string
+        itemNumber:
+          type: string
+        nickName:
+          type: string
+        productOrItemNumber:
+          type: string
+        internalProductName:
+          type: string
+        currentVariation:
+          $ref: '#/components/schemas/CurrentVariation'
+        variations:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrentVariation'
+        unitPrice:
+          type: number
+        unitOfMeasure:
+          type: string
+        quantity:
+          type: number
+        available:
+          type: boolean
+        imageUrl:
+          $ref: '#/components/schemas/ImageUrl'
+      required:
+      - templateItemId
+      - productImageUrl
+      - productOnErrorImageUrl
+      - itemOrProductDescription
+      - itemNumber
+      - nickName
+      - productOrItemNumber
+      - internalProductName
+      - currentVariation
+      - variations
+      - unitPrice
+      - unitOfMeasure
+      - quantity
+      - available
+      - imageUrl
+    validateTemplateItemsResponse:
+      type: object
+      properties:
+        invalidTemplateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvalidTemplateItem'
+      required:
+      - invalidTemplateItems
+    Option:
+      type: object
+      properties:
+        optionId:
+          type: string
+        optionName:
+          type: string
+        opectionChecked:
+          type: boolean
+        skuId:
+          type: string
+      required:
+      - optionId
+      - optionName
+      - opectionChecked
+      - skuId
+    CurrentVariation:
+      type: object
+      properties:
+        typeId:
+          type: string
+        typeName:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+      required:
+      - typeId
+      - typeName
+      - options
+    validateTemplateItemsBody:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateItem'
+      required:
+      - templateId
+      - templateItems

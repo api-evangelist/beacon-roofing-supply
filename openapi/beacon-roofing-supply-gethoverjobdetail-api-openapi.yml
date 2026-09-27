@@ -1,0 +1,233 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Hover Job Detail API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetHoverJobDetail
+paths:
+  /getHoverJobDetail:
+    get:
+      operationId: V2Controller_getHoverJobDetail
+      summary: Returns detailed information for a Hover job
+      description: Returns detailed information for a Hover job.
+      parameters:
+      - name: jobId
+        required: true
+        in: path
+        description: Job Id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getHoverJobDetailResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetHoverJobDetail
+components:
+  schemas:
+    getHoverJobDetailResponse:
+      type: object
+      properties:
+        approved:
+          type: string
+        approved_at:
+          type: string
+        archived:
+          type: string
+        archived_at:
+          type: string
+        client_identifier:
+          type: string
+        completed_at:
+          type: string
+        created_at:
+          type: string
+        deliverable_id:
+          type: string
+        estimated_hours_to_completion:
+          type: string
+        example:
+          type: string
+        id:
+          type: string
+        location_city:
+          type: string
+        location_country:
+          type: string
+        location_lat:
+          type: string
+        location_line_1:
+          type: string
+        location_line_2:
+          type: string
+        location_lon:
+          type: string
+        location_postal_code:
+          type: string
+        location_region:
+          type: string
+        name:
+          type: string
+        org_id:
+          type: string
+        roof_estimate_access_level:
+          type: string
+        state:
+          type: string
+        updated_at:
+          type: string
+        user_id:
+          type: string
+        via_job_share:
+          type: string
+        creator:
+          type: string
+        archive_number:
+          type: string
+        contractor_estimate_sent_to:
+          type: string
+        customer_contact:
+          type: string
+        customer_contact_only_by_email:
+          type: string
+        customer_email:
+          type: string
+        customer_first_name:
+          type: string
+        customer_name:
+          type: string
+        customer_notes:
+          type: string
+        customer_phone:
+          type: string
+        estimates_count:
+          type: string
+        mobile_application_id:
+          type: string
+        org_job_accesses_assigned_lead_count:
+          type: string
+        original_job_id:
+          type: string
+        quote_user_id:
+          type: string
+        reported_at:
+          type: string
+        shared:
+          type: string
+        uploaded_at:
+          type: string
+        pdf:
+          type: string
+        threeDimensions:
+          type: string
+        orderMaterials:
+          type: string
+        machete_features:
+          type: array
+          items:
+            type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+      required:
+      - approved
+      - approved_at
+      - archived
+      - archived_at
+      - client_identifier
+      - completed_at
+      - created_at
+      - deliverable_id
+      - estimated_hours_to_completion
+      - example
+      - id
+      - location_city
+      - location_country
+      - location_lat
+      - location_line_1
+      - location_line_2
+      - location_lon
+      - location_postal_code
+      - location_region
+      - name
+      - org_id
+      - roof_estimate_access_level
+      - state
+      - updated_at
+      - user_id
+      - via_job_share
+      - creator
+      - archive_number
+      - contractor_estimate_sent_to
+      - customer_contact
+      - customer_contact_only_by_email
+      - customer_email
+      - customer_first_name
+      - customer_name
+      - customer_notes
+      - customer_phone
+      - estimates_count
+      - mobile_application_id
+      - org_job_accesses_assigned_lead_count
+      - original_job_id
+      - quote_user_id
+      - reported_at
+      - shared
+      - uploaded_at
+      - pdf
+      - threeDimensions
+      - orderMaterials
+      - machete_features
+      - images
+    Image:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id

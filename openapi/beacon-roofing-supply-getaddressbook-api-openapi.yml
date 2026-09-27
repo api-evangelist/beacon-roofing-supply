@@ -1,0 +1,160 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Address Book API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetAddressBook
+paths:
+  /getAddressBook:
+    get:
+      operationId: V2Controller_getAddressBook
+      summary: Returns address book for current user
+      description: Returns all address entries within an address book for the current user.
+      parameters:
+      - name: addressBookIds
+        required: true
+        in: path
+        description: If addressBookId is empty, will return all addresses
+        schema:
+          type: number
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAddressBookResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetAddressBook
+components:
+  schemas:
+    AddressBook:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        accountLegacyId:
+          type: string
+        accountName:
+          type: string
+        addressBookInfo:
+          $ref: '#/components/schemas/AddressBookInfo'
+      required:
+      - addressBookId
+      - accountLegacyId
+      - accountName
+      - addressBookInfo
+    getAddressBookResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        messageCode:
+          type: number
+        success:
+          type: boolean
+        addressBooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBook'
+      required:
+      - messages
+      - messageCode
+      - success
+      - addressBooks
+    Message:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+        code:
+          type: string
+      required:
+      - type
+      - value
+      - code
+    AddressBookInfo:
+      type: object
+      properties:
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        countryValue:
+          type: string
+        phoneNumber:
+          type: string
+      required:
+      - nickName
+      - firstName
+      - lastName
+      - address1
+      - address2
+      - city
+      - state
+      - stateValue
+      - postalCode
+      - country
+      - countryValue
+      - phoneNumber

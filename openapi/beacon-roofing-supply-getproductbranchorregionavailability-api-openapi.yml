@@ -1,0 +1,120 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Product Branch Or Region…
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetProductBranchOrRegionAvailability
+paths:
+  /getProductBranchOrRegionAvailability:
+    get:
+      operationId: V2Controller_getProductBranchOrRegionAvailability
+      summary: Returns product availability for a branch
+      description: Returns availability within a branch in a market for a specific product Id. If it is not available at a specific branch but is available at a different branch within that market, the response will show available at the region but not at the branch.
+      parameters:
+      - name: productIds
+        required: false
+        in: path
+        description: Product Ids separated by comma
+        schema:
+          type: string
+      - name: branchId
+        required: false
+        in: path
+        description: Branch legacy number
+        schema:
+          type: string
+      - name: regionId
+        required: false
+        in: path
+        description: Region legacy number
+        schema:
+          type: string
+      - name: marketId
+        required: false
+        in: path
+        description: Market Id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getProductBranchOrRegionAvailabilityResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetProductBranchOrRegionAvailability
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    getProductBranchOrRegionAvailabilityResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - success
+      - result

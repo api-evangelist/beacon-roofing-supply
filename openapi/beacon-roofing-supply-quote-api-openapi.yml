@@ -1,0 +1,231 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Quote API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Quote
+paths:
+  /quote:
+    get:
+      operationId: V2Controller_quote
+      summary: Returns list of quotes for current user
+      description: Returns list of all quotes for current user. Draft quote is open status, in process quote is in progress status and received quote is in ready for review status.
+      parameters:
+      - name: account
+        required: true
+        in: path
+        description: Account Id
+        schema:
+          type: string
+      - name: quoteType
+        required: false
+        in: path
+        description: Query by quote status type. If empty, will return all quotes.<br><br><b>quoteType enumeration:</b><br><br><ul><li>draft</li><li>inProcess</li><li>received</li></ul>
+        schema:
+          type: string
+      - name: pageSize
+        required: false
+        in: path
+        description: Default is 10 and max is 100. This is the record count of each page.
+        schema:
+          type: string
+      - name: pageNo
+        required: false
+        in: path
+        description: Default is 1, the first page, page number or page index
+        schema:
+          type: string
+      - name: filterBy
+        required: false
+        in: path
+        description: The search key<br><br><b>filterBy enumeration</b><br><br><ul><li>quoteId</li><li>quoteName</li><li>creationDate</li><li>status</li><li>jobName</li></ul>
+        schema:
+          type: string
+      - name: filter
+        required: false
+        in: path
+        description: The search terms<br><br>When filterBy is "status", filter needs to be one of enumerations below:<br><br><b>filter enumeration</b><br><br><ul><li>Open</li><li>InProgress</li><li>Revised</li><li>Ready for Review</li><li>Approved</li><li>Ordered</li><li>Closed</li></ul>
+        schema:
+          type: string
+      - name: orderBy
+        required: false
+        in: path
+        description: Default is "creationDate desc"<br><br><b>orderBy enumeration</b><br><br><ul><li>quoteId asc/desc</li><li>quoteName asc/desc</li><li>creationDate asc/desc</li><li>status asc/desc</li><li>createdBy asc/desc</li></ul>
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/quoteResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - Quote
+components:
+  schemas:
+    DraftQuote:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        quoteList:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteList'
+      required:
+      - pagination
+      - quoteList
+    Message:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+        code:
+          type: string
+      required:
+      - type
+      - value
+      - code
+    quoteResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        messageCode:
+          type: number
+        success:
+          type: boolean
+        draftQuote:
+          $ref: '#/components/schemas/DraftQuote'
+        inProcessQuote:
+          $ref: '#/components/schemas/DraftQuote'
+        receivedQuote:
+          $ref: '#/components/schemas/DraftQuote'
+      required:
+      - messages
+      - messageCode
+      - success
+      - draftQuote
+      - inProcessQuote
+      - receivedQuote
+    QuoteList:
+      type: object
+      properties:
+        quoteId:
+          type: string
+        quoteName:
+          type: string
+        creationDate:
+          type: string
+        status:
+          type: string
+        createdBy:
+          type: string
+      required:
+      - quoteId
+      - quoteName
+      - creationDate
+      - status
+      - createdBy
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
+    Pagination:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        previous:
+          $ref: '#/components/schemas/Next'
+        pageSize:
+          type: number
+        currentPage:
+          type: number
+        totalCount:
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - next
+      - previous
+      - pageSize
+      - currentPage
+      - totalCount
+      - results

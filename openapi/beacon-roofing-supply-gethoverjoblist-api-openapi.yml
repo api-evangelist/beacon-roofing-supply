@@ -1,0 +1,164 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Hover Job List API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetHoverJobList
+paths:
+  /getHoverJobList:
+    get:
+      operationId: V2Controller_getHoverJobList
+      summary: Returns Hover job addresses
+      description: Returns Hover job addresses.
+      parameters:
+      - name: pageSize
+        required: false
+        in: path
+        description: Default page size is 1
+        schema:
+          type: number
+      - name: pageNo
+        required: false
+        in: path
+        description: Default page no is 20
+        schema:
+          type: number
+      - name: filter
+        required: false
+        in: path
+        description: Search filter/terms
+        schema:
+          type: string
+      - name: orderBy
+        required: false
+        in: path
+        description: Default is "updated_at asc"<br><br><h3>orderBy enumeration</h3><br><br><ul><li>created_at asc/ desc</li><li>updated_at asc / desc</li></ul>
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getHoverJobListResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetHoverJobList
+components:
+  schemas:
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    getHoverJobListResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+      required:
+      - pagination
+      - items
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
+    Pagination:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        previous:
+          $ref: '#/components/schemas/Next'
+        pageSize:
+          type: number
+        currentPage:
+          type: number
+        totalCount:
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - next
+      - previous
+      - pageSize
+      - currentPage
+      - totalCount
+      - results

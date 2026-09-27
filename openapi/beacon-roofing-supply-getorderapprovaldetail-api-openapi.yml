@@ -1,0 +1,266 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Order Approval Detail API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetOrderApprovalDetail
+paths:
+  /getOrderApprovalDetail:
+    get:
+      operationId: V2Controller_getOrderApprovalDetail
+      summary: Returns saved or pending order details and makes order confirmation page for…
+      description: 'Returns saved or pending order details for given saved order Id.
+
+
+        Parameters:
+
+
+        orderId: Saved order Id
+
+
+        editable: true or false
+
+
+        validate: true or false'
+      parameters:
+      - name: orderId
+        required: true
+        in: path
+        description: Saved Order Id
+        schema:
+          type: string
+      - name: editable
+        required: true
+        in: path
+        description: ''
+        schema:
+          type: boolean
+      - name: validate
+        required: false
+        in: path
+        description: ''
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getOrderApprovalDetailResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetOrderApprovalDetail
+components:
+  schemas:
+    getOrderApprovalDetailResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        siteId:
+          type: string
+        organizationId:
+          type: string
+        accountNumber:
+          type: string
+        contactInfo:
+          type: object
+        creationDate:
+          type: string
+        createdUser:
+          type: string
+        submittedDate:
+          type: string
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          type: string
+        assignApproval:
+          type: object
+        assignApprovalDisplayText:
+          type: string
+        submitApproval:
+          type: string
+        deleteStatus:
+          type: boolean
+        job:
+          type: object
+        jobAccounts:
+          type: object
+        approvedBy:
+          type: string
+        po:
+          type: string
+        additionalEmailRecipient:
+          type: array
+          items:
+            type: string
+        deliveryOption:
+          type: string
+        deliveryOptions:
+          type: array
+          items:
+            type: object
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        deliveryTimes:
+          type: array
+          items:
+            type: object
+        shippingMethod:
+          type: string
+        shippingMethodValue:
+          type: string
+        shippingMethods:
+          type: array
+          items:
+            type: object
+        shippingAddressTitle:
+          type: string
+        shippingAddress:
+          type: object
+        branchName:
+          type: string
+        branchAddress:
+          type: object
+        instructions:
+          type: string
+        commerceItems:
+          type: array
+          items:
+            type: object
+        status:
+          type: string
+        statusDisplayName:
+          type: string
+        mincronId:
+          type: string
+        itemsTotal:
+          type: number
+        taxes:
+          type: number
+        otherCharges:
+          type: number
+        subTotal:
+          type: number
+        addressBooks:
+          type: array
+          items:
+            type: object
+        addressBook:
+          type: object
+        storeLocatorItemId:
+          type: string
+        rejectReason:
+          type: string
+        rejectUserDisplayText:
+          type: string
+        rejectUser:
+          type: object
+        showDeliveryNotification:
+          type: boolean
+        MFG:
+          type: string
+        color:
+          type: string
+        orderRelatedDocuments:
+          type: array
+          items:
+            type: string
+      required:
+      - id
+      - displayName
+      - siteId
+      - organizationId
+      - accountNumber
+      - contactInfo
+      - creationDate
+      - createdUser
+      - submittedDate
+      - lastModifiedDate
+      - lastModifiedUser
+      - assignApproval
+      - assignApprovalDisplayText
+      - submitApproval
+      - deleteStatus
+      - job
+      - jobAccounts
+      - approvedBy
+      - po
+      - additionalEmailRecipient
+      - deliveryOption
+      - deliveryOptions
+      - deliveryDate
+      - deliveryTime
+      - deliveryTimes
+      - shippingMethod
+      - shippingMethodValue
+      - shippingMethods
+      - shippingAddressTitle
+      - shippingAddress
+      - branchName
+      - branchAddress
+      - instructions
+      - commerceItems
+      - status
+      - statusDisplayName
+      - mincronId
+      - itemsTotal
+      - taxes
+      - otherCharges
+      - subTotal
+      - addressBooks
+      - addressBook
+      - storeLocatorItemId
+      - rejectReason
+      - rejectUserDisplayText
+      - rejectUser
+      - showDeliveryNotification
+      - MFG
+      - color
+      - orderRelatedDocuments

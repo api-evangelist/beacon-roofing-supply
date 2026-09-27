@@ -1,0 +1,108 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Sku Uom API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetSkuUom
+paths:
+  /getSkuUom:
+    get:
+      operationId: V1Controller_getSkuUom
+      summary: Returns Unit of Measures (UoM) for an item number
+      description: 'Returns all Unit of Measures (UoM) options for an item number. Item number examples: 253729, 253733. Unit of Measure examples: BDL, PC, CTN.'
+      parameters:
+      - name: skuId
+        required: false
+        in: path
+        description: Item Number
+        schema:
+          type: string
+      - name: skuIds
+        required: false
+        in: path
+        description: 'Multiple Item Number string, separated by commas<br><br>Example: "253729,253737,253740"'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getSkuUomResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetSkuUom
+components:
+  schemas:
+    getSkuUomResponse:
+      type: object
+      properties:
+        skuIdUomList:
+          type: array
+          items:
+            type: string
+        skuIdsUomList:
+          $ref: '#/components/schemas/SkuIdsUomList'
+      required:
+      - skuIdUomList
+      - skuIdsUomList
+    SkuIdsUomList:
+      type: object
+      properties:
+        '253729':
+          type: array
+          items:
+            type: string
+        '253733':
+          type: array
+          items:
+            type: string
+        '253740':
+          type: array
+          items:
+            type: string
+      required:
+      - '253729'
+      - '253733'
+      - '253740'

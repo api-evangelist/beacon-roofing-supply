@@ -1063,18 +1063,16 @@ apis:
     url: https://beaconproplus.com/swagger/public/
   - type: Documentation
     url: https://beaconproplus.com/swagger/internal/
-- aid: beacon-roofing-supply:beacon-roofing-supply-v1-api
-  name: Beacon Roofing Supply V1 API
-  description: The V1 API from Beacon Roofing Supply — 10 operation(s) for v1.
+- aid: beacon-roofing-supply:beacon-roofing-supply-accounts-api
+  name: Beacon Roofing Supply Accounts API
+  description: The Accounts API from Beacon Roofing Supply — 1 operation(s) for accounts.
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
-  - v1
-  tags_raw:
-  - V1
+  - Accounts
   properties:
   - type: OpenAPI
-    url: openapi/beacon-roofing-supply-v1-api-openapi.yml
+    url: openapi/beacon-roofing-supply-accounts-api-openapi.yml
   - type: Documentation
     url: https://beaconproplus.com/swagger/v2/
   - type: Documentation
@@ -1091,18 +1089,17 @@ apis:
     url: https://beaconproplus.com/swagger/public/
   - type: Documentation
     url: https://beaconproplus.com/swagger/internal/
-- aid: beacon-roofing-supply:beacon-roofing-supply-v2-api
-  name: Beacon Roofing Supply V2 API
-  description: The V2 API from Beacon Roofing Supply — 126 operation(s) for v2.
+- aid: beacon-roofing-supply:beacon-roofing-supply-addmultipleitemstoorder-api
+  name: Beacon Roofing Supply Add Multiple Items To Order API
+  description: >-
+    The AddMultipleItemsToOrder API from Beacon Roofing Supply — 1 operation(s) for addmultipleitemstoorder.
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
-  - v2
-  tags_raw:
-  - V2
+  - AddMultipleItemsToOrder
   properties:
   - type: OpenAPI
-    url: openapi/beacon-roofing-supply-v2-api-openapi.yml
+    url: openapi/beacon-roofing-supply-addmultipleitemstoorder-api-openapi.yml
   - type: Documentation
     url: https://beaconproplus.com/swagger/v2/
   - type: Documentation
@@ -1119,18 +1116,17 @@ apis:
     url: https://beaconproplus.com/swagger/public/
   - type: Documentation
     url: https://beaconproplus.com/swagger/internal/
-- aid: beacon-roofing-supply:beacon-roofing-supply-v3-api
-  name: Beacon Roofing Supply V3 API
-  description: The V3 API from Beacon Roofing Supply — 4 operation(s) for v3.
+- aid: beacon-roofing-supply:beacon-roofing-supply-addordershippinginfo-api
+  name: Beacon Roofing Supply Add Order Shipping Info API
+  description: >-
+    The AddOrderShippingInfo API from Beacon Roofing Supply — 1 operation(s) for addordershippinginfo.
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
-  - v3
-  tags_raw:
-  - V3
+  - AddOrderShippingInfo
   properties:
   - type: OpenAPI
-    url: openapi/beacon-roofing-supply-v3-api-openapi.yml
+    url: openapi/beacon-roofing-supply-addordershippinginfo-api-openapi.yml
   - type: Documentation
     url: https://beaconproplus.com/swagger/v2/
   - type: Documentation
@@ -1147,16 +1143,3631 @@ apis:
     url: https://beaconproplus.com/swagger/public/
   - type: Documentation
     url: https://beaconproplus.com/swagger/internal/
-- aid: beacon-roofing-supply:beacon-roofing-supply-v4-api
-  name: Beacon Roofing Supply V4 API
-  description: The V4 API from Beacon Roofing Supply — 1 operation(s) for v4.
+- aid: beacon-roofing-supply:beacon-roofing-supply-approvequote-api
+  name: Beacon Roofing Supply Approve Quote API
+  description: The ApproveQuote API from Beacon Roofing Supply — 1 operation(s) for approvequote.
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
-  - V4
+  - ApproveQuote
   properties:
   - type: OpenAPI
-    url: openapi/beacon-roofing-supply-v4-api-openapi.yml
+    url: openapi/beacon-roofing-supply-approvequote-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-approver-api
+  name: Beacon Roofing Supply Approver API
+  description: The Approver API from Beacon Roofing Supply — 1 operation(s) for approver.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Approver
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-approver-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-approvesavedorder-api
+  name: Beacon Roofing Supply Approve Saved Order API
+  description: >-
+    The ApproveSavedOrder API from Beacon Roofing Supply — 1 operation(s) for approvesavedorder.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ApproveSavedOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-approvesavedorder-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-branchlist-api
+  name: Beacon Roofing Supply Branchlist API
+  description: The Branchlist API from Beacon Roofing Supply — 1 operation(s) for branchlist.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Branchlist
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-branchlist-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-categories-api
+  name: Beacon Roofing Supply Categories API
+  description: The Categories API from Beacon Roofing Supply — 1 operation(s) for categories.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-categories-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-changepassword-api
+  name: Beacon Roofing Supply Change Password API
+  description: The ChangePassword API from Beacon Roofing Supply — 1 operation(s) for changepassword.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ChangePassword
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-changepassword-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-clearcart-api
+  name: Beacon Roofing Supply Clear Cart API
+  description: The ClearCart API from Beacon Roofing Supply — 1 operation(s) for clearcart.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ClearCart
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-clearcart-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-convertquoteorder-api
+  name: Beacon Roofing Supply Convert Quote Order API
+  description: >-
+    The ConvertQuoteOrder API from Beacon Roofing Supply — 1 operation(s) for convertquoteorder.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ConvertQuoteOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-convertquoteorder-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-copytemplate-api
+  name: Beacon Roofing Supply Copy Template API
+  description: The CopyTemplate API from Beacon Roofing Supply — 1 operation(s) for copytemplate.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - CopyTemplate
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-copytemplate-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-createaddressbook-api
+  name: Beacon Roofing Supply Create Address Book API
+  description: >-
+    The CreateAddressBook API from Beacon Roofing Supply — 1 operation(s) for createaddressbook.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - CreateAddressBook
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-createaddressbook-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-createpermissiontemplate-api
+  name: Beacon Roofing Supply Create Permission Template API
+  description: >-
+    The CreatePermissionTemplate API from Beacon Roofing Supply — 1 operation(s) for createpermissiontemplate.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - CreatePermissionTemplate
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-createpermissiontemplate-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-createquote-api
+  name: Beacon Roofing Supply Create Quote API
+  description: The CreateQuote API from Beacon Roofing Supply — 1 operation(s) for createquote.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - CreateQuote
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-createquote-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-createtemplate-api
+  name: Beacon Roofing Supply Create Template API
+  description: The CreateTemplate API from Beacon Roofing Supply — 1 operation(s) for createtemplate.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - CreateTemplate
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-createtemplate-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-createuser-api
+  name: Beacon Roofing Supply Create User API
+  description: The CreateUser API from Beacon Roofing Supply — 1 operation(s) for createuser.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - CreateUser
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-createuser-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-deleteaddressbook-api
+  name: Beacon Roofing Supply Delete Address Book API
+  description: >-
+    The DeleteAddressBook API from Beacon Roofing Supply — 1 operation(s) for deleteaddressbook.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - DeleteAddressBook
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-deleteaddressbook-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-deleteorderrelateddocuments-api
+  name: Beacon Roofing Supply Delete Order Related Documents API
+  description: >-
+    The DeleteOrderRelatedDocuments API from Beacon Roofing Supply — 1 operation(s) for deleteorderrelateddocuments.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - DeleteOrderRelatedDocuments
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-deleteorderrelateddocuments-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-deletepermissiontemplate-api
+  name: Beacon Roofing Supply Delete Permission Template API
+  description: >-
+    The DeletePermissionTemplate API from Beacon Roofing Supply — 1 operation(s) for deletepermissiontemplate.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - DeletePermissionTemplate
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-deletepermissiontemplate-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-deletequote-api
+  name: Beacon Roofing Supply Delete Quote API
+  description: The DeleteQuote API from Beacon Roofing Supply — 1 operation(s) for deletequote.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - DeleteQuote
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-deletequote-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-deletesavedorder-api
+  name: Beacon Roofing Supply Delete Saved Order API
+  description: >-
+    The DeleteSavedOrder API from Beacon Roofing Supply — 1 operation(s) for deletesavedorder.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - DeleteSavedOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-deletesavedorder-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-deletetemplate-api
+  name: Beacon Roofing Supply Delete Template API
+  description: The DeleteTemplate API from Beacon Roofing Supply — 1 operation(s) for deletetemplate.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - DeleteTemplate
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-deletetemplate-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-downloadbeacon3dplusapp-api
+  name: Beacon Roofing Supply Download Beacon3 Dplus App API
+  description: >-
+    The DownloadBeacon3DplusApp API from Beacon Roofing Supply — 1 operation(s) for downloadbeacon3dplusapp.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - DownloadBeacon3DplusApp
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-downloadbeacon3dplusapp-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-downloadcatalogitemdata-api
+  name: Beacon Roofing Supply Download Catalog Item Data API
+  description: >-
+    The DownloadCatalogItemData API from Beacon Roofing Supply — 1 operation(s) for downloadcatalogitemdata.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - DownloadCatalogItemData
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-downloadcatalogitemdata-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-downloadorderdetailaspdf-api
+  name: Beacon Roofing Supply Download Order Detail As PDF API
+  description: >-
+    The DownloadOrderDetailAsPDF API from Beacon Roofing Supply — 1 operation(s) for downloadorderdetailaspdf.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - DownloadOrderDetailAsPDF
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-downloadorderdetailaspdf-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-downloadorderdocument-api
+  name: Beacon Roofing Supply Download Order Document API
+  description: >-
+    The DownloadOrderDocument API from Beacon Roofing Supply — 1 operation(s) for downloadorderdocument.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - DownloadOrderDocument
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-downloadorderdocument-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-downloadquoteaspdf-api
+  name: Beacon Roofing Supply Download Quote As PDF API
+  description: >-
+    The DownloadQuoteAsPDF API from Beacon Roofing Supply — 1 operation(s) for downloadquoteaspdf.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - DownloadQuoteAsPDF
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-downloadquoteaspdf-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-exchangeoktaeagleviewauthorizationcode-api
+  name: Beacon Roofing Supply Exchange Okta Eagle View Authorization Code API
+  description: >-
+    The ExchangeOktaEagleViewAuthorizationCode API from Beacon Roofing Supply — 1 operation(s) for exchangeoktaeagleviewauthorizationcode.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ExchangeOktaEagleViewAuthorizationCode
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-exchangeoktaeagleviewauthorizationcode-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-forgotpassword-api
+  name: Beacon Roofing Supply Forgot Password API
+  description: The ForgotPassword API from Beacon Roofing Supply — 1 operation(s) for forgotpassword.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ForgotPassword
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-forgotpassword-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getaddressbook-api
+  name: Beacon Roofing Supply Get Address Book API
+  description: The GetAddressBook API from Beacon Roofing Supply — 1 operation(s) for getaddressbook.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetAddressBook
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getaddressbook-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getatgquotedetail-api
+  name: Beacon Roofing Supply Get Atg Quote Detail API
+  description: >-
+    The GetAtgQuoteDetail API from Beacon Roofing Supply — 1 operation(s) for getatgquotedetail.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetAtgQuoteDetail
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getatgquotedetail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getcurrentorderreview-api
+  name: Beacon Roofing Supply Get Current Order Review API
+  description: >-
+    The GetCurrentOrderReview API from Beacon Roofing Supply — 1 operation(s) for getcurrentorderreview.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetCurrentOrderReview
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getcurrentorderreview-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getcurrentuserinfo-api
+  name: Beacon Roofing Supply Get Current User Info API
+  description: >-
+    The GetCurrentUserInfo API from Beacon Roofing Supply — 1 operation(s) for getcurrentuserinfo.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetCurrentUserInfo
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getcurrentuserinfo-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getcurrentuserlastselectedjobinfo-api
+  name: Beacon Roofing Supply Get Current User Last Selected Job Info API
+  description: >-
+    The GetCurrentUserLastSelectedJobInfo API from Beacon Roofing Supply — 1 operation(s) for getcurrentuserlastselectedjobinfo.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetCurrentUserLastSelectedJobInfo
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getcurrentuserlastselectedjobinfo-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getcurrentuserpermission-api
+  name: Beacon Roofing Supply Get Current User Permission API
+  description: >-
+    The GetCurrentUserPermission API from Beacon Roofing Supply — 1 operation(s) for getcurrentuserpermission.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetCurrentUserPermission
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getcurrentuserpermission-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getdtorderdetail-api
+  name: Beacon Roofing Supply Get DT Order Detail API
+  description: >-
+    The GetDTOrderDetail API from Beacon Roofing Supply — 1 operation(s) for getdtorderdetail.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetDTOrderDetail
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getdtorderdetail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-geteaglevieworderreport-api
+  name: Beacon Roofing Supply Get Eagle View Order Report API
+  description: >-
+    The GetEagleViewOrderReport API from Beacon Roofing Supply — 1 operation(s) for geteaglevieworderreport.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetEagleViewOrderReport
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-geteaglevieworderreport-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-geteaglevieworderreportv3-api
+  name: Beacon Roofing Supply Get Eagle View Order Report V3 API
+  description: >-
+    The GetEagleViewOrderReportV3 API from Beacon Roofing Supply — 1 operation(s) for geteaglevieworderreportv3.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetEagleViewOrderReportV3
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-geteaglevieworderreportv3-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-geteaglevieworderupgradeproducts-api
+  name: Beacon Roofing Supply Get Eagle View Order Upgrade Products API
+  description: >-
+    The GetEagleViewOrderUpgradeProducts API from Beacon Roofing Supply — 1 operation(s) for geteaglevieworderupgradeproducts.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetEagleViewOrderUpgradeProducts
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-geteaglevieworderupgradeproducts-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getfavoriteproducts-api
+  name: Beacon Roofing Supply Get Favorite Products API
+  description: >-
+    The GetFavoriteProducts API from Beacon Roofing Supply — 1 operation(s) for getfavoriteproducts.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetFavoriteProducts
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getfavoriteproducts-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getgenericbrands-api
+  name: Beacon Roofing Supply Get Generic Brands API
+  description: >-
+    The GetGenericBrands API from Beacon Roofing Supply — 1 operation(s) for getgenericbrands.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetGenericBrands
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getgenericbrands-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-gethoverjobdetail-api
+  name: Beacon Roofing Supply Get Hover Job Detail API
+  description: >-
+    The GetHoverJobDetail API from Beacon Roofing Supply — 1 operation(s) for gethoverjobdetail.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetHoverJobDetail
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-gethoverjobdetail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-gethoverjobdetailimage-api
+  name: Beacon Roofing Supply Get Hover Job Detail Image API
+  description: >-
+    The GetHoverJobDetailImage API from Beacon Roofing Supply — 1 operation(s) for gethoverjobdetailimage.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetHoverJobDetailImage
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-gethoverjobdetailimage-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-gethoverjoblist-api
+  name: Beacon Roofing Supply Get Hover Job List API
+  description: The GetHoverJobList API from Beacon Roofing Supply — 1 operation(s) for gethoverjoblist.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetHoverJobList
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-gethoverjoblist-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-gethoverjoblistimage-api
+  name: Beacon Roofing Supply Get Hover Job List Image API
+  description: >-
+    The GetHoverJobListImage API from Beacon Roofing Supply — 1 operation(s) for gethoverjoblistimage.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetHoverJobListImage
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-gethoverjoblistimage-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getlogindeclaration-api
+  name: Beacon Roofing Supply Get Login Declaration API
+  description: >-
+    The GetLoginDeclaration API from Beacon Roofing Supply — 1 operation(s) for getlogindeclaration.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetLoginDeclaration
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getlogindeclaration-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getmincronquotedetail-api
+  name: Beacon Roofing Supply Get Mincron Quote Detail API
+  description: >-
+    The GetMincronQuoteDetail API from Beacon Roofing Supply — 1 operation(s) for getmincronquotedetail.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetMincronQuoteDetail
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getmincronquotedetail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getmultipleproductvariation-api
+  name: Beacon Roofing Supply Get Multiple Product Variation API
+  description: >-
+    The GetMultipleProductVariation API from Beacon Roofing Supply — 1 operation(s) for getmultipleproductvariation.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetMultipleProductVariation
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getmultipleproductvariation-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getmultiplequoteproductvariation-api
+  name: Beacon Roofing Supply Get Multiple Quote Product Variation API
+  description: >-
+    The GetMultipleQuoteProductVariation API from Beacon Roofing Supply — 1 operation(s) for getmultiplequoteproductvariation.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetMultipleQuoteProductVariation
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getmultiplequoteproductvariation-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getoktaeagleviewloginurl-api
+  name: Beacon Roofing Supply Get Okta Eagle View Login URL API
+  description: >-
+    The GetOktaEagleViewLoginUrl API from Beacon Roofing Supply — 1 operation(s) for getoktaeagleviewloginurl.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetOktaEagleViewLoginUrl
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getoktaeagleviewloginurl-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getorderapprovaldetail-api
+  name: Beacon Roofing Supply Get Order Approval Detail API
+  description: >-
+    The GetOrderApprovalDetail API from Beacon Roofing Supply — 1 operation(s) for getorderapprovaldetail.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetOrderApprovalDetail
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getorderapprovaldetail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getorderapprovallist-api
+  name: Beacon Roofing Supply Get Order Approval List API
+  description: >-
+    The GetOrderApprovalList API from Beacon Roofing Supply — 1 operation(s) for getorderapprovallist.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetOrderApprovalList
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getorderapprovallist-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getordershippinginfo-api
+  name: Beacon Roofing Supply Get Order Shipping Info API
+  description: >-
+    The GetOrderShippingInfo API from Beacon Roofing Supply — 1 operation(s) for getordershippinginfo.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetOrderShippingInfo
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getordershippinginfo-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getpermissiontemplatedetail-api
+  name: Beacon Roofing Supply Get Permission Template Detail API
+  description: >-
+    The GetPermissionTemplateDetail API from Beacon Roofing Supply — 1 operation(s) for getpermissiontemplatedetail.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetPermissionTemplateDetail
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getpermissiontemplatedetail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getproductbranchorregionavailability-api
+  name: Beacon Roofing Supply Get Product Branch Or Region Availability API
+  description: >-
+    The GetProductBranchOrRegionAvailability API from Beacon Roofing Supply — 1 operation(s) for getproductbranchorregionavailability.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetProductBranchOrRegionAvailability
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getproductbranchorregionavailability-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getproductinfo-api
+  name: Beacon Roofing Supply Get Product Info API
+  description: The GetProductInfo API from Beacon Roofing Supply — 1 operation(s) for getproductinfo.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetProductInfo
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getproductinfo-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getproductvariation-api
+  name: Beacon Roofing Supply Get Product Variation API
+  description: >-
+    The GetProductVariation API from Beacon Roofing Supply — 1 operation(s) for getproductvariation.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetProductVariation
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getproductvariation-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getquotedetail-api
+  name: Beacon Roofing Supply Get Quote Detail API
+  description: The GetQuoteDetail API from Beacon Roofing Supply — 1 operation(s) for getquotedetail.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetQuoteDetail
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getquotedetail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getquoteorderdetail-api
+  name: Beacon Roofing Supply Get Quote Order Detail API
+  description: >-
+    The GetQuoteOrderDetail API from Beacon Roofing Supply — 1 operation(s) for getquoteorderdetail.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetQuoteOrderDetail
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getquoteorderdetail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getquoteorderprice-api
+  name: Beacon Roofing Supply Get Quote Order Price API
+  description: >-
+    The GetQuoteOrderPrice API from Beacon Roofing Supply — 1 operation(s) for getquoteorderprice.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetQuoteOrderPrice
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getquoteorderprice-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getquoteproductvariation-api
+  name: Beacon Roofing Supply Get Quote Product Variation API
+  description: >-
+    The GetQuoteProductVariation API from Beacon Roofing Supply — 1 operation(s) for getquoteproductvariation.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetQuoteProductVariation
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getquoteproductvariation-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getrebateform-api
+  name: Beacon Roofing Supply Get Rebate Form API
+  description: The GetRebateForm API from Beacon Roofing Supply — 1 operation(s) for getrebateform.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetRebateForm
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getrebateform-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getrebateredeemeditemdetail-api
+  name: Beacon Roofing Supply Get Rebate Redeemed Item Detail API
+  description: >-
+    The GetRebateRedeemedItemDetail API from Beacon Roofing Supply — 1 operation(s) for getrebateredeemeditemdetail.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetRebateRedeemedItemDetail
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getrebateredeemeditemdetail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getrebateredeemedsummaryitems-api
+  name: Beacon Roofing Supply Get Rebate Redeemed Summary Items API
+  description: >-
+    The GetRebateRedeemedSummaryItems API from Beacon Roofing Supply — 1 operation(s) for getrebateredeemedsummaryitems.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetRebateRedeemedSummaryItems
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getrebateredeemedsummaryitems-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getsavedorderconfirmationinfo-api
+  name: Beacon Roofing Supply Get Saved Order Confirmation Info API
+  description: >-
+    The GetSavedOrderConfirmationInfo API from Beacon Roofing Supply — 1 operation(s) for getsavedorderconfirmationinfo.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetSavedOrderConfirmationInfo
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getsavedorderconfirmationinfo-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getsavedorderreviewinfo-api
+  name: Beacon Roofing Supply Get Saved Order Review Info API
+  description: >-
+    The GetSavedOrderReviewInfo API from Beacon Roofing Supply — 1 operation(s) for getsavedorderreviewinfo.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetSavedOrderReviewInfo
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getsavedorderreviewinfo-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getsavedordershippinginfo-api
+  name: Beacon Roofing Supply Get Saved Order Shipping Info API
+  description: >-
+    The GetSavedOrderShippingInfo API from Beacon Roofing Supply — 1 operation(s) for getsavedordershippinginfo.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetSavedOrderShippingInfo
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getsavedordershippinginfo-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getskubranchorregionavailability-api
+  name: Beacon Roofing Supply Get SKU Branch Or Region Availability API
+  description: >-
+    The GetSKUBranchOrRegionAvailability API from Beacon Roofing Supply — 1 operation(s) for getskubranchorregionavailability.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetSKUBranchOrRegionAvailability
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getskubranchorregionavailability-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getskuuom-api
+  name: Beacon Roofing Supply Get Sku Uom API
+  description: The GetSkuUom API from Beacon Roofing Supply — 1 operation(s) for getskuuom.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetSkuUom
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getskuuom-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getstatuschange-api
+  name: Beacon Roofing Supply Get Status Change API
+  description: The GetStatusChange API from Beacon Roofing Supply — 1 operation(s) for getstatuschange.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetStatusChange
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getstatuschange-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getsubmitorderresult-api
+  name: Beacon Roofing Supply Get Submit Order Result API
+  description: >-
+    The GetSubmitOrderResult API from Beacon Roofing Supply — 1 operation(s) for getsubmitorderresult.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetSubmitOrderResult
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getsubmitorderresult-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-gettemplatedetail-api
+  name: Beacon Roofing Supply Get Template Detail API
+  description: >-
+    The GetTemplateDetail API from Beacon Roofing Supply — 1 operation(s) for gettemplatedetail.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetTemplateDetail
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-gettemplatedetail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getuserdetail-api
+  name: Beacon Roofing Supply Get User Detail API
+  description: The GetUserDetail API from Beacon Roofing Supply — 1 operation(s) for getuserdetail.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetUserDetail
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getuserdetail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-getuserregistertoken-api
+  name: Beacon Roofing Supply Get User Register Token API
+  description: >-
+    The GetUserRegisterToken API from Beacon Roofing Supply — 1 operation(s) for getuserregistertoken.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - GetUserRegisterToken
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-getuserregistertoken-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-hoverexplicitlogin-api
+  name: Beacon Roofing Supply Hover Explicit Login API
+  description: >-
+    The HoverExplicitLogin API from Beacon Roofing Supply — 1 operation(s) for hoverexplicitlogin.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - HoverExplicitLogin
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-hoverexplicitlogin-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-itemdetails-api
+  name: Beacon Roofing Supply Item Details API
+  description: The ItemDetails API from Beacon Roofing Supply — 1 operation(s) for itemdetails.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ItemDetails
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-itemdetails-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-itemlist-api
+  name: Beacon Roofing Supply Itemlist API
+  description: The Itemlist API from Beacon Roofing Supply — 1 operation(s) for itemlist.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Itemlist
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-itemlist-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-items-api
+  name: Beacon Roofing Supply Items API
+  description: The Items API from Beacon Roofing Supply — 1 operation(s) for items.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Items
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-items-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-jobs-api
+  name: Beacon Roofing Supply Jobs API
+  description: The Jobs API from Beacon Roofing Supply — 1 operation(s) for jobs.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-login-api
+  name: Beacon Roofing Supply Login API
+  description: The Login API from Beacon Roofing Supply — 1 operation(s) for login.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Login
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-login-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-logout-api
+  name: Beacon Roofing Supply Logout API
+  description: The Logout API from Beacon Roofing Supply — 1 operation(s) for logout.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Logout
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-logout-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-mincronmapping-api
+  name: Beacon Roofing Supply Mincron Mapping API
+  description: The MincronMapping API from Beacon Roofing Supply — 1 operation(s) for mincronmapping.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - MincronMapping
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-mincronmapping-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-orderdetail-api
+  name: Beacon Roofing Supply Orderdetail API
+  description: The Orderdetail API from Beacon Roofing Supply — 1 operation(s) for orderdetail.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Orderdetail
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-orderdetail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-orderhistory-api
+  name: Beacon Roofing Supply Orderhistory API
+  description: The Orderhistory API from Beacon Roofing Supply — 1 operation(s) for orderhistory.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Orderhistory
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-orderhistory-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-orderhistory-v2-api
+  name: Beacon Roofing Supply Orderhistory V2 API
+  description: The Orderhistory V2 API from Beacon Roofing Supply — 1 operation(s) for orderhistory v2.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Orderhistory V2
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-orderhistory-v2-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-ordersummary-api
+  name: Beacon Roofing Supply Order Summary API
+  description: The OrderSummary API from Beacon Roofing Supply — 1 operation(s) for ordersummary.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - OrderSummary
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-ordersummary-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-organization-api
+  name: Beacon Roofing Supply Organization API
+  description: The Organization API from Beacon Roofing Supply — 1 operation(s) for organization.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-organization-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-permissiontemplatelist-api
+  name: Beacon Roofing Supply Permission Template List API
+  description: >-
+    The PermissionTemplateList API from Beacon Roofing Supply — 1 operation(s) for permissiontemplatelist.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - PermissionTemplateList
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-permissiontemplatelist-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-placeeaglevieworder-api
+  name: Beacon Roofing Supply Place Eagle View Order API
+  description: >-
+    The PlaceEagleViewOrder API from Beacon Roofing Supply — 1 operation(s) for placeeaglevieworder.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - PlaceEagleViewOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-placeeaglevieworder-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-placeeagleviewupgradeorder-api
+  name: Beacon Roofing Supply Place Eagle View Upgrade Order API
+  description: >-
+    The PlaceEagleViewUpgradeOrder API from Beacon Roofing Supply — 1 operation(s) for placeeagleviewupgradeorder.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - PlaceEagleViewUpgradeOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-placeeagleviewupgradeorder-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-placequoteorder-api
+  name: Beacon Roofing Supply Place Quote Order API
+  description: The PlaceQuoteOrder API from Beacon Roofing Supply — 1 operation(s) for placequoteorder.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - PlaceQuoteOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-placequoteorder-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-pricing-api
+  name: Beacon Roofing Supply Pricing API
+  description: The Pricing API from Beacon Roofing Supply — 1 operation(s) for pricing.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Pricing
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-pricing-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-proceedtocheckout-api
+  name: Beacon Roofing Supply Proceed To Checkout API
+  description: >-
+    The ProceedToCheckout API from Beacon Roofing Supply — 1 operation(s) for proceedtocheckout.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ProceedToCheckout
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-proceedtocheckout-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-queryquotestatus-api
+  name: Beacon Roofing Supply Query Quote Status API
+  description: >-
+    The QueryQuoteStatus API from Beacon Roofing Supply — 1 operation(s) for queryquotestatus.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - QueryQuoteStatus
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-queryquotestatus-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-quote-api
+  name: Beacon Roofing Supply Quote API
+  description: The Quote API from Beacon Roofing Supply — 1 operation(s) for quote.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Quote
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-quote-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-rebatelanding-api
+  name: Beacon Roofing Supply Rebate Landing API
+  description: The RebateLanding API from Beacon Roofing Supply — 1 operation(s) for rebatelanding.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - RebateLanding
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-rebatelanding-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-register-api
+  name: Beacon Roofing Supply Register API
+  description: The Register API from Beacon Roofing Supply — 1 operation(s) for register.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Register
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-register-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-rejectquote-api
+  name: Beacon Roofing Supply Reject Quote API
+  description: The RejectQuote API from Beacon Roofing Supply — 1 operation(s) for rejectquote.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - RejectQuote
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-rejectquote-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-rejectsavedorder-api
+  name: Beacon Roofing Supply Reject Saved Order API
+  description: >-
+    The RejectSavedOrder API from Beacon Roofing Supply — 1 operation(s) for rejectsavedorder.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - RejectSavedOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-rejectsavedorder-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-removeitemfromcart-api
+  name: Beacon Roofing Supply Remove Item From Cart API
+  description: >-
+    The RemoveItemFromCart API from Beacon Roofing Supply — 1 operation(s) for removeitemfromcart.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - RemoveItemFromCart
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-removeitemfromcart-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-resetpassword-api
+  name: Beacon Roofing Supply Reset Password API
+  description: The ResetPassword API from Beacon Roofing Supply — 1 operation(s) for resetpassword.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ResetPassword
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-resetpassword-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-revisequote-api
+  name: Beacon Roofing Supply Revise Quote API
+  description: The ReviseQuote API from Beacon Roofing Supply — 1 operation(s) for revisequote.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ReviseQuote
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-revisequote-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-role-api
+  name: Beacon Roofing Supply Role API
+  description: The Role API from Beacon Roofing Supply — 1 operation(s) for role.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Role
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-role-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-savecurrentuserinfo-api
+  name: Beacon Roofing Supply Save Current User Info API
+  description: >-
+    The SaveCurrentUserInfo API from Beacon Roofing Supply — 1 operation(s) for savecurrentuserinfo.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - SaveCurrentUserInfo
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-savecurrentuserinfo-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-saveorder-api
+  name: Beacon Roofing Supply Save Order API
+  description: The SaveOrder API from Beacon Roofing Supply — 1 operation(s) for saveorder.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - SaveOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-saveorder-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-saveordervalidate-api
+  name: Beacon Roofing Supply Save Order Validate API
+  description: >-
+    The SaveOrderValidate API from Beacon Roofing Supply — 1 operation(s) for saveordervalidate.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - SaveOrderValidate
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-saveordervalidate-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-setpassword-api
+  name: Beacon Roofing Supply Set Password API
+  description: The SetPassword API from Beacon Roofing Supply — 1 operation(s) for setpassword.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - SetPassword
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-setpassword-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-submitcurrentorder-api
+  name: Beacon Roofing Supply Submit Current Order API
+  description: >-
+    The SubmitCurrentOrder API from Beacon Roofing Supply — 1 operation(s) for submitcurrentorder.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - SubmitCurrentOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-submitcurrentorder-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-submitorder-api
+  name: Beacon Roofing Supply Submit Order API
+  description: The SubmitOrder API from Beacon Roofing Supply — 1 operation(s) for submitorder.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - SubmitOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-submitorder-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-submitquote-api
+  name: Beacon Roofing Supply Submit Quote API
+  description: The SubmitQuote API from Beacon Roofing Supply — 1 operation(s) for submitquote.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - SubmitQuote
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-submitquote-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-submitquoteform-api
+  name: Beacon Roofing Supply Submit Quote Form API
+  description: The SubmitQuoteForm API from Beacon Roofing Supply — 1 operation(s) for submitquoteform.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - SubmitQuoteForm
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-submitquoteform-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-submitquoteorderforapproval-api
+  name: Beacon Roofing Supply Submit Quote Order For Approval API
+  description: >-
+    The SubmitQuoteOrderForApproval API from Beacon Roofing Supply — 1 operation(s) for submitquoteorderforapproval.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - SubmitQuoteOrderForApproval
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-submitquoteorderforapproval-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-submitrebate-api
+  name: Beacon Roofing Supply Submit Rebate API
+  description: The SubmitRebate API from Beacon Roofing Supply — 1 operation(s) for submitrebate.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - SubmitRebate
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-submitrebate-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-submitsavedorder-api
+  name: Beacon Roofing Supply Submit Saved Order API
+  description: >-
+    The SubmitSavedOrder API from Beacon Roofing Supply — 1 operation(s) for submitsavedorder.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - SubmitSavedOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-submitsavedorder-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-suggestiveselling-api
+  name: Beacon Roofing Supply Suggestive Selling API
+  description: >-
+    The SuggestiveSelling API from Beacon Roofing Supply — 1 operation(s) for suggestiveselling.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - SuggestiveSelling
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-suggestiveselling-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-switchaccount-api
+  name: Beacon Roofing Supply Switch Account API
+  description: The SwitchAccount API from Beacon Roofing Supply — 1 operation(s) for switchaccount.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - SwitchAccount
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-switchaccount-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-template-api
+  name: Beacon Roofing Supply Template API
+  description: The Template API from Beacon Roofing Supply — 1 operation(s) for template.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Template
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-template-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-typeahead-api
+  name: Beacon Roofing Supply Type Ahead API
+  description: The TypeAhead API from Beacon Roofing Supply — 1 operation(s) for typeahead.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - TypeAhead
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-typeahead-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-unlinkevaccount-api
+  name: Beacon Roofing Supply Unlink EV Account API
+  description: The UnlinkEVAccount API from Beacon Roofing Supply — 1 operation(s) for unlinkevaccount.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UnlinkEVAccount
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-unlinkevaccount-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-updateaddressbook-api
+  name: Beacon Roofing Supply Update Address Book API
+  description: >-
+    The UpdateAddressBook API from Beacon Roofing Supply — 1 operation(s) for updateaddressbook.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UpdateAddressBook
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-updateaddressbook-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-updatecart-api
+  name: Beacon Roofing Supply Update Cart API
+  description: The UpdateCart API from Beacon Roofing Supply — 1 operation(s) for updatecart.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UpdateCart
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-updatecart-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-updatecurrentorderjobnumber-api
+  name: Beacon Roofing Supply Update Current Order Job Number API
+  description: >-
+    The UpdateCurrentOrderJobNumber API from Beacon Roofing Supply — 1 operation(s) for updatecurrentorderjobnumber.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UpdateCurrentOrderJobNumber
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-updatecurrentorderjobnumber-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-updateorderalert-api
+  name: Beacon Roofing Supply Update Order Alert API
+  description: >-
+    The UpdateOrderAlert API from Beacon Roofing Supply — 1 operation(s) for updateorderalert.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UpdateOrderAlert
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-updateorderalert-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-updatepermissiontemplate-api
+  name: Beacon Roofing Supply Update Permission Template API
+  description: >-
+    The UpdatePermissionTemplate API from Beacon Roofing Supply — 1 operation(s) for updatepermissiontemplate.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UpdatePermissionTemplate
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-updatepermissiontemplate-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-updatequote-api
+  name: Beacon Roofing Supply Update Quote API
+  description: The UpdateQuote API from Beacon Roofing Supply — 1 operation(s) for updatequote.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UpdateQuote
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-updatequote-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-updatequoteorder-api
+  name: Beacon Roofing Supply Update Quote Order API
+  description: >-
+    The UpdateQuoteOrder API from Beacon Roofing Supply — 1 operation(s) for updatequoteorder.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UpdateQuoteOrder
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-updatequoteorder-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-updatequoteordershippinginfo-api
+  name: Beacon Roofing Supply Update Quote Order Shipping Info API
+  description: >-
+    The UpdateQuoteOrderShippingInfo API from Beacon Roofing Supply — 1 operation(s) for updatequoteordershippinginfo.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UpdateQuoteOrderShippingInfo
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-updatequoteordershippinginfo-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-updatesavedorderitems-api
+  name: Beacon Roofing Supply Update Saved Order Items API
+  description: >-
+    The UpdateSavedOrderItems API from Beacon Roofing Supply — 1 operation(s) for updatesavedorderitems.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UpdateSavedOrderItems
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-updatesavedorderitems-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-updatesavedordershippinginfo-api
+  name: Beacon Roofing Supply Update Saved Order Shipping Info API
+  description: >-
+    The UpdateSavedOrderShippingInfo API from Beacon Roofing Supply — 1 operation(s) for updatesavedordershippinginfo.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UpdateSavedOrderShippingInfo
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-updatesavedordershippinginfo-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-updatestatuschange-api
+  name: Beacon Roofing Supply Update Status Change API
+  description: >-
+    The UpdateStatusChange API from Beacon Roofing Supply — 1 operation(s) for updatestatuschange.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UpdateStatusChange
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-updatestatuschange-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-updatetemplate-api
+  name: Beacon Roofing Supply Update Template API
+  description: The UpdateTemplate API from Beacon Roofing Supply — 1 operation(s) for updatetemplate.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UpdateTemplate
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-updatetemplate-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-updateuser-api
+  name: Beacon Roofing Supply Update User API
+  description: The UpdateUser API from Beacon Roofing Supply — 1 operation(s) for updateuser.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UpdateUser
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-updateuser-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-uploadorderrelateddocuments-api
+  name: Beacon Roofing Supply Upload Order Related Documents API
+  description: >-
+    The UploadOrderRelatedDocuments API from Beacon Roofing Supply — 1 operation(s) for uploadorderrelateddocuments.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - UploadOrderRelatedDocuments
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-uploadorderrelateddocuments-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-user-api
+  name: Beacon Roofing Supply User API
+  description: The User API from Beacon Roofing Supply — 1 operation(s) for user.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-user-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-validateorderbylocation-api
+  name: Beacon Roofing Supply Validate Order By Location API
+  description: >-
+    The ValidateOrderByLocation API from Beacon Roofing Supply — 1 operation(s) for validateorderbylocation.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ValidateOrderByLocation
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-validateorderbylocation-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-validatetemplateitems-api
+  name: Beacon Roofing Supply Validate Template Items API
+  description: >-
+    The ValidateTemplateItems API from Beacon Roofing Supply — 1 operation(s) for validatetemplateitems.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ValidateTemplateItems
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-validatetemplateitems-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-validateuserbyaccount-api
+  name: Beacon Roofing Supply Validate User By Account API
+  description: >-
+    The ValidateUserByAccount API from Beacon Roofing Supply — 1 operation(s) for validateuserbyaccount.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ValidateUserByAccount
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-validateuserbyaccount-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-validateuserbyemail-api
+  name: Beacon Roofing Supply Validate User By Email API
+  description: >-
+    The ValidateUserByEmail API from Beacon Roofing Supply — 1 operation(s) for validateuserbyemail.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - ValidateUserByEmail
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-validateuserbyemail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-cart-items-api
+  name: Beacon Roofing Supply Cart Items API
+  description: The Cart Items API from Beacon Roofing Supply — 1 operation(s) for cart items.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - Cart Items
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-cart-items-api-openapi.yml
   - type: Documentation
     url: https://beaconproplus.com/swagger/v2/
   - type: Documentation

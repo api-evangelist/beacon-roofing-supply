@@ -75,6 +75,20 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    UserTour:
+      type: object
+      properties:
+        firstRecordedTour:
+          type: string
+          format: timestamp
+        lastRecordedTour:
+          type: string
+          format: timestamp
+        nextScheduledTour:
+          type: string
+          format: timestamp
+        optOut:
+          type: boolean
     getNewUserTourResp:
       type: object
       properties:
@@ -93,20 +107,6 @@ components:
         checkoutTour:
           $ref: '#/components/schemas/UserTour'
         optOutOfAllTours:
-          type: boolean
-    UserTour:
-      type: object
-      properties:
-        firstRecordedTour:
-          type: string
-          format: timestamp
-        lastRecordedTour:
-          type: string
-          format: timestamp
-        nextScheduledTour:
-          type: string
-          format: timestamp
-        optOut:
           type: boolean
     updateNewUserTourReq:
       type: object

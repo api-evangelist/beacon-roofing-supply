@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Create Template API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: CreateTemplate
+paths:
+  /createTemplate:
+    post:
+      operationId: V2Controller_createTemplate
+      summary: Creates template for current user
+      description: 'Creates new template for current user.
+
+
+        Request body: required
+
+
+        templateName: required, alphanumeric description
+
+
+        account: required, account Id
+
+
+        Items: optional:
+
+
+        itemNumber: required, unique product identifier
+
+
+        unitOfMeasure: required if invokeBy is "store"; otherwise, this value is optional
+
+
+        quantity: required, numerical amount
+
+
+        matchColor: optional, format: "vendor color name(code)", example: "Gunmetal Grey(010)" or just "vendor color name", example: "Gunmetal Grey"
+
+
+        matchMFG: optional, this is a mapping table used to match manufacturer product codes with Beacon’s catalog identifiers'
+      parameters:
+      - name: invokeBy
+        required: false
+        in: path
+        description: If value is "store", will do the store logic
+        schema:
+          type: string
+      - name: ignoreInvalidItems
+        required: false
+        in: path
+        description: If "true", will ignore invalid items and continue add valid items to cart, otherwise will return invalid items
+        schema:
+          type: boolean
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createTemplateBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/createTemplateResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - CreateTemplate
+components:
+  schemas:
+    createTemplateResponse:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        lastModifiedDate:
+          type: string
+        accountLegacyId:
+          type: string
+        accountName:
+          type: string
+        allItemsUnavailable:
+          type: boolean
+        itemTotal:
+          type: number
+        itemSuccessTotal:
+          type: number
+        detailUrl:
+          type: string
+        callBackParam:
+          type: string
+      required:
+      - templateId
+      - templateName
+      - lastModifiedDate
+      - accountLegacyId
+      - accountName
+      - allItemsUnavailable
+      - itemTotal
+      - itemSuccessTotal
+      - detailUrl
+      - callBackParam
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter
+    createTemplateBody:
+      type: object
+      properties:
+        templateName:
+          type: string
+        account:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+      required:
+      - templateName
+      - account
+      - items

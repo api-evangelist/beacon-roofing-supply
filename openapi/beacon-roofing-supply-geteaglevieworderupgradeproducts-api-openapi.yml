@@ -1,0 +1,210 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Eagle View Order Upgrade Products…
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetEagleViewOrderUpgradeProducts
+paths:
+  /getEagleViewOrderUpgradeProducts:
+    get:
+      operationId: V2Controller_getEagleViewOrderUpgradeProducts
+      summary: Returns product upgrades for an Eagle View report
+      description: Returns products that can be upgraded from an Eagle View report.
+      parameters:
+      - name: reportId
+        required: false
+        in: path
+        description: Report Id.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getEagleViewOrderUpgradeProductsResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetEagleViewOrderUpgradeProducts
+components:
+  schemas:
+    DeliveryProduct:
+      type: object
+      properties:
+        productID:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+        isTemporarilyUnavailable:
+          type: boolean
+        priceMin:
+          type: number
+        priceMax:
+          type: number
+        deliveryProductIds:
+          type: array
+          items:
+            type: number
+        DetailedDescription:
+          type: string
+      required:
+      - productID
+      - name
+      - description
+      - isTemporarilyUnavailable
+      - priceMin
+      - priceMax
+      - deliveryProductIds
+      - DetailedDescription
+    AvailableProduct:
+      type: object
+      properties:
+        productID:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+        productGroup:
+          type: string
+        isTemporarilyUnavailable:
+          type: boolean
+        priceMin:
+          type: number
+        priceMax:
+          type: number
+        deliveryProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryProduct'
+        addOnProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryProduct'
+        measurementInstructionTypes:
+          type: array
+          items:
+            type: number
+        TypeOfStructure:
+          type: number
+        IsRoofProduct:
+          type: boolean
+        SortOrder:
+          type: number
+        AllowsUserSubmittedPhotos:
+          type: boolean
+        DetailedDescription:
+          type: string
+      required:
+      - productID
+      - name
+      - description
+      - productGroup
+      - isTemporarilyUnavailable
+      - priceMin
+      - priceMax
+      - deliveryProducts
+      - addOnProducts
+      - measurementInstructionTypes
+      - TypeOfStructure
+      - IsRoofProduct
+      - SortOrder
+      - AllowsUserSubmittedPhotos
+      - DetailedDescription
+    CurrentOrder:
+      type: object
+      properties:
+        ReportId:
+          type: number
+        MeasurementRequestTypeId:
+          type: number
+        ProductId:
+          type: number
+        ProductDeliveryId:
+          type: number
+        AddOnProductIds:
+          type: array
+          items:
+            type: number
+        AdditionalEmails:
+          type: string
+        ClaimNumber:
+          type: string
+        ClaimInfo:
+          type: string
+        PONumber:
+          type: string
+        DateOfLoss:
+          type: string
+        CatId:
+          type: string
+        JobName:
+          type: string
+      required:
+      - ReportId
+      - MeasurementRequestTypeId
+      - ProductId
+      - ProductDeliveryId
+      - AddOnProductIds
+      - AdditionalEmails
+      - ClaimNumber
+      - ClaimInfo
+      - PONumber
+      - DateOfLoss
+      - CatId
+      - JobName
+    getEagleViewOrderUpgradeProductsResponse:
+      type: object
+      properties:
+        AvailableProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AvailableProduct'
+        CurrentOrder:
+          $ref: '#/components/schemas/CurrentOrder'
+      required:
+      - AvailableProducts
+      - CurrentOrder

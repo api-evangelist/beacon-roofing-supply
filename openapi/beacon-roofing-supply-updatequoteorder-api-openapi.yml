@@ -1,0 +1,154 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Update Quote Order API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: UpdateQuoteOrder
+paths:
+  /updateQuoteOrder:
+    post:
+      operationId: V2Controller_updateQuoteOrder
+      summary: Updates quote draft
+      description: Updates the draft of a quote before it is submitted as an order.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateQuoteOrderBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateQuoteOrderResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - UpdateQuoteOrder
+components:
+  schemas:
+    CommerceItem:
+      type: object
+      properties:
+        id:
+          type: string
+        imageUrl:
+          type: string
+        imageOnErrorUrl:
+          type: string
+        thumbImageUrl:
+          type: string
+        pdpUrl:
+          type: string
+        description:
+          type: string
+        itemNumber:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: number
+        uom:
+          type: string
+        subTotal:
+          type: number
+        deleteStatus:
+          type: boolean
+        vendorColorId:
+          type: string
+        productId:
+          type: string
+        itemGrayOutLevel:
+          type: string
+      required:
+      - id
+      - imageUrl
+      - imageOnErrorUrl
+      - thumbImageUrl
+      - pdpUrl
+      - description
+      - itemNumber
+      - price
+      - quantity
+      - uom
+      - subTotal
+      - deleteStatus
+      - vendorColorId
+      - productId
+      - itemGrayOutLevel
+    updateQuoteOrderBody:
+      type: object
+      properties:
+        id:
+          type: string
+        action:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+      required:
+      - id
+      - action
+      - items
+    updateQuoteOrderResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        commerceItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommerceItem'
+      required:
+      - id
+      - commerceItems
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter

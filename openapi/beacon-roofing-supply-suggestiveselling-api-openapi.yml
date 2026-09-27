@@ -1,0 +1,160 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Suggestive Selling API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: SuggestiveSelling
+paths:
+  /suggestiveSelling:
+    get:
+      operationId: V2Controller_suggestiveSelling
+      summary: Returns suggestive selling information
+      description: Returns recommended Tri-built products to purchase based on customer purchase when viewing cart or template.
+      parameters:
+      - name: account
+        required: false
+        in: path
+        description: If not empty, will filter result by given account id
+        schema:
+          type: string
+      - name: brandName
+        required: false
+        in: path
+        description: The brand name, default is "TRI- BUILT"
+        schema:
+          type: string
+      - name: templateId
+        required: false
+        in: path
+        description: Template Id, if empty, the "itemNumber" is required
+        schema:
+          type: string
+      - name: itemNumber
+        required: false
+        in: path
+        description: 'Item Number, separated by comma, Example: "241177,900612", if empty, the "templateId" is required'
+        schema:
+          type: string
+      - name: excludeCategory
+        required: false
+        in: path
+        description: Exclude category names or dimension IDs, separated by `###`, default is empty
+        schema:
+          type: string
+      - name: excludeBrand
+        required: false
+        in: path
+        description: Exclude brand names or dimension IDs, separated by `###`, default is empty
+        schema:
+          type: string
+      - name: jobNumber
+        required: false
+        in: path
+        description: The job number
+        schema:
+          type: string
+      - name: pageSize
+        required: false
+        in: path
+        description: The page size, default is 3
+        schema:
+          type: string
+      - name: pageNo
+        required: false
+        in: path
+        description: The page number, default is 3
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/suggestiveSellingResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - SuggestiveSelling
+components:
+  schemas:
+    suggestiveSellingResponse:
+      type: object
+      properties:
+        productId:
+          type: string
+        productName:
+          type: string
+        productNameNotTruncate:
+          type: string
+        pdpUrl:
+          type: string
+        defaultItem:
+          $ref: '#/components/schemas/DefaultItem'
+      required:
+      - productId
+      - productName
+      - productNameNotTruncate
+      - pdpUrl
+      - defaultItem
+    DefaultItem:
+      type: object
+      properties:
+        itemNumber:
+          type: string
+        unitOfMeasure:
+          type: string
+        price:
+          type: number
+        vendorColorId:
+          type: string
+        itemImage:
+          type: string
+        itemOnErrorImage:
+          type: string
+      required:
+      - itemNumber
+      - unitOfMeasure
+      - price
+      - vendorColorId
+      - itemImage
+      - itemOnErrorImage

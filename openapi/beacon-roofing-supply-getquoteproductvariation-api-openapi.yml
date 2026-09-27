@@ -1,0 +1,293 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Get Quote Product Variation API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: GetQuoteProductVariation
+paths:
+  /getQuoteProductVariation:
+    get:
+      operationId: V2Controller_getQuoteProductVariation
+      summary: Returns product variation for quote
+      description: This service returns product variations to add to a quote for a single product. To select a different color for a product on a quote, user will select the expand option in the quote field.
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        description: Product Id
+        schema:
+          type: string
+      - name: skuId
+        required: false
+        in: path
+        description: Sku Id specific to color variation
+        schema:
+          type: string
+      - name: vendorColorId
+        required: false
+        in: path
+        description: The sku chosen vendor color
+        schema:
+          type: string
+      - name: quoteOrderId
+        required: false
+        in: path
+        description: Permanent Id assigned to quote once received in Mincron and returned for review.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getQuoteProductVariationResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - GetQuoteProductVariation
+components:
+  schemas:
+    Thickness:
+      type: object
+      properties:
+        2mm:
+          type: array
+          items:
+            type: string
+        4mm:
+          type: array
+          items:
+            type: string
+        6mm:
+          type: array
+          items:
+            type: string
+      required:
+      - 2mm
+      - 4mm
+      - 6mm
+    _300003:
+      type: object
+      properties:
+        color:
+          type: array
+          items:
+            type: string
+        size:
+          type: array
+          items:
+            type: string
+        thickness:
+          type: array
+          items:
+            type: string
+      required:
+      - color
+      - size
+      - thickness
+    VendorColor:
+      type: object
+      properties:
+        id:
+          type: string
+        MFG:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        sku:
+          type: string
+        color:
+          type: string
+      required:
+      - id
+      - MFG
+      - name
+      - code
+      - sku
+      - color
+    Variations:
+      type: object
+      properties:
+        color:
+          $ref: '#/components/schemas/Color'
+        size:
+          $ref: '#/components/schemas/Size'
+        thickness:
+          $ref: '#/components/schemas/Thickness'
+      required:
+      - color
+      - size
+      - thickness
+    getQuoteProductVariationResponse:
+      type: object
+      properties:
+        productId:
+          type: string
+        productMultiVariation:
+          $ref: '#/components/schemas/ProductMultiVariation'
+        variationContentKeyMap:
+          $ref: '#/components/schemas/VariationContentKeyMap'
+      required:
+      - productId
+      - productMultiVariation
+      - variationContentKeyMap
+    CurrentVariations:
+      type: object
+      properties:
+        color:
+          type: string
+        size:
+          type: string
+        diameter:
+          type: string
+        thickness:
+          type: string
+        style:
+          type: string
+        packaging:
+          type: string
+        MFG:
+          type: string
+      required:
+      - color
+      - size
+      - diameter
+      - thickness
+      - style
+      - packaging
+      - MFG
+    VariationGroup:
+      type: object
+      properties:
+        variationTypes:
+          type: array
+          items:
+            type: string
+      required:
+      - variationTypes
+    Color:
+      type: object
+      properties:
+        White:
+          type: array
+          items:
+            type: string
+        Dover:
+          type: array
+          items:
+            type: string
+      required:
+      - White
+      - Dover
+    Size:
+      type: object
+      properties:
+        12x10:
+          type: array
+          items:
+            type: string
+        4x4:
+          type: array
+          items:
+            type: string
+      required:
+      - 12x10
+      - 4x4
+    VariationContentKeyMap:
+      type: object
+      properties: {}
+    ProductMultiVariation:
+      type: object
+      properties:
+        currentSkuId:
+          type: string
+        skus:
+          $ref: '#/components/schemas/Skus'
+        variations:
+          $ref: '#/components/schemas/Variations'
+        vendorColors:
+          type: array
+          items:
+            $ref: '#/components/schemas/VendorColor'
+        allVariationTypes:
+          type: array
+          items:
+            type: string
+        currentVariations:
+          $ref: '#/components/schemas/CurrentVariations'
+        variationKeyMFG:
+          type: string
+        variationKeyColor:
+          type: string
+        variationGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/VariationGroup'
+        maxVariationGroupSize:
+          type: number
+      required:
+      - currentSkuId
+      - skus
+      - variations
+      - vendorColors
+      - allVariationTypes
+      - currentVariations
+      - variationKeyMFG
+      - variationKeyColor
+      - variationGroups
+      - maxVariationGroupSize
+    Skus:
+      type: object
+      properties:
+        '300003':
+          $ref: '#/components/schemas/_300003'
+        '600001':
+          $ref: '#/components/schemas/_300003'
+        '600002':
+          $ref: '#/components/schemas/_300003'
+      required:
+      - '300003'
+      - '600001'
+      - '600002'

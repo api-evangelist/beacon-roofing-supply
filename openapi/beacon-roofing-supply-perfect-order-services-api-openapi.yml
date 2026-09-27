@@ -241,23 +241,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    BCPaginationDataObj:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        previous:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        pageSize:
-          type: integer
-        currentPage:
-          type: integer
-        totalCount:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPaginationObj'
     getPerfectOrderBrandsRep:
       type: object
       properties:
@@ -283,6 +266,32 @@ components:
                     type: string
                   zoomImageUrl:
                     type: string
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
     getPerfectOrderDetailRep:
       type: object
       properties:
@@ -334,24 +343,6 @@ components:
           type: boolean
         type:
           type: string
-    getPerfectStyleGroupsRep:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            type: object
-            properties:
-              brandName:
-                type: string
-              styleId:
-                type: string
-              productStyleImage:
-                type: string
-              productStyleName:
-                type: string
-              rank:
-                type: string
     getPerfectOrderLandingRep:
       type: object
       properties:
@@ -379,31 +370,6 @@ components:
                     type: string
                   id:
                     type: string
-    variationsObj:
-      type: object
-      additionalProperties:
-        type: object
-      example:
-        color:
-          White:
-          - '100001'
-          - '200002'
-          Dover:
-          - '100001'
-          - '300003'
-        size:
-          12x10:
-          - '100001'
-          4x4:
-          - '200002'
-          - '300003'
-        thickness:
-          2mm:
-          - '100001'
-          4mm:
-          - '200002'
-          6mm:
-          - '300003'
     skusVariationObj:
       type: object
       additionalProperties:
@@ -431,15 +397,49 @@ components:
           - 4x4
           thickness:
           - 6mm
-    BCOtherPaginationObj:
+    getPerfectStyleGroupsRep:
       type: object
       properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: integer
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              brandName:
+                type: string
+              styleId:
+                type: string
+              productStyleImage:
+                type: string
+              productStyleName:
+                type: string
+              rank:
+                type: string
+    variationsObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        color:
+          White:
+          - '100001'
+          - '200002'
+          Dover:
+          - '100001'
+          - '300003'
+        size:
+          12x10:
+          - '100001'
+          4x4:
+          - '200002'
+          - '300003'
+        thickness:
+          2mm:
+          - '100001'
+          4mm:
+          - '200002'
+          6mm:
+          - '300003'
   securitySchemes:
     JSESSIONID:
       type: apiKey

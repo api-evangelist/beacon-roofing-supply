@@ -1,0 +1,317 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Orderdetail API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Orderdetail
+paths:
+  /orderdetail:
+    get:
+      operationId: V2Controller_orderdetail
+      summary: Returns order details by order Id
+      description: Returns order details by order Id. If OAuth is enabled, token is passed in header. Order status codes include (I) Invoiced, (R) Reviewed, (P) Priced, (C) Changed, (O) Open, (K) Reserved, (N) Pending. For eagleView order, specialInstruction field in response will be replaced with report address.
+      parameters:
+      - name: orderId
+        required: true
+        in: path
+        description: Order Id
+        schema:
+          type: string
+      - name: accountId
+        required: true
+        in: path
+        description: Account Id
+        schema:
+          type: string
+      - name: accountToken
+        required: true
+        in: path
+        description: Account Token
+        schema:
+          type: string
+      - name: showDT
+        required: false
+        in: path
+        description: Flag to show/hide DT order status info, default is true.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orderdetailResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - Orderdetail
+components:
+  schemas:
+    Info:
+      type: object
+      properties:
+        defaultValue:
+          type: string
+        imageUrl:
+          type: string
+        active:
+          type: boolean
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - defaultValue
+      - imageUrl
+      - active
+      - key
+      - value
+    LineItem:
+      type: object
+      properties:
+        specialInstructions:
+          type: string
+        productOrItemNumber:
+          type: string
+        subTotal:
+          type: number
+        itemOrProductDescription:
+          type: string
+        unitPrice:
+          type: number
+        quantity:
+          type: number
+        itemNumber:
+          type: string
+        unitOfMeasure:
+          type: string
+        productImageUrl:
+          type: string
+        productOnErrorImageUrl:
+          type: string
+        productOrItemDescription:
+          type: string
+        extendedDescription:
+          type: string
+        lineComments:
+          type: string
+      required:
+      - specialInstructions
+      - productOrItemNumber
+      - subTotal
+      - itemOrProductDescription
+      - unitPrice
+      - quantity
+      - itemNumber
+      - unitOfMeasure
+      - productImageUrl
+      - productOnErrorImageUrl
+      - productOrItemDescription
+      - extendedDescription
+      - lineComments
+    orderdetailResponse:
+      type: object
+      properties:
+        order:
+          $ref: '#/components/schemas/Order'
+        lineItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/LineItem'
+        DTStatus:
+          $ref: '#/components/schemas/DTStatus'
+        DTPhotos:
+          type: array
+          items:
+            $ref: '#/components/schemas/DTPhoto'
+        branchDTEnabled:
+          type: boolean
+        DTEnabled:
+          type: boolean
+        EVReportId:
+          type: number
+        EVEligibleForUpgrade:
+          type: boolean
+        hasDTError:
+          type: boolean
+      required:
+      - order
+      - lineItems
+      - DTStatus
+      - DTPhotos
+      - branchDTEnabled
+      - DTEnabled
+      - EVReportId
+      - EVEligibleForUpgrade
+      - hasDTError
+    Shipping:
+      type: object
+      properties:
+        shippingBranch:
+          type: number
+        address:
+          $ref: '#/components/schemas/Address'
+        shippingMethod:
+          type: string
+      required:
+      - shippingBranch
+      - address
+      - shippingMethod
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    DTStatus:
+      type: object
+      properties:
+        displayName:
+          type: string
+        contKey:
+          type: string
+        contValue:
+          type: string
+        statusEndDate:
+          type: string
+        infos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Info'
+      required:
+      - displayName
+      - contKey
+      - contValue
+      - statusEndDate
+      - infos
+    DTPhoto:
+      type: object
+      properties:
+        ThumbnailUrl:
+          type: string
+        LargeUrl:
+          type: string
+        Timestamp:
+          type: string
+      required:
+      - ThumbnailUrl
+      - LargeUrl
+      - Timestamp
+    Order:
+      type: object
+      properties:
+        total:
+          type: number
+        sellingBranch:
+          type: string
+        accountId:
+          type: string
+        orderNumber:
+          type: string
+        job:
+          $ref: '#/components/schemas/Job'
+        purchaseOrderNo:
+          type: string
+        creditHold:
+          type: string
+        shipping:
+          $ref: '#/components/schemas/Shipping'
+        orderPlacedDate:
+          type: string
+        tax:
+          type: number
+        orderStatusCode:
+          type: string
+        subTotal:
+          type: number
+        orderId:
+          type: string
+        specialInstruction:
+          type: string
+        UUID:
+          type: string
+      required:
+      - total
+      - sellingBranch
+      - accountId
+      - orderNumber
+      - job
+      - purchaseOrderNo
+      - creditHold
+      - shipping
+      - orderPlacedDate
+      - tax
+      - orderStatusCode
+      - subTotal
+      - orderId
+      - specialInstruction
+      - UUID
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber

@@ -1,0 +1,248 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Place Eagle View Order API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: PlaceEagleViewOrder
+paths:
+  /placeEagleViewOrder:
+    post:
+      operationId: V2Controller_placeEagleViewOrder
+      summary: Creates an Eagle View order
+      description: Creates an Eagle View order. A successful PlaceOrder call will return a unique Report Id, which can then be used in other method calls.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/placeEagleViewOrderBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/placeEagleViewOrderResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - PlaceEagleViewOrder
+components:
+  schemas:
+    ReportAttibute:
+      type: object
+      properties:
+        Attribute:
+          type: number
+        Value:
+          type: string
+      required:
+      - Attribute
+      - Value
+    OrderReport:
+      type: object
+      properties:
+        ReportAddresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportAddress'
+        BuildingId:
+          type: string
+        PrimaryProductId:
+          type: number
+        DeliveryProductId:
+          type: number
+        AddOnProductIds:
+          type: array
+          items:
+            type: number
+        MeasurementInstructionType:
+          type: number
+        ReportAttibutes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportAttibute'
+        ClaimNumber:
+          type: string
+        ClaimInfo:
+          type: string
+        BatchId:
+          type: string
+        CatId:
+          type: string
+        ChangesInLast4Years:
+          type: boolean
+        PONumber:
+          type: string
+        Comments:
+          type: string
+        ReferenceId:
+          type: string
+        InsuredName:
+          type: string
+        UpgradeFromReportId:
+          type: number
+        PolicyNumber:
+          type: string
+        DateOfLoss:
+          type: string
+        propertyType:
+          type: string
+        reportType:
+          type: string
+        deliveryType:
+          type: string
+        addOns:
+          type: string
+        structures:
+          type: string
+      required:
+      - ReportAddresses
+      - BuildingId
+      - PrimaryProductId
+      - DeliveryProductId
+      - AddOnProductIds
+      - MeasurementInstructionType
+      - ReportAttibutes
+      - ClaimNumber
+      - ClaimInfo
+      - BatchId
+      - CatId
+      - ChangesInLast4Years
+      - PONumber
+      - Comments
+      - ReferenceId
+      - InsuredName
+      - UpgradeFromReportId
+      - PolicyNumber
+      - DateOfLoss
+      - propertyType
+      - reportType
+      - deliveryType
+      - addOns
+      - structures
+    placeEagleViewOrderBody:
+      type: object
+      properties:
+        OrderReports:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderReport'
+        PromoCode:
+          type: string
+        PlaceOrderUser:
+          type: string
+        accountId:
+          type: string
+        email:
+          type: string
+        projectName:
+          type: string
+        beaconPrice:
+          type: number
+        UUID:
+          type: string
+      required:
+      - OrderReports
+      - PromoCode
+      - PlaceOrderUser
+      - accountId
+      - email
+      - projectName
+      - beaconPrice
+      - UUID
+    placeEagleViewOrderResponse:
+      type: object
+      properties:
+        mincronOrderId:
+          type: string
+        orderId:
+          type: number
+        reportIds:
+          type: array
+          items:
+            type: number
+        modelState:
+          $ref: '#/components/schemas/ModelState'
+      required:
+      - mincronOrderId
+      - orderId
+      - reportIds
+      - modelState
+    ModelState:
+      type: object
+      properties:
+        modelKey:
+          type: string
+        modelValue:
+          type: array
+          items:
+            type: string
+      required:
+      - modelKey
+      - modelValue
+    ReportAddress:
+      type: object
+      properties:
+        Address:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        Zip:
+          type: string
+        Country:
+          type: string
+        Latitude:
+          type: number
+        Longitude:
+          type: number
+      required:
+      - Address
+      - City
+      - State
+      - Zip
+      - Country
+      - Latitude
+      - Longitude

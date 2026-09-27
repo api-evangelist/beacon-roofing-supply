@@ -1,0 +1,87 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Order Summary API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: OrderSummary
+paths:
+  /orderSummary:
+    get:
+      operationId: V2Controller_orderSummary
+      summary: Returns order total for current items in cart
+      description: Displays order total for current items in cart. If one of the items in the current cart does not have pricing available, totals will not be displayed.
+      parameters: []
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/orderSummaryResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - OrderSummary
+components:
+  schemas:
+    orderSummaryResponse:
+      type: object
+      properties:
+        total:
+          type: number
+        itemsTotal:
+          type: number
+        tax:
+          type: number
+        otherChanges:
+          type: number
+        displayTotalMsg:
+          type: boolean
+        totalMsg:
+          type: string
+      required:
+      - total
+      - itemsTotal
+      - tax
+      - otherChanges
+      - displayTotalMsg
+      - totalMsg

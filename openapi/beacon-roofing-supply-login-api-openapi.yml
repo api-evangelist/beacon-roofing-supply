@@ -1,0 +1,215 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Login API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Login
+paths:
+  /login:
+    post:
+      operationId: V1Controller_login
+      summary: Logs user into system
+      description: Logs user into system with email as username and unique password. Log in session lasts 1 hour. To extend login session to 7 days, use the “RememberMe” flag. The `siteId` will always be `homeSite`.
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/login'
+      responses:
+        '200':
+          description: 'successful operation<br><br>If failed, return messageCode, refer to the <i>API Response Message Code</i> dropdown above<br><br>Example:<br><br>{ "messageCode": "1001", "messages": [{ "type": "error", "value": "Validation exception", "code": "1001" }], "success": false }'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loginResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - Login
+components:
+  schemas:
+    LastSelectedAccount:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+      required:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - cashAccount
+      - isAccountClosed
+    loginResponse:
+      type: object
+      properties:
+        messageInfo:
+          $ref: '#/components/schemas/MessageInfo'
+      required:
+      - messageInfo
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    MessageInfo:
+      type: object
+      properties:
+        accountBranch:
+          $ref: '#/components/schemas/AccountBranch'
+        lastName:
+          type: string
+        cartLineItems:
+          type: number
+        profileId:
+          type: string
+        firstName:
+          type: string
+        internalUser:
+          type: boolean
+        userType:
+          type: string
+        rewardsEligible:
+          type: boolean
+        lastSelectedAccount:
+          $ref: '#/components/schemas/LastSelectedAccount'
+      required:
+      - accountBranch
+      - lastName
+      - cartLineItems
+      - profileId
+      - firstName
+      - internalUser
+      - userType
+      - rewardsEligible
+      - lastSelectedAccount
+    AccountBranch:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+      required:
+      - address
+      - branchNumber
+      - branchName
+      - branchPhone
+      - branchRegionId
+      - company
+      - companyName
+      - division
+      - divisionName
+      - market
+    login:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        siteId:
+          type: string
+          default: homeSite
+        persistentLoginType:
+          type: string
+          default: RememberMe
+        userAgent:
+          type: string
+          default: desktop
+      required:
+      - username
+      - password
+      - siteId
+      - persistentLoginType
+      - userAgent

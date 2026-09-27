@@ -1,0 +1,102 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Type Ahead API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Typeahead
+paths:
+  /typeAhead:
+    get:
+      operationId: V2Controller_typeAhead
+      summary: Returns like products in search
+      description: Returns like products in search based on beginning search terms.
+      parameters:
+      - name: accountId
+        required: true
+        in: path
+        description: Account Id
+        schema:
+          type: string
+      - name: filter
+        required: true
+        in: path
+        description: 'Search terms<br><br>This parameter also support the following syntax:<br><br>productId: ID1, ID2...IDnFilter by given product Id list, separated by comma. Example: "productId:C-010001,C-010002,C-010003"'
+        schema:
+          type: string
+      - name: maxSearchSuggestions
+        required: false
+        in: path
+        description: Max returned type ahead items size, default is 6
+        schema:
+          type: number
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/typeAheadResponse'
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - Typeahead
+components:
+  schemas:
+    typeAheadResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        seeMoreLink:
+          type: string
+      required:
+      - items
+      - seeMoreLink
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter

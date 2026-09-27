@@ -1,0 +1,91 @@
+openapi: 3.2.0
+info:
+  title: Beacon Rest Services Submit Saved Order API
+  description: 'A combination of all methods in the beacon-api
+
+
+    [ BASE URL: https://beaconproplus.com
+
+
+    Beacon ProPlus
+
+
+    Version 1: https://beaconproplus.com/v1/rest/com/becn
+
+
+    Version 2: https://beaconproplus.com/v2/rest/com/becn
+
+
+    Version 3: https://beaconproplus.com/v3/rest/com/becn
+
+
+    Beacon Stack
+
+
+    [ BASE URL: https://beacon-api-x7xzzdp35a-uk.a.run.app
+
+
+    Version 1: https://beacon-api-x7xzzdp35a-uk.a.run.app/v1/rest/com/becn/
+
+
+    Version 2: https://beacon-api-x7xzzdp35a-uk.a.run.app/v2/rest/com/becn/
+
+
+    Version 3…'
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: SubmitSavedOrder
+paths:
+  /submitSavedOrder:
+    post:
+      operationId: V2Controller_submitSavedOrder
+      summary: Submits or revises saved order
+      description: 'Allows approver to submit or revise the saved order to the submitter with a given saved order Id. This converts saved order to as pending order for the user who does not have submit order permission. The following fields in the request body are optional: po (purchase order), jobName, jobNumber, additionalRecipients.'
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/submitSavedOrderBody'
+      responses:
+        '200':
+          description: successful operation<br><br>refer to the <i>API Uniform Format</i> dropdown above
+        '400':
+          description: Bad Request, accountId is invalid.
+        '401':
+          description: Unauthorized, the authorization bearer token is invalid.
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception.
+      tags:
+      - SubmitSavedOrder
+components:
+  schemas:
+    submitSavedOrderBody:
+      type: object
+      properties:
+        orderId:
+          type: string
+        approverId:
+          type: string
+        po:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+      required:
+      - orderId
+      - approverId
+      - po
+      - jobName
+      - jobNumber
+      - additionalRecipients
