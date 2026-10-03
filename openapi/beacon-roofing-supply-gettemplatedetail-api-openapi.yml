@@ -111,6 +111,54 @@ paths:
       - GetTemplateDetail
 components:
   schemas:
+    CurrentVariation:
+      type: object
+      properties:
+        typeId:
+          type: string
+        typeName:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+      required:
+      - typeId
+      - typeName
+      - options
+    getTemplateDetailResponse:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          $ref: '#/components/schemas/LastModifiedUser'
+        accountLegacyId:
+          type: string
+        isAccountClosed:
+          type: boolean
+        accountName:
+          type: string
+        createdByUser:
+          $ref: '#/components/schemas/LastModifiedUser'
+        templateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateItem'
+      required:
+      - templateId
+      - templateName
+      - lastModifiedDate
+      - lastModifiedUser
+      - accountLegacyId
+      - isAccountClosed
+      - accountName
+      - createdByUser
+      - templateItems
     ImageUrl:
       type: object
       properties:
@@ -121,6 +169,38 @@ components:
       required:
       - thumbnail
       - large
+    Option:
+      type: object
+      properties:
+        optionId:
+          type: string
+        optionName:
+          type: string
+        opectionChecked:
+          type: boolean
+        skuId:
+          type: string
+      required:
+      - optionId
+      - optionName
+      - opectionChecked
+      - skuId
+    LastModifiedUser:
+      type: object
+      properties:
+        profileId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        emailAddress:
+          type: string
+      required:
+      - profileId
+      - firstName
+      - lastName
+      - emailAddress
     TemplateItem:
       type: object
       properties:
@@ -172,83 +252,3 @@ components:
       - quantity
       - available
       - imageUrl
-    LastModifiedUser:
-      type: object
-      properties:
-        profileId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        emailAddress:
-          type: string
-      required:
-      - profileId
-      - firstName
-      - lastName
-      - emailAddress
-    Option:
-      type: object
-      properties:
-        optionId:
-          type: string
-        optionName:
-          type: string
-        opectionChecked:
-          type: boolean
-        skuId:
-          type: string
-      required:
-      - optionId
-      - optionName
-      - opectionChecked
-      - skuId
-    CurrentVariation:
-      type: object
-      properties:
-        typeId:
-          type: string
-        typeName:
-          type: string
-        options:
-          type: array
-          items:
-            $ref: '#/components/schemas/Option'
-      required:
-      - typeId
-      - typeName
-      - options
-    getTemplateDetailResponse:
-      type: object
-      properties:
-        templateId:
-          type: string
-        templateName:
-          type: string
-        lastModifiedDate:
-          type: string
-        lastModifiedUser:
-          $ref: '#/components/schemas/LastModifiedUser'
-        accountLegacyId:
-          type: string
-        isAccountClosed:
-          type: boolean
-        accountName:
-          type: string
-        createdByUser:
-          $ref: '#/components/schemas/LastModifiedUser'
-        templateItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateItem'
-      required:
-      - templateId
-      - templateName
-      - lastModifiedDate
-      - lastModifiedUser
-      - accountLegacyId
-      - isAccountClosed
-      - accountName
-      - createdByUser
-      - templateItems

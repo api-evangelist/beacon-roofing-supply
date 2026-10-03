@@ -241,40 +241,31 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    getPerfectOrderBrandsRep:
+    variationsObj:
       type: object
-      properties:
-        messages:
-          type: string
-        success:
-          type: boolean
-        result:
-          type: object
-          properties:
-            brands:
-              type: array
-              items:
-                type: object
-                properties:
-                  brandName:
-                    type: string
-                  smallImageUrl:
-                    type: string
-                  heroImageUrl:
-                    type: string
-                  thumbImageUrl:
-                    type: string
-                  zoomImageUrl:
-                    type: string
-    BCOtherPaginationObj:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: integer
+      additionalProperties:
+        type: object
+      example:
+        color:
+          White:
+          - '100001'
+          - '200002'
+          Dover:
+          - '100001'
+          - '300003'
+        size:
+          12x10:
+          - '100001'
+          4x4:
+          - '200002'
+          - '300003'
+        thickness:
+          2mm:
+          - '100001'
+          4mm:
+          - '200002'
+          6mm:
+          - '300003'
     BCPaginationDataObj:
       type: object
       properties:
@@ -292,6 +283,42 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BCPaginationObj'
+    skusVariationObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        '600001':
+          color:
+          - White
+          - Dover
+          size:
+          - 12x10
+          thickness:
+          - 2mm
+        '600002':
+          color:
+          - White
+          size:
+          - 4x4
+          thickness:
+          - 4mm
+        '300003':
+          color:
+          - Dover
+          size:
+          - 4x4
+          thickness:
+          - 6mm
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
     getPerfectOrderDetailRep:
       type: object
       properties:
@@ -332,17 +359,6 @@ components:
                       $ref: '#/components/schemas/variationsObj'
                     skusVariation:
                       $ref: '#/components/schemas/skusVariationObj'
-    BCPaginationObj:
-      type: object
-      properties:
-        enable:
-          type: boolean
-        page:
-          type: integer
-        currentPage:
-          type: boolean
-        type:
-          type: string
     getPerfectOrderLandingRep:
       type: object
       properties:
@@ -370,33 +386,6 @@ components:
                     type: string
                   id:
                     type: string
-    skusVariationObj:
-      type: object
-      additionalProperties:
-        type: object
-      example:
-        '600001':
-          color:
-          - White
-          - Dover
-          size:
-          - 12x10
-          thickness:
-          - 2mm
-        '600002':
-          color:
-          - White
-          size:
-          - 4x4
-          thickness:
-          - 4mm
-        '300003':
-          color:
-          - Dover
-          size:
-          - 4x4
-          thickness:
-          - 6mm
     getPerfectStyleGroupsRep:
       type: object
       properties:
@@ -415,31 +404,42 @@ components:
                 type: string
               rank:
                 type: string
-    variationsObj:
+    BCPaginationObj:
       type: object
-      additionalProperties:
-        type: object
-      example:
-        color:
-          White:
-          - '100001'
-          - '200002'
-          Dover:
-          - '100001'
-          - '300003'
-        size:
-          12x10:
-          - '100001'
-          4x4:
-          - '200002'
-          - '300003'
-        thickness:
-          2mm:
-          - '100001'
-          4mm:
-          - '200002'
-          6mm:
-          - '300003'
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    getPerfectOrderBrandsRep:
+      type: object
+      properties:
+        messages:
+          type: string
+        success:
+          type: boolean
+        result:
+          type: object
+          properties:
+            brands:
+              type: array
+              items:
+                type: object
+                properties:
+                  brandName:
+                    type: string
+                  smallImageUrl:
+                    type: string
+                  heroImageUrl:
+                    type: string
+                  thumbImageUrl:
+                    type: string
+                  zoomImageUrl:
+                    type: string
   securitySchemes:
     JSESSIONID:
       type: apiKey

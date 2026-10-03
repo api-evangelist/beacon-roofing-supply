@@ -140,184 +140,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    GAFQuickMeasureCallback_req_roofMeasurement:
-      type: object
-      properties:
-        Area:
-          type: number
-        Eaves:
-          type: number
-        Hips:
-          type: number
-        Rakes:
-          type: number
-        Ridges:
-          type: number
-        Valleys:
-          type: number
-        Facets:
-          type: number
-        Pitch:
-          type: string
-        Assets:
-          $ref: '#/components/schemas/GAFQuickMeasureCallback_req_roofMeasurement_Assets'
-        Bends:
-          type: number
-        Flash:
-          type: number
-        Step:
-          type: number
-        DripEdge:
-          type: number
-        LeakBarrier:
-          type: number
-        RidgeCap:
-          type: number
-        Starter:
-          type: number
-        Parapets:
-          type: number
-        CobraExhaustVentFeet:
-          type: string
-        CobraIntakeVentFeet:
-          type: string
-        DeckArmorRolls:
-          type: string
-        HoleArea:
-          type: string
-        HoleCount:
-          type: string
-        HolePerimeter:
-          type: string
-        LibertyBaseRolls:
-          type: string
-        LibertyCapRolls:
-          type: string
-        MasterFlowDomeVents:
-          type: string
-        MasterFlowLouverVents:
-          type: string
-        ProStartBundles:
-          type: string
-        QuickStartRolls:
-          type: string
-        SealARidgeBundles:
-          type: string
-        ShingleMateRolls:
-          type: string
-        StormGuardRolls:
-          type: string
-        SuggestedWaste:
-          type: string
-        TimberCrestBoxes:
-          type: string
-        TimberlineBundles:
-          type: string
-        TimberTexBundles:
-          type: string
-        VersaShieldRolls:
-          type: string
-        WeatherBlockerBundles:
-          type: string
-        WeatherWatchRolls:
-          type: string
-        ZRidgeBundles:
-          type: string
-        PitchToArea:
-          type: string
-        Buildings:
-          type: string
-        AdditionalProduct:
-          $ref: '#/components/schemas/GAFQuickMeasureCallback_req_additionalProduct'
-        TrackingId:
-          type: string
-        ServerResponses:
-          type: array
-          items:
-            $ref: '#/components/schemas/GAFPlaceReportOrder_req_serverRes'
-        ProblemCode:
-          type: string
-    GAFPlaceReportOrder_req_serverRes:
-      type: object
-      properties:
-        Server:
-          type: string
-        ServerReference:
-          type: string
-        Timestamp:
-          type: string
-        Response:
-          $ref: '#/components/schemas/GAFPlaceReportOrder_req_serverRes_res'
-    GAFGetStatus_res:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        success:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/SiteStatus'
-    GAFQuickMeasureCallback_req_additionalProduct:
-      type: object
-      properties:
-        ProductCode:
-          type: string
-        Report:
-          type: string
-        Assets:
-          type: array
-          items:
-            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product'
-    messagesObj:
-      type: array
-      items:
-        type: object
-        properties:
-          type:
-            type: string
-          value:
-            type: string
-          code:
-            type: string
-    GAFQuickMeasureCallback_req:
-      type: object
-      properties:
-        SubscriberOrderNumber:
-          type: string
-        GAFOrderNumber:
-          type: string
-        SubscriberCustomField1:
-          type: string
-        Subscriber:
-          type: string
-        SubscriberReference:
-          type: string
-        Vendor:
-          type: string
-        VendorReference:
-          type: string
-        RoofMeasurement:
-          $ref: '#/components/schemas/GAFQuickMeasureCallback_req_roofMeasurement'
-    GAFQuickMeasureCallback_res:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        success:
-          type: boolean
-        result:
-          type: object
-    SiteStatus:
-      type: object
-      properties:
-        siteStatus:
-          type: string
-          description: Open or Closed
-        siteAverageResponseTime:
-          type: number
-          description: current average response time for processing the reports in minutes.
-        siteAverageResponseTimeMFCommercial:
-          type: number
     GAFPlaceReportOrder_req_product_additionalInfo:
       type: object
       properties:
@@ -455,6 +277,46 @@ components:
           type: object
         GAFOrderNumber:
           type: string
+    SiteStatus:
+      type: object
+      properties:
+        siteStatus:
+          type: string
+          description: Open or Closed
+        siteAverageResponseTime:
+          type: number
+          description: current average response time for processing the reports in minutes.
+        siteAverageResponseTimeMFCommercial:
+          type: number
+    GAFPlaceReportOrder_req_product:
+      type: object
+      properties:
+        productCode:
+          type: string
+        additionalInformation:
+          type: array
+          items:
+            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product_additionalInfo'
+    GAFGetStatus_res:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/SiteStatus'
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
     GAFQuickMeasureCallback_req_roofMeasurement_Assets:
       type: object
       properties:
@@ -481,6 +343,122 @@ components:
         SouthImage:
           type: string
         WestImage:
+          type: string
+    GAFQuickMeasureCallback_req:
+      type: object
+      properties:
+        SubscriberOrderNumber:
+          type: string
+        GAFOrderNumber:
+          type: string
+        SubscriberCustomField1:
+          type: string
+        Subscriber:
+          type: string
+        SubscriberReference:
+          type: string
+        Vendor:
+          type: string
+        VendorReference:
+          type: string
+        RoofMeasurement:
+          $ref: '#/components/schemas/GAFQuickMeasureCallback_req_roofMeasurement'
+    GAFQuickMeasureCallback_req_roofMeasurement:
+      type: object
+      properties:
+        Area:
+          type: number
+        Eaves:
+          type: number
+        Hips:
+          type: number
+        Rakes:
+          type: number
+        Ridges:
+          type: number
+        Valleys:
+          type: number
+        Facets:
+          type: number
+        Pitch:
+          type: string
+        Assets:
+          $ref: '#/components/schemas/GAFQuickMeasureCallback_req_roofMeasurement_Assets'
+        Bends:
+          type: number
+        Flash:
+          type: number
+        Step:
+          type: number
+        DripEdge:
+          type: number
+        LeakBarrier:
+          type: number
+        RidgeCap:
+          type: number
+        Starter:
+          type: number
+        Parapets:
+          type: number
+        CobraExhaustVentFeet:
+          type: string
+        CobraIntakeVentFeet:
+          type: string
+        DeckArmorRolls:
+          type: string
+        HoleArea:
+          type: string
+        HoleCount:
+          type: string
+        HolePerimeter:
+          type: string
+        LibertyBaseRolls:
+          type: string
+        LibertyCapRolls:
+          type: string
+        MasterFlowDomeVents:
+          type: string
+        MasterFlowLouverVents:
+          type: string
+        ProStartBundles:
+          type: string
+        QuickStartRolls:
+          type: string
+        SealARidgeBundles:
+          type: string
+        ShingleMateRolls:
+          type: string
+        StormGuardRolls:
+          type: string
+        SuggestedWaste:
+          type: string
+        TimberCrestBoxes:
+          type: string
+        TimberlineBundles:
+          type: string
+        TimberTexBundles:
+          type: string
+        VersaShieldRolls:
+          type: string
+        WeatherBlockerBundles:
+          type: string
+        WeatherWatchRolls:
+          type: string
+        ZRidgeBundles:
+          type: string
+        PitchToArea:
+          type: string
+        Buildings:
+          type: string
+        AdditionalProduct:
+          $ref: '#/components/schemas/GAFQuickMeasureCallback_req_additionalProduct'
+        TrackingId:
+          type: string
+        ServerResponses:
+          type: array
+          items:
+            $ref: '#/components/schemas/GAFPlaceReportOrder_req_serverRes'
+        ProblemCode:
           type: string
     GAFPlaceReportOrder_req:
       type: object
@@ -537,15 +515,37 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GAFPlaceReportOrder_req_product'
-    GAFPlaceReportOrder_req_product:
+    GAFPlaceReportOrder_req_serverRes:
       type: object
       properties:
-        productCode:
+        Server:
           type: string
-        additionalInformation:
+        ServerReference:
+          type: string
+        Timestamp:
+          type: string
+        Response:
+          $ref: '#/components/schemas/GAFPlaceReportOrder_req_serverRes_res'
+    GAFQuickMeasureCallback_res:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
+          type: boolean
+        result:
+          type: object
+    GAFQuickMeasureCallback_req_additionalProduct:
+      type: object
+      properties:
+        ProductCode:
+          type: string
+        Report:
+          type: string
+        Assets:
           type: array
           items:
-            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product_additionalInfo'
+            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product'
   securitySchemes:
     JSESSIONID:
       type: apiKey

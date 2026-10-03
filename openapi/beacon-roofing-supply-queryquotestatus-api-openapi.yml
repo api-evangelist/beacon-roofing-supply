@@ -69,6 +69,21 @@ paths:
       - QueryQuoteStatus
 components:
   schemas:
+    queryQuoteStatusResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        success:
+          type: boolean
+        result:
+          $ref: '#/components/schemas/Result'
+      required:
+      - messages
+      - success
+      - result
     Message:
       type: object
       properties:
@@ -101,18 +116,3 @@ components:
       - page
       - rows
       - rowsPerPage
-    queryQuoteStatusResponse:
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message'
-        success:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/Result'
-      required:
-      - messages
-      - success
-      - result

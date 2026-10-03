@@ -130,10 +130,6 @@ components:
           type: string
         itemOnErrorImage:
           type: string
-    suggestiveSelling_rep:
-      type: array
-      items:
-        $ref: '#/components/schemas/SuggestiveSellingProduct'
     SuggestiveSellingProduct:
       type: object
       properties:
@@ -147,6 +143,10 @@ components:
           type: string
         defaultItem:
           $ref: '#/components/schemas/SuggestiveSellingSku'
+    suggestiveSelling_rep:
+      type: array
+      items:
+        $ref: '#/components/schemas/SuggestiveSellingProduct'
   securitySchemes:
     JSESSIONID:
       type: apiKey

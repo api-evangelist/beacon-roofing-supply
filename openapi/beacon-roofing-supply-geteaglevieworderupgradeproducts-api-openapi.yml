@@ -69,36 +69,60 @@ paths:
       - GetEagleViewOrderUpgradeProducts
 components:
   schemas:
-    DeliveryProduct:
+    CurrentOrder:
       type: object
       properties:
-        productID:
+        ReportId:
           type: number
-        name:
-          type: string
-        description:
-          type: string
-        isTemporarilyUnavailable:
-          type: boolean
-        priceMin:
+        MeasurementRequestTypeId:
           type: number
-        priceMax:
+        ProductId:
           type: number
-        deliveryProductIds:
+        ProductDeliveryId:
+          type: number
+        AddOnProductIds:
           type: array
           items:
             type: number
-        DetailedDescription:
+        AdditionalEmails:
+          type: string
+        ClaimNumber:
+          type: string
+        ClaimInfo:
+          type: string
+        PONumber:
+          type: string
+        DateOfLoss:
+          type: string
+        CatId:
+          type: string
+        JobName:
           type: string
       required:
-      - productID
-      - name
-      - description
-      - isTemporarilyUnavailable
-      - priceMin
-      - priceMax
-      - deliveryProductIds
-      - DetailedDescription
+      - ReportId
+      - MeasurementRequestTypeId
+      - ProductId
+      - ProductDeliveryId
+      - AddOnProductIds
+      - AdditionalEmails
+      - ClaimNumber
+      - ClaimInfo
+      - PONumber
+      - DateOfLoss
+      - CatId
+      - JobName
+    getEagleViewOrderUpgradeProductsResponse:
+      type: object
+      properties:
+        AvailableProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/AvailableProduct'
+        CurrentOrder:
+          $ref: '#/components/schemas/CurrentOrder'
+      required:
+      - AvailableProducts
+      - CurrentOrder
     AvailableProduct:
       type: object
       properties:
@@ -154,57 +178,33 @@ components:
       - SortOrder
       - AllowsUserSubmittedPhotos
       - DetailedDescription
-    CurrentOrder:
+    DeliveryProduct:
       type: object
       properties:
-        ReportId:
+        productID:
           type: number
-        MeasurementRequestTypeId:
+        name:
+          type: string
+        description:
+          type: string
+        isTemporarilyUnavailable:
+          type: boolean
+        priceMin:
           type: number
-        ProductId:
+        priceMax:
           type: number
-        ProductDeliveryId:
-          type: number
-        AddOnProductIds:
+        deliveryProductIds:
           type: array
           items:
             type: number
-        AdditionalEmails:
-          type: string
-        ClaimNumber:
-          type: string
-        ClaimInfo:
-          type: string
-        PONumber:
-          type: string
-        DateOfLoss:
-          type: string
-        CatId:
-          type: string
-        JobName:
+        DetailedDescription:
           type: string
       required:
-      - ReportId
-      - MeasurementRequestTypeId
-      - ProductId
-      - ProductDeliveryId
-      - AddOnProductIds
-      - AdditionalEmails
-      - ClaimNumber
-      - ClaimInfo
-      - PONumber
-      - DateOfLoss
-      - CatId
-      - JobName
-    getEagleViewOrderUpgradeProductsResponse:
-      type: object
-      properties:
-        AvailableProducts:
-          type: array
-          items:
-            $ref: '#/components/schemas/AvailableProduct'
-        CurrentOrder:
-          $ref: '#/components/schemas/CurrentOrder'
-      required:
-      - AvailableProducts
-      - CurrentOrder
+      - productID
+      - name
+      - description
+      - isTemporarilyUnavailable
+      - priceMin
+      - priceMax
+      - deliveryProductIds
+      - DetailedDescription

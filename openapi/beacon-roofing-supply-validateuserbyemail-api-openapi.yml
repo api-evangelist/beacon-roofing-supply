@@ -69,75 +69,6 @@ paths:
       - ValidateUserByEmail
 components:
   schemas:
-    UserRegInfo:
-      type: object
-      properties:
-        userRegisterToken:
-          type: string
-      required:
-      - userRegisterToken
-    BranchSelection:
-      type: object
-      properties:
-        accountId:
-          type: string
-        accountName:
-          type: string
-        branches:
-          type: array
-          items:
-            $ref: '#/components/schemas/Branch'
-      required:
-      - accountId
-      - accountName
-      - branches
-    validateUserByEmailBody:
-      type: object
-      properties:
-        emailAddress:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        zipCode:
-          type: string
-        phoneNumber:
-          type: string
-        g-recaptcha-response:
-          type: string
-      required:
-      - emailAddress
-      - firstName
-      - lastName
-      - zipCode
-      - phoneNumber
-      - g-recaptcha-response
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
     Branch:
       type: object
       properties:
@@ -172,6 +103,75 @@ components:
       - division
       - divisionName
       - market
+    validateUserByEmailBody:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        zipCode:
+          type: string
+        phoneNumber:
+          type: string
+        g-recaptcha-response:
+          type: string
+      required:
+      - emailAddress
+      - firstName
+      - lastName
+      - zipCode
+      - phoneNumber
+      - g-recaptcha-response
+    BranchSelection:
+      type: object
+      properties:
+        accountId:
+          type: string
+        accountName:
+          type: string
+        branches:
+          type: array
+          items:
+            $ref: '#/components/schemas/Branch'
+      required:
+      - accountId
+      - accountName
+      - branches
+    UserRegInfo:
+      type: object
+      properties:
+        userRegisterToken:
+          type: string
+      required:
+      - userRegisterToken
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
     validateUserByEmailResponse:
       type: object
       properties:

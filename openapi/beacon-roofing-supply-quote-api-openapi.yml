@@ -105,6 +105,25 @@ paths:
       - Quote
 components:
   schemas:
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
     DraftQuote:
       type: object
       properties:
@@ -117,19 +136,25 @@ components:
       required:
       - pagination
       - quoteList
-    Message:
+    QuoteList:
       type: object
       properties:
-        type:
+        quoteId:
           type: string
-        value:
+        quoteName:
           type: string
-        code:
+        creationDate:
+          type: string
+        status:
+          type: string
+        createdBy:
           type: string
       required:
-      - type
-      - value
-      - code
+      - quoteId
+      - quoteName
+      - creationDate
+      - status
+      - createdBy
     quoteResponse:
       type: object
       properties:
@@ -154,44 +179,6 @@ components:
       - draftQuote
       - inProcessQuote
       - receivedQuote
-    QuoteList:
-      type: object
-      properties:
-        quoteId:
-          type: string
-        quoteName:
-          type: string
-        creationDate:
-          type: string
-        status:
-          type: string
-        createdBy:
-          type: string
-      required:
-      - quoteId
-      - quoteName
-      - creationDate
-      - status
-      - createdBy
-    Result:
-      type: object
-      properties:
-        pageRows:
-          type: number
-        pages:
-          type: number
-        page:
-          type: number
-        rows:
-          type: number
-        rowsPerPage:
-          type: number
-      required:
-      - pageRows
-      - pages
-      - page
-      - rows
-      - rowsPerPage
     Next:
       type: object
       properties:
@@ -205,6 +192,19 @@ components:
       - available
       - label
       - page
+    Message:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+        code:
+          type: string
+      required:
+      - type
+      - value
+      - code
     Pagination:
       type: object
       properties:

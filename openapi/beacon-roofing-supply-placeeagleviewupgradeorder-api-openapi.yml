@@ -69,19 +69,6 @@ paths:
       - PlaceEagleViewUpgradeOrder
 components:
   schemas:
-    placeEagleViewUpgradeOrderResponse:
-      type: object
-      properties:
-        mincronOrderId:
-          type: string
-        reportId:
-          type: number
-        modelState:
-          $ref: '#/components/schemas/ModelState'
-      required:
-      - mincronOrderId
-      - reportId
-      - modelState
     placeEagleViewUpgradeOrderBody:
       type: object
       properties:
@@ -136,3 +123,16 @@ components:
       required:
       - modelKey
       - modelValue
+    placeEagleViewUpgradeOrderResponse:
+      type: object
+      properties:
+        mincronOrderId:
+          type: string
+        reportId:
+          type: number
+        modelState:
+          $ref: '#/components/schemas/ModelState'
+      required:
+      - mincronOrderId
+      - reportId
+      - modelState

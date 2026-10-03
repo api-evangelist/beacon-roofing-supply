@@ -153,6 +153,242 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    createCustomerReq:
+      type: object
+      properties:
+        inbound-customer-data:
+          type: object
+          properties:
+            xmlns:
+              type: string
+            customer:
+              type: object
+              properties:
+                account-id:
+                  type: string
+                transaction-id:
+                  type: string
+                business-group-info:
+                  type: object
+                  properties:
+                    groupName:
+                      type: string
+                    internalGroupCode:
+                      type: string
+                    bectranReferenceId:
+                      type: string
+                basic-info:
+                  type: object
+                  properties:
+                    addressLineOne:
+                      type: string
+                    addressLineTwo:
+                      type: string
+                    annualSalesRange:
+                      type: string
+                    bectranCustomerId:
+                      type: string
+                    city:
+                      type: string
+                    contactPersonFirstName:
+                      type: string
+                    contactPersonLastName:
+                      type: string
+                    contactPersonPhone:
+                      type: string
+                    contactPersonTitle:
+                      type: string
+                    countryId:
+                      type: string
+                    customerDbaName:
+                      type: string
+                    customerLegalName:
+                      type: string
+                    dateCreatedInBectran:
+                      type: string
+                      format: date
+                    dunsNumber:
+                      type: string
+                    fax:
+                      type: string
+                    federalTaxId:
+                      type: string
+                    numOfEmployee:
+                      type: string
+                    phone:
+                      type: string
+                    state:
+                      type: string
+                    stateOfIncorporation:
+                      type: string
+                    styleOfBusiness:
+                      type: string
+                    typeOfBusiness:
+                      type: string
+                    yearEstablished:
+                      type: string
+                    zipCode:
+                      type: string
+                    contactPersonEmail:
+                      type: string
+                sales-person-info:
+                  type: object
+                  properties:
+                    firstName:
+                      type: string
+                    lastName:
+                      type: string
+                    internalCode:
+                      type: string
+                operations-unit-info:
+                  type: object
+                  properties:
+                    opsUnitName:
+                      type: string
+                    opsUnitCode:
+                      type: string
+                credit-request-info:
+                  type: object
+                  properties:
+                    requestId:
+                      type: string
+                    requestSource:
+                      type: string
+                    amountRequested:
+                      type: integer
+                      format: int32
+                    termRequestedCode:
+                      type: string
+                    termRequestedDescription:
+                      type: string
+                    plannedPurchase:
+                      type: string
+                    requestDate:
+                      type: string
+                    requestFormType:
+                      type: string
+                    purchaseOrderRequired:
+                      type: string
+                    accountNumExist:
+                      type: string
+                    clientAccountId:
+                      type: string
+                    orderPending:
+                      type: string
+                    orderPendingAmount:
+                      type: integer
+                      format: int32
+                customer-profile-detail:
+                  type: object
+                  properties:
+                    annualSales:
+                      type: object
+                      properties:
+                        bectranInternalCode:
+                          type: string
+                        clientInternalCode:
+                          type: string
+                        description:
+                          type: string
+                    numOfEmployee:
+                      type: object
+                      properties:
+                        bectranInternalCode:
+                          type: string
+                        clientInternalCode:
+                          type: string
+                        description:
+                          type: string
+                    styleOfBusiness:
+                      type: object
+                      properties:
+                        bectranInternalCode:
+                          type: string
+                        clientInternalCode:
+                          type: string
+                        description:
+                          type: string
+                    typeOfBusiness:
+                      type: object
+                      properties:
+                        bectranInternalCode:
+                          type: string
+                        clientInternalCode:
+                          type: string
+                        description:
+                          type: string
+                credit-decision-info:
+                  type: object
+                  properties:
+                    amountRequested:
+                      type: integer
+                      format: int32
+                    approvedLimit:
+                      type: integer
+                      format: int32
+                    clientAccountId:
+                      type: string
+                    creditTerm:
+                      type: string
+                    creditTermCode:
+                      type: string
+                    riskRating:
+                      type: string
+                    riskRatingClass:
+                      type: string
+                    rawScore:
+                      type: number
+                    transactionId:
+                      type: string
+                    creditDecision:
+                      type: string
+                    decisionDate:
+                      type: string
+                    groupName:
+                      type: string
+                    internalGroupCode:
+                      type: string
+                    bectranReferenceId:
+                      type: string
+                    nextReviewDate:
+                      type: string
+                    approving-officers:
+                      type: object
+                      properties:
+                        entry:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              firstName:
+                                type: string
+                              lastName:
+                                type: string
+                              approvalDate:
+                                type: string
+                              approvalComment:
+                                type: string
+                              email:
+                                type: string
+                              decision:
+                                type: string
+    createCustomerResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            Response:
+              type: object
+              properties:
+                Result:
+                  type: string
+                Message:
+                  type: string
+        success:
+          example: true
+        code:
+          type: number
     createCustomerJobReq:
       type: object
       properties:
@@ -420,242 +656,6 @@ components:
                               type: string
                             data-type:
                               type: string
-    createCustomerReq:
-      type: object
-      properties:
-        inbound-customer-data:
-          type: object
-          properties:
-            xmlns:
-              type: string
-            customer:
-              type: object
-              properties:
-                account-id:
-                  type: string
-                transaction-id:
-                  type: string
-                business-group-info:
-                  type: object
-                  properties:
-                    groupName:
-                      type: string
-                    internalGroupCode:
-                      type: string
-                    bectranReferenceId:
-                      type: string
-                basic-info:
-                  type: object
-                  properties:
-                    addressLineOne:
-                      type: string
-                    addressLineTwo:
-                      type: string
-                    annualSalesRange:
-                      type: string
-                    bectranCustomerId:
-                      type: string
-                    city:
-                      type: string
-                    contactPersonFirstName:
-                      type: string
-                    contactPersonLastName:
-                      type: string
-                    contactPersonPhone:
-                      type: string
-                    contactPersonTitle:
-                      type: string
-                    countryId:
-                      type: string
-                    customerDbaName:
-                      type: string
-                    customerLegalName:
-                      type: string
-                    dateCreatedInBectran:
-                      type: string
-                      format: date
-                    dunsNumber:
-                      type: string
-                    fax:
-                      type: string
-                    federalTaxId:
-                      type: string
-                    numOfEmployee:
-                      type: string
-                    phone:
-                      type: string
-                    state:
-                      type: string
-                    stateOfIncorporation:
-                      type: string
-                    styleOfBusiness:
-                      type: string
-                    typeOfBusiness:
-                      type: string
-                    yearEstablished:
-                      type: string
-                    zipCode:
-                      type: string
-                    contactPersonEmail:
-                      type: string
-                sales-person-info:
-                  type: object
-                  properties:
-                    firstName:
-                      type: string
-                    lastName:
-                      type: string
-                    internalCode:
-                      type: string
-                operations-unit-info:
-                  type: object
-                  properties:
-                    opsUnitName:
-                      type: string
-                    opsUnitCode:
-                      type: string
-                credit-request-info:
-                  type: object
-                  properties:
-                    requestId:
-                      type: string
-                    requestSource:
-                      type: string
-                    amountRequested:
-                      type: integer
-                      format: int32
-                    termRequestedCode:
-                      type: string
-                    termRequestedDescription:
-                      type: string
-                    plannedPurchase:
-                      type: string
-                    requestDate:
-                      type: string
-                    requestFormType:
-                      type: string
-                    purchaseOrderRequired:
-                      type: string
-                    accountNumExist:
-                      type: string
-                    clientAccountId:
-                      type: string
-                    orderPending:
-                      type: string
-                    orderPendingAmount:
-                      type: integer
-                      format: int32
-                customer-profile-detail:
-                  type: object
-                  properties:
-                    annualSales:
-                      type: object
-                      properties:
-                        bectranInternalCode:
-                          type: string
-                        clientInternalCode:
-                          type: string
-                        description:
-                          type: string
-                    numOfEmployee:
-                      type: object
-                      properties:
-                        bectranInternalCode:
-                          type: string
-                        clientInternalCode:
-                          type: string
-                        description:
-                          type: string
-                    styleOfBusiness:
-                      type: object
-                      properties:
-                        bectranInternalCode:
-                          type: string
-                        clientInternalCode:
-                          type: string
-                        description:
-                          type: string
-                    typeOfBusiness:
-                      type: object
-                      properties:
-                        bectranInternalCode:
-                          type: string
-                        clientInternalCode:
-                          type: string
-                        description:
-                          type: string
-                credit-decision-info:
-                  type: object
-                  properties:
-                    amountRequested:
-                      type: integer
-                      format: int32
-                    approvedLimit:
-                      type: integer
-                      format: int32
-                    clientAccountId:
-                      type: string
-                    creditTerm:
-                      type: string
-                    creditTermCode:
-                      type: string
-                    riskRating:
-                      type: string
-                    riskRatingClass:
-                      type: string
-                    rawScore:
-                      type: number
-                    transactionId:
-                      type: string
-                    creditDecision:
-                      type: string
-                    decisionDate:
-                      type: string
-                    groupName:
-                      type: string
-                    internalGroupCode:
-                      type: string
-                    bectranReferenceId:
-                      type: string
-                    nextReviewDate:
-                      type: string
-                    approving-officers:
-                      type: object
-                      properties:
-                        entry:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              firstName:
-                                type: string
-                              lastName:
-                                type: string
-                              approvalDate:
-                                type: string
-                              approvalComment:
-                                type: string
-                              email:
-                                type: string
-                              decision:
-                                type: string
-    createCustomerResp:
-      type: object
-      properties:
-        result:
-          type: object
-          properties:
-            Response:
-              type: object
-              properties:
-                Result:
-                  type: string
-                Message:
-                  type: string
-        success:
-          example: true
-        code:
-          type: number
   securitySchemes:
     internalAuth:
       type: http

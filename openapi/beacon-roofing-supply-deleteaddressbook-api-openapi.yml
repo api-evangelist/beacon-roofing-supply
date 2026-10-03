@@ -69,6 +69,13 @@ paths:
       - DeleteAddressBook
 components:
   schemas:
+    deleteAddressBookBody:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+      required:
+      - addressBookId
     Message:
       type: object
       properties:
@@ -82,13 +89,6 @@ components:
       - type
       - value
       - code
-    deleteAddressBookBody:
-      type: object
-      properties:
-        addressBookId:
-          type: string
-      required:
-      - addressBookId
     deleteAddressBookResponse:
       type: object
       properties:

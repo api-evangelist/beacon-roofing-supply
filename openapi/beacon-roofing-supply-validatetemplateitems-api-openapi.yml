@@ -75,6 +75,30 @@ paths:
       - ValidateTemplateItems
 components:
   schemas:
+    CurrentVariation:
+      type: object
+      properties:
+        typeId:
+          type: string
+        typeName:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+      required:
+      - typeId
+      - typeName
+      - options
+    validateTemplateItemsResponse:
+      type: object
+      properties:
+        invalidTemplateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvalidTemplateItem'
+      required:
+      - invalidTemplateItems
     InvalidTemplateItem:
       type: object
       properties:
@@ -92,6 +116,22 @@ components:
       required:
       - thumbnail
       - large
+    Option:
+      type: object
+      properties:
+        optionId:
+          type: string
+        optionName:
+          type: string
+        opectionChecked:
+          type: boolean
+        skuId:
+          type: string
+      required:
+      - optionId
+      - optionName
+      - opectionChecked
+      - skuId
     TemplateItem:
       type: object
       properties:
@@ -143,46 +183,6 @@ components:
       - quantity
       - available
       - imageUrl
-    validateTemplateItemsResponse:
-      type: object
-      properties:
-        invalidTemplateItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvalidTemplateItem'
-      required:
-      - invalidTemplateItems
-    Option:
-      type: object
-      properties:
-        optionId:
-          type: string
-        optionName:
-          type: string
-        opectionChecked:
-          type: boolean
-        skuId:
-          type: string
-      required:
-      - optionId
-      - optionName
-      - opectionChecked
-      - skuId
-    CurrentVariation:
-      type: object
-      properties:
-        typeId:
-          type: string
-        typeName:
-          type: string
-        options:
-          type: array
-          items:
-            $ref: '#/components/schemas/Option'
-      required:
-      - typeId
-      - typeName
-      - options
     validateTemplateItemsBody:
       type: object
       properties:

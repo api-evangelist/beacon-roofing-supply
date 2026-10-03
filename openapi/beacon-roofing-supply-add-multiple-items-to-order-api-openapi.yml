@@ -66,30 +66,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    addItemsToOrderReq:
-      type: object
-      properties:
-        addItemCount:
-          type: integer
-          description: The total amount of item to add to cart
-        accountId:
-          type: string
-          description: The account id
-        specialInstructions:
-          type: string
-          description: The order special instructions
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/addTocartItem'
-        jobNumber:
-          type: string
-          description: The job
-        templateId:
-          type: string
-          description: Template Id
-        shipping:
-          $ref: '#/components/schemas/shippingObj'
     addItemsToOrderRep:
       type: object
       properties:
@@ -163,6 +139,30 @@ components:
               type: string
             state:
               type: string
+    addItemsToOrderReq:
+      type: object
+      properties:
+        addItemCount:
+          type: integer
+          description: The total amount of item to add to cart
+        accountId:
+          type: string
+          description: The account id
+        specialInstructions:
+          type: string
+          description: The order special instructions
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/addTocartItem'
+        jobNumber:
+          type: string
+          description: The job
+        templateId:
+          type: string
+          description: Template Id
+        shipping:
+          $ref: '#/components/schemas/shippingObj'
   securitySchemes:
     JSESSIONID:
       type: apiKey

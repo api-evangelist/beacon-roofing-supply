@@ -69,38 +69,6 @@ paths:
       - SubmitQuote
 components:
   schemas:
-    Message:
-      type: object
-      properties:
-        type:
-          type: string
-        value:
-          type: string
-        code:
-          type: string
-      required:
-      - type
-      - value
-      - code
-    Result:
-      type: object
-      properties:
-        pageRows:
-          type: number
-        pages:
-          type: number
-        page:
-          type: number
-        rows:
-          type: number
-        rowsPerPage:
-          type: number
-      required:
-      - pageRows
-      - pages
-      - page
-      - rows
-      - rowsPerPage
     submitQuoteResponse:
       type: object
       properties:
@@ -207,3 +175,35 @@ components:
       - color
       - dimensions
       - displayName
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    Message:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+        code:
+          type: string
+      required:
+      - type
+      - value
+      - code

@@ -69,6 +69,37 @@ paths:
       - Accounts
 components:
   schemas:
+    Account:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        rewardsEligible:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+        branch:
+          $ref: '#/components/schemas/Branch'
+      required:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - rewardsEligible
+      - cashAccount
+      - isAccountClosed
+      - branch
     Address:
       type: object
       properties:
@@ -94,24 +125,6 @@ components:
       - address3
       - country
       - city
-    accountResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        totalNumRecs:
-          type: number
-        pageNumRecs:
-          type: number
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
-      required:
-      - message
-      - totalNumRecs
-      - pageNumRecs
-      - accounts
     Branch:
       type: object
       properties:
@@ -146,34 +159,21 @@ components:
       - division
       - divisionName
       - market
-    Account:
+    accountResponse:
       type: object
       properties:
-        accountName:
+        message:
           type: string
-        accountEnabled:
-          type: boolean
-        accountLegacyId:
-          type: string
-        accountViewPrices:
-          type: boolean
-        addCustomSteel:
-          type: boolean
-        rewardsEligible:
-          type: boolean
-        cashAccount:
-          type: boolean
-        isAccountClosed:
-          type: boolean
-        branch:
-          $ref: '#/components/schemas/Branch'
+        totalNumRecs:
+          type: number
+        pageNumRecs:
+          type: number
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
       required:
-      - accountName
-      - accountEnabled
-      - accountLegacyId
-      - accountViewPrices
-      - addCustomSteel
-      - rewardsEligible
-      - cashAccount
-      - isAccountClosed
-      - branch
+      - message
+      - totalNumRecs
+      - pageNumRecs
+      - accounts

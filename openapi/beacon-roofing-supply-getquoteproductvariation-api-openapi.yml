@@ -87,6 +87,19 @@ paths:
       - GetQuoteProductVariation
 components:
   schemas:
+    getQuoteProductVariationResponse:
+      type: object
+      properties:
+        productId:
+          type: string
+        productMultiVariation:
+          $ref: '#/components/schemas/ProductMultiVariation'
+        variationContentKeyMap:
+          $ref: '#/components/schemas/VariationContentKeyMap'
+      required:
+      - productId
+      - productMultiVariation
+      - variationContentKeyMap
     Thickness:
       type: object
       properties:
@@ -106,121 +119,19 @@ components:
       - 2mm
       - 4mm
       - 6mm
-    _300003:
+    Skus:
       type: object
       properties:
-        color:
-          type: array
-          items:
-            type: string
-        size:
-          type: array
-          items:
-            type: string
-        thickness:
-          type: array
-          items:
-            type: string
+        '300003':
+          $ref: '#/components/schemas/_300003'
+        '600001':
+          $ref: '#/components/schemas/_300003'
+        '600002':
+          $ref: '#/components/schemas/_300003'
       required:
-      - color
-      - size
-      - thickness
-    VendorColor:
-      type: object
-      properties:
-        id:
-          type: string
-        MFG:
-          type: string
-        name:
-          type: string
-        code:
-          type: string
-        sku:
-          type: string
-        color:
-          type: string
-      required:
-      - id
-      - MFG
-      - name
-      - code
-      - sku
-      - color
-    Variations:
-      type: object
-      properties:
-        color:
-          $ref: '#/components/schemas/Color'
-        size:
-          $ref: '#/components/schemas/Size'
-        thickness:
-          $ref: '#/components/schemas/Thickness'
-      required:
-      - color
-      - size
-      - thickness
-    getQuoteProductVariationResponse:
-      type: object
-      properties:
-        productId:
-          type: string
-        productMultiVariation:
-          $ref: '#/components/schemas/ProductMultiVariation'
-        variationContentKeyMap:
-          $ref: '#/components/schemas/VariationContentKeyMap'
-      required:
-      - productId
-      - productMultiVariation
-      - variationContentKeyMap
-    CurrentVariations:
-      type: object
-      properties:
-        color:
-          type: string
-        size:
-          type: string
-        diameter:
-          type: string
-        thickness:
-          type: string
-        style:
-          type: string
-        packaging:
-          type: string
-        MFG:
-          type: string
-      required:
-      - color
-      - size
-      - diameter
-      - thickness
-      - style
-      - packaging
-      - MFG
-    VariationGroup:
-      type: object
-      properties:
-        variationTypes:
-          type: array
-          items:
-            type: string
-      required:
-      - variationTypes
-    Color:
-      type: object
-      properties:
-        White:
-          type: array
-          items:
-            type: string
-        Dover:
-          type: array
-          items:
-            type: string
-      required:
-      - White
-      - Dover
+      - '300003'
+      - '600001'
+      - '600002'
     Size:
       type: object
       properties:
@@ -235,6 +146,28 @@ components:
       required:
       - 12x10
       - 4x4
+    VariationGroup:
+      type: object
+      properties:
+        variationTypes:
+          type: array
+          items:
+            type: string
+      required:
+      - variationTypes
+    Variations:
+      type: object
+      properties:
+        color:
+          $ref: '#/components/schemas/Color'
+        size:
+          $ref: '#/components/schemas/Size'
+        thickness:
+          $ref: '#/components/schemas/Thickness'
+      required:
+      - color
+      - size
+      - thickness
     VariationContentKeyMap:
       type: object
       properties: {}
@@ -278,16 +211,83 @@ components:
       - variationKeyColor
       - variationGroups
       - maxVariationGroupSize
-    Skus:
+    Color:
       type: object
       properties:
-        '300003':
-          $ref: '#/components/schemas/_300003'
-        '600001':
-          $ref: '#/components/schemas/_300003'
-        '600002':
-          $ref: '#/components/schemas/_300003'
+        White:
+          type: array
+          items:
+            type: string
+        Dover:
+          type: array
+          items:
+            type: string
       required:
-      - '300003'
-      - '600001'
-      - '600002'
+      - White
+      - Dover
+    CurrentVariations:
+      type: object
+      properties:
+        color:
+          type: string
+        size:
+          type: string
+        diameter:
+          type: string
+        thickness:
+          type: string
+        style:
+          type: string
+        packaging:
+          type: string
+        MFG:
+          type: string
+      required:
+      - color
+      - size
+      - diameter
+      - thickness
+      - style
+      - packaging
+      - MFG
+    VendorColor:
+      type: object
+      properties:
+        id:
+          type: string
+        MFG:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        sku:
+          type: string
+        color:
+          type: string
+      required:
+      - id
+      - MFG
+      - name
+      - code
+      - sku
+      - color
+    _300003:
+      type: object
+      properties:
+        color:
+          type: array
+          items:
+            type: string
+        size:
+          type: array
+          items:
+            type: string
+        thickness:
+          type: array
+          items:
+            type: string
+      required:
+      - color
+      - size
+      - thickness

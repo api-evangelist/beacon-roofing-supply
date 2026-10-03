@@ -69,48 +69,71 @@ paths:
       - GetUserDetail
 components:
   schemas:
-    PermissionTemplate:
+    Permission:
       type: object
       properties:
+        id:
+          type: string
+        key:
+          type: string
+        groupId:
+          type: string
         name:
           type: string
-        templateId:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission2'
-        lastModifiedDate:
-          type: string
-        userEmail:
-          type: string
-        org:
-          $ref: '#/components/schemas/Org'
-      required:
-      - name
-      - templateId
-      - permissions
-      - lastModifiedDate
-      - userEmail
-      - org
-    Permission2:
-      type: object
-      properties:
-        name:
+        displayName:
           type: string
         type:
           type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-        isGroup:
+        isAuthorised:
+          type: boolean
+        isDisabled:
+          type: boolean
+        isFixed:
           type: boolean
       required:
+      - id
+      - key
+      - groupId
       - name
+      - displayName
       - type
-      - permissions
-      - isGroup
+      - isAuthorised
+      - isDisabled
+      - isFixed
+    Branch:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+      required:
+      - address
+      - branchNumber
+      - branchName
+      - branchPhone
+      - branchRegionId
+      - company
+      - companyName
+      - division
+      - divisionName
+      - market
     getUserDetailResponse:
       type: object
       properties:
@@ -182,124 +205,6 @@ components:
       - internalUser
       - userType
       - rewardsEligible
-    PermissionValues:
-      type: object
-      properties:
-        aa:
-          type: boolean
-        bb:
-          type: boolean
-        cc:
-          type: boolean
-      required:
-      - aa
-      - bb
-      - cc
-    Role:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission2'
-      required:
-      - id
-      - displayName
-      - permissions
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
-    Permission:
-      type: object
-      properties:
-        id:
-          type: string
-        key:
-          type: string
-        groupId:
-          type: string
-        name:
-          type: string
-        displayName:
-          type: string
-        type:
-          type: string
-        isAuthorised:
-          type: boolean
-        isDisabled:
-          type: boolean
-        isFixed:
-          type: boolean
-      required:
-      - id
-      - key
-      - groupId
-      - name
-      - displayName
-      - type
-      - isAuthorised
-      - isDisabled
-      - isFixed
-    Branch:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        branchNumber:
-          type: string
-        branchName:
-          type: string
-        branchPhone:
-          type: string
-        branchRegionId:
-          type: string
-        company:
-          type: string
-        companyName:
-          type: string
-        division:
-          type: string
-        divisionName:
-          type: string
-        market:
-          type: string
-      required:
-      - address
-      - branchNumber
-      - branchName
-      - branchPhone
-      - branchRegionId
-      - company
-      - companyName
-      - division
-      - divisionName
-      - market
     MasterAdmin:
       type: object
       properties:
@@ -381,6 +286,77 @@ components:
       - id
       - name
       - masterAdmin
+    PermissionValues:
+      type: object
+      properties:
+        aa:
+          type: boolean
+        bb:
+          type: boolean
+        cc:
+          type: boolean
+      required:
+      - aa
+      - bb
+      - cc
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission2'
+      required:
+      - id
+      - displayName
+      - permissions
+    Permission2:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+        isGroup:
+          type: boolean
+      required:
+      - name
+      - type
+      - permissions
+      - isGroup
     Account:
       type: object
       properties:
@@ -412,3 +388,27 @@ components:
       - cashAccount
       - isAccountClosed
       - branch
+    PermissionTemplate:
+      type: object
+      properties:
+        name:
+          type: string
+        templateId:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission2'
+        lastModifiedDate:
+          type: string
+        userEmail:
+          type: string
+        org:
+          $ref: '#/components/schemas/Org'
+      required:
+      - name
+      - templateId
+      - permissions
+      - lastModifiedDate
+      - userEmail
+      - org

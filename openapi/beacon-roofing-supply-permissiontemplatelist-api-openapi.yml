@@ -87,164 +87,6 @@ paths:
       - PermissionTemplateList
 components:
   schemas:
-    Org:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        masterAdmin:
-          $ref: '#/components/schemas/MasterAdmin'
-      required:
-      - id
-      - name
-      - masterAdmin
-    Permission2:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-        isGroup:
-          type: boolean
-      required:
-      - name
-      - type
-      - permissions
-      - isGroup
-    Account:
-      type: object
-      properties:
-        accountName:
-          type: string
-        accountEnabled:
-          type: boolean
-        accountLegacyId:
-          type: string
-        accountViewPrices:
-          type: boolean
-        addCustomSteel:
-          type: boolean
-        rewardsEligible:
-          type: boolean
-        cashAccount:
-          type: boolean
-        isAccountClosed:
-          type: boolean
-        branch:
-          $ref: '#/components/schemas/Branch'
-      required:
-      - accountName
-      - accountEnabled
-      - accountLegacyId
-      - accountViewPrices
-      - addCustomSteel
-      - rewardsEligible
-      - cashAccount
-      - isAccountClosed
-      - branch
-    Result:
-      type: object
-      properties:
-        pageRows:
-          type: number
-        pages:
-          type: number
-        page:
-          type: number
-        rows:
-          type: number
-        rowsPerPage:
-          type: number
-      required:
-      - pageRows
-      - pages
-      - page
-      - rows
-      - rowsPerPage
-    PermssionTemplate:
-      type: object
-      properties:
-        name:
-          type: string
-        templateId:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission2'
-        lastModifiedDate:
-          type: string
-        userEmail:
-          type: string
-        org:
-          $ref: '#/components/schemas/Org'
-      required:
-      - name
-      - templateId
-      - permissions
-      - lastModifiedDate
-      - userEmail
-      - org
-    PermissionValues:
-      type: object
-      properties:
-        aa:
-          type: boolean
-        bb:
-          type: boolean
-        cc:
-          type: boolean
-      required:
-      - aa
-      - bb
-      - cc
-    Role:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission2'
-      required:
-      - id
-      - displayName
-      - permissions
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
     Permission:
       type: object
       properties:
@@ -310,55 +152,6 @@ components:
       - division
       - divisionName
       - market
-    Next:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: number
-      required:
-      - available
-      - label
-      - page
-    permissionTemplateListResponse:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        permssionTemplate:
-          type: array
-          items:
-            $ref: '#/components/schemas/PermssionTemplate'
-      required:
-      - pagination
-      - permssionTemplate
-    Pagination:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/Next'
-        previous:
-          $ref: '#/components/schemas/Next'
-        pageSize:
-          type: number
-        currentPage:
-          type: number
-        totalCount:
-          type: number
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
-      required:
-      - next
-      - previous
-      - pageSize
-      - currentPage
-      - totalCount
-      - results
     MasterAdmin:
       type: object
       properties:
@@ -427,6 +220,189 @@ components:
       - internalUser
       - userType
       - rewardsEligible
+    PermssionTemplate:
+      type: object
+      properties:
+        name:
+          type: string
+        templateId:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission2'
+        lastModifiedDate:
+          type: string
+        userEmail:
+          type: string
+        org:
+          $ref: '#/components/schemas/Org'
+      required:
+      - name
+      - templateId
+      - permissions
+      - lastModifiedDate
+      - userEmail
+      - org
+    Org:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        masterAdmin:
+          $ref: '#/components/schemas/MasterAdmin'
+      required:
+      - id
+      - name
+      - masterAdmin
+    permissionTemplateListResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        permssionTemplate:
+          type: array
+          items:
+            $ref: '#/components/schemas/PermssionTemplate'
+      required:
+      - pagination
+      - permssionTemplate
+    PermissionValues:
+      type: object
+      properties:
+        aa:
+          type: boolean
+        bb:
+          type: boolean
+        cc:
+          type: boolean
+      required:
+      - aa
+      - bb
+      - cc
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission2'
+      required:
+      - id
+      - displayName
+      - permissions
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
+    Permission2:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+        isGroup:
+          type: boolean
+      required:
+      - name
+      - type
+      - permissions
+      - isGroup
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    Account:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        rewardsEligible:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+        branch:
+          $ref: '#/components/schemas/Branch'
+      required:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - rewardsEligible
+      - cashAccount
+      - isAccountClosed
+      - branch
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
     permissionTemplateListBody:
       type: object
       properties:
@@ -443,3 +419,27 @@ components:
       - sortType
       - pageIndex
       - pageSize
+    Pagination:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        previous:
+          $ref: '#/components/schemas/Next'
+        pageSize:
+          type: number
+        currentPage:
+          type: number
+        totalCount:
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - next
+      - previous
+      - pageSize
+      - currentPage
+      - totalCount
+      - results

@@ -99,79 +99,6 @@ paths:
       - Items
 components:
   schemas:
-    getItemsResponse:
-      type: object
-      properties:
-        product:
-          $ref: '#/components/schemas/Product'
-        message:
-          type: string
-        specification:
-          $ref: '#/components/schemas/Specification'
-        resource:
-          $ref: '#/components/schemas/Resource'
-        currentSKU:
-          $ref: '#/components/schemas/CurrentSKU'
-        skuList:
-          type: array
-          items:
-            $ref: '#/components/schemas/SkuList'
-      required:
-      - product
-      - message
-      - specification
-      - resource
-      - currentSKU
-      - skuList
-    Category:
-      type: object
-      properties:
-        categoryName:
-          type: string
-        categoryId:
-          type: string
-      required:
-      - categoryName
-      - categoryId
-    SkuList:
-      type: object
-      properties:
-        currentUOM:
-          type: string
-        color:
-          type: string
-        unitPrice:
-          type: number
-        itemNumber:
-          type: string
-        productNumber:
-          type: string
-        itemImage:
-          type: string
-        heroImage:
-          type: string
-        thumbImage:
-          type: string
-        swatchImage:
-          type: string
-        skuShortDesc:
-          type: string
-        auxiliaryImages:
-          type: array
-          items:
-            type: string
-      required:
-      - currentUOM
-      - color
-      - unitPrice
-      - itemNumber
-      - productNumber
-      - itemImage
-      - heroImage
-      - thumbImage
-      - swatchImage
-      - skuShortDesc
-      - auxiliaryImages
     Specification:
       type: object
       properties:
@@ -200,104 +127,6 @@ components:
       - Net_Free_Vent_Area__NFVA_
       - Exposure
       - Wind_Resistance
-    Resource:
-      type: object
-      properties:
-        General Instructrions:
-          type: string
-        Warranty:
-          type: string
-        MSDS:
-          type: string
-        Brochure:
-          type: string
-      required:
-      - General Instructrions
-      - Warranty
-      - MSDS
-      - Brochure
-    HoverAttributes:
-      type: object
-      properties:
-        sellingUom:
-          type: string
-        piecesPerUom:
-          type: string
-        coverageUom:
-          type: string
-        ppCoverageUom:
-          type: string
-        lengthExposure:
-          type: string
-        widthExposure:
-          type: string
-        lengthHover:
-          type: string
-        widthHover:
-          type: string
-        ncpSellingUom:
-          type: string
-        gcpSellingUom:
-          type: string
-        sslvoDimensionIn:
-          type: string
-        sswhoDimensionOption1In:
-          type: string
-        sswhoDimensionOption2In:
-          type: string
-        sswhoDimensionOption3In:
-          type: string
-        lslvoDimensionIn:
-          type: string
-        lswhoDimensionIn:
-          type: string
-        rvlvoDimensionIn:
-          type: string
-        rvwhoDimensionIn:
-          type: string
-        nfvaHover:
-          type: string
-        nfvaUomHover:
-          type: string
-        fhLapIn:
-          type: string
-        fvLapIn:
-          type: string
-        chLapIn:
-          type: string
-        cvLapIn:
-          type: string
-        cfmValue:
-          type: string
-        cfmUom:
-          type: string
-      required:
-      - sellingUom
-      - piecesPerUom
-      - coverageUom
-      - ppCoverageUom
-      - lengthExposure
-      - widthExposure
-      - lengthHover
-      - widthHover
-      - ncpSellingUom
-      - gcpSellingUom
-      - sslvoDimensionIn
-      - sswhoDimensionOption1In
-      - sswhoDimensionOption2In
-      - sswhoDimensionOption3In
-      - lslvoDimensionIn
-      - lswhoDimensionIn
-      - rvlvoDimensionIn
-      - rvwhoDimensionIn
-      - nfvaHover
-      - nfvaUomHover
-      - fhLapIn
-      - fvLapIn
-      - chLapIn
-      - cvLapIn
-      - cfmValue
-      - cfmUom
     Product:
       type: object
       properties:
@@ -398,3 +227,174 @@ components:
       - swatchImage
       - skuShortDesc
       - auxiliaryImages
+    getItemsResponse:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+        message:
+          type: string
+        specification:
+          $ref: '#/components/schemas/Specification'
+        resource:
+          $ref: '#/components/schemas/Resource'
+        currentSKU:
+          $ref: '#/components/schemas/CurrentSKU'
+        skuList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkuList'
+      required:
+      - product
+      - message
+      - specification
+      - resource
+      - currentSKU
+      - skuList
+    SkuList:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        color:
+          type: string
+        unitPrice:
+          type: number
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        itemImage:
+          type: string
+        heroImage:
+          type: string
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          type: array
+          items:
+            type: string
+      required:
+      - currentUOM
+      - color
+      - unitPrice
+      - itemNumber
+      - productNumber
+      - itemImage
+      - heroImage
+      - thumbImage
+      - swatchImage
+      - skuShortDesc
+      - auxiliaryImages
+    Resource:
+      type: object
+      properties:
+        General Instructrions:
+          type: string
+        Warranty:
+          type: string
+        MSDS:
+          type: string
+        Brochure:
+          type: string
+      required:
+      - General Instructrions
+      - Warranty
+      - MSDS
+      - Brochure
+    Category:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+      required:
+      - categoryName
+      - categoryId
+    HoverAttributes:
+      type: object
+      properties:
+        sellingUom:
+          type: string
+        piecesPerUom:
+          type: string
+        coverageUom:
+          type: string
+        ppCoverageUom:
+          type: string
+        lengthExposure:
+          type: string
+        widthExposure:
+          type: string
+        lengthHover:
+          type: string
+        widthHover:
+          type: string
+        ncpSellingUom:
+          type: string
+        gcpSellingUom:
+          type: string
+        sslvoDimensionIn:
+          type: string
+        sswhoDimensionOption1In:
+          type: string
+        sswhoDimensionOption2In:
+          type: string
+        sswhoDimensionOption3In:
+          type: string
+        lslvoDimensionIn:
+          type: string
+        lswhoDimensionIn:
+          type: string
+        rvlvoDimensionIn:
+          type: string
+        rvwhoDimensionIn:
+          type: string
+        nfvaHover:
+          type: string
+        nfvaUomHover:
+          type: string
+        fhLapIn:
+          type: string
+        fvLapIn:
+          type: string
+        chLapIn:
+          type: string
+        cvLapIn:
+          type: string
+        cfmValue:
+          type: string
+        cfmUom:
+          type: string
+      required:
+      - sellingUom
+      - piecesPerUom
+      - coverageUom
+      - ppCoverageUom
+      - lengthExposure
+      - widthExposure
+      - lengthHover
+      - widthHover
+      - ncpSellingUom
+      - gcpSellingUom
+      - sslvoDimensionIn
+      - sswhoDimensionOption1In
+      - sswhoDimensionOption2In
+      - sswhoDimensionOption3In
+      - lslvoDimensionIn
+      - lswhoDimensionIn
+      - rvlvoDimensionIn
+      - rvwhoDimensionIn
+      - nfvaHover
+      - nfvaUomHover
+      - fhLapIn
+      - fvLapIn
+      - chLapIn
+      - cvLapIn
+      - cfmValue
+      - cfmUom

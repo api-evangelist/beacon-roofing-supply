@@ -82,25 +82,6 @@ components:
       - accountId
       - accountName
       - branchId
-    registerResponse:
-      type: object
-      properties:
-        needLogin:
-          type: boolean
-        needRetry:
-          type: boolean
-        needContactSupport:
-          type: boolean
-        needGetUserRegisterToken:
-          type: boolean
-        registerSuccess:
-          type: boolean
-      required:
-      - needLogin
-      - needRetry
-      - needContactSupport
-      - needGetUserRegisterToken
-      - registerSuccess
     registerBody:
       type: object
       properties:
@@ -143,3 +124,22 @@ components:
       - accountInfos
       - internalUser
       - token
+    registerResponse:
+      type: object
+      properties:
+        needLogin:
+          type: boolean
+        needRetry:
+          type: boolean
+        needContactSupport:
+          type: boolean
+        needGetUserRegisterToken:
+          type: boolean
+        registerSuccess:
+          type: boolean
+      required:
+      - needLogin
+      - needRetry
+      - needContactSupport
+      - needGetUserRegisterToken
+      - registerSuccess

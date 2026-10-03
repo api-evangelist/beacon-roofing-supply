@@ -75,6 +75,16 @@ paths:
       - GetRebateForm
 components:
   schemas:
+    SelectValue:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+      required:
+      - displayName
+      - value
     getRebateFormResponse:
       type: object
       properties:
@@ -150,13 +160,3 @@ components:
       - css
       - invalidMsg
       - selectValues
-    SelectValue:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-      required:
-      - displayName
-      - value

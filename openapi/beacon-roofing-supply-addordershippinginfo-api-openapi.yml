@@ -83,6 +83,47 @@ paths:
       - AddOrderShippingInfo
 components:
   schemas:
+    DeliveryOption:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected
+    addOrderShippingInfoBody:
+      type: object
+      properties:
+        deliveryOptionValue:
+          type: string
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        shippingMethodValue:
+          type: string
+        changeShippingAddressLocation:
+          type: boolean
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress'
+        saveShippingAddressToAddressBook:
+          type: boolean
+        specialInstruction:
+          type: string
+      required:
+      - deliveryOptionValue
+      - deliveryDate
+      - deliveryTime
+      - shippingMethodValue
+      - changeShippingAddressLocation
+      - shippingAddress
+      - saveShippingAddressToAddressBook
+      - specialInstruction
     ShippingAddress:
       type: object
       properties:
@@ -133,44 +174,3 @@ components:
       - countryValue
       - countries
       - phoneNumber
-    DeliveryOption:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
-          type: boolean
-      required:
-      - displayName
-      - value
-      - selected
-    addOrderShippingInfoBody:
-      type: object
-      properties:
-        deliveryOptionValue:
-          type: string
-        deliveryDate:
-          type: string
-        deliveryTime:
-          type: string
-        shippingMethodValue:
-          type: string
-        changeShippingAddressLocation:
-          type: boolean
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddress'
-        saveShippingAddressToAddressBook:
-          type: boolean
-        specialInstruction:
-          type: string
-      required:
-      - deliveryOptionValue
-      - deliveryDate
-      - deliveryTime
-      - shippingMethodValue
-      - changeShippingAddressLocation
-      - shippingAddress
-      - saveShippingAddressToAddressBook
-      - specialInstruction

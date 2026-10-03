@@ -126,6 +126,13 @@ components:
       - requested
       - scheduled
       - delivered
+    switchAccountBody:
+      type: object
+      properties:
+        accountId:
+          type: string
+      required:
+      - accountId
     Address:
       type: object
       properties:
@@ -151,13 +158,6 @@ components:
       - address3
       - country
       - city
-    switchAccountBody:
-      type: object
-      properties:
-        accountId:
-          type: string
-      required:
-      - accountId
     switchAccountResponse:
       type: object
       properties:

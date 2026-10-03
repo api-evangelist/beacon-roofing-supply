@@ -69,6 +69,16 @@ paths:
       - Jobs
 components:
   schemas:
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber
     jobsResponse:
       type: object
       properties:
@@ -90,13 +100,3 @@ components:
       - hasJobNumber
       - isJobAccountRequired
       - jobs
-    Job:
-      type: object
-      properties:
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-      required:
-      - jobName
-      - jobNumber

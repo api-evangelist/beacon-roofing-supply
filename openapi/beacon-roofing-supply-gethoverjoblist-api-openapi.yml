@@ -87,6 +87,18 @@ paths:
       - GetHoverJobList
 components:
   schemas:
+    getHoverJobListResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+      required:
+      - pagination
+      - items
     Item:
       type: object
       properties:
@@ -94,6 +106,19 @@ components:
           type: string
       required:
       - filter
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
     Result:
       type: object
       properties:
@@ -113,31 +138,6 @@ components:
       - page
       - rows
       - rowsPerPage
-    getHoverJobListResponse:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-      required:
-      - pagination
-      - items
-    Next:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: number
-      required:
-      - available
-      - label
-      - page
     Pagination:
       type: object
       properties:

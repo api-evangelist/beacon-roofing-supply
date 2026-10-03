@@ -75,16 +75,52 @@ paths:
       - AddMultipleItemsToOrder
 components:
   schemas:
-    UnavailableItem:
+    addMultipleItemsToOrderResponse:
       type: object
       properties:
-        id:
-          type: string
-        failedReason:
-          type: string
+        allItemsUnavailable:
+          type: boolean
+        unavailableItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnavailableItem'
+        addedToCartItems:
+          type: array
+          items:
+            type: string
+        vendorColorNotMatchedItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/VendorColorNotMatchedItem'
       required:
-      - id
-      - failedReason
+      - allItemsUnavailable
+      - unavailableItems
+      - addedToCartItems
+      - vendorColorNotMatchedItems
+    addMultipleItemsToOrderBody:
+      type: object
+      properties:
+        addItemCount:
+          type: number
+        accountId:
+          type: string
+        specialInstructions:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        jobNumber:
+          type: string
+        shipping:
+          $ref: '#/components/schemas/Shipping'
+      required:
+      - addItemCount
+      - accountId
+      - specialInstructions
+      - items
+      - jobNumber
+      - shipping
     Item:
       type: object
       properties:
@@ -92,32 +128,6 @@ components:
           type: string
       required:
       - filter
-    Shipping:
-      type: object
-      properties:
-        shippingBranch:
-          type: number
-        address:
-          $ref: '#/components/schemas/Address'
-        shippingMethod:
-          type: string
-      required:
-      - shippingBranch
-      - address
-      - shippingMethod
-    VendorColorNotMatchedItem:
-      type: object
-      properties:
-        id:
-          type: string
-        matchColor:
-          type: string
-        matchMFG:
-          type: string
-      required:
-      - id
-      - matchColor
-      - matchMFG
     Address:
       type: object
       properties:
@@ -143,49 +153,39 @@ components:
       - address3
       - country
       - city
-    addMultipleItemsToOrderBody:
+    UnavailableItem:
       type: object
       properties:
-        addItemCount:
+        id:
+          type: string
+        failedReason:
+          type: string
+      required:
+      - id
+      - failedReason
+    VendorColorNotMatchedItem:
+      type: object
+      properties:
+        id:
+          type: string
+        matchColor:
+          type: string
+        matchMFG:
+          type: string
+      required:
+      - id
+      - matchColor
+      - matchMFG
+    Shipping:
+      type: object
+      properties:
+        shippingBranch:
           type: number
-        accountId:
+        address:
+          $ref: '#/components/schemas/Address'
+        shippingMethod:
           type: string
-        specialInstructions:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-        jobNumber:
-          type: string
-        shipping:
-          $ref: '#/components/schemas/Shipping'
       required:
-      - addItemCount
-      - accountId
-      - specialInstructions
-      - items
-      - jobNumber
-      - shipping
-    addMultipleItemsToOrderResponse:
-      type: object
-      properties:
-        allItemsUnavailable:
-          type: boolean
-        unavailableItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/UnavailableItem'
-        addedToCartItems:
-          type: array
-          items:
-            type: string
-        vendorColorNotMatchedItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/VendorColorNotMatchedItem'
-      required:
-      - allItemsUnavailable
-      - unavailableItems
-      - addedToCartItems
-      - vendorColorNotMatchedItems
+      - shippingBranch
+      - address
+      - shippingMethod

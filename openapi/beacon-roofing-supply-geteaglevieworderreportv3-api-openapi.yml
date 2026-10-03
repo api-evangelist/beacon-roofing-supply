@@ -69,68 +69,6 @@ paths:
       - GetEagleViewOrderReportV3
 components:
   schemas:
-    ReportImage:
-      type: object
-      properties:
-        sequenceNumber:
-          type: number
-        imageId:
-          type: number
-        ProductId:
-          type: number
-        ProductDeliveryId:
-          type: number
-        AddOnProductIds:
-          type: array
-          items:
-            type: number
-        AdditionalEmails:
-          type: string
-        ClaimNumber:
-          type: string
-        ClaimInfo:
-          type: string
-        PONumber:
-          type: string
-        DateOfLoss:
-          type: string
-        CatId:
-          type: string
-      required:
-      - sequenceNumber
-      - imageId
-      - ProductId
-      - ProductDeliveryId
-      - AddOnProductIds
-      - AdditionalEmails
-      - ClaimNumber
-      - ClaimInfo
-      - PONumber
-      - DateOfLoss
-      - CatId
-    From:
-      type: object
-      properties:
-        PrimaryProductId:
-          type: number
-        PrimaryProductDisplayName:
-          type: string
-        TypeOfStructure:
-          type: number
-      required:
-      - PrimaryProductId
-      - PrimaryProductDisplayName
-      - TypeOfStructure
-    AddOnProduct:
-      type: object
-      properties:
-        DisplayName:
-          type: string
-        ProductId:
-          type: number
-      required:
-      - DisplayName
-      - ProductId
     DeliveryFilesAvailable:
       type: object
       properties:
@@ -321,6 +259,16 @@ components:
       - JobName
       - CanEditReportInformation
       - SuggestedWasteFactorAvailable
+    ProductSubstitution:
+      type: object
+      properties:
+        From:
+          $ref: '#/components/schemas/From'
+        To:
+          $ref: '#/components/schemas/From'
+      required:
+      - From
+      - To
     MeasurementByStructure:
       type: object
       properties:
@@ -349,13 +297,65 @@ components:
       - LengthEave
       - LengthRake
       - LengthHip
-    ProductSubstitution:
+    From:
       type: object
       properties:
-        From:
-          $ref: '#/components/schemas/From'
-        To:
-          $ref: '#/components/schemas/From'
+        PrimaryProductId:
+          type: number
+        PrimaryProductDisplayName:
+          type: string
+        TypeOfStructure:
+          type: number
       required:
-      - From
-      - To
+      - PrimaryProductId
+      - PrimaryProductDisplayName
+      - TypeOfStructure
+    ReportImage:
+      type: object
+      properties:
+        sequenceNumber:
+          type: number
+        imageId:
+          type: number
+        ProductId:
+          type: number
+        ProductDeliveryId:
+          type: number
+        AddOnProductIds:
+          type: array
+          items:
+            type: number
+        AdditionalEmails:
+          type: string
+        ClaimNumber:
+          type: string
+        ClaimInfo:
+          type: string
+        PONumber:
+          type: string
+        DateOfLoss:
+          type: string
+        CatId:
+          type: string
+      required:
+      - sequenceNumber
+      - imageId
+      - ProductId
+      - ProductDeliveryId
+      - AddOnProductIds
+      - AdditionalEmails
+      - ClaimNumber
+      - ClaimInfo
+      - PONumber
+      - DateOfLoss
+      - CatId
+    AddOnProduct:
+      type: object
+      properties:
+        DisplayName:
+          type: string
+        ProductId:
+          type: number
+      required:
+      - DisplayName
+      - ProductId

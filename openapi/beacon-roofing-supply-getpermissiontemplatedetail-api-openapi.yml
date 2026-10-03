@@ -69,77 +69,30 @@ paths:
       - GetPermissionTemplateDetail
 components:
   schemas:
-    Permission2:
+    getPermissionTemplateDetailResponse:
       type: object
       properties:
         name:
           type: string
-        type:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-        isGroup:
-          type: boolean
-      required:
-      - name
-      - type
-      - permissions
-      - isGroup
-    PermissionValues:
-      type: object
-      properties:
-        aa:
-          type: boolean
-        bb:
-          type: boolean
-        cc:
-          type: boolean
-      required:
-      - aa
-      - bb
-      - cc
-    Role:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
+        templateId:
           type: string
         permissions:
           type: array
           items:
             $ref: '#/components/schemas/Permission2'
+        lastModifiedDate:
+          type: string
+        userEmail:
+          type: string
+        org:
+          $ref: '#/components/schemas/Org'
       required:
-      - id
-      - displayName
+      - name
+      - templateId
       - permissions
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
+      - lastModifiedDate
+      - userEmail
+      - org
     Permission:
       type: object
       properties:
@@ -286,30 +239,77 @@ components:
       - id
       - name
       - masterAdmin
-    getPermissionTemplateDetailResponse:
+    PermissionValues:
       type: object
       properties:
-        name:
+        aa:
+          type: boolean
+        bb:
+          type: boolean
+        cc:
+          type: boolean
+      required:
+      - aa
+      - bb
+      - cc
+    Address:
+      type: object
+      properties:
+        postalCode:
           type: string
-        templateId:
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
           type: string
         permissions:
           type: array
           items:
             $ref: '#/components/schemas/Permission2'
-        lastModifiedDate:
+      required:
+      - id
+      - displayName
+      - permissions
+    Permission2:
+      type: object
+      properties:
+        name:
           type: string
-        userEmail:
+        type:
           type: string
-        org:
-          $ref: '#/components/schemas/Org'
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+        isGroup:
+          type: boolean
       required:
       - name
-      - templateId
+      - type
       - permissions
-      - lastModifiedDate
-      - userEmail
-      - org
+      - isGroup
     Account:
       type: object
       properties:

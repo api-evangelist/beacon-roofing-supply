@@ -143,15 +143,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    BCOtherPaginationObj:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: integer
     BCPaginationDataObj:
       type: object
       properties:
@@ -169,26 +160,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BCPaginationObj'
-    BCPaginationObj:
-      type: object
-      properties:
-        enable:
-          type: boolean
-        page:
-          type: integer
-        currentPage:
-          type: boolean
-        type:
-          type: string
-    orderInvoiceRep:
-      type: object
-      properties:
-        invoices:
-          type: array
-          items:
-            $ref: '#/components/schemas/orderInvoice'
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
     orderInvoice:
       type: object
       properties:
@@ -221,6 +192,35 @@ components:
         salesPlusOtherCharges:
           type: number
           format: double
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    orderInvoiceRep:
+      type: object
+      properties:
+        invoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderInvoice'
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
   securitySchemes:
     internalAuth:
       type: http

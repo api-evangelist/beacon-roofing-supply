@@ -57,17 +57,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    messagesObj:
-      type: array
-      items:
-        type: object
-        properties:
-          type:
-            type: string
-          value:
-            type: string
-          code:
-            type: string
     loyalreward_rep:
       type: object
       properties:
@@ -95,6 +84,39 @@ components:
         earned:
           type: number
           format: double
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    goalInfo:
+      type: object
+      properties:
+        goalId:
+          type: integer
+        goal:
+          type: number
+          format: double
+        current:
+          type: number
+          format: double
+        percentToGoal:
+          type: number
+          format: double
+        hasGoal:
+          type: boolean
+        isDefault:
+          type: boolean
+        enrollmentId:
+          type: integer
+        userId:
+          type: string
     loyalUserResult:
       type: object
       properties:
@@ -136,28 +158,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/goalInfo'
-    goalInfo:
-      type: object
-      properties:
-        goalId:
-          type: integer
-        goal:
-          type: number
-          format: double
-        current:
-          type: number
-          format: double
-        percentToGoal:
-          type: number
-          format: double
-        hasGoal:
-          type: boolean
-        isDefault:
-          type: boolean
-        enrollmentId:
-          type: integer
-        userId:
-          type: string
     rewardInfo:
       type: object
       properties:

@@ -129,25 +129,37 @@ paths:
       - Template
 components:
   schemas:
-    Result:
+    CurrentVariation:
       type: object
       properties:
-        pageRows:
-          type: number
-        pages:
-          type: number
-        page:
-          type: number
-        rows:
-          type: number
-        rowsPerPage:
-          type: number
+        typeId:
+          type: string
+        typeName:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
       required:
-      - pageRows
-      - pages
-      - page
-      - rows
-      - rowsPerPage
+      - typeId
+      - typeName
+      - options
+    Option:
+      type: object
+      properties:
+        optionId:
+          type: string
+        optionName:
+          type: string
+        opectionChecked:
+          type: boolean
+        skuId:
+          type: string
+      required:
+      - optionId
+      - optionName
+      - opectionChecked
+      - skuId
     templateResponse:
       type: object
       properties:
@@ -209,6 +221,54 @@ components:
       required:
       - thumbnail
       - large
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    LastModifiedUser:
+      type: object
+      properties:
+        profileId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        emailAddress:
+          type: string
+      required:
+      - profileId
+      - firstName
+      - lastName
+      - emailAddress
     TemplateItem:
       type: object
       properties:
@@ -260,35 +320,6 @@ components:
       - quantity
       - available
       - imageUrl
-    Next:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: number
-      required:
-      - available
-      - label
-      - page
-    LastModifiedUser:
-      type: object
-      properties:
-        profileId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        emailAddress:
-          type: string
-      required:
-      - profileId
-      - firstName
-      - lastName
-      - emailAddress
     Pagination:
       type: object
       properties:
@@ -313,34 +344,3 @@ components:
       - currentPage
       - totalCount
       - results
-    Option:
-      type: object
-      properties:
-        optionId:
-          type: string
-        optionName:
-          type: string
-        opectionChecked:
-          type: boolean
-        skuId:
-          type: string
-      required:
-      - optionId
-      - optionName
-      - opectionChecked
-      - skuId
-    CurrentVariation:
-      type: object
-      properties:
-        typeId:
-          type: string
-        typeName:
-          type: string
-        options:
-          type: array
-          items:
-            $ref: '#/components/schemas/Option'
-      required:
-      - typeId
-      - typeName
-      - options

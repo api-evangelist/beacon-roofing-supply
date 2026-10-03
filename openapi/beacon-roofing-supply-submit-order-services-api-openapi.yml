@@ -143,6 +143,33 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ATGItemMapping_req:
+      type: object
+      properties:
+        MFCode:
+          type: string
+        MFRName:
+          type: string
+        branchId:
+          type: string
+        itemNumber:
+          type: string
+        incomingUOM:
+          type: string
+        becnUOM:
+          type: string
+        materialID:
+          type: string
+        conversionFactor:
+          type: string
+        becnProductId:
+          type: string
+        description:
+          type: string
+        accountId:
+          type: string
+        integrationName:
+          type: string
     creditpurchase_req:
       type: object
       properties:
@@ -169,13 +196,6 @@ components:
           properties:
             AVSZIPCode:
               type: string
-    submitOrderRep:
-      type: object
-      properties:
-        orderId:
-          type: string
-        mincronCCMsg:
-          type: string
     submitOrderReq:
       type: object
       properties:
@@ -255,6 +275,13 @@ components:
               type: string
             attachEncodeFile:
               type: string
+    submitOrderRep:
+      type: object
+      properties:
+        orderId:
+          type: string
+        mincronCCMsg:
+          type: string
     shippingObj:
       type: object
       properties:
@@ -275,33 +302,6 @@ components:
               type: string
             state:
               type: string
-    ATGItemMapping_req:
-      type: object
-      properties:
-        MFCode:
-          type: string
-        MFRName:
-          type: string
-        branchId:
-          type: string
-        itemNumber:
-          type: string
-        incomingUOM:
-          type: string
-        becnUOM:
-          type: string
-        materialID:
-          type: string
-        conversionFactor:
-          type: string
-        becnProductId:
-          type: string
-        description:
-          type: string
-        accountId:
-          type: string
-        integrationName:
-          type: string
   securitySchemes:
     JSESSIONID:
       type: apiKey

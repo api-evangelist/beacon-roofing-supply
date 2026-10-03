@@ -128,6 +128,14 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    eagleViewReportUpdateRequest:
+      type: object
+      properties:
+        profile:
+          type: string
+        reportIds:
+          type: string
+          description: for endpoint 'updateReportsByIds', it is required.
     eagleViewReportCommonResponse:
       type: object
       properties:
@@ -150,14 +158,6 @@ components:
         toDate:
           type: string
           format: yyyy-MM-dd
-    eagleViewReportUpdateRequest:
-      type: object
-      properties:
-        profile:
-          type: string
-        reportIds:
-          type: string
-          description: for endpoint 'updateReportsByIds', it is required.
   securitySchemes:
     internalAuth:
       type: http

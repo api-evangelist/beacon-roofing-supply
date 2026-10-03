@@ -687,17 +687,47 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    JobAccounts_savedorder:
+    ContactInfo_quoteOrder:
       type: object
       properties:
-        unavailable:
-          type: boolean
-        unavailableMsg:
-          type: boolean
-        jobs:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        phoneNumber:
+          type: string
+    ContactInfo_savedorder:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        phoneNumber:
+          type: string
+    placeQuoteOrder_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+        poName:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        uuid:
+          type: string
+        UUID:
+          type: string
+        additionalRecipients:
           type: array
           items:
-            $ref: '#/components/schemas/Job_savedorder'
+            type: string
     Job_savedorder:
       type: object
       properties:
@@ -711,6 +741,85 @@ components:
           type: boolean
         jobNumberDisplayName:
           type: string
+    RequiredFields_savedorder:
+      type: object
+      properties:
+        deliveryOption:
+          type: boolean
+        deliveryDate:
+          type: boolean
+        deliveryTime:
+          type: boolean
+        shippingMethod:
+          type: boolean
+        shippingAddress:
+          type: boolean
+        postalCode:
+          type: boolean
+        state:
+          type: boolean
+        address1:
+          type: boolean
+        address2:
+          type: boolean
+        address3:
+          type: boolean
+        country:
+          type: boolean
+        city:
+          type: boolean
+        branchName:
+          type: boolean
+        contactInfo:
+          type: boolean
+        firstName:
+          type: boolean
+        lastName:
+          type: boolean
+        nickName:
+          type: boolean
+        phoneNumber:
+          type: boolean
+        instructions:
+          type: boolean
+        po:
+          type: boolean
+        jobName:
+          type: boolean
+        jobAccounts:
+          type: boolean
+        showExtendedPO:
+          type: boolean
+    ShippingAddress_quoteOrder_req:
+      type: object
+      properties:
+        displayName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
     getQuoteOrderPrice_rep:
       type: object
       properties:
@@ -736,6 +845,236 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/QuoteOrderItemPrice'
+    queryQuoteStatus_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
+          type: boolean
+        result:
+          type: object
+          properties:
+            expires:
+              type: string
+            quoteNotesEditable:
+              type: boolean
+            rejectEnable:
+              type: boolean
+            reviseEnable:
+              type: boolean
+            copyOrderEnable:
+              type: boolean
+            approveEnable:
+              type: boolean
+            finalizeOrderEnable:
+              type: boolean
+    ShippingAddress_savedorder:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        postalCode:
+          type: string
+    BranchAddress_savedorder:
+      type: object
+      properties:
+        displayName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+        branchNumber:
+          type: string
+    quoteOrderItem:
+      type: object
+      properties:
+        id:
+          type: string
+        imageUrl:
+          type: string
+        imageOnErrorUrl:
+          type: string
+        thumbImageUrl:
+          type: string
+        pdpUrl:
+          type: string
+        description:
+          type: string
+        itemNumber:
+          type: string
+        price:
+          type: integer
+          format: double
+        quantity:
+          type: integer
+        uom:
+          type: string
+        subTotal:
+          type: integer
+          format: double
+        deleteStatus:
+          type: boolean
+        vendorColorId:
+          type: string
+        productId:
+          type: string
+        itemGrayOutLevel:
+          type: string
+          enum:
+          - none
+          - grayWithChange
+          - gray
+        itemFromQuote:
+          type: boolean
+        quotedItemQtyChanged:
+          type: boolean
+        itemChanged:
+          type: boolean
+        atgItemDescription:
+          type: string
+        atgItemNetPrice:
+          type: integer
+          format: double
+        atgItemTotalPrice:
+          type: integer
+          format: double
+    submitQuoteOrderForApproval_req:
+      type: object
+      required:
+      - orderId
+      - savedOrderName
+      - approverId
+      properties:
+        orderId:
+          type: string
+          description: Quote Order Id
+        savedOrderName:
+          type: string
+        approverId:
+          type: string
+        poName:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+    updateQuoteOrder_req:
+      type: object
+      properties:
+        id:
+          type: string
+        action:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              quantity:
+                type: number
+                format: long
+              itemNumber:
+                type: string
+              uom:
+                type: string
+              matchColor:
+                type: string
+              matchMFG:
+                type: string
+    RadioButton_savedorder:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+    AddressBook_savedorder:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress_savedorder'
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
+    QuoteOrderItemPrice:
+      type: object
+      properties:
+        id:
+          type: string
+        price:
+          type: number
+          format: double
+        subTotal:
+          type: number
+          format: double
+    submitQuoteOrderForApproval_resp:
+      type: object
+      properties:
+        savedOrderId:
+          type: string
+    updateQuoteOrderShippingInfo_req:
+      type: object
+      properties:
+        id:
+          type: string
+        deliveryOption:
+          type: string
+        deliveryDate:
+          type: string
+          format: MM-dd-yyyy
+        deliveryTime:
+          type: string
+        shippingMethod:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress_quoteOrder_req'
+        branchName:
+          type: string
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_quoteOrder'
+        instructions:
+          type: string
     getQuoteOrderDetail_req:
       type: object
       properties:
@@ -868,60 +1207,22 @@ components:
         orderRelatedDocuments:
           items:
             type: string
-    AddressBook_savedorder:
+    queryQuoteStatus_req:
       type: object
       properties:
-        id:
+        quoteId:
           type: string
-        displayName:
-          type: string
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddress_savedorder'
-        contactInfo:
-          $ref: '#/components/schemas/ContactInfo_savedorder'
-    queryQuoteStatus_rep:
+    JobAccounts_savedorder:
       type: object
       properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        success:
+        unavailable:
           type: boolean
-        result:
-          type: object
-          properties:
-            expires:
-              type: string
-            quoteNotesEditable:
-              type: boolean
-            rejectEnable:
-              type: boolean
-            reviseEnable:
-              type: boolean
-            copyOrderEnable:
-              type: boolean
-            approveEnable:
-              type: boolean
-            finalizeOrderEnable:
-              type: boolean
-    ShippingAddress_quoteOrder_req:
-      type: object
-      properties:
-        displayName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
+        unavailableMsg:
+          type: boolean
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job_savedorder'
     updateQuoteOrder_rep:
       type: object
       properties:
@@ -945,307 +1246,6 @@ components:
                 type: string
               MFG:
                 type: string
-    quoteOrderItem:
-      type: object
-      properties:
-        id:
-          type: string
-        imageUrl:
-          type: string
-        imageOnErrorUrl:
-          type: string
-        thumbImageUrl:
-          type: string
-        pdpUrl:
-          type: string
-        description:
-          type: string
-        itemNumber:
-          type: string
-        price:
-          type: integer
-          format: double
-        quantity:
-          type: integer
-        uom:
-          type: string
-        subTotal:
-          type: integer
-          format: double
-        deleteStatus:
-          type: boolean
-        vendorColorId:
-          type: string
-        productId:
-          type: string
-        itemGrayOutLevel:
-          type: string
-          enum:
-          - none
-          - grayWithChange
-          - gray
-        itemFromQuote:
-          type: boolean
-        quotedItemQtyChanged:
-          type: boolean
-        itemChanged:
-          type: boolean
-        atgItemDescription:
-          type: string
-        atgItemNetPrice:
-          type: integer
-          format: double
-        atgItemTotalPrice:
-          type: integer
-          format: double
-    updateQuoteOrder_req:
-      type: object
-      properties:
-        id:
-          type: string
-        action:
-          type: string
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              quantity:
-                type: number
-                format: long
-              itemNumber:
-                type: string
-              uom:
-                type: string
-              matchColor:
-                type: string
-              matchMFG:
-                type: string
-    RadioButton_savedorder:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
-          type: boolean
-    ContactInfo_savedorder:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        nickName:
-          type: string
-        phoneNumber:
-          type: string
-    submitQuoteOrderForApproval_resp:
-      type: object
-      properties:
-        savedOrderId:
-          type: string
-    messagesObj:
-      type: array
-      items:
-        type: object
-        properties:
-          type:
-            type: string
-          value:
-            type: string
-          code:
-            type: string
-    placeQuoteOrder_req:
-      type: object
-      properties:
-        orderId:
-          type: string
-        poName:
-          type: string
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-        uuid:
-          type: string
-        UUID:
-          type: string
-        additionalRecipients:
-          type: array
-          items:
-            type: string
-    RequiredFields_savedorder:
-      type: object
-      properties:
-        deliveryOption:
-          type: boolean
-        deliveryDate:
-          type: boolean
-        deliveryTime:
-          type: boolean
-        shippingMethod:
-          type: boolean
-        shippingAddress:
-          type: boolean
-        postalCode:
-          type: boolean
-        state:
-          type: boolean
-        address1:
-          type: boolean
-        address2:
-          type: boolean
-        address3:
-          type: boolean
-        country:
-          type: boolean
-        city:
-          type: boolean
-        branchName:
-          type: boolean
-        contactInfo:
-          type: boolean
-        firstName:
-          type: boolean
-        lastName:
-          type: boolean
-        nickName:
-          type: boolean
-        phoneNumber:
-          type: boolean
-        instructions:
-          type: boolean
-        po:
-          type: boolean
-        jobName:
-          type: boolean
-        jobAccounts:
-          type: boolean
-        showExtendedPO:
-          type: boolean
-    BranchAddress_savedorder:
-      type: object
-      properties:
-        displayName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        stateValue:
-          type: string
-        postalCode:
-          type: string
-        phoneNumber:
-          type: string
-        branchNumber:
-          type: string
-    QuoteOrderItemPrice:
-      type: object
-      properties:
-        id:
-          type: string
-        price:
-          type: number
-          format: double
-        subTotal:
-          type: number
-          format: double
-    ContactInfo_quoteOrder:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        nickName:
-          type: string
-        phoneNumber:
-          type: string
-    submitQuoteOrderForApproval_req:
-      type: object
-      required:
-      - orderId
-      - savedOrderName
-      - approverId
-      properties:
-        orderId:
-          type: string
-          description: Quote Order Id
-        savedOrderName:
-          type: string
-        approverId:
-          type: string
-        poName:
-          type: string
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-        additionalRecipients:
-          type: array
-          items:
-            type: string
-    ShippingAddress_savedorder:
-      type: object
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        states:
-          type: array
-          items:
-            $ref: '#/components/schemas/RadioButton_savedorder'
-        postalCode:
-          type: string
-    updateQuoteOrderShippingInfo_req:
-      type: object
-      properties:
-        id:
-          type: string
-        deliveryOption:
-          type: string
-        deliveryDate:
-          type: string
-          format: MM-dd-yyyy
-        deliveryTime:
-          type: string
-        shippingMethod:
-          type: string
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddress_quoteOrder_req'
-        branchName:
-          type: string
-        contactInfo:
-          $ref: '#/components/schemas/ContactInfo_quoteOrder'
-        instructions:
-          type: string
-    queryQuoteStatus_req:
-      type: object
-      properties:
-        quoteId:
-          type: string
   securitySchemes:
     JSESSIONID:
       type: apiKey

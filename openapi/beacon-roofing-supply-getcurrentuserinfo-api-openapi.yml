@@ -63,6 +63,31 @@ paths:
       - GetCurrentUserInfo
 components:
   schemas:
+    LastSelectedAccount:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+      required:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - cashAccount
+      - isAccountClosed
     ContactAddress:
       type: object
       properties:
@@ -97,50 +122,6 @@ components:
       - state
       - postalCode
       - country
-    LastSelectedAccount:
-      type: object
-      properties:
-        accountName:
-          type: string
-        accountEnabled:
-          type: boolean
-        accountLegacyId:
-          type: string
-        accountViewPrices:
-          type: boolean
-        addCustomSteel:
-          type: boolean
-        cashAccount:
-          type: boolean
-        isAccountClosed:
-          type: boolean
-      required:
-      - accountName
-      - accountEnabled
-      - accountLegacyId
-      - accountViewPrices
-      - addCustomSteel
-      - cashAccount
-      - isAccountClosed
-    DeliveryTrackingSettings:
-      type: object
-      properties:
-        email:
-          type: string
-        phone:
-          type: string
-        myOrders:
-          $ref: '#/components/schemas/MyOrders'
-        allOrders:
-          $ref: '#/components/schemas/MyOrders'
-        dtAccount:
-          $ref: '#/components/schemas/MyOrders'
-      required:
-      - email
-      - phone
-      - myOrders
-      - allOrders
-      - dtAccount
     getCurrentUserInfoResponse:
       type: object
       properties:
@@ -234,6 +215,25 @@ components:
       - declineNotificationEmail
       - userAccounts
       - hasPrivateEVAccount
+    DeliveryTrackingSettings:
+      type: object
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+        myOrders:
+          $ref: '#/components/schemas/MyOrders'
+        allOrders:
+          $ref: '#/components/schemas/MyOrders'
+        dtAccount:
+          $ref: '#/components/schemas/MyOrders'
+      required:
+      - email
+      - phone
+      - myOrders
+      - allOrders
+      - dtAccount
     MyOrders:
       type: object
       properties:

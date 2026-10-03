@@ -63,6 +63,37 @@ paths:
       - Role
 components:
   schemas:
+    Permission:
+      type: object
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        groupId:
+          type: string
+        name:
+          type: string
+        displayName:
+          type: string
+        type:
+          type: string
+        isAuthorised:
+          type: boolean
+        isDisabled:
+          type: boolean
+        isFixed:
+          type: boolean
+      required:
+      - id
+      - key
+      - groupId
+      - name
+      - displayName
+      - type
+      - isAuthorised
+      - isDisabled
+      - isFixed
     roleResponse:
       type: object
       properties:
@@ -96,34 +127,3 @@ components:
       - type
       - permissions
       - isGroup
-    Permission:
-      type: object
-      properties:
-        id:
-          type: string
-        key:
-          type: string
-        groupId:
-          type: string
-        name:
-          type: string
-        displayName:
-          type: string
-        type:
-          type: string
-        isAuthorised:
-          type: boolean
-        isDisabled:
-          type: boolean
-        isFixed:
-          type: boolean
-      required:
-      - id
-      - key
-      - groupId
-      - name
-      - displayName
-      - type
-      - isAuthorised
-      - isDisabled
-      - isFixed

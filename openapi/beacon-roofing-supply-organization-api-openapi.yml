@@ -63,24 +63,6 @@ paths:
       - Organization
 components:
   schemas:
-    Permission2:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-        isGroup:
-          type: boolean
-      required:
-      - name
-      - type
-      - permissions
-      - isGroup
     organizationResponse:
       type: object
       properties:
@@ -94,59 +76,6 @@ components:
       - id
       - name
       - masterAdmin
-    PermissionValues:
-      type: object
-      properties:
-        aa:
-          type: boolean
-        bb:
-          type: boolean
-        cc:
-          type: boolean
-      required:
-      - aa
-      - bb
-      - cc
-    Role:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission2'
-      required:
-      - id
-      - displayName
-      - permissions
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
     Permission:
       type: object
       properties:
@@ -212,6 +141,19 @@ components:
       - division
       - divisionName
       - market
+    PermissionValues:
+      type: object
+      properties:
+        aa:
+          type: boolean
+        bb:
+          type: boolean
+        cc:
+          type: boolean
+      required:
+      - aa
+      - bb
+      - cc
     MasterAdmin:
       type: object
       properties:
@@ -280,6 +222,64 @@ components:
       - internalUser
       - userType
       - rewardsEligible
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission2'
+      required:
+      - id
+      - displayName
+      - permissions
+    Permission2:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+        isGroup:
+          type: boolean
+      required:
+      - name
+      - type
+      - permissions
+      - isGroup
     Account:
       type: object
       properties:

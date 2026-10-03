@@ -99,101 +99,6 @@ paths:
       - CreateUser
 components:
   schemas:
-    PermissionTemplate:
-      type: object
-      properties:
-        name:
-          type: string
-        templateId:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission2'
-        lastModifiedDate:
-          type: string
-        userEmail:
-          type: string
-        org:
-          $ref: '#/components/schemas/Org'
-      required:
-      - name
-      - templateId
-      - permissions
-      - lastModifiedDate
-      - userEmail
-      - org
-    Permission2:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-        isGroup:
-          type: boolean
-      required:
-      - name
-      - type
-      - permissions
-      - isGroup
-    PermissionValues:
-      type: object
-      properties:
-        aa:
-          type: boolean
-        bb:
-          type: boolean
-        cc:
-          type: boolean
-      required:
-      - aa
-      - bb
-      - cc
-    Role:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission2'
-      required:
-      - id
-      - displayName
-      - permissions
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
     Permission:
       type: object
       properties:
@@ -259,6 +164,78 @@ components:
       - division
       - divisionName
       - market
+    createUserResponse:
+      type: object
+      properties:
+        userId:
+          type: string
+      required:
+      - userId
+    createUserBody:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        status:
+          type: string
+        currentTemplate:
+          type: string
+        permissionTemplate:
+          $ref: '#/components/schemas/PermissionTemplate'
+        permissionValues:
+          $ref: '#/components/schemas/PermissionValues'
+      required:
+      - firstName
+      - lastName
+      - title
+      - email
+      - phone
+      - role
+      - accounts
+      - status
+      - currentTemplate
+      - permissionTemplate
+      - permissionValues
+    PermissionValues:
+      type: object
+      properties:
+        aa:
+          type: boolean
+        bb:
+          type: boolean
+        cc:
+          type: boolean
+      required:
+      - aa
+      - bb
+      - cc
+    Org:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        masterAdmin:
+          $ref: '#/components/schemas/MasterAdmin'
+      required:
+      - id
+      - name
+      - masterAdmin
     MasterAdmin:
       type: object
       properties:
@@ -327,65 +304,64 @@ components:
       - internalUser
       - userType
       - rewardsEligible
-    Org:
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    Role:
       type: object
       properties:
         id:
           type: string
-        name:
+        displayName:
           type: string
-        masterAdmin:
-          $ref: '#/components/schemas/MasterAdmin'
-      required:
-      - id
-      - name
-      - masterAdmin
-    createUserBody:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        title:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-        role:
-          $ref: '#/components/schemas/Role'
-        accounts:
+        permissions:
           type: array
           items:
-            $ref: '#/components/schemas/Account'
-        status:
-          type: string
-        currentTemplate:
-          type: string
-        permissionTemplate:
-          $ref: '#/components/schemas/PermissionTemplate'
-        permissionValues:
-          $ref: '#/components/schemas/PermissionValues'
+            $ref: '#/components/schemas/Permission2'
       required:
-      - firstName
-      - lastName
-      - title
-      - email
-      - phone
-      - role
-      - accounts
-      - status
-      - currentTemplate
-      - permissionTemplate
-      - permissionValues
-    createUserResponse:
+      - id
+      - displayName
+      - permissions
+    Permission2:
       type: object
       properties:
-        userId:
+        name:
           type: string
+        type:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+        isGroup:
+          type: boolean
       required:
-      - userId
+      - name
+      - type
+      - permissions
+      - isGroup
     Account:
       type: object
       properties:
@@ -417,3 +393,27 @@ components:
       - cashAccount
       - isAccountClosed
       - branch
+    PermissionTemplate:
+      type: object
+      properties:
+        name:
+          type: string
+        templateId:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission2'
+        lastModifiedDate:
+          type: string
+        userEmail:
+          type: string
+        org:
+          $ref: '#/components/schemas/Org'
+      required:
+      - name
+      - templateId
+      - permissions
+      - lastModifiedDate
+      - userEmail
+      - org

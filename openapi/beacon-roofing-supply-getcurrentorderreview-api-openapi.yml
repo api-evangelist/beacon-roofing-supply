@@ -63,6 +63,66 @@ paths:
       - GetCurrentOrderReview
 components:
   schemas:
+    JobAccounts:
+      type: object
+      properties:
+        unavailable:
+          type: boolean
+        unavailableMsg:
+          type: string
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+      required:
+      - unavailable
+      - unavailableMsg
+      - jobs
+    NextPage:
+      type: object
+      properties:
+        nextUrl:
+          type: string
+      required:
+      - nextUrl
+    getCurrentOrderReviewResponse:
+      type: object
+      properties:
+        deliveryOption:
+          type: string
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        shippingMethod:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress'
+        poJob:
+          $ref: '#/components/schemas/PoJob'
+        instructions:
+          type: string
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+        orderRelatedDocuments:
+          type: array
+          items:
+            type: string
+        nextPage:
+          $ref: '#/components/schemas/NextPage'
+      required:
+      - deliveryOption
+      - deliveryDate
+      - deliveryTime
+      - shippingMethod
+      - shippingAddress
+      - poJob
+      - instructions
+      - additionalRecipients
+      - orderRelatedDocuments
+      - nextPage
     ShippingAddress:
       type: object
       properties:
@@ -113,6 +173,16 @@ components:
       - countryValue
       - countries
       - phoneNumber
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber
     DeliveryOption:
       type: object
       properties:
@@ -126,76 +196,6 @@ components:
       - displayName
       - value
       - selected
-    JobAccounts:
-      type: object
-      properties:
-        unavailable:
-          type: boolean
-        unavailableMsg:
-          type: string
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/Job'
-      required:
-      - unavailable
-      - unavailableMsg
-      - jobs
-    getCurrentOrderReviewResponse:
-      type: object
-      properties:
-        deliveryOption:
-          type: string
-        deliveryDate:
-          type: string
-        deliveryTime:
-          type: string
-        shippingMethod:
-          type: string
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddress'
-        poJob:
-          $ref: '#/components/schemas/PoJob'
-        instructions:
-          type: string
-        additionalRecipients:
-          type: array
-          items:
-            type: string
-        orderRelatedDocuments:
-          type: array
-          items:
-            type: string
-        nextPage:
-          $ref: '#/components/schemas/NextPage'
-      required:
-      - deliveryOption
-      - deliveryDate
-      - deliveryTime
-      - shippingMethod
-      - shippingAddress
-      - poJob
-      - instructions
-      - additionalRecipients
-      - orderRelatedDocuments
-      - nextPage
-    NextPage:
-      type: object
-      properties:
-        nextUrl:
-          type: string
-      required:
-      - nextUrl
-    Job:
-      type: object
-      properties:
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-      required:
-      - jobName
-      - jobNumber
     PoJob:
       type: object
       properties:

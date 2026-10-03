@@ -83,13 +83,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    salesOrderHoldData:
-      type: object
-      properties:
-        salesOrderHold:
-          type: array
-          items:
-            $ref: '#/components/schemas/salesOrderHold'
     salesOrderHold:
       type: object
       properties:
@@ -127,6 +120,13 @@ components:
       properties:
         salesOrderHold-data:
           $ref: '#/components/schemas/salesOrderHoldData'
+    salesOrderHoldData:
+      type: object
+      properties:
+        salesOrderHold:
+          type: array
+          items:
+            $ref: '#/components/schemas/salesOrderHold'
     createSalesOrderResp:
       type: object
       properties:

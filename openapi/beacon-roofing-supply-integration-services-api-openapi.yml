@@ -68,15 +68,19 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    BCOtherPaginationObj:
+    productObj_mincronMapping:
       type: object
       properties:
-        available:
-          type: boolean
-        label:
+        customerNumber:
           type: string
-        page:
-          type: integer
+        itemNumber:
+          type: string
+        itemDescription:
+          type: string
+        productNumber:
+          type: string
+        aliasNumber:
+          type: string
     BCPaginationDataObj:
       type: object
       properties:
@@ -94,17 +98,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BCPaginationObj'
-    BCPaginationObj:
+    BCOtherPaginationObj:
       type: object
       properties:
-        enable:
+        available:
           type: boolean
+        label:
+          type: string
         page:
           type: integer
-        currentPage:
-          type: boolean
-        type:
-          type: string
     productsRep:
       type: object
       properties:
@@ -117,18 +119,16 @@ components:
                 $ref: '#/components/schemas/productObj_mincronMapping'
             pagination:
               $ref: '#/components/schemas/BCPaginationDataObj'
-    productObj_mincronMapping:
+    BCPaginationObj:
       type: object
       properties:
-        customerNumber:
-          type: string
-        itemNumber:
-          type: string
-        itemDescription:
-          type: string
-        productNumber:
-          type: string
-        aliasNumber:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
           type: string
   securitySchemes:
     bearerAuth:

@@ -69,87 +69,6 @@ paths:
       - ValidateUserByAccount
 components:
   schemas:
-    UserRegInfo:
-      type: object
-      properties:
-        userRegisterToken:
-          type: string
-      required:
-      - userRegisterToken
-    BranchSelection:
-      type: object
-      properties:
-        accountId:
-          type: string
-        accountName:
-          type: string
-        branches:
-          type: array
-          items:
-            $ref: '#/components/schemas/Branch'
-      required:
-      - accountId
-      - accountName
-      - branches
-    validateUserByAccountResponse:
-      type: object
-      properties:
-        userRegInfo:
-          $ref: '#/components/schemas/UserRegInfo'
-        showBranchSelection:
-          type: boolean
-        branchSelection:
-          $ref: '#/components/schemas/BranchSelection'
-        retryTimesLeft:
-          type: number
-        needLogin:
-          type: boolean
-        needRetry:
-          type: boolean
-        needContactSupport:
-          type: boolean
-        needGetUserRegisterToken:
-          type: boolean
-        needInvoice:
-          type: boolean
-        registerSuccess:
-          type: boolean
-      required:
-      - userRegInfo
-      - showBranchSelection
-      - branchSelection
-      - retryTimesLeft
-      - needLogin
-      - needRetry
-      - needContactSupport
-      - needGetUserRegisterToken
-      - needInvoice
-      - registerSuccess
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
     Branch:
       type: object
       properties:
@@ -203,3 +122,84 @@ components:
       - account
       - invoice
       - invoiceDate
+    validateUserByAccountResponse:
+      type: object
+      properties:
+        userRegInfo:
+          $ref: '#/components/schemas/UserRegInfo'
+        showBranchSelection:
+          type: boolean
+        branchSelection:
+          $ref: '#/components/schemas/BranchSelection'
+        retryTimesLeft:
+          type: number
+        needLogin:
+          type: boolean
+        needRetry:
+          type: boolean
+        needContactSupport:
+          type: boolean
+        needGetUserRegisterToken:
+          type: boolean
+        needInvoice:
+          type: boolean
+        registerSuccess:
+          type: boolean
+      required:
+      - userRegInfo
+      - showBranchSelection
+      - branchSelection
+      - retryTimesLeft
+      - needLogin
+      - needRetry
+      - needContactSupport
+      - needGetUserRegisterToken
+      - needInvoice
+      - registerSuccess
+    BranchSelection:
+      type: object
+      properties:
+        accountId:
+          type: string
+        accountName:
+          type: string
+        branches:
+          type: array
+          items:
+            $ref: '#/components/schemas/Branch'
+      required:
+      - accountId
+      - accountName
+      - branches
+    UserRegInfo:
+      type: object
+      properties:
+        userRegisterToken:
+          type: string
+      required:
+      - userRegisterToken
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city

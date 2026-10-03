@@ -842,6 +842,275 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    templateListItemObj:
+      type: object
+      properties:
+        templateItemId:
+          type: string
+        productImageUrl:
+          type: string
+        productOnErrorImageUrl:
+          type: string
+        itemOrProductDescription:
+          type: string
+        itemNumber:
+          type: string
+        nickName:
+          type: string
+        productOrItemNumber:
+          type: string
+        internalProductName:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        unitOfMeasure:
+          type: string
+        quantity:
+          type: integer
+        available:
+          type: boolean
+        imageUrl:
+          $ref: '#/components/schemas/imageUrlObj'
+        variations:
+          $ref: '#/components/schemas/variationsObj'
+        skusVariation:
+          $ref: '#/components/schemas/skusVariationObj'
+        pdpUrl:
+          type: string
+        multiVariationData:
+          $ref: '#/components/schemas/multiVariationDataObj'
+    templateDetailObj:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        jobNumber:
+          type: string
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          $ref: '#/components/schemas/profileObj'
+        accountLegacyId:
+          type: string
+        isAccountClosed:
+          type: boolean
+        accountName:
+          type: string
+        createdByUser:
+          $ref: '#/components/schemas/profileObj'
+        templateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/templateDetailItemObj'
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+    validateTemplateItems_req:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateItems:
+          type: array
+          items:
+            type: object
+            properties:
+              templateItemId:
+                type: string
+    vendorColorsObj:
+      type: object
+      properties:
+        id:
+          type: string
+        MFG:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        sku:
+          type: string
+        color:
+          type: string
+    createTemplateRep:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        jobNumber:
+          type: string
+        lastModifiedDate:
+          type: string
+        accountLegacyId:
+          type: string
+        accountName:
+          type: string
+        allItemsUnavailable:
+          type: boolean
+        itemTotal:
+          type: integer
+        itemSuccessTotal:
+          type: integer
+        detailUrl:
+          type: string
+          example: /myAccount/templateDetail?activeTab=template&giftlistId=gl12345678
+        callBackParam:
+          type: string
+    skusVariationObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        '600001':
+          color:
+          - White
+          - Dover
+          size:
+          - 12x10
+          thickness:
+          - 2mm
+        '600002':
+          color:
+          - White
+          size:
+          - 4x4
+          thickness:
+          - 4mm
+        '300003':
+          color:
+          - Dover
+          size:
+          - 4x4
+          thickness:
+          - 6mm
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    updateTemptemItemRep:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        jobNumber:
+          type: string
+        lastModifiedDate:
+          type: string
+        accountLegacyId:
+          type: string
+        accountName:
+          type: string
+        allItemsUnavailable:
+          type: boolean
+        itemTotal:
+          type: integer
+        itemSuccessTotal:
+          type: integer
+        detailUrl:
+          type: string
+          example: /myAccount/templateDetail?activeTab=template&giftlistId=gl12345678
+    templateListObj:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        jobNumber:
+          type: string
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          $ref: '#/components/schemas/profileObj'
+        accountLegacyId:
+          type: string
+        isAccountClosed:
+          type: boolean
+        accountName:
+          type: string
+        createdByUser:
+          $ref: '#/components/schemas/profileObj'
+        templateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/templateListItemObj'
+    TemplateCategory:
+      type: object
+      properties:
+        category:
+          type: string
+          description: category name
+        subCategories:
+          type: array
+          items:
+            type: object
+            properties:
+              categoryId:
+                type: string
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    getTemplateCategory_res:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateCategory'
+    profileObj:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+    updateSingleTemplateLineItemRep:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateName:
+          type: string
+        jobNumber:
+          type: string
+        accountLegacyId:
+          type: string
+        templateItem:
+          $ref: '#/components/schemas/templateDetailItemObj'
     BCPaginationDataObj:
       type: object
       properties:
@@ -859,26 +1128,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BCPaginationObj'
-    updateSingleTemplateLineItemRep:
-      type: object
-      properties:
-        templateId:
-          type: string
-        templateName:
-          type: string
-        jobNumber:
-          type: string
-        accountLegacyId:
-          type: string
-        templateItem:
-          $ref: '#/components/schemas/templateDetailItemObj'
-    profileObj:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
     updateSingleTemplateLineItemReq:
       type: object
       properties:
@@ -907,15 +1156,95 @@ components:
               type: string
             matchMFG:
               type: string
-    imageUrlObj:
+    validateTemplateItems_rep:
       type: object
       properties:
-        thumbnail:
+        invalidTemplateItems:
+          type: array
+          items:
+            type: object
+            properties:
+              templateItemId:
+                type: string
+    multiVariationDataObj:
+      type: object
+      properties:
+        currentSkuId:
           type: string
-        large:
+        skus:
+          $ref: '#/components/schemas/skusVariationObj'
+        variations:
+          $ref: '#/components/schemas/variationsObj'
+        vendorColors:
+          type: array
+          items:
+            $ref: '#/components/schemas/vendorColorsObj'
+        allVariationTypes:
+          type: array
+          items:
+            type: string
+        currentVariations:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            color: please_select
+            size: 2ft x 4ft
+            diameter: 3d
+            thickness: 5nm'
+            style: slope 002
+            packaging: 5 gallon pail
+            MFG: please_select
+        variationKeyMFG:
           type: string
-        swatch:
+        variationKeyColor:
           type: string
+        variationGroups:
+          type: array
+          items:
+            type: object
+            properties:
+              variationTypes:
+                type: array
+                items:
+                  type: string
+        maxVariationGroupSize:
+          type: integer
+    templateDetailRep:
+      $ref: '#/components/schemas/templateDetailObj'
+    updateTemptemItemReq:
+      type: object
+      properties:
+        templateId:
+          type: string
+        account:
+          type: string
+        templateName:
+          type: string
+        jobNumber:
+          type: string
+        action:
+          type: string
+          example: The action operate on tempalte items.the value should be one of createItem,updateItem,deleteItem and empty for do nothing on items
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              templateItemId:
+                type: string
+              itemNumber:
+                type: string
+              nickName:
+                type: string
+              unitOfMeasure:
+                type: string
+              quantity:
+                type: integer
+              matchColor:
+                type: string
+              matchMFG:
+                type: string
     templateDetailItemObj:
       type: object
       properties:
@@ -962,147 +1291,15 @@ components:
           type: string
         category:
           $ref: '#/components/schemas/itemCategoryObj'
-    updateTemptemItemReq:
+    imageUrlObj:
       type: object
       properties:
-        templateId:
+        thumbnail:
           type: string
-        account:
+        large:
           type: string
-        templateName:
+        swatch:
           type: string
-        jobNumber:
-          type: string
-        action:
-          type: string
-          example: The action operate on tempalte items.the value should be one of createItem,updateItem,deleteItem and empty for do nothing on items
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              templateItemId:
-                type: string
-              itemNumber:
-                type: string
-              nickName:
-                type: string
-              unitOfMeasure:
-                type: string
-              quantity:
-                type: integer
-              matchColor:
-                type: string
-              matchMFG:
-                type: string
-    getTemplateCategory_res:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateCategory'
-    createTemplateRep:
-      type: object
-      properties:
-        templateId:
-          type: string
-        templateName:
-          type: string
-        jobNumber:
-          type: string
-        lastModifiedDate:
-          type: string
-        accountLegacyId:
-          type: string
-        accountName:
-          type: string
-        allItemsUnavailable:
-          type: boolean
-        itemTotal:
-          type: integer
-        itemSuccessTotal:
-          type: integer
-        detailUrl:
-          type: string
-          example: /myAccount/templateDetail?activeTab=template&giftlistId=gl12345678
-        callBackParam:
-          type: string
-    multiVariationDataObj:
-      type: object
-      properties:
-        currentSkuId:
-          type: string
-        skus:
-          $ref: '#/components/schemas/skusVariationObj'
-        variations:
-          $ref: '#/components/schemas/variationsObj'
-        vendorColors:
-          type: array
-          items:
-            $ref: '#/components/schemas/vendorColorsObj'
-        allVariationTypes:
-          type: array
-          items:
-            type: string
-        currentVariations:
-          type: object
-          additionalProperties:
-            type: string
-          example:
-            color: please_select
-            size: 2ft x 4ft
-            diameter: 3d
-            thickness: 5nm'
-            style: slope 002
-            packaging: 5 gallon pail
-            MFG: please_select
-        variationKeyMFG:
-          type: string
-        variationKeyColor:
-          type: string
-        variationGroups:
-          type: array
-          items:
-            type: object
-            properties:
-              variationTypes:
-                type: array
-                items:
-                  type: string
-        maxVariationGroupSize:
-          type: integer
-    templateDetailObj:
-      type: object
-      properties:
-        templateId:
-          type: string
-        templateName:
-          type: string
-        jobNumber:
-          type: string
-        lastModifiedDate:
-          type: string
-        lastModifiedUser:
-          $ref: '#/components/schemas/profileObj'
-        accountLegacyId:
-          type: string
-        isAccountClosed:
-          type: boolean
-        accountName:
-          type: string
-        createdByUser:
-          $ref: '#/components/schemas/profileObj'
-        templateItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/templateDetailItemObj'
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
     addPerfectOrderToTemplateRep:
       type: object
       properties:
@@ -1120,46 +1317,6 @@ components:
           type: string
         message:
           type: string
-    skusVariationObj:
-      type: object
-      additionalProperties:
-        type: object
-      example:
-        '600001':
-          color:
-          - White
-          - Dover
-          size:
-          - 12x10
-          thickness:
-          - 2mm
-        '600002':
-          color:
-          - White
-          size:
-          - 4x4
-          thickness:
-          - 4mm
-        '300003':
-          color:
-          - Dover
-          size:
-          - 4x4
-          thickness:
-          - 6mm
-    templatelistRep:
-      type: object
-      properties:
-        totalNumRecs:
-          type: integer
-        pageNumRecs:
-          type: integer
-        templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/templateListObj'
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
     updateTemplateItemDisplayOrderReq:
       type: object
       properties:
@@ -1174,18 +1331,6 @@ components:
                 type: string
               displayOrder:
                 type: integer
-    validateTemplateItems_req:
-      type: object
-      properties:
-        templateId:
-          type: string
-        templateItems:
-          type: array
-          items:
-            type: object
-            properties:
-              templateItemId:
-                type: string
     createTemplateReq:
       type: object
       properties:
@@ -1209,151 +1354,6 @@ components:
               matchColor:
                 type: string
               matchMFG:
-                type: string
-    templateListItemObj:
-      type: object
-      properties:
-        templateItemId:
-          type: string
-        productImageUrl:
-          type: string
-        productOnErrorImageUrl:
-          type: string
-        itemOrProductDescription:
-          type: string
-        itemNumber:
-          type: string
-        nickName:
-          type: string
-        productOrItemNumber:
-          type: string
-        internalProductName:
-          type: string
-        unitPrice:
-          type: number
-          format: double
-        unitOfMeasure:
-          type: string
-        quantity:
-          type: integer
-        available:
-          type: boolean
-        imageUrl:
-          $ref: '#/components/schemas/imageUrlObj'
-        variations:
-          $ref: '#/components/schemas/variationsObj'
-        skusVariation:
-          $ref: '#/components/schemas/skusVariationObj'
-        pdpUrl:
-          type: string
-        multiVariationData:
-          $ref: '#/components/schemas/multiVariationDataObj'
-    messagesObj:
-      type: array
-      items:
-        type: object
-        properties:
-          type:
-            type: string
-          value:
-            type: string
-          code:
-            type: string
-    BCPaginationObj:
-      type: object
-      properties:
-        enable:
-          type: boolean
-        page:
-          type: integer
-        currentPage:
-          type: boolean
-        type:
-          type: string
-    templateDetailRep:
-      $ref: '#/components/schemas/templateDetailObj'
-    updateTemptemItemRep:
-      type: object
-      properties:
-        templateId:
-          type: string
-        templateName:
-          type: string
-        jobNumber:
-          type: string
-        lastModifiedDate:
-          type: string
-        accountLegacyId:
-          type: string
-        accountName:
-          type: string
-        allItemsUnavailable:
-          type: boolean
-        itemTotal:
-          type: integer
-        itemSuccessTotal:
-          type: integer
-        detailUrl:
-          type: string
-          example: /myAccount/templateDetail?activeTab=template&giftlistId=gl12345678
-    BCOtherPaginationObj:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: integer
-    templateListObj:
-      type: object
-      properties:
-        templateId:
-          type: string
-        templateName:
-          type: string
-        jobNumber:
-          type: string
-        lastModifiedDate:
-          type: string
-        lastModifiedUser:
-          $ref: '#/components/schemas/profileObj'
-        accountLegacyId:
-          type: string
-        isAccountClosed:
-          type: boolean
-        accountName:
-          type: string
-        createdByUser:
-          $ref: '#/components/schemas/profileObj'
-        templateItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/templateListItemObj'
-    vendorColorsObj:
-      type: object
-      properties:
-        id:
-          type: string
-        MFG:
-          type: string
-        name:
-          type: string
-        code:
-          type: string
-        sku:
-          type: string
-        color:
-          type: string
-    validateTemplateItems_rep:
-      type: object
-      properties:
-        invalidTemplateItems:
-          type: array
-          items:
-            type: object
-            properties:
-              templateItemId:
                 type: string
     itemCategoryObj:
       type: object
@@ -1387,19 +1387,19 @@ components:
           - '200002'
           6mm:
           - '300003'
-    TemplateCategory:
+    templatelistRep:
       type: object
       properties:
-        category:
-          type: string
-          description: category name
-        subCategories:
+        totalNumRecs:
+          type: integer
+        pageNumRecs:
+          type: integer
+        templates:
           type: array
           items:
-            type: object
-            properties:
-              categoryId:
-                type: string
+            $ref: '#/components/schemas/templateListObj'
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
   securitySchemes:
     JSESSIONID:
       type: apiKey

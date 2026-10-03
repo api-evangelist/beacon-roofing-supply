@@ -82,22 +82,6 @@ components:
       - requested
       - scheduled
       - delivered
-    DtAccountStatusChangeNotification:
-      type: object
-      properties:
-        requested:
-          type: string
-        scheduled:
-          type: string
-        delivered:
-          type: string
-        accountId:
-          type: string
-      required:
-      - requested
-      - scheduled
-      - delivered
-      - accountId
     updateStatusChangeBody:
       type: object
       properties:
@@ -119,6 +103,22 @@ components:
       - dtStatusChangeNotification
       - dtAdminStatusChangeNotification
       - dtAccountStatusChangeNotification
+    DtAccountStatusChangeNotification:
+      type: object
+      properties:
+        requested:
+          type: string
+        scheduled:
+          type: string
+        delivered:
+          type: string
+        accountId:
+          type: string
+      required:
+      - requested
+      - scheduled
+      - delivered
+      - accountId
     updateStatusChangeResponse:
       type: object
       properties:

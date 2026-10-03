@@ -78,56 +78,6 @@ paths:
       - GetRebateRedeemedItemDetail
 components:
   schemas:
-    getRebateRedeemedItemDetailBody:
-      type: object
-      properties:
-        rebateId:
-          type: string
-        searchKey:
-          type: string
-        searchValue:
-          type: string
-        pageNum:
-          type: string
-      required:
-      - rebateId
-      - searchKey
-      - searchValue
-      - pageNum
-    Header:
-      type: object
-      properties:
-        promotionDates:
-          type: string
-        accountId:
-          type: string
-        submitDate:
-          type: string
-        id:
-          type: string
-        brand:
-          type: string
-        rebateId:
-          type: string
-        PDFUrl:
-          type: string
-        currencyUnit:
-          type: string
-        promotion:
-          type: string
-        projectedRebate:
-          type: string
-      required:
-      - promotionDates
-      - accountId
-      - submitDate
-      - id
-      - brand
-      - rebateId
-      - PDFUrl
-      - currencyUnit
-      - promotion
-      - projectedRebate
     getRebateRedeemedItemDetailResponse:
       type: object
       properties:
@@ -143,25 +93,6 @@ components:
       - pagination
       - header
       - body
-    Result:
-      type: object
-      properties:
-        pageRows:
-          type: number
-        pages:
-          type: number
-        page:
-          type: number
-        rows:
-          type: number
-        rowsPerPage:
-          type: number
-      required:
-      - pageRows
-      - pages
-      - page
-      - rows
-      - rowsPerPage
     Body:
       type: object
       properties:
@@ -217,6 +148,56 @@ components:
       - rebateId
       - currencyUnit
       - promotion
+    Header:
+      type: object
+      properties:
+        promotionDates:
+          type: string
+        accountId:
+          type: string
+        submitDate:
+          type: string
+        id:
+          type: string
+        brand:
+          type: string
+        rebateId:
+          type: string
+        PDFUrl:
+          type: string
+        currencyUnit:
+          type: string
+        promotion:
+          type: string
+        projectedRebate:
+          type: string
+      required:
+      - promotionDates
+      - accountId
+      - submitDate
+      - id
+      - brand
+      - rebateId
+      - PDFUrl
+      - currencyUnit
+      - promotion
+      - projectedRebate
+    getRebateRedeemedItemDetailBody:
+      type: object
+      properties:
+        rebateId:
+          type: string
+        searchKey:
+          type: string
+        searchValue:
+          type: string
+        pageNum:
+          type: string
+      required:
+      - rebateId
+      - searchKey
+      - searchValue
+      - pageNum
     Next:
       type: object
       properties:
@@ -230,6 +211,25 @@ components:
       - available
       - label
       - page
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
     Pagination:
       type: object
       properties:

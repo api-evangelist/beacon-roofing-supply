@@ -197,6 +197,14 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    getHoverJobListImage_rep:
+      type: string
+      example: https://hover.to/.../xxxxxx.jpg?version=...
+    HoverJobDetailImage:
+      type: object
+      properties:
+        id:
+          type: string
     getHoverJobList_rep:
       type: object
       properties:
@@ -206,20 +214,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/HoverJobListItem'
-    HoverJobDetailImage:
-      type: object
-      properties:
-        id:
-          type: string
-    BCOtherPaginationObj:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: integer
     BCPaginationDataObj:
       type: object
       properties:
@@ -237,17 +231,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BCPaginationObj'
-    BCPaginationObj:
+    getHoverJobDetailImage_rep:
+      type: string
+      example: https://hover.to/.../xxxxxx.jpg?version=...
+    BCOtherPaginationObj:
       type: object
       properties:
-        enable:
+        available:
           type: boolean
+        label:
+          type: string
         page:
           type: integer
-        currentPage:
-          type: boolean
-        type:
-          type: string
     HoverJobListItem:
       type: object
       properties:
@@ -263,12 +258,6 @@ components:
           type: string
         completedAt:
           type: string
-    getHoverJobDetailImage_rep:
-      type: string
-      example: https://hover.to/.../xxxxxx.jpg?version=...
-    getHoverJobListImage_rep:
-      type: string
-      example: https://hover.to/.../xxxxxx.jpg?version=...
     getHoverJobDetail_rep:
       type: object
       properties:
@@ -374,6 +363,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/HoverJobDetailImage'
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
   securitySchemes:
     JSESSIONID:
       type: apiKey

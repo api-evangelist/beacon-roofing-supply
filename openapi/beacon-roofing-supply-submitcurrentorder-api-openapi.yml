@@ -96,6 +96,35 @@ paths:
       - SubmitCurrentOrder
 components:
   schemas:
+    NextPage:
+      type: object
+      properties:
+        nextUrl:
+          type: string
+      required:
+      - nextUrl
+    OrderSummary:
+      type: object
+      properties:
+        total:
+          type: number
+        itemsTotal:
+          type: number
+        tax:
+          type: number
+        otherChanges:
+          type: number
+        displayTotalMsg:
+          type: boolean
+        totalMsg:
+          type: string
+      required:
+      - total
+      - itemsTotal
+      - tax
+      - otherChanges
+      - displayTotalMsg
+      - totalMsg
     submitCurrentOrderBody:
       type: object
       properties:
@@ -123,35 +152,6 @@ components:
       - additionalRecipients
       - savedOrderName
       - approverId
-    Item:
-      type: object
-      properties:
-        filter:
-          type: string
-      required:
-      - filter
-    OrderSummary:
-      type: object
-      properties:
-        total:
-          type: number
-        itemsTotal:
-          type: number
-        tax:
-          type: number
-        otherChanges:
-          type: number
-        displayTotalMsg:
-          type: boolean
-        totalMsg:
-          type: string
-      required:
-      - total
-      - itemsTotal
-      - tax
-      - otherChanges
-      - displayTotalMsg
-      - totalMsg
     ShippingAddress:
       type: object
       properties:
@@ -202,19 +202,6 @@ components:
       - countryValue
       - countries
       - phoneNumber
-    DeliveryOption:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
-          type: boolean
-      required:
-      - displayName
-      - value
-      - selected
     submitCurrentOrderResponse:
       type: object
       properties:
@@ -276,10 +263,23 @@ components:
       - additionalRecipients
       - orderRelatedDocuments
       - nextPage
-    NextPage:
+    Item:
       type: object
       properties:
-        nextUrl:
+        filter:
           type: string
       required:
-      - nextUrl
+      - filter
+    DeliveryOption:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected

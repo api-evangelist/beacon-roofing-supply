@@ -723,127 +723,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    orderdetailRep:
-      type: object
-      properties:
-        order:
-          $ref: '#/components/schemas/orderHistoryObj'
-        lineItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/orderHistoryLineItemObj'
-        DTStatus:
-          $ref: '#/components/schemas/DTStatusObj'
-        DTPhotos:
-          type: array
-          items:
-            $ref: '#/components/schemas/DTPhotosObj'
-        branchDTEnabled:
-          type: boolean
-        DTEnabled:
-          type: boolean
-        EVReportId:
-          type: integer
-        EVEligibleForUpgrade:
-          type: boolean
-        hasDTError:
-          type: boolean
-        warranties:
-          type: array
-          items:
-            type: object
-            properties:
-              itemNumber:
-                type: string
-              skuPDPDisplayTitle:
-                type: string
-              resource:
-                type: object
-                additionalProperties:
-                  type: string
-                example:
-                  Warranty: http://www.xxx.com/download.php,
-        documents:
-          type: array
-          items:
-            type: object
-            properties:
-              itemNumber:
-                type: string
-              skuPDPDisplayTitle:
-                type: string
-              categoryName:
-                type: string
-              resource:
-                type: object
-                additionalProperties:
-                  type: string
-                example:
-                  General Instructrions: http://www.xxx.com/download.php,
-                  MSDS: http://www.xxx.com/download.php,
-                  Brochure: http://www.xxx.com/download.php,
-    DTStatusObj:
-      type: object
-      properties:
-        displayName:
-          type: string
-        contKey:
-          type: string
-        contValue:
-          type: string
-        statusEndDate:
-          type: string
-          example: 05/05/2018
-        infos:
-          type: array
-          items:
-            type: object
-            properties:
-              defaultValue:
-                type: string
-              imageUrl:
-                type: string
-              active:
-                type: boolean
-              key:
-                type: string
-              value:
-                type: string
-    BCOtherPaginationObj:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: integer
-    orderhistoryRep:
-      type: object
-      properties:
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/orderHistoryObj'
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
-    BCPaginationDataObj:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        previous:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        pageSize:
-          type: integer
-        currentPage:
-          type: integer
-        totalCount:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPaginationObj'
     orderHistoryLineItemObj:
       type: object
       properties:
@@ -893,47 +772,6 @@ components:
           type: string
         isAddedToFavorites:
           type: boolean
-    BCPaginationObj:
-      type: object
-      properties:
-        enable:
-          type: boolean
-        page:
-          type: integer
-        currentPage:
-          type: boolean
-        type:
-          type: string
-    DTOrderdetailRep:
-      type: object
-      properties:
-        DTStatus:
-          $ref: '#/components/schemas/DTStatusObj'
-        DTPhotos:
-          type: array
-          items:
-            $ref: '#/components/schemas/DTPhotosObj'
-        branchDTEnabled:
-          type: boolean
-        DTEnabled:
-          type: boolean
-        hasDTError:
-          type: boolean
-    branchAddressObj:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        city:
-          type: string
     invoiceHistoryRes:
       type: object
       properties:
@@ -943,55 +781,6 @@ components:
             $ref: '#/components/schemas/orderInvoice'
         pagination:
           $ref: '#/components/schemas/BCPaginationDataObj'
-    DTPhotosObj:
-      type: object
-      properties:
-        thumbnailUrl:
-          type: string
-        largeUrl:
-          type: string
-        timestamp:
-          type: string
-          example: '2018-05-02T13:49:39.85'
-    jobObj:
-      type: object
-      properties:
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-    orderInvoice:
-      type: object
-      properties:
-        apiSiteId:
-          type: string
-        accountId:
-          type: string
-        accountName:
-          type: string
-        orderNumber:
-          type: string
-        orderPlacedDate:
-          type: string
-          format: date
-        invoiceDate:
-          type: string
-          format: date
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-        purchaseOrderNumber:
-          type: string
-        sales:
-          type: number
-          format: double
-        otherCharges:
-          type: number
-          format: double
-        salesPlusOtherCharges:
-          type: number
-          format: double
     orderHistoryObj:
       type: object
       properties:
@@ -1088,6 +877,217 @@ components:
           type: string
         digital:
           type: string
+    DTStatusObj:
+      type: object
+      properties:
+        displayName:
+          type: string
+        contKey:
+          type: string
+        contValue:
+          type: string
+        statusEndDate:
+          type: string
+          example: 05/05/2018
+        infos:
+          type: array
+          items:
+            type: object
+            properties:
+              defaultValue:
+                type: string
+              imageUrl:
+                type: string
+              active:
+                type: boolean
+              key:
+                type: string
+              value:
+                type: string
+    jobObj:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    orderInvoice:
+      type: object
+      properties:
+        apiSiteId:
+          type: string
+        accountId:
+          type: string
+        accountName:
+          type: string
+        orderNumber:
+          type: string
+        orderPlacedDate:
+          type: string
+          format: date
+        invoiceDate:
+          type: string
+          format: date
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        purchaseOrderNumber:
+          type: string
+        sales:
+          type: number
+          format: double
+        otherCharges:
+          type: number
+          format: double
+        salesPlusOtherCharges:
+          type: number
+          format: double
+    orderdetailRep:
+      type: object
+      properties:
+        order:
+          $ref: '#/components/schemas/orderHistoryObj'
+        lineItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderHistoryLineItemObj'
+        DTStatus:
+          $ref: '#/components/schemas/DTStatusObj'
+        DTPhotos:
+          type: array
+          items:
+            $ref: '#/components/schemas/DTPhotosObj'
+        branchDTEnabled:
+          type: boolean
+        DTEnabled:
+          type: boolean
+        EVReportId:
+          type: integer
+        EVEligibleForUpgrade:
+          type: boolean
+        hasDTError:
+          type: boolean
+        warranties:
+          type: array
+          items:
+            type: object
+            properties:
+              itemNumber:
+                type: string
+              skuPDPDisplayTitle:
+                type: string
+              resource:
+                type: object
+                additionalProperties:
+                  type: string
+                example:
+                  Warranty: http://www.xxx.com/download.php,
+        documents:
+          type: array
+          items:
+            type: object
+            properties:
+              itemNumber:
+                type: string
+              skuPDPDisplayTitle:
+                type: string
+              categoryName:
+                type: string
+              resource:
+                type: object
+                additionalProperties:
+                  type: string
+                example:
+                  General Instructrions: http://www.xxx.com/download.php,
+                  MSDS: http://www.xxx.com/download.php,
+                  Brochure: http://www.xxx.com/download.php,
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    orderhistoryRep:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/orderHistoryObj'
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+    branchAddressObj:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    DTOrderdetailRep:
+      type: object
+      properties:
+        DTStatus:
+          $ref: '#/components/schemas/DTStatusObj'
+        DTPhotos:
+          type: array
+          items:
+            $ref: '#/components/schemas/DTPhotosObj'
+        branchDTEnabled:
+          type: boolean
+        DTEnabled:
+          type: boolean
+        hasDTError:
+          type: boolean
+    DTPhotosObj:
+      type: object
+      properties:
+        thumbnailUrl:
+          type: string
+        largeUrl:
+          type: string
+        timestamp:
+          type: string
+          example: '2018-05-02T13:49:39.85'
   securitySchemes:
     JSESSIONID:
       type: apiKey

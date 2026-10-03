@@ -87,22 +87,43 @@ paths:
       - GetStatusChange
 components:
   schemas:
-    DtAccountStatusChangeNotification:
+    DtStatusChangeNotifacation:
       type: object
       properties:
-        requested:
+        displayName:
           type: string
-        scheduled:
+        label:
           type: string
-        delivered:
-          type: string
-        accountId:
-          type: string
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
       required:
-      - requested
-      - scheduled
-      - delivered
-      - accountId
+      - displayName
+      - label
+      - notifications
+    Notification:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected
+    DtOrderStatusChangeNotifacation:
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+      required:
+      - notifications
     getStatusChangeResponse:
       type: object
       properties:
@@ -137,40 +158,19 @@ components:
       - dtAdminStatusChangeNotifacaton
       - dtAccountStatusChangeNotification
       - dtOrderStatusChangeNotifacation
-    Notification:
+    DtAccountStatusChangeNotification:
       type: object
       properties:
-        displayName:
+        requested:
           type: string
-        value:
+        scheduled:
           type: string
-        selected:
-          type: boolean
+        delivered:
+          type: string
+        accountId:
+          type: string
       required:
-      - displayName
-      - value
-      - selected
-    DtOrderStatusChangeNotifacation:
-      type: object
-      properties:
-        notifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/Notification'
-      required:
-      - notifications
-    DtStatusChangeNotifacation:
-      type: object
-      properties:
-        displayName:
-          type: string
-        label:
-          type: string
-        notifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/Notification'
-      required:
-      - displayName
-      - label
-      - notifications
+      - requested
+      - scheduled
+      - delivered
+      - accountId

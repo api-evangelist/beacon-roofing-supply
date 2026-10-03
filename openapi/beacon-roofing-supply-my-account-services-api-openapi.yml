@@ -1604,6 +1604,11 @@ paths:
       description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
 components:
   schemas:
+    deleteInternalUserReq:
+      type: object
+      properties:
+        login:
+          type: string
     deleteUserReq:
       type: object
       properties:
@@ -1611,170 +1616,88 @@ components:
           type: string
         email:
           type: string
-    deleteInternalUserReq:
+    enterpriseAccount:
       type: object
       properties:
-        login:
+        enterpriseAccountLegacyId:
           type: string
-    deletePermissionTemplate_req:
-      type: object
-      properties:
-        templateId:
+        enterpriseAccountName:
           type: string
-    createAddressBookReq:
-      $ref: '#/components/schemas/addressBookInfoObj_CU'
-    updateAddressBookReq:
-      type: object
-      properties:
-        addressBookId:
-          type: string
-        addressBookInfo:
-          $ref: '#/components/schemas/addressBookInfoObj_CU'
-    BCUserObj_user:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-        lastActivity:
-          type: string
-        lastModifiedDate:
-          type: string
-        status:
-          type: string
-        rewardsEligible:
-          type: boolean
-    BCPaginationDataObj:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        previous:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        pageSize:
-          type: integer
-        currentPage:
-          type: integer
-        totalCount:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPaginationObj'
-    deleteMobileDeviceTokenReq:
-      type: object
-      properties:
-        deviceTokens:
-          type: array
-          items:
-            type: string
-    getAddressBookRep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
-        addressBooks:
+        childAccounts:
           type: array
           items:
             type: object
             properties:
-              addressBookId:
-                type: string
               accountLegacyId:
                 type: string
               accountName:
                 type: string
-              addressBookInfo:
-                $ref: '#/components/schemas/addressBookInfoObj_R'
-    organization_rep:
-      $ref: '#/components/schemas/BCOrgObj'
-    accountOSRAndBMInfo:
+    termObj:
       type: object
       properties:
-        OSRList:
-          type: array
-          items:
-            $ref: '#/components/schemas/accountOSRAndBMInfo_emailInfoObj'
-        BMList:
-          type: array
-          items:
-            $ref: '#/components/schemas/accountOSRAndBMInfo_emailInfoObj'
-    accountOSRAndBMInfo_emailInfoObj:
-      type: object
-      properties:
-        fullName:
+        op:
           type: string
-        emailAddess:
+        property:
           type: string
-        phoneNumber:
-          type: string
-    BCOrgObj_getPermissionTemplateDetail:
+        value:
+          type: object
+    BCRoleObj:
       type: object
       properties:
         id:
           type: string
-        name:
+        displayName:
           type: string
-        masterAdmin:
-          $ref: '#/components/schemas/BCUserObj_getPermissionTemplateDetail'
-    addressBookInfoObj_R:
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionGroupObj'
+    createUser_req:
       type: object
       properties:
-        nickName:
-          type: string
         firstName:
           type: string
         lastName:
           type: string
-        address1:
+        title:
           type: string
-        address2:
+        email:
           type: string
-        city:
+        phone:
           type: string
-        state:
+        role:
+          type: object
+          properties:
+            id:
+              type: string
+        accounts:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              checked:
+                type: boolean
+        status:
           type: string
-        stateValue:
+        currentTemplate:
           type: string
-        postalCode:
+        permissionTemplate:
+          type: object
+          properties:
+            templateId:
+              type: string
+        permissionValues:
           type: string
-        country:
-          type: string
-        countryValue:
-          type: string
-        phoneNumber:
-          type: string
-    branchAddressObj:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        city:
-          type: string
-    BCOrgObj:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        masterAdmin:
-          $ref: '#/components/schemas/BCUserObj'
+          additionalProperties:
+            type: boolean
+          example:
+            '100001': true
+            '100002': true
+            '100003': false
+    createAddressBookReq:
+      $ref: '#/components/schemas/addressBookInfoObj_CU'
     getUserInfoRep:
       type: object
       properties:
@@ -1842,367 +1765,6 @@ components:
                   type: string
                 market:
                   type: string
-    createAddressBookRep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-        addressBookId:
-          type: string
-    hoverExplicitLogin_req:
-      type: object
-      properties:
-        username:
-          type: string
-        password:
-          type: string
-        uuid:
-          type: string
-        ua:
-          type: string
-          enum:
-          - desktop
-          - mobile
-        siteId:
-          type: string
-          enum:
-          - homeSite
-          - dealerchoice
-        persistentLoginType:
-          type: string
-          enum:
-          - RememberMe
-          - RememberPassword
-        userAgent:
-          type: string
-          enum:
-          - desktop
-          - tablet
-          - mobile
-    changePassword_req:
-      type: object
-      properties:
-        oldPassword:
-          type: string
-        password:
-          type: string
-        confirmpassword:
-          type: string
-    user_rep:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCUserObj_user'
-    getCurrentUserPermissionRep:
-      type: object
-      properties:
-        original:
-          type: object
-          additionalProperties:
-            type: object
-          example:
-            Price:
-              'Yes': true
-              'No': false
-            Approve Orders:
-              'Yes': true
-              'No': false
-            Place Order:
-              'Yes': true
-              'No': false
-              Yes, with Approval: false
-            Order History:
-              Yes, Without Pricing: false
-              Yes, With Pricing: true
-              'No': false
-            Quotes:
-              View: true
-              Manage: true
-              'No': false
-            Rebates:
-              View: false
-              Manage: true
-              'No': false
-            Upcoming Delivery:
-              'Yes': true
-              'No': false
-            Non-App Delivery Notification:
-              'Yes': true
-              'No': false
-            Mobile Delivery Notification:
-              'Yes': true
-              'No': false
-        computed:
-          type: object
-          additionalProperties:
-            type: object
-          example:
-            price: true
-            order:
-              submit: true
-              submitForApproval: true
-              approve: true
-              checkoutShippingAddress: true
-              checkoutOrderReview: true
-              checkoutOrderConfirmation: true
-            orderhistory:
-              queryList: true
-              queryDetail: true
-              withPrice: true
-              withoutPrice: false
-            quote:
-              edit: true
-              upload: true
-              submit: true
-              update: true
-              submitForm: true
-              queryList: true
-              queryListOpen: true
-              queryListInProgress: true
-              queryListProcessed: true
-              queryDetailOpen: true
-              queryDetailInProgress: true
-              queryDetailProcessed: true
-            rebate:
-              submit: true
-              landing: true
-              form: true
-              redeemedSummary: true
-              redeemedDetail: true
-            upcomingDelivery: true
-            nonAppDeliveryNotification: true
-            mobileDeliveryNotification: true
-    getAssignedEnterpriseAccounts_rep:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/enterpriseAccount'
-    termObj:
-      type: object
-      properties:
-        op:
-          type: string
-        property:
-          type: string
-        value:
-          type: object
-    deleteAddressBookReq:
-      type: object
-      properties:
-        addressBookId:
-          type: string
-    BCPermissionObj:
-      type: object
-      properties:
-        id:
-          type: string
-        key:
-          type: string
-        groupId:
-          type: string
-        name:
-          type: string
-        displayName:
-          type: string
-        type:
-          type: string
-        isAuthorised:
-          type: boolean
-        isDisabled:
-          type: boolean
-        isFixed:
-          type: boolean
-    setPassword_req:
-      type: object
-      properties:
-        password:
-          type: string
-        confirmpassword:
-          type: string
-        passwordtoken:
-          type: string
-    shareDeliveryPhotos_req:
-      type: object
-      properties:
-        orderNumber:
-          type: string
-        emails:
-          type: array
-          items:
-            type: string
-    getUserDetail_rep:
-      $ref: '#/components/schemas/BCUserObj_getUserDetail'
-    updateAddressBookRep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-    updateUser_req:
-      type: object
-      properties:
-        id:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        title:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-          pattern: ^\d{10}$
-          example: 1234567890
-        role:
-          type: object
-          properties:
-            id:
-              type: string
-        accounts:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              checked:
-                type: boolean
-        status:
-          type: string
-        currentTemplate:
-          type: string
-        permissionTemplate:
-          type: object
-          properties:
-            templateId:
-              type: string
-        permissionValues:
-          type: string
-          additionalProperties:
-            type: boolean
-          example:
-            '100001': true
-            '100002': true
-            '100003': false
-    createUser_rep:
-      type: object
-      properties:
-        userId:
-          type: string
-    addressBookInfoObj_CU:
-      type: object
-      properties:
-        nickName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        stateValue:
-          type: string
-        postalCode:
-          type: string
-        countryValue:
-          type: string
-        phoneNumber:
-          type: string
-    permissionTemplateList_rep:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
-        permssionTemplate:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPermissionTemplateObj'
-    BCRoleObj:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPermissionGroupObj'
-    branchObj:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/branchAddressObj'
-        branchNumber:
-          type: string
-        branchName:
-          type: string
-        branchPhone:
-          type: string
-        branchRegionId:
-          type: string
-        company:
-          type: string
-        companyName:
-          type: string
-        division:
-          type: string
-        divisionName:
-          type: string
-        market:
-          type: string
-        branchDTEnabled:
-          type: boolean
-        active:
-          type: boolean
-        activeToSendEmail:
-          type: boolean
-        corporateBranch:
-          type: boolean
-        mincronBranchStatus:
-          type: string
-        canAccessEVSmartOrderOnBranch:
-          type: boolean
-        guidedOrder:
-          type: boolean
-    role_rep:
-      $ref: '#/components/schemas/BCRoleObj'
-    createPermissionTemplate_req:
-      type: object
-      properties:
-        name:
-          type: string
-        permissionValues:
-          type: string
-          additionalProperties:
-            type: boolean
-          example:
-            '100001': true
-            '100002': true
-            '100003': false
     BCPermissionTemplateObj_getPermissionTemplateDetail:
       type: object
       properties:
@@ -2231,416 +1793,54 @@ components:
           type: boolean
         isAccountClosed:
           type: boolean
-    messagesObj:
-      type: array
-      items:
-        type: object
-        properties:
-          type:
-            type: string
-          value:
-            type: string
-          code:
-            type: string
-    contactInfoObj:
+    shareDeliveryPhotos_req:
       type: object
       properties:
-        email:
+        orderNumber:
           type: string
-        lastName:
+        emails:
+          type: array
+          items:
+            type: string
+    getAddressBookRep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        addressBooks:
+          type: array
+          items:
+            type: object
+            properties:
+              addressBookId:
+                type: string
+              accountLegacyId:
+                type: string
+              accountName:
+                type: string
+              addressBookInfo:
+                $ref: '#/components/schemas/addressBookInfoObj_R'
+    branchAddressObj:
+      type: object
+      properties:
+        postalCode:
           type: string
-        firstName:
-          type: string
-        phoneNumber:
+        state:
           type: string
         address1:
           type: string
         address2:
           type: string
+        address3:
+          type: string
         city:
           type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-    currentUserPermissionObj:
-      type: object
-      properties:
-        Place Order:
-          type: object
-          example:
-            true: true
-            false: false
-            Yes, with Approval: false
-        Price:
-          type: object
-          example:
-            true: true
-            false: false
-    forgotPassword_rep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-    updateMobileDeviceReq:
-      type: object
-      properties:
-        deviceToken:
-          $ref: '#/components/schemas/deviceTokenObj'
-    BCPaginationObj:
-      type: object
-      properties:
-        enable:
-          type: boolean
-        page:
-          type: integer
-        currentPage:
-          type: boolean
-        type:
-          type: string
-    customerType:
-      type: object
-      properties:
-        name:
-          type: string
-        realm:
-          type: string
-        isDefault:
-          type: boolean
-    setPassword_rep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-    accountObj:
-      type: object
-      properties:
-        accountName:
-          type: string
-        accountEnabled:
-          type: boolean
-        accountLegacyId:
-          type: string
-        accountViewPrices:
-          type: boolean
-        addCustomSteel:
-          type: boolean
-        cashAccount:
-          type: boolean
-        isAccountClosed:
-          type: boolean
-        canAccessEVSmartOrder:
-          type: boolean
-        customerType:
-          $ref: '#/components/schemas/customerType'
-        hasMincronRebate:
-          type: boolean
-        loyaltyEnrolled:
-          type: boolean
-        nationalAccount:
-          type: boolean
-        loyaltyFlag:
-          type: boolean
-        gafQuickMeasureFlag:
-          type: boolean
-    deleteAddressBookRep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-    getAccountOSRAndBMInfo_rep:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        result:
-          $ref: '#/components/schemas/accountOSRAndBMInfo'
-    hoverExplicitLogin_rep:
-      type: object
-      properties:
-        nextUrl:
-          type: string
-    BCOtherPaginationObj:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: integer
-    QueryConditionObj:
-      type: object
-      properties:
-        or:
-          type: array
-          items:
-            $ref: '#/components/schemas/termObj'
-        and:
-          type: array
-          items:
-            $ref: '#/components/schemas/termObj'
-        sortBy:
-          type: string
-        sortType:
-          type: string
-        pageIndex:
-          type: integer
-        pageSize:
-          type: integer
-    createPermissionTemplate_rep:
-      type: object
-      properties:
-        templateId:
-          type: string
-    deviceTokenObj:
-      type: object
-      properties:
-        accountId:
-          type: string
-        tokens:
-          type: array
-          items:
-            type: string
-        email:
-          type: string
-    enterpriseAccount:
-      type: object
-      properties:
-        enterpriseAccountLegacyId:
-          type: string
-        enterpriseAccountName:
-          type: string
-        childAccounts:
-          type: array
-          items:
-            type: object
-            properties:
-              accountLegacyId:
-                type: string
-              accountName:
-                type: string
-    permissionTemplateList_req:
-      type: object
-      properties:
-        sortBy:
-          type: string
-        sortType:
-          type: string
-        pageIndex:
-          type: integer
-        pageSize:
-          type: integer
-    createUser_req:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        title:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-        role:
-          type: object
-          properties:
-            id:
-              type: string
-        accounts:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              checked:
-                type: boolean
-        status:
-          type: string
-        currentTemplate:
-          type: string
-        permissionTemplate:
-          type: object
-          properties:
-            templateId:
-              type: string
-        permissionValues:
-          type: string
-          additionalProperties:
-            type: boolean
-          example:
-            '100001': true
-            '100002': true
-            '100003': false
-    updatePermissionTemplate_req:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        permissionValues:
-          type: string
-          additionalProperties:
-            type: boolean
-          example:
-            '100001': true
-            '100002': true
-            '100003': false
-    getPermissionTemplateDetail_rep:
-      $ref: '#/components/schemas/BCPermissionTemplateObj_getPermissionTemplateDetail'
-    forgotPassword_req:
-      type: object
-      properties:
-        login:
-          type: string
-    BCPermissionTemplateObj:
-      type: object
-      properties:
-        name:
-          type: string
-        templateId:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPermissionGroupObj'
-        lastModifiedDate:
-          type: string
-        userEmail:
-          type: string
-        org:
-          $ref: '#/components/schemas/BCOrgObj'
-    user_req:
-      type: object
-      properties:
-        query:
-          $ref: '#/components/schemas/QueryConditionObj'
-    BCUserObj:
-      type: object
-      properties:
-        id:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        title:
-          type: string
-        phone:
-          type: string
-        email:
-          type: string
-        role:
-          $ref: '#/components/schemas/BCRoleObj'
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCAccountObj'
-        assignedAccounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCAccountObj'
-        lastActivity:
-          type: string
-        lastModifiedDate:
-          type: string
-        status:
-          type: string
-        permissionValues:
-          type: string
-          additionalProperties:
-            type: boolean
-          example:
-            aa: true
-            bb: true
-            cc: false
-        permissionTemplate:
-          $ref: '#/components/schemas/BCPermissionTemplateObj'
-        active:
-          type: boolean
-        currentTemplate:
-          type: string
-        org:
-          $ref: '#/components/schemas/BCOrgObj'
-        lastModifiedUserId:
-          type: string
-        userIsSelf:
-          type: boolean
-        internalUser:
-          type: string
-        userType:
-          type: string
-        rewardsEligible:
-          type: boolean
-    BCUserObj_getUserDetail:
-      type: object
-      properties:
-        id:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        title:
-          type: string
-        phone:
-          type: string
-        email:
-          type: string
-        role:
-          $ref: '#/components/schemas/BCRoleObj'
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCAccountObj'
-        assignedAccounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCAccountObj'
-        lastActivity:
-          type: string
-        lastModifiedDate:
-          type: string
-        status:
-          type: string
-        permissionTemplate:
-          $ref: '#/components/schemas/BCPermissionTemplateObj'
-        active:
-          type: boolean
-        currentTemplate:
-          type: string
-        org:
-          $ref: '#/components/schemas/BCOrgObj'
-        lastModifiedUserId:
-          type: string
-        userIsSelf:
-          type: boolean
-        internalUser:
-          type: string
-        userType:
-          type: string
-        rewardsEligible:
-          type: boolean
     getCurrentUserInfoRep:
       type: object
       properties:
@@ -2736,19 +1936,534 @@ components:
           type: boolean
         loyaltyFlag:
           type: boolean
-    BCPermissionGroupObj:
+    permissionTemplateList_rep:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        permssionTemplate:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionTemplateObj'
+    user_rep:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCUserObj_user'
+    changePassword_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    addressBookInfoObj_CU:
+      type: object
+      properties:
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        countryValue:
+          type: string
+        phoneNumber:
+          type: string
+    organization_rep:
+      $ref: '#/components/schemas/BCOrgObj'
+    createPermissionTemplate_req:
       type: object
       properties:
         name:
           type: string
-        type:
+        permissionValues:
           type: string
-        permissions:
+          additionalProperties:
+            type: boolean
+          example:
+            '100001': true
+            '100002': true
+            '100003': false
+    hoverExplicitLogin_rep:
+      type: object
+      properties:
+        nextUrl:
+          type: string
+    BCUserObj_user:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        lastActivity:
+          type: string
+        lastModifiedDate:
+          type: string
+        status:
+          type: string
+        rewardsEligible:
+          type: boolean
+    addressBookInfoObj_R:
+      type: object
+      properties:
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        countryValue:
+          type: string
+        phoneNumber:
+          type: string
+    getAssignedEnterpriseAccounts_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
           type: array
           items:
-            $ref: '#/components/schemas/BCPermissionObj'
-        isGroup:
+            $ref: '#/components/schemas/enterpriseAccount'
+    permissionTemplateList_req:
+      type: object
+      properties:
+        sortBy:
+          type: string
+        sortType:
+          type: string
+        pageIndex:
+          type: integer
+        pageSize:
+          type: integer
+    branchObj:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/branchAddressObj'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+        branchDTEnabled:
           type: boolean
+        active:
+          type: boolean
+        activeToSendEmail:
+          type: boolean
+        corporateBranch:
+          type: boolean
+        mincronBranchStatus:
+          type: string
+        canAccessEVSmartOrderOnBranch:
+          type: boolean
+        guidedOrder:
+          type: boolean
+    user_req:
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/QueryConditionObj'
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    getAccountOSRAndBMInfo_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/accountOSRAndBMInfo'
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    deleteAddressBookReq:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+    updateAddressBookReq:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        addressBookInfo:
+          $ref: '#/components/schemas/addressBookInfoObj_CU'
+    deviceTokenObj:
+      type: object
+      properties:
+        accountId:
+          type: string
+        tokens:
+          type: array
+          items:
+            type: string
+        email:
+          type: string
+    BCPermissionObj:
+      type: object
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        groupId:
+          type: string
+        name:
+          type: string
+        displayName:
+          type: string
+        type:
+          type: string
+        isAuthorised:
+          type: boolean
+        isDisabled:
+          type: boolean
+        isFixed:
+          type: boolean
+    forgotPassword_req:
+      type: object
+      properties:
+        login:
+          type: string
+    updateUser_req:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+          pattern: ^\d{10}$
+          example: 1234567890
+        role:
+          type: object
+          properties:
+            id:
+              type: string
+        accounts:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              checked:
+                type: boolean
+        status:
+          type: string
+        currentTemplate:
+          type: string
+        permissionTemplate:
+          type: object
+          properties:
+            templateId:
+              type: string
+        permissionValues:
+          type: string
+          additionalProperties:
+            type: boolean
+          example:
+            '100001': true
+            '100002': true
+            '100003': false
+    getCurrentUserPermissionRep:
+      type: object
+      properties:
+        original:
+          type: object
+          additionalProperties:
+            type: object
+          example:
+            Price:
+              'Yes': true
+              'No': false
+            Approve Orders:
+              'Yes': true
+              'No': false
+            Place Order:
+              'Yes': true
+              'No': false
+              Yes, with Approval: false
+            Order History:
+              Yes, Without Pricing: false
+              Yes, With Pricing: true
+              'No': false
+            Quotes:
+              View: true
+              Manage: true
+              'No': false
+            Rebates:
+              View: false
+              Manage: true
+              'No': false
+            Upcoming Delivery:
+              'Yes': true
+              'No': false
+            Non-App Delivery Notification:
+              'Yes': true
+              'No': false
+            Mobile Delivery Notification:
+              'Yes': true
+              'No': false
+        computed:
+          type: object
+          additionalProperties:
+            type: object
+          example:
+            price: true
+            order:
+              submit: true
+              submitForApproval: true
+              approve: true
+              checkoutShippingAddress: true
+              checkoutOrderReview: true
+              checkoutOrderConfirmation: true
+            orderhistory:
+              queryList: true
+              queryDetail: true
+              withPrice: true
+              withoutPrice: false
+            quote:
+              edit: true
+              upload: true
+              submit: true
+              update: true
+              submitForm: true
+              queryList: true
+              queryListOpen: true
+              queryListInProgress: true
+              queryListProcessed: true
+              queryDetailOpen: true
+              queryDetailInProgress: true
+              queryDetailProcessed: true
+            rebate:
+              submit: true
+              landing: true
+              form: true
+              redeemedSummary: true
+              redeemedDetail: true
+            upcomingDelivery: true
+            nonAppDeliveryNotification: true
+            mobileDeliveryNotification: true
+    setPassword_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    changePassword_req:
+      type: object
+      properties:
+        oldPassword:
+          type: string
+        password:
+          type: string
+        confirmpassword:
+          type: string
+    BCUserObj_getPermissionTemplateDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+    accountOSRAndBMInfo_emailInfoObj:
+      type: object
+      properties:
+        fullName:
+          type: string
+        emailAddess:
+          type: string
+        phoneNumber:
+          type: string
+    deleteMobileDeviceTokenReq:
+      type: object
+      properties:
+        deviceTokens:
+          type: array
+          items:
+            type: string
+    BCUserObj_getUserDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        role:
+          $ref: '#/components/schemas/BCRoleObj'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCAccountObj'
+        assignedAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCAccountObj'
+        lastActivity:
+          type: string
+        lastModifiedDate:
+          type: string
+        status:
+          type: string
+        permissionTemplate:
+          $ref: '#/components/schemas/BCPermissionTemplateObj'
+        active:
+          type: boolean
+        currentTemplate:
+          type: string
+        org:
+          $ref: '#/components/schemas/BCOrgObj'
+        lastModifiedUserId:
+          type: string
+        userIsSelf:
+          type: boolean
+        internalUser:
+          type: string
+        userType:
+          type: string
+        rewardsEligible:
+          type: boolean
+    updatePermissionTemplate_req:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        permissionValues:
+          type: string
+          additionalProperties:
+            type: boolean
+          example:
+            '100001': true
+            '100002': true
+            '100003': false
+    createPermissionTemplate_rep:
+      type: object
+      properties:
+        templateId:
+          type: string
+    forgotPassword_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
     deliveryTrackingSettingsObj_getCurrentUserInfo:
       type: object
       properties:
@@ -2780,21 +2495,97 @@ components:
             requested: Text
             scheduled: Email
             delivered: Text&Email
-    changePassword_rep:
+    BCPermissionGroupObj:
       type: object
       properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
+        name:
+          type: string
+        type:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionObj'
+        isGroup:
           type: boolean
-    BCUserObj_getPermissionTemplateDetail:
+    setPassword_req:
+      type: object
+      properties:
+        password:
+          type: string
+        confirmpassword:
+          type: string
+        passwordtoken:
+          type: string
+    BCOrgObj:
       type: object
       properties:
         id:
           type: string
-        email:
+        name:
+          type: string
+        masterAdmin:
+          $ref: '#/components/schemas/BCUserObj'
+    BCOrgObj_getPermissionTemplateDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        masterAdmin:
+          $ref: '#/components/schemas/BCUserObj_getPermissionTemplateDetail'
+    updateMobileDeviceReq:
+      type: object
+      properties:
+        deviceToken:
+          $ref: '#/components/schemas/deviceTokenObj'
+    getUserDetail_rep:
+      $ref: '#/components/schemas/BCUserObj_getUserDetail'
+    QueryConditionObj:
+      type: object
+      properties:
+        or:
+          type: array
+          items:
+            $ref: '#/components/schemas/termObj'
+        and:
+          type: array
+          items:
+            $ref: '#/components/schemas/termObj'
+        sortBy:
+          type: string
+        sortType:
+          type: string
+        pageIndex:
+          type: integer
+        pageSize:
+          type: integer
+    currentUserPermissionObj:
+      type: object
+      properties:
+        Place Order:
+          type: object
+          example:
+            'Yes': true
+            'No': false
+            Yes, with Approval: false
+        Price:
+          type: object
+          example:
+            'Yes': true
+            'No': false
+    createUser_rep:
+      type: object
+      properties:
+        userId:
+          type: string
+    getPermissionTemplateDetail_rep:
+      $ref: '#/components/schemas/BCPermissionTemplateObj_getPermissionTemplateDetail'
+    deletePermissionTemplate_req:
+      type: object
+      properties:
+        templateId:
           type: string
     saveCurrentUserInfoReq:
       type: object
@@ -2829,6 +2620,215 @@ components:
           type: boolean
         subscribeAccount:
           type: boolean
+    BCUserObj:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        role:
+          $ref: '#/components/schemas/BCRoleObj'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCAccountObj'
+        assignedAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCAccountObj'
+        lastActivity:
+          type: string
+        lastModifiedDate:
+          type: string
+        status:
+          type: string
+        permissionValues:
+          type: string
+          additionalProperties:
+            type: boolean
+          example:
+            aa: true
+            bb: true
+            cc: false
+        permissionTemplate:
+          $ref: '#/components/schemas/BCPermissionTemplateObj'
+        active:
+          type: boolean
+        currentTemplate:
+          type: string
+        org:
+          $ref: '#/components/schemas/BCOrgObj'
+        lastModifiedUserId:
+          type: string
+        userIsSelf:
+          type: boolean
+        internalUser:
+          type: string
+        userType:
+          type: string
+        rewardsEligible:
+          type: boolean
+    customerType:
+      type: object
+      properties:
+        name:
+          type: string
+        realm:
+          type: string
+        isDefault:
+          type: boolean
+    hoverExplicitLogin_req:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        uuid:
+          type: string
+        ua:
+          type: string
+          enum:
+          - desktop
+          - mobile
+        siteId:
+          type: string
+          enum:
+          - homeSite
+          - dealerchoice
+        persistentLoginType:
+          type: string
+          enum:
+          - RememberMe
+          - RememberPassword
+        userAgent:
+          type: string
+          enum:
+          - desktop
+          - tablet
+          - mobile
+    contactInfoObj:
+      type: object
+      properties:
+        email:
+          type: string
+        lastName:
+          type: string
+        firstName:
+          type: string
+        phoneNumber:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+    createAddressBookRep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+        addressBookId:
+          type: string
+    deleteAddressBookRep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    BCPermissionTemplateObj:
+      type: object
+      properties:
+        name:
+          type: string
+        templateId:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionGroupObj'
+        lastModifiedDate:
+          type: string
+        userEmail:
+          type: string
+        org:
+          $ref: '#/components/schemas/BCOrgObj'
+    accountObj:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+        canAccessEVSmartOrder:
+          type: boolean
+        customerType:
+          $ref: '#/components/schemas/customerType'
+        hasMincronRebate:
+          type: boolean
+        loyaltyEnrolled:
+          type: boolean
+        nationalAccount:
+          type: boolean
+        loyaltyFlag:
+          type: boolean
+        gafQuickMeasureFlag:
+          type: boolean
+    updateAddressBookRep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    role_rep:
+      $ref: '#/components/schemas/BCRoleObj'
+    accountOSRAndBMInfo:
+      type: object
+      properties:
+        OSRList:
+          type: array
+          items:
+            $ref: '#/components/schemas/accountOSRAndBMInfo_emailInfoObj'
+        BMList:
+          type: array
+          items:
+            $ref: '#/components/schemas/accountOSRAndBMInfo_emailInfoObj'
   securitySchemes:
     internalAuth:
       type: http

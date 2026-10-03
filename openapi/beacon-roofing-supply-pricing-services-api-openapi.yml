@@ -77,26 +77,42 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    itemPricingResp:
-      type: object
-      properties:
-        bizItemPrices:
-          type: array
-          items:
-            $ref: '#/components/schemas/itemPrice'
-    pricingItem:
+    priceRequest:
       type: object
       required:
-      - itemNumber
+      - account
+      - brnNumber
+      - item
       properties:
-        itemNumber:
+        account:
           type: string
-        quantity:
-          type: number
-          format: long
-          description: Default value is 1
-        unitOfMeasure:
+        jobNumber:
           type: string
+        branchNumber:
+          type: string
+        item:
+          type: array
+          items:
+            $ref: '#/components/schemas/pricingItem'
+    quotePriceRequest:
+      type: object
+      required:
+      - account
+      - brnNumber
+      - item
+      properties:
+        account:
+          type: string
+        jobNumber:
+          type: string
+        branchNumber:
+          type: string
+        bidNumber:
+          type: string
+        item:
+          type: array
+          items:
+            $ref: '#/components/schemas/pricingItem'
     itemPrice:
       type: object
       properties:
@@ -132,42 +148,26 @@ components:
           type: string
         warning:
           type: string
-    quotePriceRequest:
+    pricingItem:
       type: object
       required:
-      - account
-      - brnNumber
-      - item
+      - itemNumber
       properties:
-        account:
+        itemNumber:
           type: string
-        jobNumber:
+        quantity:
+          type: number
+          format: long
+          description: Default value is 1
+        unitOfMeasure:
           type: string
-        branchNumber:
-          type: string
-        bidNumber:
-          type: string
-        item:
-          type: array
-          items:
-            $ref: '#/components/schemas/pricingItem'
-    priceRequest:
+    itemPricingResp:
       type: object
-      required:
-      - account
-      - brnNumber
-      - item
       properties:
-        account:
-          type: string
-        jobNumber:
-          type: string
-        branchNumber:
-          type: string
-        item:
+        bizItemPrices:
           type: array
           items:
-            $ref: '#/components/schemas/pricingItem'
+            $ref: '#/components/schemas/itemPrice'
   securitySchemes:
     internalAuth:
       type: http

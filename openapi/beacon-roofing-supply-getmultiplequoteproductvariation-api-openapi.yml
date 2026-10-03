@@ -72,25 +72,19 @@ paths:
       - GetMultipleQuoteProductVariation
 components:
   schemas:
-    Thickness:
+    getMultipleQuoteProductVariationResponse:
       type: object
       properties:
-        2mm:
-          type: array
-          items:
-            type: string
-        4mm:
-          type: array
-          items:
-            type: string
-        6mm:
-          type: array
-          items:
-            type: string
+        productId:
+          type: string
+        productMultiVariation:
+          $ref: '#/components/schemas/ProductMultiVariation'
+        variationContentKeyMap:
+          $ref: '#/components/schemas/VariationContentKeyMap'
       required:
-      - 2mm
-      - 4mm
-      - 6mm
+      - productId
+      - productMultiVariation
+      - variationContentKeyMap
     _300003:
       type: object
       properties:
@@ -110,102 +104,38 @@ components:
       - color
       - size
       - thickness
-    VendorColor:
+    Thickness:
       type: object
       properties:
-        id:
-          type: string
-        MFG:
-          type: string
-        name:
-          type: string
-        code:
-          type: string
-        sku:
-          type: string
-        color:
-          type: string
-      required:
-      - id
-      - MFG
-      - name
-      - code
-      - sku
-      - color
-    getMultipleQuoteProductVariationResponse:
-      type: object
-      properties:
-        productId:
-          type: string
-        productMultiVariation:
-          $ref: '#/components/schemas/ProductMultiVariation'
-        variationContentKeyMap:
-          $ref: '#/components/schemas/VariationContentKeyMap'
-      required:
-      - productId
-      - productMultiVariation
-      - variationContentKeyMap
-    Variations:
-      type: object
-      properties:
-        color:
-          $ref: '#/components/schemas/Color'
-        size:
-          $ref: '#/components/schemas/Size'
-        thickness:
-          $ref: '#/components/schemas/Thickness'
-      required:
-      - color
-      - size
-      - thickness
-    CurrentVariations:
-      type: object
-      properties:
-        color:
-          type: string
-        size:
-          type: string
-        diameter:
-          type: string
-        thickness:
-          type: string
-        style:
-          type: string
-        packaging:
-          type: string
-        MFG:
-          type: string
-      required:
-      - color
-      - size
-      - diameter
-      - thickness
-      - style
-      - packaging
-      - MFG
-    VariationGroup:
-      type: object
-      properties:
-        variationTypes:
+        2mm:
+          type: array
+          items:
+            type: string
+        4mm:
+          type: array
+          items:
+            type: string
+        6mm:
           type: array
           items:
             type: string
       required:
-      - variationTypes
-    Color:
+      - 2mm
+      - 4mm
+      - 6mm
+    Skus:
       type: object
       properties:
-        White:
-          type: array
-          items:
-            type: string
-        Dover:
-          type: array
-          items:
-            type: string
+        '300003':
+          $ref: '#/components/schemas/_300003'
+        '600001':
+          $ref: '#/components/schemas/_300003'
+        '600002':
+          $ref: '#/components/schemas/_300003'
       required:
-      - White
-      - Dover
+      - '300003'
+      - '600001'
+      - '600002'
     Size:
       type: object
       properties:
@@ -220,25 +150,31 @@ components:
       required:
       - 12x10
       - 4x4
+    VariationGroup:
+      type: object
+      properties:
+        variationTypes:
+          type: array
+          items:
+            type: string
+      required:
+      - variationTypes
+    Variations:
+      type: object
+      properties:
+        color:
+          $ref: '#/components/schemas/Color'
+        size:
+          $ref: '#/components/schemas/Size'
+        thickness:
+          $ref: '#/components/schemas/Thickness'
+      required:
+      - color
+      - size
+      - thickness
     VariationContentKeyMap:
       type: object
       properties: {}
-    getMultipleQuoteProductVariationBody:
-      type: object
-      properties:
-        productId:
-          type: string
-        skuId:
-          type: string
-        vendorColorId:
-          type: string
-        quoteOrderId:
-          type: string
-      required:
-      - productId
-      - skuId
-      - vendorColorId
-      - quoteOrderId
     ProductMultiVariation:
       type: object
       properties:
@@ -279,16 +215,80 @@ components:
       - variationKeyColor
       - variationGroups
       - maxVariationGroupSize
-    Skus:
+    Color:
       type: object
       properties:
-        '300003':
-          $ref: '#/components/schemas/_300003'
-        '600001':
-          $ref: '#/components/schemas/_300003'
-        '600002':
-          $ref: '#/components/schemas/_300003'
+        White:
+          type: array
+          items:
+            type: string
+        Dover:
+          type: array
+          items:
+            type: string
       required:
-      - '300003'
-      - '600001'
-      - '600002'
+      - White
+      - Dover
+    CurrentVariations:
+      type: object
+      properties:
+        color:
+          type: string
+        size:
+          type: string
+        diameter:
+          type: string
+        thickness:
+          type: string
+        style:
+          type: string
+        packaging:
+          type: string
+        MFG:
+          type: string
+      required:
+      - color
+      - size
+      - diameter
+      - thickness
+      - style
+      - packaging
+      - MFG
+    VendorColor:
+      type: object
+      properties:
+        id:
+          type: string
+        MFG:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        sku:
+          type: string
+        color:
+          type: string
+      required:
+      - id
+      - MFG
+      - name
+      - code
+      - sku
+      - color
+    getMultipleQuoteProductVariationBody:
+      type: object
+      properties:
+        productId:
+          type: string
+        skuId:
+          type: string
+        vendorColorId:
+          type: string
+        quoteOrderId:
+          type: string
+      required:
+      - productId
+      - skuId
+      - vendorColorId
+      - quoteOrderId

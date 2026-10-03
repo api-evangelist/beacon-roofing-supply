@@ -71,6 +71,78 @@ paths:
       - MincronMapping
 components:
   schemas:
+    Product:
+      type: object
+      properties:
+        productImage:
+          type: string
+        productOnErrorImage:
+          type: string
+        longDesc:
+          type: string
+        manufactureNumber:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        shortDesc:
+          type: string
+        itemNumber:
+          type: string
+        hoverAttributes:
+          $ref: '#/components/schemas/HoverAttributes'
+        productName:
+          type: string
+        productId:
+          type: string
+        baseProductName:
+          type: string
+        internalProductName:
+          type: string
+        brand:
+          type: string
+        url:
+          type: string
+        relatedProducts:
+          type: array
+          items:
+            type: string
+      required:
+      - productImage
+      - productOnErrorImage
+      - longDesc
+      - manufactureNumber
+      - categories
+      - shortDesc
+      - itemNumber
+      - hoverAttributes
+      - productName
+      - productId
+      - baseProductName
+      - internalProductName
+      - brand
+      - url
+      - relatedProducts
+    mincronMappingResponse:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+      required:
+      - products
+    Category:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+      required:
+      - categoryName
+      - categoryId
     HoverAttributes:
       type: object
       properties:
@@ -153,75 +225,3 @@ components:
       - cvLapIn
       - cfmValue
       - cfmUom
-    Product:
-      type: object
-      properties:
-        productImage:
-          type: string
-        productOnErrorImage:
-          type: string
-        longDesc:
-          type: string
-        manufactureNumber:
-          type: string
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/Category'
-        shortDesc:
-          type: string
-        itemNumber:
-          type: string
-        hoverAttributes:
-          $ref: '#/components/schemas/HoverAttributes'
-        productName:
-          type: string
-        productId:
-          type: string
-        baseProductName:
-          type: string
-        internalProductName:
-          type: string
-        brand:
-          type: string
-        url:
-          type: string
-        relatedProducts:
-          type: array
-          items:
-            type: string
-      required:
-      - productImage
-      - productOnErrorImage
-      - longDesc
-      - manufactureNumber
-      - categories
-      - shortDesc
-      - itemNumber
-      - hoverAttributes
-      - productName
-      - productId
-      - baseProductName
-      - internalProductName
-      - brand
-      - url
-      - relatedProducts
-    mincronMappingResponse:
-      type: object
-      properties:
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/Product'
-      required:
-      - products
-    Category:
-      type: object
-      properties:
-        categoryName:
-          type: string
-        categoryId:
-          type: string
-      required:
-      - categoryName
-      - categoryId

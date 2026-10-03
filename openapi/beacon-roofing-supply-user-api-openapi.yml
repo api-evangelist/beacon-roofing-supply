@@ -78,25 +78,18 @@ paths:
       - User
 components:
   schemas:
-    Result:
+    userResponse:
       type: object
       properties:
-        pageRows:
-          type: number
-        pages:
-          type: number
-        page:
-          type: number
-        rows:
-          type: number
-        rowsPerPage:
-          type: number
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
       required:
-      - pageRows
-      - pages
-      - page
-      - rows
-      - rowsPerPage
+      - pagination
+      - users
     User:
       type: object
       properties:
@@ -119,6 +112,22 @@ components:
       - lastModifiedDate
       - status
       - rewardsEligible
+    Or:
+      type: object
+      properties:
+        op:
+          type: string
+        property:
+          type: string
+        value:
+          $ref: '#/components/schemas/Value'
+      required:
+      - op
+      - property
+      - value
+    Value:
+      type: object
+      properties: {}
     Query:
       type: object
       properties:
@@ -145,18 +154,13 @@ components:
       - sortType
       - pageIndex
       - pageSize
-    userResponse:
+    userBody:
       type: object
       properties:
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
+        query:
+          $ref: '#/components/schemas/Query'
       required:
-      - pagination
-      - users
+      - query
     Next:
       type: object
       properties:
@@ -170,6 +174,25 @@ components:
       - available
       - label
       - page
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
     Pagination:
       type: object
       properties:
@@ -194,26 +217,3 @@ components:
       - currentPage
       - totalCount
       - results
-    Or:
-      type: object
-      properties:
-        op:
-          type: string
-        property:
-          type: string
-        value:
-          $ref: '#/components/schemas/Value'
-      required:
-      - op
-      - property
-      - value
-    Value:
-      type: object
-      properties: {}
-    userBody:
-      type: object
-      properties:
-        query:
-          $ref: '#/components/schemas/Query'
-      required:
-      - query

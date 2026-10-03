@@ -65,6 +65,19 @@ paths:
       - UpdateSavedOrderShippingInfo
 components:
   schemas:
+    DeliveryOption:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected
     ShippingAddress:
       type: object
       properties:
@@ -162,16 +175,3 @@ components:
       - lastName
       - nickName
       - phoneNumber
-    DeliveryOption:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
-          type: boolean
-      required:
-      - displayName
-      - value
-      - selected

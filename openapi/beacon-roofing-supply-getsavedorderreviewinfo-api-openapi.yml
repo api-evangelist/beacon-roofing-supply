@@ -69,6 +69,235 @@ paths:
       - GetSavedOrderReviewInfo
 components:
   schemas:
+    JobAccounts:
+      type: object
+      properties:
+        unavailable:
+          type: boolean
+        unavailableMsg:
+          type: string
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+      required:
+      - unavailable
+      - unavailableMsg
+      - jobs
+    ShippingAddress:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        stateValue:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        postalCode:
+          type: string
+        countryValue:
+          type: string
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        phoneNumber:
+          type: string
+      required:
+      - addressBookId
+      - nickName
+      - firstName
+      - lastName
+      - address1
+      - address2
+      - address3
+      - city
+      - stateValue
+      - states
+      - postalCode
+      - countryValue
+      - countries
+      - phoneNumber
+    CommerceItem:
+      type: object
+      properties:
+        id:
+          type: string
+        imageUrl:
+          type: string
+        imageOnErrorUrl:
+          type: string
+        thumbImageUrl:
+          type: string
+        pdpUrl:
+          type: string
+        description:
+          type: string
+        itemNumber:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: number
+        uom:
+          type: string
+        subTotal:
+          type: number
+        deleteStatus:
+          type: boolean
+        vendorColorId:
+          type: string
+        productId:
+          type: string
+        itemGrayOutLevel:
+          type: string
+      required:
+      - id
+      - imageUrl
+      - imageOnErrorUrl
+      - thumbImageUrl
+      - pdpUrl
+      - description
+      - itemNumber
+      - price
+      - quantity
+      - uom
+      - subTotal
+      - deleteStatus
+      - vendorColorId
+      - productId
+      - itemGrayOutLevel
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber
+    getSavedOrderReviewInfoBody:
+      type: object
+      properties:
+        orderId:
+          type: string
+      required:
+      - orderId
+    AddressBookInfo:
+      type: object
+      properties:
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        countryValue:
+          type: string
+        phoneNumber:
+          type: string
+      required:
+      - nickName
+      - firstName
+      - lastName
+      - address1
+      - address2
+      - city
+      - state
+      - stateValue
+      - postalCode
+      - country
+      - countryValue
+      - phoneNumber
+    AssignApproval:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+      required:
+      - id
+      - name
+      - email
+    DeliveryOption:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected
+    AddressBook:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        accountLegacyId:
+          type: string
+        accountName:
+          type: string
+        addressBookInfo:
+          $ref: '#/components/schemas/AddressBookInfo'
+      required:
+      - addressBookId
+      - accountLegacyId
+      - accountName
+      - addressBookInfo
+    ContactInfo:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        phoneNumber:
+          type: string
+      required:
+      - firstName
+      - lastName
+      - nickName
+      - phoneNumber
     BranchAddress:
       type: object
       properties:
@@ -103,35 +332,6 @@ components:
       - stateValue
       - postalCode
       - phoneNumber
-    ContactInfo:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        nickName:
-          type: string
-        phoneNumber:
-          type: string
-      required:
-      - firstName
-      - lastName
-      - nickName
-      - phoneNumber
-    AssignApproval:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-      required:
-      - id
-      - name
-      - email
     getSavedOrderReviewInfoResponse:
       type: object
       properties:
@@ -295,203 +495,3 @@ components:
       - rejectUser
       - showDeliveryNotification
       - accountBranchState
-    DeliveryOption:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
-          type: boolean
-      required:
-      - displayName
-      - value
-      - selected
-    ShippingAddress:
-      type: object
-      properties:
-        addressBookId:
-          type: string
-        nickName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        city:
-          type: string
-        stateValue:
-          type: string
-        states:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryOption'
-        postalCode:
-          type: string
-        countryValue:
-          type: string
-        countries:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryOption'
-        phoneNumber:
-          type: string
-      required:
-      - addressBookId
-      - nickName
-      - firstName
-      - lastName
-      - address1
-      - address2
-      - address3
-      - city
-      - stateValue
-      - states
-      - postalCode
-      - countryValue
-      - countries
-      - phoneNumber
-    JobAccounts:
-      type: object
-      properties:
-        unavailable:
-          type: boolean
-        unavailableMsg:
-          type: string
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/Job'
-      required:
-      - unavailable
-      - unavailableMsg
-      - jobs
-    AddressBook:
-      type: object
-      properties:
-        addressBookId:
-          type: string
-        accountLegacyId:
-          type: string
-        accountName:
-          type: string
-        addressBookInfo:
-          $ref: '#/components/schemas/AddressBookInfo'
-      required:
-      - addressBookId
-      - accountLegacyId
-      - accountName
-      - addressBookInfo
-    getSavedOrderReviewInfoBody:
-      type: object
-      properties:
-        orderId:
-          type: string
-      required:
-      - orderId
-    CommerceItem:
-      type: object
-      properties:
-        id:
-          type: string
-        imageUrl:
-          type: string
-        imageOnErrorUrl:
-          type: string
-        thumbImageUrl:
-          type: string
-        pdpUrl:
-          type: string
-        description:
-          type: string
-        itemNumber:
-          type: string
-        price:
-          type: number
-        quantity:
-          type: number
-        uom:
-          type: string
-        subTotal:
-          type: number
-        deleteStatus:
-          type: boolean
-        vendorColorId:
-          type: string
-        productId:
-          type: string
-        itemGrayOutLevel:
-          type: string
-      required:
-      - id
-      - imageUrl
-      - imageOnErrorUrl
-      - thumbImageUrl
-      - pdpUrl
-      - description
-      - itemNumber
-      - price
-      - quantity
-      - uom
-      - subTotal
-      - deleteStatus
-      - vendorColorId
-      - productId
-      - itemGrayOutLevel
-    Job:
-      type: object
-      properties:
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-      required:
-      - jobName
-      - jobNumber
-    AddressBookInfo:
-      type: object
-      properties:
-        nickName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        stateValue:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        countryValue:
-          type: string
-        phoneNumber:
-          type: string
-      required:
-      - nickName
-      - firstName
-      - lastName
-      - address1
-      - address2
-      - city
-      - state
-      - stateValue
-      - postalCode
-      - country
-      - countryValue
-      - phoneNumber

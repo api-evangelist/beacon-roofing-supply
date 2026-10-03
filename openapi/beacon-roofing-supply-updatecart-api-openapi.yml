@@ -65,6 +65,13 @@ paths:
       - UpdateCart
 components:
   schemas:
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter
     updateCartBody:
       type: object
       properties:
@@ -74,10 +81,3 @@ components:
             $ref: '#/components/schemas/Item'
       required:
       - items
-    Item:
-      type: object
-      properties:
-        filter:
-          type: string
-      required:
-      - filter

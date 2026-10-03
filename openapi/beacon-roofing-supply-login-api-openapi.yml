@@ -94,13 +94,28 @@ components:
       - addCustomSteel
       - cashAccount
       - isAccountClosed
-    loginResponse:
+    login:
       type: object
       properties:
-        messageInfo:
-          $ref: '#/components/schemas/MessageInfo'
+        username:
+          type: string
+        password:
+          type: string
+        siteId:
+          type: string
+          default: homeSite
+        persistentLoginType:
+          type: string
+          default: RememberMe
+        userAgent:
+          type: string
+          default: desktop
       required:
-      - messageInfo
+      - username
+      - password
+      - siteId
+      - persistentLoginType
+      - userAgent
     Address:
       type: object
       properties:
@@ -126,6 +141,13 @@ components:
       - address3
       - country
       - city
+    loginResponse:
+      type: object
+      properties:
+        messageInfo:
+          $ref: '#/components/schemas/MessageInfo'
+      required:
+      - messageInfo
     MessageInfo:
       type: object
       properties:
@@ -191,25 +213,3 @@ components:
       - division
       - divisionName
       - market
-    login:
-      type: object
-      properties:
-        username:
-          type: string
-        password:
-          type: string
-        siteId:
-          type: string
-          default: homeSite
-        persistentLoginType:
-          type: string
-          default: RememberMe
-        userAgent:
-          type: string
-          default: desktop
-      required:
-      - username
-      - password
-      - siteId
-      - persistentLoginType
-      - userAgent

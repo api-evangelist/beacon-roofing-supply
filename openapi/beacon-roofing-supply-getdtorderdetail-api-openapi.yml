@@ -75,6 +75,19 @@ paths:
       - GetDTOrderDetail
 components:
   schemas:
+    DTPhoto:
+      type: object
+      properties:
+        ThumbnailUrl:
+          type: string
+        LargeUrl:
+          type: string
+        Timestamp:
+          type: string
+      required:
+      - ThumbnailUrl
+      - LargeUrl
+      - Timestamp
     Info:
       type: object
       properties:
@@ -115,19 +128,6 @@ components:
       - branchDTEnabled
       - DTEnabled
       - hasDTError
-    DTPhoto:
-      type: object
-      properties:
-        ThumbnailUrl:
-          type: string
-        LargeUrl:
-          type: string
-        Timestamp:
-          type: string
-      required:
-      - ThumbnailUrl
-      - LargeUrl
-      - Timestamp
     DTStatus:
       type: object
       properties:

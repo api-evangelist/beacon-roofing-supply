@@ -69,34 +69,16 @@ paths:
       - UpdateAddressBook
 components:
   schemas:
-    Message:
+    updateAddressBookBody:
       type: object
       properties:
-        type:
+        addressBookId:
           type: string
-        value:
-          type: string
-        code:
-          type: string
+        addressBookInfo:
+          $ref: '#/components/schemas/AddressBookInfo'
       required:
-      - type
-      - value
-      - code
-    updateAddressBookResponse:
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message'
-        messageCode:
-          type: number
-        success:
-          type: boolean
-      required:
-      - messages
-      - messageCode
-      - success
+      - addressBookId
+      - addressBookInfo
     AddressBookInfo:
       type: object
       properties:
@@ -137,13 +119,31 @@ components:
       - country
       - countryValue
       - phoneNumber
-    updateAddressBookBody:
+    Message:
       type: object
       properties:
-        addressBookId:
+        type:
           type: string
-        addressBookInfo:
-          $ref: '#/components/schemas/AddressBookInfo'
+        value:
+          type: string
+        code:
+          type: string
       required:
-      - addressBookId
-      - addressBookInfo
+      - type
+      - value
+      - code
+    updateAddressBookResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        messageCode:
+          type: number
+        success:
+          type: boolean
+      required:
+      - messages
+      - messageCode
+      - success

@@ -69,6 +69,13 @@ paths:
       - UpdateSavedOrderItems
 components:
   schemas:
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter
     Items:
       type: object
       properties:
@@ -136,13 +143,6 @@ components:
       - savedOrderName
       - action
       - items
-    Item:
-      type: object
-      properties:
-        filter:
-          type: string
-      required:
-      - filter
     updateSavedOrderItemsResponse:
       type: object
       properties:

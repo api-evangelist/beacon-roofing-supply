@@ -65,22 +65,19 @@ paths:
       - UpdateQuoteOrderShippingInfo
 components:
   schemas:
-    ContactInfo:
+    DeliveryOption:
       type: object
       properties:
-        firstName:
+        displayName:
           type: string
-        lastName:
+        value:
           type: string
-        nickName:
-          type: string
-        phoneNumber:
-          type: string
+        selected:
+          type: boolean
       required:
-      - firstName
-      - lastName
-      - nickName
-      - phoneNumber
+      - displayName
+      - value
+      - selected
     ShippingAddress:
       type: object
       properties:
@@ -131,19 +128,6 @@ components:
       - countryValue
       - countries
       - phoneNumber
-    DeliveryOption:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
-          type: boolean
-      required:
-      - displayName
-      - value
-      - selected
     updateQuoteOrderShippingInfoBody:
       type: object
       properties:
@@ -175,3 +159,19 @@ components:
       - branchName
       - contactInfo
       - instructions
+    ContactInfo:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        phoneNumber:
+          type: string
+      required:
+      - firstName
+      - lastName
+      - nickName
+      - phoneNumber

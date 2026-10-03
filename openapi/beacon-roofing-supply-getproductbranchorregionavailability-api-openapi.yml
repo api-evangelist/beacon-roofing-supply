@@ -87,6 +87,18 @@ paths:
       - GetProductBranchOrRegionAvailability
 components:
   schemas:
+    getProductBranchOrRegionAvailabilityResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - success
+      - result
     Result:
       type: object
       properties:
@@ -106,15 +118,3 @@ components:
       - page
       - rows
       - rowsPerPage
-    getProductBranchOrRegionAvailabilityResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
-      required:
-      - success
-      - result

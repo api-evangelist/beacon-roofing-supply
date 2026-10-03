@@ -103,6 +103,21 @@ components:
       - color
       - dimensions
       - displayName
+    createQuoteResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        messageCode:
+          type: number
+        success:
+          type: boolean
+      required:
+      - messages
+      - messageCode
+      - success
     Message:
       type: object
       properties:
@@ -182,18 +197,3 @@ components:
       - expires
       - validate
       - quoteItems
-    createQuoteResponse:
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message'
-        messageCode:
-          type: number
-        success:
-          type: boolean
-      required:
-      - messages
-      - messageCode
-      - success

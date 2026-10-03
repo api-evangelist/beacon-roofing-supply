@@ -87,18 +87,6 @@ paths:
       - GetSKUBranchOrRegionAvailability
 components:
   schemas:
-    getSKUBranchOrRegionAvailabilityResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
-      required:
-      - success
-      - result
     Result:
       type: object
       properties:
@@ -118,3 +106,15 @@ components:
       - page
       - rows
       - rowsPerPage
+    getSKUBranchOrRegionAvailabilityResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - success
+      - result

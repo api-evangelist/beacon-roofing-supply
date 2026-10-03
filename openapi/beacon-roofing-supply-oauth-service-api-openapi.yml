@@ -71,6 +71,26 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    tokenReqObj:
+      type: object
+      properties:
+        grant_type:
+          type: string
+        refresh_token:
+          type: string
+        client_id:
+          type: string
+        scopes:
+          type: string
+          description: 'Indicate if refresh_token need generate new value, if multiple values, need separated by white space.
+
+            * If value is empty, only refresh access_token.
+
+            * If value is "all", refresh access_token and refresh_token.
+
+            * If value contain "refresh_token", also refresh access_token and refresh_token.
+
+            '
     tokenResp:
       type: object
       properties:
@@ -99,23 +119,3 @@ components:
                 type: string
               value:
                 type: string
-    tokenReqObj:
-      type: object
-      properties:
-        grant_type:
-          type: string
-        refresh_token:
-          type: string
-        client_id:
-          type: string
-        scopes:
-          type: string
-          description: 'Indicate if refresh_token need generate new value, if multiple values, need separated by white space.
-
-            * If value is empty, only refresh access_token.
-
-            * If value is "all", refresh access_token and refresh_token.
-
-            * If value contain "refresh_token", also refresh access_token and refresh_token.
-
-            '

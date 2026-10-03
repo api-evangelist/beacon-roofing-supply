@@ -69,6 +69,13 @@ paths:
       - UpdateQuoteOrder
 components:
   schemas:
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter
     CommerceItem:
       type: object
       properties:
@@ -118,6 +125,18 @@ components:
       - vendorColorId
       - productId
       - itemGrayOutLevel
+    updateQuoteOrderResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        commerceItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommerceItem'
+      required:
+      - id
+      - commerceItems
     updateQuoteOrderBody:
       type: object
       properties:
@@ -133,22 +152,3 @@ components:
       - id
       - action
       - items
-    updateQuoteOrderResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        commerceItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/CommerceItem'
-      required:
-      - id
-      - commerceItems
-    Item:
-      type: object
-      properties:
-        filter:
-          type: string
-      required:
-      - filter

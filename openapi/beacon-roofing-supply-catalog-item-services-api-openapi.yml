@@ -1446,61 +1446,159 @@ paths:
       description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of the all_api spec: ''Version 3: https://beaconproplus.com/v3/rest/com/becn''; probed 2026-09-04 -> 401 JSON envelope'
 components:
   schemas:
-    hoverAttributesObj:
+    multipleQuoteProductVarationReq:
+      type: array
+      items:
+        $ref: '#/components/schemas/multipleQuoteProductVarationObj'
+    productObj_itemDetails:
       type: object
       properties:
-        sellingUom:
+        productImage:
           type: string
-        piecesPerUom:
+        productOnErrorImage:
           type: string
-        coverageUom:
+        productAdditionalOnErrorImage:
           type: string
-        ppCoverageUom:
+        longDesc:
           type: string
-        lengthExposure:
+        manufactureNumber:
           type: string
-        widthExposure:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/categoryObj'
+        shortDesc:
           type: string
-        lengthHover:
+        itemNumber:
           type: string
-        widthHover:
+        productName:
           type: string
-        ncpSellingUom:
+        productId:
           type: string
-        gcpSellingUom:
+        baseProductName:
           type: string
-        sslvoDimensionIn:
+        internalProductName:
           type: string
-        sswhoDimensionOption1In:
+        brand:
           type: string
-        sswhoDimensionOption2In:
+        url:
           type: string
-        sswhoDimensionOption3In:
+        relatedProducts:
+          type: array
+          items:
+            $ref: '#/components/schemas/relatedProductsObj'
+    heroImagesObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+      - image: /images/large/357583_default_hero.jpg
+      - image: /images/large/357583_1_hero.jpg
+      - image: /images/large/357583_2_hero.jpg
+    UploadOrderRelatedDocument_req:
+      type: object
+      properties:
+        orderId:
           type: string
-        lslvoDimensionIn:
+          description: The ATG order id, saved order id or quote order id.
+        relatedDocuments:
           type: string
-        lswhoDimensionIn:
+          format: binary
+          description: 'The Upload Document File
+
+
+            Accepted File Types should be: *.jpg,*.pdf,*.xls(x)
+
+
+            File size should between 0KB~5MB
+
+
+            File count should between 0-10
+
+            '
+    didYouMeanAndAutoCorrectionObj:
+      type: object
+      properties:
+        message:
           type: string
-        rvlvoDimensionIn:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              filter:
+                type: string
+    ATGItemMapping_req:
+      type: object
+      properties:
+        MFCode:
           type: string
-        rvwhoDimensionIn:
+        MFRName:
           type: string
-        nfvaHover:
+        branchId:
           type: string
-        nfvaUomHover:
+        itemNumber:
           type: string
-        fhLapIn:
+        incomingUOM:
           type: string
-        fvLapIn:
+        becnUOM:
           type: string
-        chLapIn:
+        materialID:
           type: string
-        cvLapIn:
+        conversionFactor:
           type: string
-        cfmValue:
+        becnProductId:
           type: string
-        cfmUom:
+        description:
           type: string
+        accountId:
+          type: string
+        integrationName:
+          type: string
+    CategoryElement:
+      type: object
+      properties:
+        categoryLevel:
+          type: number
+        recordCount:
+          type: number
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+        subCategories:
+          type: array
+          items:
+            type: object
+            example: <the same structure of one category element>
+    skuObj:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        itemImage:
+          type: string
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          $ref: '#/components/schemas/auxiliaryImagesObj'
+        variations:
+          $ref: '#/components/schemas/PDPskusVariationObj'
+        hoverAttributes:
+          $ref: '#/components/schemas/hoverAttributesObj'
+        isAddedToFavorites:
+          type: boolean
     categoryObj:
       type: object
       properties:
@@ -1510,61 +1608,15 @@ components:
           type: string
         facetId:
           type: string
-    productVarationRep:
+    queryBranchItemQtyRep:
       type: object
       properties:
-        productId:
+        messages:
           type: string
-        productMultiVariation:
-          $ref: '#/components/schemas/multiVariationDataObj'
-        variationContentKeyMap:
-          type: object
-    getProductBranchOrRegionAvailabilityRep:
-      type: object
-      properties:
         success:
           type: boolean
         result:
-          type: array
-          items:
-            type: object
-            properties:
-              sku_id:
-                type: string
-              product_id:
-                type: string
-              div:
-                type: string
-                description: division
-              reg:
-                type: string
-                description: region
-              market:
-                type: string
-                description: market
-              cmp:
-                type: string
-                description: company
-              brn:
-                type: string
-                description: branch legacy item number
-              isSKUAvailableAtBranch:
-                type: string
-                example: yes/no
-              isSKUAvailableAtRegion:
-                type: string
-                example: yes/no
-    BranchItemQtyResult:
-      type: object
-      properties:
-        items:
-          $ref: '#/components/schemas/BranchItemQty'
-        branchInfo:
-          $ref: '#/components/schemas/BranchItemQty_BranchInfo'
-    multipleQuoteProductVarationReq:
-      type: array
-      items:
-        $ref: '#/components/schemas/multipleQuoteProductVarationObj'
+          $ref: '#/components/schemas/BranchItemQtyResult'
     itemlistRep:
       type: object
       properties:
@@ -1646,6 +1698,21 @@ components:
               facetName: Owens Corning
               recordCount: 2354
               selected: false
+    vendorColorsObj:
+      type: object
+      properties:
+        id:
+          type: string
+        MFG:
+          type: string
+        name:
+          type: string
+        code:
+          type: string
+        sku:
+          type: string
+        color:
+          type: string
     getFavoriteProducts_rep:
       type: object
       properties:
@@ -1664,6 +1731,83 @@ components:
                 type: string
               productOnErrorImage:
                 type: string
+    BranchItemQty_BranchInfo:
+      type: object
+      properties:
+        branchId:
+          type: string
+        company:
+          type: string
+        division:
+          type: string
+        region:
+          type: string
+        market:
+          type: string
+    UpdateOrderAlert_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+        orderNumber:
+          type: string
+        savedOrderId:
+          type: string
+        alertType:
+          type: string
+        phoneNumber:
+          type: string
+        emailAddress:
+          type: string
+        saveToProfile:
+          type: boolean
+    getProductBranchOrRegionAvailabilityRep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              sku_id:
+                type: string
+              product_id:
+                type: string
+              div:
+                type: string
+                description: division
+              reg:
+                type: string
+                description: region
+              market:
+                type: string
+                description: market
+              cmp:
+                type: string
+                description: company
+              brn:
+                type: string
+                description: branch legacy item number
+              isSKUAvailableAtBranch:
+                type: string
+                example: yes/no
+              isSKUAvailableAtRegion:
+                type: string
+                example: yes/no
+    categoryObj2:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+        recordCount:
+          type: integer
+          example: 32
+        facetId:
+          type: string
     facetObj:
       type: object
       properties:
@@ -1676,41 +1820,291 @@ components:
           example: 32
         selected:
           type: boolean
-    heroImagesObj:
+    itemDetailsRep:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/productObj_itemDetails'
+        message:
+          type: string
+        specification:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            Shingles_Per_Square: 80,
+            Algae_Resistance: 10 years,
+            Coverage_Per_Square: 100 sq. ft,
+            Bundles_Per_Square: 3,
+            Nominal_Size: 12\x36\,
+            Net_Free_Vent_Area__NFVA_: Vent Area,
+            Exposure: 5\,
+            Wind_Resistance: 60mph
+        resource:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            General Instructrions: http://www.xxx.com/download.php,
+            Warranty: http://www.xxx.com/download.php,
+            MSDS: http://www.xxx.com/download.php,
+            Brochure: http://www.xxx.com/download.php,
+        currentSKU:
+          $ref: '#/components/schemas/currentSkuObj'
+        skuList:
+          type: array
+          items:
+            $ref: '#/components/schemas/skuObj'
+        variations:
+          $ref: '#/components/schemas/variationsObj'
+    skusVariationObj:
       type: object
       additionalProperties:
         type: object
       example:
-      - image: /images/large/357583_default_hero.jpg
-      - image: /images/large/357583_1_hero.jpg
-      - image: /images/large/357583_2_hero.jpg
-    ATGItemMapping_req:
+        '600001':
+          color:
+          - White
+          - Dover
+          size:
+          - 12x10
+          thickness:
+          - 2mm
+        '600002':
+          color:
+          - White
+          size:
+          - 4x4
+          thickness:
+          - 4mm
+        '300003':
+          color:
+          - Dover
+          size:
+          - 4x4
+          thickness:
+          - 6mm
+    productObj_itemlist:
       type: object
       properties:
-        MFCode:
+        productImage:
           type: string
-        MFRName:
+        productOnErrorImage:
           type: string
-        branchId:
+        productAdditionalOnErrorImage:
+          type: string
+        longDesc:
+          type: string
+        brand:
+          type: string
+        manufactureNumber:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/categoryObj'
+        shortDesc:
           type: string
         itemNumber:
           type: string
-        incomingUOM:
+        productName:
           type: string
-        becnUOM:
+        productId:
           type: string
-        materialID:
+        baseProductName:
           type: string
-        conversionFactor:
+        internalProductName:
           type: string
-        becnProductId:
+        url:
           type: string
-        description:
+        isAddedToFavorites:
+          type: boolean
+        currentSKU:
+          $ref: '#/components/schemas/currentSkuObj'
+        skuList:
+          type: array
+          items:
+            $ref: '#/components/schemas/skuListObj_itemlist'
+    multipleQuoteProductVarationObj:
+      type: object
+      required:
+      - productId
+      properties:
+        productId:
           type: string
-        accountId:
+        skuId:
           type: string
-        integrationName:
+        vendorColorId:
           type: string
+        quoteOrderId:
+          type: string
+    BranchItemQtyResult:
+      type: object
+      properties:
+        items:
+          $ref: '#/components/schemas/BranchItemQty'
+        branchInfo:
+          $ref: '#/components/schemas/BranchItemQty_BranchInfo'
+    variationsObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        color:
+          White:
+          - '100001'
+          - '200002'
+          Dover:
+          - '100001'
+          - '300003'
+        size:
+          12x10:
+          - '100001'
+          4x4:
+          - '200002'
+          - '300003'
+        thickness:
+          2mm:
+          - '100001'
+          4mm:
+          - '200002'
+          6mm:
+          - '300003'
+    getATGItemMapping_rep:
+      type: array
+      items:
+        type: object
+        properties:
+          MFCode:
+            type: string
+          MFRName:
+            type: string
+          branchId:
+            type: string
+          itemNumber:
+            type: string
+          incomingUOM:
+            type: string
+          becnUOM:
+            type: string
+          materialID:
+            type: string
+          conversionFactor:
+            type: string
+          becnProductId:
+            type: string
+          description:
+            type: string
+          accountId:
+            type: string
+          integrationName:
+            type: string
+          APISiteId:
+            type: string
+    categories_rep:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryElement'
+    DeleteOrderRelatedDocument_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+          description: The ATG order id, saved order id or quote order id.
+        fileNames:
+          description: The file name(s) to delete.
+          type: array
+          items:
+            type: string
+    currentSkuObj:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        manufactureNumber:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        uomlist:
+          type: array
+          items:
+            type: string
+        itemImage:
+          type: string
+        heroImages:
+          $ref: '#/components/schemas/heroImagesObj'
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          $ref: '#/components/schemas/auxiliaryImagesObj'
+        variations:
+          $ref: '#/components/schemas/PDPskusVariationObj'
+        hoverAttributes:
+          $ref: '#/components/schemas/hoverAttributesObj'
+        isAddedToFavorites:
+          type: boolean
+    pricingRep:
+      type: object
+      properties:
+        priceInfo:
+          type: object
+          additionalProperties:
+            type: object
+          example:
+            '253729':
+              BDL: 125.67
+              PC: 10.86
+            '253737':
+              CTN: 3663.22
+            '253740':
+              CTN: 2384.34
+              PC: 834.43
+        orderPricing:
+          type: object
+          additionalProperties:
+            type: object
+          example:
+            '253729':
+              BDL: 125.67
+            '253737':
+              CTN: 3663.22
+            '253740':
+              PC: 834.43
+        unavailableSkuList:
+          type: array
+          items:
+            type: string
+    relatedProductsObj:
+      type: object
+      properties:
+        productImage:
+          type: string
+        url:
+          type: string
+        productName:
+          type: string
+        productId:
+          type: string
+        internalProductName:
+          type: string
+        brand:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/categoryObj'
     PDPskusVariationObj:
       type: object
       additionalProperties:
@@ -1767,109 +2161,73 @@ components:
                   type: string
         maxVariationGroupSize:
           type: integer
-    UpdateOrderAlert_req:
-      type: object
-      properties:
-        orderId:
-          type: string
-        orderNumber:
-          type: string
-        savedOrderId:
-          type: string
-        alertType:
-          type: string
-        phoneNumber:
-          type: string
-        emailAddress:
-          type: string
-        saveToProfile:
-          type: boolean
-    CategoryElement:
-      type: object
-      properties:
-        categoryLevel:
-          type: number
-        recordCount:
-          type: number
-        categoryName:
-          type: string
-        categoryId:
-          type: string
-        subCategories:
-          type: array
-          items:
-            type: object
-            example: <the same structure of one category element>
-    getATGItemMapping_rep:
+    multipleProductVarationRep:
       type: array
       items:
-        type: object
-        properties:
-          MFCode:
-            type: string
-          MFRName:
-            type: string
-          branchId:
-            type: string
-          itemNumber:
-            type: string
-          incomingUOM:
-            type: string
-          becnUOM:
-            type: string
-          materialID:
-            type: string
-          conversionFactor:
-            type: string
-          becnProductId:
-            type: string
-          description:
-            type: string
-          accountId:
-            type: string
-          integrationName:
-            type: string
-          APISiteId:
-            type: string
-    skusVariationObj:
+        $ref: '#/components/schemas/productVarationRep'
+    productVarationRep:
       type: object
-      additionalProperties:
-        type: object
-      example:
-        '600001':
-          color:
-          - White
-          - Dover
-          size:
-          - 12x10
-          thickness:
-          - 2mm
-        '600002':
-          color:
-          - White
-          size:
-          - 4x4
-          thickness:
-          - 4mm
-        '300003':
-          color:
-          - Dover
-          size:
-          - 4x4
-          thickness:
-          - 6mm
-    multipleQuoteProductVarationObj:
-      type: object
-      required:
-      - productId
       properties:
         productId:
           type: string
-        skuId:
+        productMultiVariation:
+          $ref: '#/components/schemas/multiVariationDataObj'
+        variationContentKeyMap:
+          type: object
+    hoverAttributesObj:
+      type: object
+      properties:
+        sellingUom:
           type: string
-        vendorColorId:
+        piecesPerUom:
           type: string
-        quoteOrderId:
+        coverageUom:
+          type: string
+        ppCoverageUom:
+          type: string
+        lengthExposure:
+          type: string
+        widthExposure:
+          type: string
+        lengthHover:
+          type: string
+        widthHover:
+          type: string
+        ncpSellingUom:
+          type: string
+        gcpSellingUom:
+          type: string
+        sslvoDimensionIn:
+          type: string
+        sswhoDimensionOption1In:
+          type: string
+        sswhoDimensionOption2In:
+          type: string
+        sswhoDimensionOption3In:
+          type: string
+        lslvoDimensionIn:
+          type: string
+        lswhoDimensionIn:
+          type: string
+        rvlvoDimensionIn:
+          type: string
+        rvwhoDimensionIn:
+          type: string
+        nfvaHover:
+          type: string
+        nfvaUomHover:
+          type: string
+        fhLapIn:
+          type: string
+        fvLapIn:
+          type: string
+        chLapIn:
+          type: string
+        cvLapIn:
+          type: string
+        cfmValue:
+          type: string
+        cfmUom:
           type: string
     skuListObj_itemlist:
       type: object
@@ -1894,90 +2252,10 @@ components:
           $ref: '#/components/schemas/hoverAttributesObj'
         isAddedToFavorites:
           type: boolean
-    didYouMeanAndAutoCorrectionObj:
-      type: object
-      properties:
-        message:
-          type: string
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              filter:
-                type: string
-    itemDetailsRep:
-      type: object
-      properties:
-        product:
-          $ref: '#/components/schemas/productObj_itemDetails'
-        message:
-          type: string
-        specification:
-          type: object
-          additionalProperties:
-            type: string
-          example:
-            Shingles_Per_Square: 80,
-            Algae_Resistance: 10 years,
-            Coverage_Per_Square: 100 sq. ft,
-            Bundles_Per_Square: 3,
-            Nominal_Size: 12\x36\,
-            Net_Free_Vent_Area__NFVA_: Vent Area,
-            Exposure: 5\,
-            Wind_Resistance: 60mph
-        resource:
-          type: object
-          additionalProperties:
-            type: string
-          example:
-            General Instructrions: http://www.xxx.com/download.php,
-            Warranty: http://www.xxx.com/download.php,
-            MSDS: http://www.xxx.com/download.php,
-            Brochure: http://www.xxx.com/download.php,
-        currentSKU:
-          $ref: '#/components/schemas/currentSkuObj'
-        skuList:
-          type: array
-          items:
-            $ref: '#/components/schemas/skuObj'
-        variations:
-          $ref: '#/components/schemas/variationsObj'
-    skuObj:
-      type: object
-      properties:
-        currentUOM:
-          type: string
-        unitPrice:
-          type: number
-          format: double
-        itemNumber:
-          type: string
-        productNumber:
-          type: string
-        itemImage:
-          type: string
-        thumbImage:
-          type: string
-        swatchImage:
-          type: string
-        skuShortDesc:
-          type: string
-        auxiliaryImages:
-          $ref: '#/components/schemas/auxiliaryImagesObj'
-        variations:
-          $ref: '#/components/schemas/PDPskusVariationObj'
-        hoverAttributes:
-          $ref: '#/components/schemas/hoverAttributesObj'
-        isAddedToFavorites:
-          type: boolean
-    categories_rep:
-      type: object
-      properties:
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/CategoryElement'
+    multipleProductVarationReq:
+      type: array
+      items:
+        $ref: '#/components/schemas/multipleProductVarationObj'
     auxiliaryImagesObj:
       type: object
       additionalProperties:
@@ -1987,120 +2265,6 @@ components:
       - image: /images/large/357583_2_thumb.jpg
       - image: /video/Video_Demo.mp4
         videoUrl: /images/default_video.jpg
-    queryBranchItemQtyRep:
-      type: object
-      properties:
-        messages:
-          type: string
-        success:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/BranchItemQtyResult'
-    relatedProductsObj:
-      type: object
-      properties:
-        productImage:
-          type: string
-        url:
-          type: string
-        productName:
-          type: string
-        productId:
-          type: string
-        internalProductName:
-          type: string
-        brand:
-          type: string
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/categoryObj'
-    productObj_itemlist:
-      type: object
-      properties:
-        productImage:
-          type: string
-        productOnErrorImage:
-          type: string
-        productAdditionalOnErrorImage:
-          type: string
-        longDesc:
-          type: string
-        brand:
-          type: string
-        manufactureNumber:
-          type: string
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/categoryObj'
-        shortDesc:
-          type: string
-        itemNumber:
-          type: string
-        productName:
-          type: string
-        productId:
-          type: string
-        baseProductName:
-          type: string
-        internalProductName:
-          type: string
-        url:
-          type: string
-        isAddedToFavorites:
-          type: boolean
-        currentSKU:
-          $ref: '#/components/schemas/currentSkuObj'
-        skuList:
-          type: array
-          items:
-            $ref: '#/components/schemas/skuListObj_itemlist'
-    typeAhead_rep:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              baseProductName:
-                type: string
-              searchTypeAheadLink:
-                type: string
-        seeMoreLink:
-          type: string
-    pricingRep:
-      type: object
-      properties:
-        priceInfo:
-          type: object
-          additionalProperties:
-            type: object
-          example:
-            '253729':
-              BDL: 125.67
-              PC: 10.86
-            '253737':
-              CTN: 3663.22
-            '253740':
-              CTN: 2384.34
-              PC: 834.43
-        orderPricing:
-          type: object
-          additionalProperties:
-            type: object
-          example:
-            '253729':
-              BDL: 125.67
-            '253737':
-              CTN: 3663.22
-            '253740':
-              PC: 834.43
-        unavailableSkuList:
-          type: array
-          items:
-            type: string
     BranchItemQty:
       type: object
       properties:
@@ -2149,147 +2313,19 @@ components:
               isSKUAvailableAtRegion:
                 type: string
                 example: yes/no
-    currentSkuObj:
+    typeAhead_rep:
       type: object
       properties:
-        currentUOM:
-          type: string
-        manufactureNumber:
-          type: string
-        unitPrice:
-          type: number
-          format: double
-        itemNumber:
-          type: string
-        productNumber:
-          type: string
-        uomlist:
+        items:
           type: array
           items:
-            type: string
-        itemImage:
-          type: string
-        heroImages:
-          $ref: '#/components/schemas/heroImagesObj'
-        thumbImage:
-          type: string
-        swatchImage:
-          type: string
-        skuShortDesc:
-          type: string
-        auxiliaryImages:
-          $ref: '#/components/schemas/auxiliaryImagesObj'
-        variations:
-          $ref: '#/components/schemas/PDPskusVariationObj'
-        hoverAttributes:
-          $ref: '#/components/schemas/hoverAttributesObj'
-        isAddedToFavorites:
-          type: boolean
-    categoryObj2:
-      type: object
-      properties:
-        categoryName:
-          type: string
-        categoryId:
-          type: string
-        recordCount:
-          type: integer
-          example: 32
-        facetId:
-          type: string
-    multipleProductVarationReq:
-      type: array
-      items:
-        $ref: '#/components/schemas/multipleProductVarationObj'
-    productObj_itemDetails:
-      type: object
-      properties:
-        productImage:
-          type: string
-        productOnErrorImage:
-          type: string
-        productAdditionalOnErrorImage:
-          type: string
-        longDesc:
-          type: string
-        manufactureNumber:
-          type: string
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/categoryObj'
-        shortDesc:
-          type: string
-        itemNumber:
-          type: string
-        productName:
-          type: string
-        productId:
-          type: string
-        baseProductName:
-          type: string
-        internalProductName:
-          type: string
-        brand:
-          type: string
-        url:
-          type: string
-        relatedProducts:
-          type: array
-          items:
-            $ref: '#/components/schemas/relatedProductsObj'
-    UploadOrderRelatedDocument_req:
-      type: object
-      properties:
-        orderId:
-          type: string
-          description: The ATG order id, saved order id or quote order id.
-        relatedDocuments:
-          type: string
-          format: binary
-          description: 'The Upload Document File
-
-
-            Accepted File Types should be: *.jpg,*.pdf,*.xls(x)
-
-
-            File size should between 0KB~5MB
-
-
-            File count should between 0-10
-
-            '
-    multipleProductVarationRep:
-      type: array
-      items:
-        $ref: '#/components/schemas/productVarationRep'
-    BranchItemQty_BranchInfo:
-      type: object
-      properties:
-        branchId:
-          type: string
-        company:
-          type: string
-        division:
-          type: string
-        region:
-          type: string
-        market:
-          type: string
-    vendorColorsObj:
-      type: object
-      properties:
-        id:
-          type: string
-        MFG:
-          type: string
-        name:
-          type: string
-        code:
-          type: string
-        sku:
-          type: string
-        color:
+            type: object
+            properties:
+              baseProductName:
+                type: string
+              searchTypeAheadLink:
+                type: string
+        seeMoreLink:
           type: string
     multipleProductVarationObj:
       type: object
@@ -2302,68 +2338,6 @@ components:
           type: string
         vendorColorId:
           type: string
-    DeleteOrderRelatedDocument_req:
-      type: object
-      properties:
-        orderId:
-          type: string
-          description: The ATG order id, saved order id or quote order id.
-        fileNames:
-          description: The file name(s) to delete.
-          type: array
-          items:
-            type: string
-    variationsObj:
-      type: object
-      additionalProperties:
-        type: object
-      example:
-        color:
-          White:
-          - '100001'
-          - '200002'
-          Dover:
-          - '100001'
-          - '300003'
-        size:
-          12x10:
-          - '100001'
-          4x4:
-          - '200002'
-          - '300003'
-        thickness:
-          2mm:
-          - '100001'
-          4mm:
-          - '200002'
-          6mm:
-          - '300003'
-    skuObj_2:
-      type: object
-      properties:
-        currentUOM:
-          type: string
-        unitPrice:
-          type: number
-          format: double
-        itemNumber:
-          type: string
-        productNumber:
-          type: string
-        itemImage:
-          type: string
-        thumbImage:
-          type: string
-        swatchImage:
-          type: string
-        skuShortDesc:
-          type: string
-        auxiliaryImages:
-          $ref: '#/components/schemas/auxiliaryImagesObj'
-        variations:
-          $ref: '#/components/schemas/PDPskusVariationObj'
-        hoverAttributes:
-          $ref: '#/components/schemas/hoverAttributesObj'
     currentSkuObj_2:
       type: object
       properties:
@@ -2452,6 +2426,32 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/skuListObj_itemlist_2'
+    skuObj_2:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        itemImage:
+          type: string
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          $ref: '#/components/schemas/auxiliaryImagesObj'
+        variations:
+          $ref: '#/components/schemas/PDPskusVariationObj'
+        hoverAttributes:
+          $ref: '#/components/schemas/hoverAttributesObj'
   securitySchemes:
     JSESSIONID:
       type: apiKey

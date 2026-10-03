@@ -87,24 +87,6 @@ paths:
       - Branchlist
 components:
   schemas:
-    branchListResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        totalNumRecs:
-          type: number
-        pageNumRecs:
-          type: number
-        branches:
-          type: array
-          items:
-            $ref: '#/components/schemas/Branch'
-      required:
-      - message
-      - totalNumRecs
-      - pageNumRecs
-      - branches
     Branch:
       type: object
       properties:
@@ -139,6 +121,24 @@ components:
       - division
       - divisionName
       - market
+    branchListResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        totalNumRecs:
+          type: number
+        pageNumRecs:
+          type: number
+        branches:
+          type: array
+          items:
+            $ref: '#/components/schemas/Branch'
+      required:
+      - message
+      - totalNumRecs
+      - pageNumRecs
+      - branches
     Address:
       type: object
       properties:

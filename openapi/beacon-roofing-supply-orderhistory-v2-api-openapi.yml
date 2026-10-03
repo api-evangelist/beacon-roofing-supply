@@ -117,112 +117,6 @@ paths:
       - Orderhistory V2
 components:
   schemas:
-    Pagination:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/Next'
-        previous:
-          $ref: '#/components/schemas/Next'
-        pageSize:
-          type: number
-        currentPage:
-          type: number
-        totalCount:
-          type: number
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
-      required:
-      - next
-      - previous
-      - pageSize
-      - currentPage
-      - totalCount
-      - results
-    Result:
-      type: object
-      properties:
-        pageRows:
-          type: number
-        pages:
-          type: number
-        page:
-          type: number
-        rows:
-          type: number
-        rowsPerPage:
-          type: number
-      required:
-      - pageRows
-      - pages
-      - page
-      - rows
-      - rowsPerPage
-    orderHistoryv2Response:
-      type: object
-      properties:
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-      required:
-      - orders
-      - pagination
-    Shipping:
-      type: object
-      properties:
-        shippingBranch:
-          type: number
-        address:
-          $ref: '#/components/schemas/Address'
-        shippingMethod:
-          type: string
-      required:
-      - shippingBranch
-      - address
-      - shippingMethod
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
-    Next:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: number
-      required:
-      - available
-      - label
-      - page
     Order:
       type: object
       properties:
@@ -272,6 +166,31 @@ components:
       - orderId
       - specialInstruction
       - UUID
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
     Job:
       type: object
       properties:
@@ -282,3 +201,84 @@ components:
       required:
       - jobName
       - jobNumber
+    orderHistoryv2Response:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+      - orders
+      - pagination
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    Pagination:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        previous:
+          $ref: '#/components/schemas/Next'
+        pageSize:
+          type: number
+        currentPage:
+          type: number
+        totalCount:
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - next
+      - previous
+      - pageSize
+      - currentPage
+      - totalCount
+      - results
+    Shipping:
+      type: object
+      properties:
+        shippingBranch:
+          type: number
+        address:
+          $ref: '#/components/schemas/Address'
+        shippingMethod:
+          type: string
+      required:
+      - shippingBranch
+      - address
+      - shippingMethod

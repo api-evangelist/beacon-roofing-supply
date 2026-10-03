@@ -81,21 +81,36 @@ paths:
       - Pricing
 components:
   schemas:
-    pricingResponse:
+    OrderPricing:
       type: object
       properties:
-        priceInfo:
-          $ref: '#/components/schemas/PriceInfo'
-        orderPricing:
-          $ref: '#/components/schemas/OrderPricing'
-        unavailableSkuList:
-          type: array
-          items:
-            type: string
+        '253729':
+          $ref: '#/components/schemas/_2537292'
+        '253737':
+          $ref: '#/components/schemas/_253737'
+        '253740':
+          $ref: '#/components/schemas/_2537402'
       required:
-      - priceInfo
-      - orderPricing
-      - unavailableSkuList
+      - '253729'
+      - '253737'
+      - '253740'
+    _253740:
+      type: object
+      properties:
+        CTN:
+          type: number
+        PC:
+          type: number
+      required:
+      - CTN
+      - PC
+    _253737:
+      type: object
+      properties:
+        CTN:
+          type: number
+      required:
+      - CTN
     _2537402:
       type: object
       properties:
@@ -113,13 +128,28 @@ components:
       required:
       - BDL
       - PC
-    _253737:
+    pricingResponse:
       type: object
       properties:
-        CTN:
+        priceInfo:
+          $ref: '#/components/schemas/PriceInfo'
+        orderPricing:
+          $ref: '#/components/schemas/OrderPricing'
+        unavailableSkuList:
+          type: array
+          items:
+            type: string
+      required:
+      - priceInfo
+      - orderPricing
+      - unavailableSkuList
+    _2537292:
+      type: object
+      properties:
+        BDL:
           type: number
       required:
-      - CTN
+      - BDL
     PriceInfo:
       type: object
       properties:
@@ -133,33 +163,3 @@ components:
       - '253729'
       - '253737'
       - '253740'
-    _253740:
-      type: object
-      properties:
-        CTN:
-          type: number
-        PC:
-          type: number
-      required:
-      - CTN
-      - PC
-    OrderPricing:
-      type: object
-      properties:
-        '253729':
-          $ref: '#/components/schemas/_2537292'
-        '253737':
-          $ref: '#/components/schemas/_253737'
-        '253740':
-          $ref: '#/components/schemas/_2537402'
-      required:
-      - '253729'
-      - '253737'
-      - '253740'
-    _2537292:
-      type: object
-      properties:
-        BDL:
-          type: number
-      required:
-      - BDL

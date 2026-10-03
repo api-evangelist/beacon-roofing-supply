@@ -75,6 +75,36 @@ paths:
       - GetQuoteOrderPrice
 components:
   schemas:
+    getQuoteOrderPriceResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        subTotal:
+          type: number
+        taxes:
+          type: number
+        otherCharges:
+          type: number
+        total:
+          type: number
+        displayTaxTBD:
+          type: boolean
+        displayOtherChargeTBD:
+          type: boolean
+        commerceItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommerceItem'
+      required:
+      - id
+      - subTotal
+      - taxes
+      - otherCharges
+      - total
+      - displayTaxTBD
+      - displayOtherChargeTBD
+      - commerceItems
     CommerceItem:
       type: object
       properties:
@@ -124,33 +154,3 @@ components:
       - vendorColorId
       - productId
       - itemGrayOutLevel
-    getQuoteOrderPriceResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        subTotal:
-          type: number
-        taxes:
-          type: number
-        otherCharges:
-          type: number
-        total:
-          type: number
-        displayTaxTBD:
-          type: boolean
-        displayOtherChargeTBD:
-          type: boolean
-        commerceItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/CommerceItem'
-      required:
-      - id
-      - subTotal
-      - taxes
-      - otherCharges
-      - total
-      - displayTaxTBD
-      - displayOtherChargeTBD
-      - commerceItems

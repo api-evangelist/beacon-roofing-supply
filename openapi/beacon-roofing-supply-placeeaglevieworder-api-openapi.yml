@@ -69,6 +69,49 @@ paths:
       - PlaceEagleViewOrder
 components:
   schemas:
+    placeEagleViewOrderResponse:
+      type: object
+      properties:
+        mincronOrderId:
+          type: string
+        orderId:
+          type: number
+        reportIds:
+          type: array
+          items:
+            type: number
+        modelState:
+          $ref: '#/components/schemas/ModelState'
+      required:
+      - mincronOrderId
+      - orderId
+      - reportIds
+      - modelState
+    ReportAddress:
+      type: object
+      properties:
+        Address:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        Zip:
+          type: string
+        Country:
+          type: string
+        Latitude:
+          type: number
+        Longitude:
+          type: number
+      required:
+      - Address
+      - City
+      - State
+      - Zip
+      - Country
+      - Latitude
+      - Longitude
     ReportAttibute:
       type: object
       properties:
@@ -161,6 +204,18 @@ components:
       - deliveryType
       - addOns
       - structures
+    ModelState:
+      type: object
+      properties:
+        modelKey:
+          type: string
+        modelValue:
+          type: array
+          items:
+            type: string
+      required:
+      - modelKey
+      - modelValue
     placeEagleViewOrderBody:
       type: object
       properties:
@@ -191,58 +246,3 @@ components:
       - projectName
       - beaconPrice
       - UUID
-    placeEagleViewOrderResponse:
-      type: object
-      properties:
-        mincronOrderId:
-          type: string
-        orderId:
-          type: number
-        reportIds:
-          type: array
-          items:
-            type: number
-        modelState:
-          $ref: '#/components/schemas/ModelState'
-      required:
-      - mincronOrderId
-      - orderId
-      - reportIds
-      - modelState
-    ModelState:
-      type: object
-      properties:
-        modelKey:
-          type: string
-        modelValue:
-          type: array
-          items:
-            type: string
-      required:
-      - modelKey
-      - modelValue
-    ReportAddress:
-      type: object
-      properties:
-        Address:
-          type: string
-        City:
-          type: string
-        State:
-          type: string
-        Zip:
-          type: string
-        Country:
-          type: string
-        Latitude:
-          type: number
-        Longitude:
-          type: number
-      required:
-      - Address
-      - City
-      - State
-      - Zip
-      - Country
-      - Latitude
-      - Longitude
