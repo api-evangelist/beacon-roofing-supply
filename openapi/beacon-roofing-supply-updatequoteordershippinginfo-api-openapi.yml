@@ -78,6 +78,37 @@ components:
       - displayName
       - value
       - selected
+    updateQuoteOrderShippingInfoBody:
+      type: object
+      properties:
+        id:
+          type: string
+        deliveryOption:
+          type: string
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        shippingMethod:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress'
+        branchName:
+          type: string
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo'
+        instructions:
+          type: string
+      required:
+      - id
+      - deliveryOption
+      - deliveryDate
+      - deliveryTime
+      - shippingMethod
+      - shippingAddress
+      - branchName
+      - contactInfo
+      - instructions
     ShippingAddress:
       type: object
       properties:
@@ -128,37 +159,6 @@ components:
       - countryValue
       - countries
       - phoneNumber
-    updateQuoteOrderShippingInfoBody:
-      type: object
-      properties:
-        id:
-          type: string
-        deliveryOption:
-          type: string
-        deliveryDate:
-          type: string
-        deliveryTime:
-          type: string
-        shippingMethod:
-          type: string
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddress'
-        branchName:
-          type: string
-        contactInfo:
-          $ref: '#/components/schemas/ContactInfo'
-        instructions:
-          type: string
-      required:
-      - id
-      - deliveryOption
-      - deliveryDate
-      - deliveryTime
-      - shippingMethod
-      - shippingAddress
-      - branchName
-      - contactInfo
-      - instructions
     ContactInfo:
       type: object
       properties:

@@ -137,101 +137,6 @@ paths:
       - Itemlist
 components:
   schemas:
-    Child2:
-      type: object
-      properties:
-        facetId:
-          type: string
-        facetName:
-          type: string
-        recordCount:
-          type: number
-        selected:
-          type: boolean
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/Child'
-      required:
-      - facetId
-      - facetName
-      - recordCount
-      - selected
-      - children
-    Item2:
-      type: object
-      properties:
-        productImage:
-          type: string
-        productOnErrorImage:
-          type: string
-        longDesc:
-          type: string
-        brand:
-          type: string
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/Category'
-        shortDesc:
-          type: string
-        hoverAttributes:
-          $ref: '#/components/schemas/HoverAttributes'
-        productName:
-          type: string
-        productId:
-          type: string
-        baseProductName:
-          type: string
-        internalProductName:
-          type: string
-        url:
-          type: string
-      required:
-      - productImage
-      - productOnErrorImage
-      - longDesc
-      - brand
-      - categories
-      - shortDesc
-      - hoverAttributes
-      - productName
-      - productId
-      - baseProductName
-      - internalProductName
-      - url
-    itemListResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        totalNumRecs:
-          type: number
-        pageNumRecs:
-          type: number
-        didYouMean:
-          $ref: '#/components/schemas/DidYouMean'
-        autoCorrection:
-          $ref: '#/components/schemas/DidYouMean'
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item2'
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/Category2'
-        facets:
-          $ref: '#/components/schemas/Facets'
-      required:
-      - message
-      - totalNumRecs
-      - pageNumRecs
-      - didYouMean
-      - autoCorrection
-      - items
-      - categories
-      - facets
     DidYouMean:
       type: object
       properties:
@@ -244,97 +149,6 @@ components:
       required:
       - message
       - items
-    Category3:
-      type: object
-      properties:
-        facetId:
-          type: string
-        facetName:
-          type: string
-        selected:
-          type: boolean
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/Child2'
-      required:
-      - facetId
-      - facetName
-      - selected
-      - children
-    Category2:
-      type: object
-      properties:
-        categoryName:
-          type: string
-        categoryId:
-          type: string
-        recordCount:
-          type: number
-        facetId:
-          type: string
-      required:
-      - categoryName
-      - categoryId
-      - recordCount
-      - facetId
-    Item:
-      type: object
-      properties:
-        filter:
-          type: string
-      required:
-      - filter
-    Child:
-      type: object
-      properties:
-        facetId:
-          type: string
-        facetName:
-          type: string
-        recordCount:
-          type: number
-        selected:
-          type: boolean
-      required:
-      - facetId
-      - facetName
-      - recordCount
-      - selected
-    Facets:
-      type: object
-      properties:
-        Categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/Category3'
-        Color:
-          type: array
-          items:
-            $ref: '#/components/schemas/Child'
-        Product Style:
-          type: array
-          items:
-            $ref: '#/components/schemas/Child'
-        Brand:
-          type: array
-          items:
-            $ref: '#/components/schemas/Child'
-      required:
-      - Categories
-      - Color
-      - Product Style
-      - Brand
-    Category:
-      type: object
-      properties:
-        categoryName:
-          type: string
-        categoryId:
-          type: string
-      required:
-      - categoryName
-      - categoryId
     HoverAttributes:
       type: object
       properties:
@@ -417,3 +231,189 @@ components:
       - cvLapIn
       - cfmValue
       - cfmUom
+    itemListResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        totalNumRecs:
+          type: number
+        pageNumRecs:
+          type: number
+        didYouMean:
+          $ref: '#/components/schemas/DidYouMean'
+        autoCorrection:
+          $ref: '#/components/schemas/DidYouMean'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item2'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category2'
+        facets:
+          $ref: '#/components/schemas/Facets'
+      required:
+      - message
+      - totalNumRecs
+      - pageNumRecs
+      - didYouMean
+      - autoCorrection
+      - items
+      - categories
+      - facets
+    Facets:
+      type: object
+      properties:
+        Categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category3'
+        Color:
+          type: array
+          items:
+            $ref: '#/components/schemas/Child'
+        Product Style:
+          type: array
+          items:
+            $ref: '#/components/schemas/Child'
+        Brand:
+          type: array
+          items:
+            $ref: '#/components/schemas/Child'
+      required:
+      - Categories
+      - Color
+      - Product Style
+      - Brand
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter
+    Category2:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+        recordCount:
+          type: number
+        facetId:
+          type: string
+      required:
+      - categoryName
+      - categoryId
+      - recordCount
+      - facetId
+    Category:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+      required:
+      - categoryName
+      - categoryId
+    Category3:
+      type: object
+      properties:
+        facetId:
+          type: string
+        facetName:
+          type: string
+        selected:
+          type: boolean
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/Child2'
+      required:
+      - facetId
+      - facetName
+      - selected
+      - children
+    Child:
+      type: object
+      properties:
+        facetId:
+          type: string
+        facetName:
+          type: string
+        recordCount:
+          type: number
+        selected:
+          type: boolean
+      required:
+      - facetId
+      - facetName
+      - recordCount
+      - selected
+    Item2:
+      type: object
+      properties:
+        productImage:
+          type: string
+        productOnErrorImage:
+          type: string
+        longDesc:
+          type: string
+        brand:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        shortDesc:
+          type: string
+        hoverAttributes:
+          $ref: '#/components/schemas/HoverAttributes'
+        productName:
+          type: string
+        productId:
+          type: string
+        baseProductName:
+          type: string
+        internalProductName:
+          type: string
+        url:
+          type: string
+      required:
+      - productImage
+      - productOnErrorImage
+      - longDesc
+      - brand
+      - categories
+      - shortDesc
+      - hoverAttributes
+      - productName
+      - productId
+      - baseProductName
+      - internalProductName
+      - url
+    Child2:
+      type: object
+      properties:
+        facetId:
+          type: string
+        facetName:
+          type: string
+        recordCount:
+          type: number
+        selected:
+          type: boolean
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/Child'
+      required:
+      - facetId
+      - facetName
+      - recordCount
+      - selected
+      - children

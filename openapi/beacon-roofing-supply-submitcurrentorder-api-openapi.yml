@@ -96,35 +96,6 @@ paths:
       - SubmitCurrentOrder
 components:
   schemas:
-    NextPage:
-      type: object
-      properties:
-        nextUrl:
-          type: string
-      required:
-      - nextUrl
-    OrderSummary:
-      type: object
-      properties:
-        total:
-          type: number
-        itemsTotal:
-          type: number
-        tax:
-          type: number
-        otherChanges:
-          type: number
-        displayTotalMsg:
-          type: boolean
-        totalMsg:
-          type: string
-      required:
-      - total
-      - itemsTotal
-      - tax
-      - otherChanges
-      - displayTotalMsg
-      - totalMsg
     submitCurrentOrderBody:
       type: object
       properties:
@@ -152,56 +123,33 @@ components:
       - additionalRecipients
       - savedOrderName
       - approverId
-    ShippingAddress:
+    DeliveryOption:
       type: object
       properties:
-        addressBookId:
+        displayName:
           type: string
-        nickName:
+        value:
           type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        city:
-          type: string
-        stateValue:
-          type: string
-        states:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryOption'
-        postalCode:
-          type: string
-        countryValue:
-          type: string
-        countries:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryOption'
-        phoneNumber:
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected
+    Item:
+      type: object
+      properties:
+        filter:
           type: string
       required:
-      - addressBookId
-      - nickName
-      - firstName
-      - lastName
-      - address1
-      - address2
-      - address3
-      - city
-      - stateValue
-      - states
-      - postalCode
-      - countryValue
-      - countries
-      - phoneNumber
+      - filter
+    NextPage:
+      type: object
+      properties:
+        nextUrl:
+          type: string
+      required:
+      - nextUrl
     submitCurrentOrderResponse:
       type: object
       properties:
@@ -263,23 +211,75 @@ components:
       - additionalRecipients
       - orderRelatedDocuments
       - nextPage
-    Item:
+    OrderSummary:
       type: object
       properties:
-        filter:
-          type: string
-      required:
-      - filter
-    DeliveryOption:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
+        total:
+          type: number
+        itemsTotal:
+          type: number
+        tax:
+          type: number
+        otherChanges:
+          type: number
+        displayTotalMsg:
           type: boolean
+        totalMsg:
+          type: string
       required:
-      - displayName
-      - value
-      - selected
+      - total
+      - itemsTotal
+      - tax
+      - otherChanges
+      - displayTotalMsg
+      - totalMsg
+    ShippingAddress:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        stateValue:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        postalCode:
+          type: string
+        countryValue:
+          type: string
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        phoneNumber:
+          type: string
+      required:
+      - addressBookId
+      - nickName
+      - firstName
+      - lastName
+      - address1
+      - address2
+      - address3
+      - city
+      - stateValue
+      - states
+      - postalCode
+      - countryValue
+      - countries
+      - phoneNumber

@@ -143,6 +143,32 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    creditpurchase_req:
+      type: object
+      properties:
+        payWithCredit:
+          type: boolean
+        cardInfo:
+          type: object
+          properties:
+            ExpMM:
+              type: string
+            ExpYY:
+              type: string
+            Type:
+              type: string
+            FullName:
+              type: string
+        encryptionTokenData:
+          type: object
+          properties:
+            LowValueToken:
+              type: string
+        addressVerificationData:
+          type: object
+          properties:
+            AVSZIPCode:
+              type: string
     ATGItemMapping_req:
       type: object
       properties:
@@ -170,32 +196,13 @@ components:
           type: string
         integrationName:
           type: string
-    creditpurchase_req:
+    submitOrderRep:
       type: object
       properties:
-        payWithCredit:
-          type: boolean
-        cardInfo:
-          type: object
-          properties:
-            ExpMM:
-              type: string
-            ExpYY:
-              type: string
-            Type:
-              type: string
-            FullName:
-              type: string
-        encryptionTokenData:
-          type: object
-          properties:
-            LowValueToken:
-              type: string
-        addressVerificationData:
-          type: object
-          properties:
-            AVSZIPCode:
-              type: string
+        orderId:
+          type: string
+        mincronCCMsg:
+          type: string
     submitOrderReq:
       type: object
       properties:
@@ -275,13 +282,6 @@ components:
               type: string
             attachEncodeFile:
               type: string
-    submitOrderRep:
-      type: object
-      properties:
-        orderId:
-          type: string
-        mincronCCMsg:
-          type: string
     shippingObj:
       type: object
       properties:

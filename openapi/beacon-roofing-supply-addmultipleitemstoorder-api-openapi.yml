@@ -75,94 +75,6 @@ paths:
       - AddMultipleItemsToOrder
 components:
   schemas:
-    addMultipleItemsToOrderResponse:
-      type: object
-      properties:
-        allItemsUnavailable:
-          type: boolean
-        unavailableItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/UnavailableItem'
-        addedToCartItems:
-          type: array
-          items:
-            type: string
-        vendorColorNotMatchedItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/VendorColorNotMatchedItem'
-      required:
-      - allItemsUnavailable
-      - unavailableItems
-      - addedToCartItems
-      - vendorColorNotMatchedItems
-    addMultipleItemsToOrderBody:
-      type: object
-      properties:
-        addItemCount:
-          type: number
-        accountId:
-          type: string
-        specialInstructions:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-        jobNumber:
-          type: string
-        shipping:
-          $ref: '#/components/schemas/Shipping'
-      required:
-      - addItemCount
-      - accountId
-      - specialInstructions
-      - items
-      - jobNumber
-      - shipping
-    Item:
-      type: object
-      properties:
-        filter:
-          type: string
-      required:
-      - filter
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
-    UnavailableItem:
-      type: object
-      properties:
-        id:
-          type: string
-        failedReason:
-          type: string
-      required:
-      - id
-      - failedReason
     VendorColorNotMatchedItem:
       type: object
       properties:
@@ -189,3 +101,91 @@ components:
       - shippingBranch
       - address
       - shippingMethod
+    addMultipleItemsToOrderBody:
+      type: object
+      properties:
+        addItemCount:
+          type: number
+        accountId:
+          type: string
+        specialInstructions:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        jobNumber:
+          type: string
+        shipping:
+          $ref: '#/components/schemas/Shipping'
+      required:
+      - addItemCount
+      - accountId
+      - specialInstructions
+      - items
+      - jobNumber
+      - shipping
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    addMultipleItemsToOrderResponse:
+      type: object
+      properties:
+        allItemsUnavailable:
+          type: boolean
+        unavailableItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/UnavailableItem'
+        addedToCartItems:
+          type: array
+          items:
+            type: string
+        vendorColorNotMatchedItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/VendorColorNotMatchedItem'
+      required:
+      - allItemsUnavailable
+      - unavailableItems
+      - addedToCartItems
+      - vendorColorNotMatchedItems
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter
+    UnavailableItem:
+      type: object
+      properties:
+        id:
+          type: string
+        failedReason:
+          type: string
+      required:
+      - id
+      - failedReason

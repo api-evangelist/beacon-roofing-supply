@@ -63,6 +63,29 @@ paths:
       - GetCurrentOrderReview
 components:
   schemas:
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber
+    DeliveryOption:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected
     JobAccounts:
       type: object
       properties:
@@ -78,13 +101,6 @@ components:
       - unavailable
       - unavailableMsg
       - jobs
-    NextPage:
-      type: object
-      properties:
-        nextUrl:
-          type: string
-      required:
-      - nextUrl
     getCurrentOrderReviewResponse:
       type: object
       properties:
@@ -123,6 +139,44 @@ components:
       - additionalRecipients
       - orderRelatedDocuments
       - nextPage
+    NextPage:
+      type: object
+      properties:
+        nextUrl:
+          type: string
+      required:
+      - nextUrl
+    PoJob:
+      type: object
+      properties:
+        poRequired:
+          type: boolean
+        jobNameRequired:
+          type: boolean
+        jobNumberRequired:
+          type: boolean
+        showJobName:
+          type: boolean
+        showJobNumber:
+          type: boolean
+        poName:
+          type: string
+        jobNumber:
+          type: string
+        jobName:
+          type: string
+        jobAccounts:
+          $ref: '#/components/schemas/JobAccounts'
+      required:
+      - poRequired
+      - jobNameRequired
+      - jobNumberRequired
+      - showJobName
+      - showJobNumber
+      - poName
+      - jobNumber
+      - jobName
+      - jobAccounts
     ShippingAddress:
       type: object
       properties:
@@ -173,57 +227,3 @@ components:
       - countryValue
       - countries
       - phoneNumber
-    Job:
-      type: object
-      properties:
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-      required:
-      - jobName
-      - jobNumber
-    DeliveryOption:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
-          type: boolean
-      required:
-      - displayName
-      - value
-      - selected
-    PoJob:
-      type: object
-      properties:
-        poRequired:
-          type: boolean
-        jobNameRequired:
-          type: boolean
-        jobNumberRequired:
-          type: boolean
-        showJobName:
-          type: boolean
-        showJobNumber:
-          type: boolean
-        poName:
-          type: string
-        jobNumber:
-          type: string
-        jobName:
-          type: string
-        jobAccounts:
-          $ref: '#/components/schemas/JobAccounts'
-      required:
-      - poRequired
-      - jobNameRequired
-      - jobNumberRequired
-      - showJobName
-      - showJobNumber
-      - poName
-      - jobNumber
-      - jobName
-      - jobAccounts

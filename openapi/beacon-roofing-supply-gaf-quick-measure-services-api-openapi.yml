@@ -140,15 +140,72 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    GAFPlaceReportOrder_req_product_additionalInfo:
+    GAFPlaceReportOrder_req_serverRes:
       type: object
       properties:
-        questioncode:
+        Server:
           type: string
-        question:
+        ServerReference:
           type: string
-        answer:
+        Timestamp:
           type: string
+        Response:
+          $ref: '#/components/schemas/GAFPlaceReportOrder_req_serverRes_res'
+    GAFPlaceReportOrder_req:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        subscriberName:
+          type: string
+        subscriberOrderNumber:
+          type: string
+        subscriberCustomField1:
+          type: string
+        emailAddress:
+          type: string
+        productCode:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        stateOrProvince:
+          type: string
+        postalCode:
+          type: string
+        fipscode:
+          type: string
+        county:
+          type: string
+        country:
+          type: string
+        latitude:
+          type: string
+        longitude:
+          type: string
+        fullAddress:
+          type: string
+        recipientEmailAddresses:
+          type: string
+        instructions:
+          type: string
+        isServiceOpen:
+          type: boolean
+        susbcriberId:
+          type: number
+        ignoreCache:
+          type: boolean
+        trackingId:
+          type: string
+        checkForDuplicate:
+          type: boolean
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product'
     GAFPlaceReportOrder_req_serverRes_res:
       type: object
       properties:
@@ -266,17 +323,6 @@ components:
           type: string
         Buildings:
           type: string
-    GAFPlaceReportOrder_res:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        success:
-          type: boolean
-        result:
-          type: object
-        GAFOrderNumber:
-          type: string
     SiteStatus:
       type: object
       properties:
@@ -288,15 +334,6 @@ components:
           description: current average response time for processing the reports in minutes.
         siteAverageResponseTimeMFCommercial:
           type: number
-    GAFPlaceReportOrder_req_product:
-      type: object
-      properties:
-        productCode:
-          type: string
-        additionalInformation:
-          type: array
-          items:
-            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product_additionalInfo'
     GAFGetStatus_res:
       type: object
       properties:
@@ -306,63 +343,15 @@ components:
           type: boolean
         result:
           $ref: '#/components/schemas/SiteStatus'
-    messagesObj:
-      type: array
-      items:
-        type: object
-        properties:
-          type:
-            type: string
-          value:
-            type: string
-          code:
-            type: string
-    GAFQuickMeasureCallback_req_roofMeasurement_Assets:
+    GAFQuickMeasureCallback_res:
       type: object
       properties:
-        Report:
-          type: string
-        Cover:
-          type: string
-        Diagram:
-          type: string
-        Acculynx:
-          type: string
-        HomeownerReport:
-          type: string
-        Report3D:
-          type: string
-        DxfUrl:
-          type: string
-        VerticalImage:
-          type: string
-        NorthImage:
-          type: string
-        EastImage:
-          type: string
-        SouthImage:
-          type: string
-        WestImage:
-          type: string
-    GAFQuickMeasureCallback_req:
-      type: object
-      properties:
-        SubscriberOrderNumber:
-          type: string
-        GAFOrderNumber:
-          type: string
-        SubscriberCustomField1:
-          type: string
-        Subscriber:
-          type: string
-        SubscriberReference:
-          type: string
-        Vendor:
-          type: string
-        VendorReference:
-          type: string
-        RoofMeasurement:
-          $ref: '#/components/schemas/GAFQuickMeasureCallback_req_roofMeasurement'
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
+          type: boolean
+        result:
+          type: object
     GAFQuickMeasureCallback_req_roofMeasurement:
       type: object
       properties:
@@ -460,81 +449,26 @@ components:
             $ref: '#/components/schemas/GAFPlaceReportOrder_req_serverRes'
         ProblemCode:
           type: string
-    GAFPlaceReportOrder_req:
+    GAFPlaceReportOrder_req_product_additionalInfo:
       type: object
       properties:
-        accountNumber:
+        questioncode:
           type: string
-        subscriberName:
+        question:
           type: string
-        subscriberOrderNumber:
+        answer:
           type: string
-        subscriberCustomField1:
-          type: string
-        emailAddress:
-          type: string
-        productCode:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        stateOrProvince:
-          type: string
-        postalCode:
-          type: string
-        fipscode:
-          type: string
-        county:
-          type: string
-        country:
-          type: string
-        latitude:
-          type: string
-        longitude:
-          type: string
-        fullAddress:
-          type: string
-        recipientEmailAddresses:
-          type: string
-        instructions:
-          type: string
-        isServiceOpen:
-          type: boolean
-        susbcriberId:
-          type: number
-        ignoreCache:
-          type: boolean
-        trackingId:
-          type: string
-        checkForDuplicate:
-          type: boolean
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product'
-    GAFPlaceReportOrder_req_serverRes:
-      type: object
-      properties:
-        Server:
-          type: string
-        ServerReference:
-          type: string
-        Timestamp:
-          type: string
-        Response:
-          $ref: '#/components/schemas/GAFPlaceReportOrder_req_serverRes_res'
-    GAFQuickMeasureCallback_res:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        success:
-          type: boolean
-        result:
-          type: object
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
     GAFQuickMeasureCallback_req_additionalProduct:
       type: object
       properties:
@@ -546,6 +480,72 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/GAFPlaceReportOrder_req_product'
+    GAFQuickMeasureCallback_req_roofMeasurement_Assets:
+      type: object
+      properties:
+        Report:
+          type: string
+        Cover:
+          type: string
+        Diagram:
+          type: string
+        Acculynx:
+          type: string
+        HomeownerReport:
+          type: string
+        Report3D:
+          type: string
+        DxfUrl:
+          type: string
+        VerticalImage:
+          type: string
+        NorthImage:
+          type: string
+        EastImage:
+          type: string
+        SouthImage:
+          type: string
+        WestImage:
+          type: string
+    GAFPlaceReportOrder_req_product:
+      type: object
+      properties:
+        productCode:
+          type: string
+        additionalInformation:
+          type: array
+          items:
+            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product_additionalInfo'
+    GAFPlaceReportOrder_res:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
+          type: boolean
+        result:
+          type: object
+        GAFOrderNumber:
+          type: string
+    GAFQuickMeasureCallback_req:
+      type: object
+      properties:
+        SubscriberOrderNumber:
+          type: string
+        GAFOrderNumber:
+          type: string
+        SubscriberCustomField1:
+          type: string
+        Subscriber:
+          type: string
+        SubscriberReference:
+          type: string
+        Vendor:
+          type: string
+        VendorReference:
+          type: string
+        RoofMeasurement:
+          $ref: '#/components/schemas/GAFQuickMeasureCallback_req_roofMeasurement'
   securitySchemes:
     JSESSIONID:
       type: apiKey

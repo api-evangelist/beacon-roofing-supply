@@ -65,6 +65,25 @@ paths:
       - SubmitRebate
 components:
   schemas:
+    RebateAddress:
+      type: object
+      properties:
+        address:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+      required:
+      - address
+      - city
+      - state
+      - zip
+    RebateCustomInfo:
+      type: object
+      properties: {}
     RebateInfo:
       type: object
       properties:
@@ -100,22 +119,3 @@ components:
       - rebateAddress
       - rebateCustomInfo
       - rebateMailingAddress
-    RebateAddress:
-      type: object
-      properties:
-        address:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        zip:
-          type: string
-      required:
-      - address
-      - city
-      - state
-      - zip
-    RebateCustomInfo:
-      type: object
-      properties: {}

@@ -124,6 +124,32 @@ components:
       - page
       - rows
       - rowsPerPage
+    Message:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+        code:
+          type: string
+      required:
+      - type
+      - value
+      - code
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
     DraftQuote:
       type: object
       properties:
@@ -179,32 +205,6 @@ components:
       - draftQuote
       - inProcessQuote
       - receivedQuote
-    Next:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: number
-      required:
-      - available
-      - label
-      - page
-    Message:
-      type: object
-      properties:
-        type:
-          type: string
-        value:
-          type: string
-        code:
-          type: string
-      required:
-      - type
-      - value
-      - code
     Pagination:
       type: object
       properties:

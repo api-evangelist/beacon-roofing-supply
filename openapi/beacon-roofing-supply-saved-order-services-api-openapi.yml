@@ -876,18 +876,46 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    getOrderApprovalDetail_rep:
-      $ref: '#/components/schemas/SavedPendingOrderApprovalDetailItemV2Obj'
-    ContactInfo_savedorder:
+    rejectSavedOrder_req:
       type: object
       properties:
-        firstName:
+        rejectReason:
           type: string
-        lastName:
+        orders:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+    updateSavedOrderReviewInfo_req:
+      type: object
+      properties:
+        orderId:
           type: string
-        nickName:
+        po:
           type: string
-        phoneNumber:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+    getOrderApprovalList_rep:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderSimpleItemObj'
+    getSavedOrderReviewInfo_req:
+      type: object
+      properties:
+        orderId:
           type: string
     Job_savedorder:
       type: object
@@ -902,39 +930,197 @@ components:
           type: boolean
         jobNumberDisplayName:
           type: string
-    deleteSavedOrder_req:
+    ShippingAddress_savedorder_req:
+      type: object
+      properties:
+        displayName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+    BranchAddress_savedorder:
+      type: object
+      properties:
+        displayName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+        branchNumber:
+          type: string
+    SavedOrderConfirmationDetailObj:
       type: object
       properties:
         id:
           type: string
-    updateSavedOrderItems_req:
-      type: object
-      properties:
-        savedOrderId:
+        mincronId:
           type: string
-        savedOrderName:
+        displayName:
           type: string
-        action:
+        accountNumber:
           type: string
-        items:
+        accountName:
+          type: string
+        accountNameOriginal:
+          type: string
+        creationDate:
+          type: string
+        createdUser:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        createdUserEmail:
+          type: string
+        submittedDate:
+          type: string
+        status:
+          type: string
+        statusDisplayName:
+          type: string
+        readOnly:
+          type: boolean
+        siteId:
+          type: string
+        organizationId:
+          type: string
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          type: string
+        deleteStatus:
+          type: boolean
+        job:
+          $ref: '#/components/schemas/Job_savedorder'
+        jobAccounts:
+          $ref: '#/components/schemas/JobAccounts_savedorder'
+        shippingMethod:
+          type: string
+        shippingMethodValue:
+          type: string
+        shippingMethods:
           type: array
           items:
-            type: object
-            properties:
-              id:
-                type: string
-              quantity:
-                type: integer
-              itemNumber:
-                type: string
-              uom:
-                type: string
-              color:
-                type: string
-                example: Dark Blue(012)
-              MFG:
-                type: string
-                example: Light Yellow
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress_savedorder'
+        shippingAddressTitle:
+          type: string
+        branchName:
+          type: string
+        branchAddress:
+          $ref: '#/components/schemas/BranchAddress_savedorder'
+        instructions:
+          type: string
+        commerceItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommerceItem_savedorder'
+        requiredFields:
+          $ref: '#/components/schemas/RequiredFields_savedorder'
+        approvedBy:
+          type: string
+        po:
+          type: string
+        emailAddress:
+          type: array
+          items:
+            type: string
+        deliveryOption:
+          type: string
+        deliveryOptionValue:
+          type: string
+        deliveryOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        deliveryTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        itemsTotal:
+          type: number
+          format: double
+        taxes:
+          type: number
+          format: double
+        otherCharges:
+          type: number
+          format: double
+        subTotal:
+          type: integer
+          format: double
+        addressBooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBook_savedorder'
+        addressBook:
+          $ref: '#/components/schemas/AddressBook_savedorder'
+        storeLocatorItemId:
+          type: string
+        rejectReason:
+          type: string
+        assignApprovalDisplayText:
+          type: string
+        assignApproval:
+          $ref: '#/components/schemas/UserInfo_savedorder'
+        rejectUserDisplayText:
+          type: string
+        rejectUser:
+          $ref: '#/components/schemas/UserInfo_savedorder'
+        showDeliveryNotification:
+          type: boolean
+        accountBranchState:
+          type: string
+        displaySubTotalMsg:
+          type: boolean
+        subTotalMsg:
+          type: string
+        thankYouMsg:
+          type: string
+    getSavedOrderConfirmationInfo_req:
+      type: object
+      properties:
+        id:
+          type: string
+    getSavedOrderShippingInfo_req:
+      type: object
+      properties:
+        orderId:
+          type: string
     RequiredFields_savedorder:
       type: object
       properties:
@@ -984,6 +1170,225 @@ components:
           type: boolean
         showExtendedPO:
           type: boolean
+    getSavedOrderConfirmationInfo_rep:
+      $ref: '#/components/schemas/SavedOrderConfirmationDetailObj'
+    updateSavedOrderShippingInfo_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+        deliveryOption:
+          type: string
+        deliveryDate:
+          type: string
+          format: MM-dd-yyyy
+        deliveryTime:
+          type: string
+        shippingMethod:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress_savedorder_req'
+        branchName:
+          type: string
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
+        instructions:
+          type: string
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    OrderDetailItemObj:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        siteId:
+          type: string
+        organizationId:
+          type: string
+        accountNumber:
+          type: string
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
+        creationDate:
+          type: string
+          format: timestamp
+        createdUser:
+          type: string
+        submittedDate:
+          type: string
+          format: timestamp
+        lastModifiedDate:
+          type: string
+          format: timestamp
+        lastModifiedUser:
+          type: string
+        evOrderId:
+          type: string
+        assignApproval:
+          $ref: '#/components/schemas/UserInfo_savedorder'
+        assignApprovalDisplayText:
+          type: string
+        deleteStatus:
+          type: boolean
+          default: false
+        job:
+          $ref: '#/components/schemas/Job_savedorder'
+        jobAccounts:
+          $ref: '#/components/schemas/JobAccounts_savedorder'
+        approvedBy:
+          type: string
+        po:
+          type: string
+        emailAddress:
+          type: array
+          items:
+            type: string
+        deliveryOption:
+          type: string
+        deliveryOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        deliveryTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        shippingMethod:
+          type: string
+        shippingMethodValue:
+          type: string
+        shippingMethods:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        shippingAddressTitle:
+          type: string
+        shippingAddress:
+          type: object
+          properties:
+            address1:
+              type: string
+            address2:
+              type: string
+            address3:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            states:
+              type: array
+              items:
+                $ref: '#/components/schemas/RadioButton_savedorder'
+            postalCode:
+              type: string
+            country:
+              type: string
+        branchName:
+          type: string
+        branchAddress:
+          type: object
+          properties:
+            displayName:
+              type: string
+            address1:
+              type: string
+            address2:
+              type: string
+            address3:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            stateValue:
+              type: string
+            postalCode:
+              type: string
+            country:
+              type: string
+            phoneNumber:
+              type: string
+        instructions:
+          type: string
+        commerceItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommerceItem_savedorder'
+        status:
+          type: string
+        statusDisplayName:
+          type: string
+        mincronId:
+          type: string
+        itemsTotal:
+          type: number
+          format: double
+        taxes:
+          type: number
+          format: double
+        otherCharges:
+          type: number
+          format: double
+        subTotal:
+          type: number
+          format: double
+        addressBooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/AddressBook_savedorder'
+        addressBook:
+          $ref: '#/components/schemas/AddressBook_savedorder'
+        storeLocatorItemId:
+          type: string
+        rejectReason:
+          type: string
+        rejectUserDisplayText:
+          type: string
+        rejectUser:
+          $ref: '#/components/schemas/UserInfo_savedorder'
+        requiredFields:
+          $ref: '#/components/schemas/RequiredFields_savedorder'
+        showDeliveryNotification:
+          type: boolean
+        accountBranchState:
+          type: string
+    submitSavedOrder_req:
+      type: object
+      properties:
+        orderId:
+          type: string
+        approverId:
+          type: string
+        po:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        additionalRecipients:
+          type: array
+          items:
+            type: string
+    getOrderApprovalDetail_rep:
+      $ref: '#/components/schemas/SavedPendingOrderApprovalDetailItemV2Obj'
+    getSavedOrderReviewInfo_rep:
+      $ref: '#/components/schemas/OrderDetailItemObj'
     CommerceItem_savedorder:
       type: object
       properties:
@@ -1027,69 +1432,56 @@ components:
           type: boolean
         quotedItemQtyChanged:
           type: boolean
-    approver_rep:
-      type: array
-      items:
-        $ref: '#/components/schemas/ApproverObj'
-    submitSavedOrder_res:
+    saveOrderRep:
       type: object
       properties:
+        successUrl:
+          type: string
         savedOrderId:
           type: string
-        evOrderId:
-          type: string
-    OrderSimpleItemObj:
+    ApproverObj:
       type: object
       properties:
         id:
-          type: string
-        mincronId:
-          type: string
-        displayName:
           type: string
         firstName:
           type: string
         lastName:
           type: string
-        accountNumber:
+        email:
           type: string
-        accountName:
-          type: string
-        creationDate:
-          type: string
-          format: timestamp
-        createdUser:
-          type: string
-        createdUserEmail:
-          type: string
-        submittedDate:
-          type: string
-          format: timestamp
-        status:
-          type: string
-        statusDisplayName:
-          type: string
-        readOnly:
-          type: boolean
-    getOrderApprovalList_req:
+    approver_rep:
+      type: array
+      items:
+        $ref: '#/components/schemas/ApproverObj'
+    updateSavedOrderItems_req:
       type: object
       properties:
-        approverId:
+        savedOrderId:
           type: string
-        currentPage:
-          type: integer
-        pageSize:
-          type: integer
-        searchBy:
+        savedOrderName:
           type: string
-        searchTerm:
+        action:
           type: string
-        sortBy:
-          type: string
-        sortType:
-          type: string
-        status:
-          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              quantity:
+                type: integer
+              itemNumber:
+                type: string
+              uom:
+                type: string
+              color:
+                type: string
+                example: Dark Blue(012)
+              MFG:
+                type: string
+                example: Light Yellow
     BCOtherPaginationObj:
       type: object
       properties:
@@ -1099,61 +1491,23 @@ components:
           type: string
         page:
           type: integer
-    getSavedOrderConfirmationInfo_rep:
-      $ref: '#/components/schemas/SavedOrderConfirmationDetailObj'
-    saveOrderRep:
+    BCPaginationDataObj:
       type: object
       properties:
-        successUrl:
-          type: string
-        savedOrderId:
-          type: string
-    ShippingAddress_savedorder:
-      type: object
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        states:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
           type: array
           items:
-            $ref: '#/components/schemas/RadioButton_savedorder'
-        postalCode:
-          type: string
-    BranchAddress_savedorder:
-      type: object
-      properties:
-        displayName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        stateValue:
-          type: string
-        postalCode:
-          type: string
-        phoneNumber:
-          type: string
-        branchNumber:
-          type: string
+            $ref: '#/components/schemas/BCPaginationObj'
     SavedPendingOrderApprovalDetailItemV2Obj:
       type: object
       properties:
@@ -1320,460 +1674,10 @@ components:
         orderRelatedDocuments:
           items:
             type: string
-    ShippingAddress_savedorder_req:
-      type: object
-      properties:
-        displayName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-    BCPaginationObj:
-      type: object
-      properties:
-        enable:
-          type: boolean
-        page:
-          type: integer
-        currentPage:
-          type: boolean
-        type:
-          type: string
-    RadioButton_savedorder:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
-          type: boolean
-    getSavedOrderShippingInfo_req:
-      type: object
-      properties:
-        orderId:
-          type: string
-    updateSavedOrderItems_rep:
-      type: object
-      properties:
-        savedOrderId:
-          type: string
-        savedOrderName:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CommerceItem_savedorder'
-    rejectSavedOrder_req:
-      type: object
-      properties:
-        rejectReason:
-          type: string
-        orders:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-    BCPaginationDataObj:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        previous:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        pageSize:
-          type: integer
-        currentPage:
-          type: integer
-        totalCount:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPaginationObj'
-    getSavedOrderReviewInfo_rep:
-      $ref: '#/components/schemas/OrderDetailItemObj'
-    getSavedOrderConfirmationInfo_req:
+    deleteSavedOrder_req:
       type: object
       properties:
         id:
-          type: string
-    AddressBook_savedorder:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddress_savedorder'
-        contactInfo:
-          $ref: '#/components/schemas/ContactInfo_savedorder'
-    getSavedOrderReviewInfo_req:
-      type: object
-      properties:
-        orderId:
-          type: string
-    OrderDetailItemObj:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        siteId:
-          type: string
-        organizationId:
-          type: string
-        accountNumber:
-          type: string
-        contactInfo:
-          $ref: '#/components/schemas/ContactInfo_savedorder'
-        creationDate:
-          type: string
-          format: timestamp
-        createdUser:
-          type: string
-        submittedDate:
-          type: string
-          format: timestamp
-        lastModifiedDate:
-          type: string
-          format: timestamp
-        lastModifiedUser:
-          type: string
-        evOrderId:
-          type: string
-        assignApproval:
-          $ref: '#/components/schemas/UserInfo_savedorder'
-        assignApprovalDisplayText:
-          type: string
-        deleteStatus:
-          type: boolean
-          default: false
-        job:
-          $ref: '#/components/schemas/Job_savedorder'
-        jobAccounts:
-          $ref: '#/components/schemas/JobAccounts_savedorder'
-        approvedBy:
-          type: string
-        po:
-          type: string
-        emailAddress:
-          type: array
-          items:
-            type: string
-        deliveryOption:
-          type: string
-        deliveryOptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/RadioButton_savedorder'
-        deliveryDate:
-          type: string
-        deliveryTime:
-          type: string
-        deliveryTimes:
-          type: array
-          items:
-            $ref: '#/components/schemas/RadioButton_savedorder'
-        shippingMethod:
-          type: string
-        shippingMethodValue:
-          type: string
-        shippingMethods:
-          type: array
-          items:
-            $ref: '#/components/schemas/RadioButton_savedorder'
-        shippingAddressTitle:
-          type: string
-        shippingAddress:
-          type: object
-          properties:
-            address1:
-              type: string
-            address2:
-              type: string
-            address3:
-              type: string
-            city:
-              type: string
-            state:
-              type: string
-            states:
-              type: array
-              items:
-                $ref: '#/components/schemas/RadioButton_savedorder'
-            postalCode:
-              type: string
-            country:
-              type: string
-        branchName:
-          type: string
-        branchAddress:
-          type: object
-          properties:
-            displayName:
-              type: string
-            address1:
-              type: string
-            address2:
-              type: string
-            address3:
-              type: string
-            city:
-              type: string
-            state:
-              type: string
-            stateValue:
-              type: string
-            postalCode:
-              type: string
-            country:
-              type: string
-            phoneNumber:
-              type: string
-        instructions:
-          type: string
-        commerceItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/CommerceItem_savedorder'
-        status:
-          type: string
-        statusDisplayName:
-          type: string
-        mincronId:
-          type: string
-        itemsTotal:
-          type: number
-          format: double
-        taxes:
-          type: number
-          format: double
-        otherCharges:
-          type: number
-          format: double
-        subTotal:
-          type: number
-          format: double
-        addressBooks:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddressBook_savedorder'
-        addressBook:
-          $ref: '#/components/schemas/AddressBook_savedorder'
-        storeLocatorItemId:
-          type: string
-        rejectReason:
-          type: string
-        rejectUserDisplayText:
-          type: string
-        rejectUser:
-          $ref: '#/components/schemas/UserInfo_savedorder'
-        requiredFields:
-          $ref: '#/components/schemas/RequiredFields_savedorder'
-        showDeliveryNotification:
-          type: boolean
-        accountBranchState:
-          type: string
-    getSavedOrderShippingInfo_rep:
-      $ref: '#/components/schemas/OrderDetailItemObj'
-    updateSavedOrderShippingInfo_req:
-      type: object
-      properties:
-        orderId:
-          type: string
-        deliveryOption:
-          type: string
-        deliveryDate:
-          type: string
-          format: MM-dd-yyyy
-        deliveryTime:
-          type: string
-        shippingMethod:
-          type: string
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddress_savedorder_req'
-        branchName:
-          type: string
-        contactInfo:
-          $ref: '#/components/schemas/ContactInfo_savedorder'
-        instructions:
-          type: string
-    updateSavedOrderReviewInfo_req:
-      type: object
-      properties:
-        orderId:
-          type: string
-        po:
-          type: string
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-        additionalRecipients:
-          type: array
-          items:
-            type: string
-    getOrderApprovalList_rep:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderSimpleItemObj'
-    SavedOrderConfirmationDetailObj:
-      type: object
-      properties:
-        id:
-          type: string
-        mincronId:
-          type: string
-        displayName:
-          type: string
-        accountNumber:
-          type: string
-        accountName:
-          type: string
-        accountNameOriginal:
-          type: string
-        creationDate:
-          type: string
-        createdUser:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        createdUserEmail:
-          type: string
-        submittedDate:
-          type: string
-        status:
-          type: string
-        statusDisplayName:
-          type: string
-        readOnly:
-          type: boolean
-        siteId:
-          type: string
-        organizationId:
-          type: string
-        contactInfo:
-          $ref: '#/components/schemas/ContactInfo_savedorder'
-        lastModifiedDate:
-          type: string
-        lastModifiedUser:
-          type: string
-        deleteStatus:
-          type: boolean
-        job:
-          $ref: '#/components/schemas/Job_savedorder'
-        jobAccounts:
-          $ref: '#/components/schemas/JobAccounts_savedorder'
-        shippingMethod:
-          type: string
-        shippingMethodValue:
-          type: string
-        shippingMethods:
-          type: array
-          items:
-            $ref: '#/components/schemas/RadioButton_savedorder'
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddress_savedorder'
-        shippingAddressTitle:
-          type: string
-        branchName:
-          type: string
-        branchAddress:
-          $ref: '#/components/schemas/BranchAddress_savedorder'
-        instructions:
-          type: string
-        commerceItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/CommerceItem_savedorder'
-        requiredFields:
-          $ref: '#/components/schemas/RequiredFields_savedorder'
-        approvedBy:
-          type: string
-        po:
-          type: string
-        emailAddress:
-          type: array
-          items:
-            type: string
-        deliveryOption:
-          type: string
-        deliveryOptionValue:
-          type: string
-        deliveryOptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/RadioButton_savedorder'
-        deliveryDate:
-          type: string
-        deliveryTime:
-          type: string
-        deliveryTimes:
-          type: array
-          items:
-            $ref: '#/components/schemas/RadioButton_savedorder'
-        itemsTotal:
-          type: number
-          format: double
-        taxes:
-          type: number
-          format: double
-        otherCharges:
-          type: number
-          format: double
-        subTotal:
-          type: integer
-          format: double
-        addressBooks:
-          type: array
-          items:
-            $ref: '#/components/schemas/AddressBook_savedorder'
-        addressBook:
-          $ref: '#/components/schemas/AddressBook_savedorder'
-        storeLocatorItemId:
-          type: string
-        rejectReason:
-          type: string
-        assignApprovalDisplayText:
-          type: string
-        assignApproval:
-          $ref: '#/components/schemas/UserInfo_savedorder'
-        rejectUserDisplayText:
-          type: string
-        rejectUser:
-          $ref: '#/components/schemas/UserInfo_savedorder'
-        showDeliveryNotification:
-          type: boolean
-        accountBranchState:
-          type: string
-        displaySubTotalMsg:
-          type: boolean
-        subTotalMsg:
-          type: string
-        thankYouMsg:
           type: string
     approveSavedOrder_req:
       type: object
@@ -1796,6 +1700,37 @@ components:
           type: array
           items:
             type: string
+    submitSavedOrder_res:
+      type: object
+      properties:
+        savedOrderId:
+          type: string
+        evOrderId:
+          type: string
+    getSavedOrderShippingInfo_rep:
+      $ref: '#/components/schemas/OrderDetailItemObj'
+    updateSavedOrderItems_rep:
+      type: object
+      properties:
+        savedOrderId:
+          type: string
+        savedOrderName:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommerceItem_savedorder'
+    AddressBook_savedorder:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress_savedorder'
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo_savedorder'
     JobAccounts_savedorder:
       type: object
       properties:
@@ -1807,34 +1742,60 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Job_savedorder'
-    ApproverObj:
+    ShippingAddress_savedorder:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/RadioButton_savedorder'
+        postalCode:
+          type: string
+    OrderSimpleItemObj:
       type: object
       properties:
         id:
+          type: string
+        mincronId:
+          type: string
+        displayName:
           type: string
         firstName:
           type: string
         lastName:
           type: string
-        email:
+        accountNumber:
           type: string
-    submitSavedOrder_req:
-      type: object
-      properties:
-        orderId:
+        accountName:
           type: string
-        approverId:
+        creationDate:
           type: string
-        po:
+          format: timestamp
+        createdUser:
           type: string
-        jobName:
+        createdUserEmail:
           type: string
-        jobNumber:
+        submittedDate:
           type: string
-        additionalRecipients:
-          type: array
-          items:
-            type: string
+          format: timestamp
+        status:
+          type: string
+        statusDisplayName:
+          type: string
+        readOnly:
+          type: boolean
     UserInfo_savedorder:
       type: object
       properties:
@@ -1843,6 +1804,45 @@ components:
         name:
           type: string
         email:
+          type: string
+    getOrderApprovalList_req:
+      type: object
+      properties:
+        approverId:
+          type: string
+        currentPage:
+          type: integer
+        pageSize:
+          type: integer
+        searchBy:
+          type: string
+        searchTerm:
+          type: string
+        sortBy:
+          type: string
+        sortType:
+          type: string
+        status:
+          type: string
+    RadioButton_savedorder:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+    ContactInfo_savedorder:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        phoneNumber:
           type: string
   securitySchemes:
     JSESSIONID:

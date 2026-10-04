@@ -63,31 +63,19 @@ paths:
       - GetCurrentUserInfo
 components:
   schemas:
-    LastSelectedAccount:
+    MyOrders:
       type: object
       properties:
-        accountName:
+        requested:
           type: string
-        accountEnabled:
-          type: boolean
-        accountLegacyId:
+        scheduled:
           type: string
-        accountViewPrices:
-          type: boolean
-        addCustomSteel:
-          type: boolean
-        cashAccount:
-          type: boolean
-        isAccountClosed:
-          type: boolean
+        delivered:
+          type: string
       required:
-      - accountName
-      - accountEnabled
-      - accountLegacyId
-      - accountViewPrices
-      - addCustomSteel
-      - cashAccount
-      - isAccountClosed
+      - requested
+      - scheduled
+      - delivered
     ContactAddress:
       type: object
       properties:
@@ -122,6 +110,40 @@ components:
       - state
       - postalCode
       - country
+    AccountBranch:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+      required:
+      - address
+      - branchNumber
+      - branchName
+      - branchPhone
+      - branchRegionId
+      - company
+      - companyName
+      - division
+      - divisionName
+      - market
     getCurrentUserInfoResponse:
       type: object
       properties:
@@ -215,38 +237,6 @@ components:
       - declineNotificationEmail
       - userAccounts
       - hasPrivateEVAccount
-    DeliveryTrackingSettings:
-      type: object
-      properties:
-        email:
-          type: string
-        phone:
-          type: string
-        myOrders:
-          $ref: '#/components/schemas/MyOrders'
-        allOrders:
-          $ref: '#/components/schemas/MyOrders'
-        dtAccount:
-          $ref: '#/components/schemas/MyOrders'
-      required:
-      - email
-      - phone
-      - myOrders
-      - allOrders
-      - dtAccount
-    MyOrders:
-      type: object
-      properties:
-        requested:
-          type: string
-        scheduled:
-          type: string
-        delivered:
-          type: string
-      required:
-      - requested
-      - scheduled
-      - delivered
     Address:
       type: object
       properties:
@@ -272,6 +262,50 @@ components:
       - address3
       - country
       - city
+    LastSelectedAccount:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+      required:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - cashAccount
+      - isAccountClosed
+    DeliveryTrackingSettings:
+      type: object
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+        myOrders:
+          $ref: '#/components/schemas/MyOrders'
+        allOrders:
+          $ref: '#/components/schemas/MyOrders'
+        dtAccount:
+          $ref: '#/components/schemas/MyOrders'
+      required:
+      - email
+      - phone
+      - myOrders
+      - allOrders
+      - dtAccount
     SubscribEmailType:
       type: object
       properties:
@@ -285,37 +319,3 @@ components:
       - subscribeOrder
       - subscribeAccount
       - subscribeQuote
-    AccountBranch:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        branchNumber:
-          type: string
-        branchName:
-          type: string
-        branchPhone:
-          type: string
-        branchRegionId:
-          type: string
-        company:
-          type: string
-        companyName:
-          type: string
-        division:
-          type: string
-        divisionName:
-          type: string
-        market:
-          type: string
-      required:
-      - address
-      - branchNumber
-      - branchName
-      - branchPhone
-      - branchRegionId
-      - company
-      - companyName
-      - division
-      - divisionName
-      - market

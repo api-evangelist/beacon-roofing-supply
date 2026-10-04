@@ -69,6 +69,19 @@ paths:
       - CreateAddressBook
 components:
   schemas:
+    Message:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+        code:
+          type: string
+      required:
+      - type
+      - value
+      - code
     createAddressBookResponse:
       type: object
       properties:
@@ -121,16 +134,3 @@ components:
       - postalCode
       - countryValue
       - phoneNumber
-    Message:
-      type: object
-      properties:
-        type:
-          type: string
-        value:
-          type: string
-        code:
-          type: string
-      required:
-      - type
-      - value
-      - code

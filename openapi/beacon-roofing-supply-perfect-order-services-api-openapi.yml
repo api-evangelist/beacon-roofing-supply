@@ -241,48 +241,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    variationsObj:
-      type: object
-      additionalProperties:
-        type: object
-      example:
-        color:
-          White:
-          - '100001'
-          - '200002'
-          Dover:
-          - '100001'
-          - '300003'
-        size:
-          12x10:
-          - '100001'
-          4x4:
-          - '200002'
-          - '300003'
-        thickness:
-          2mm:
-          - '100001'
-          4mm:
-          - '200002'
-          6mm:
-          - '300003'
-    BCPaginationDataObj:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        previous:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        pageSize:
-          type: integer
-        currentPage:
-          type: integer
-        totalCount:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPaginationObj'
     skusVariationObj:
       type: object
       additionalProperties:
@@ -310,6 +268,31 @@ components:
           - 4x4
           thickness:
           - 6mm
+    getPerfectOrderBrandsRep:
+      type: object
+      properties:
+        messages:
+          type: string
+        success:
+          type: boolean
+        result:
+          type: object
+          properties:
+            brands:
+              type: array
+              items:
+                type: object
+                properties:
+                  brandName:
+                    type: string
+                  smallImageUrl:
+                    type: string
+                  heroImageUrl:
+                    type: string
+                  thumbImageUrl:
+                    type: string
+                  zoomImageUrl:
+                    type: string
     BCOtherPaginationObj:
       type: object
       properties:
@@ -319,6 +302,104 @@ components:
           type: string
         page:
           type: integer
+    getPerfectStyleGroupsRep:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            type: object
+            properties:
+              brandName:
+                type: string
+              styleId:
+                type: string
+              productStyleImage:
+                type: string
+              productStyleName:
+                type: string
+              rank:
+                type: string
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    getPerfectOrderLandingRep:
+      type: object
+      properties:
+        messages:
+          type: string
+        success:
+          type: boolean
+        result:
+          type: object
+          properties:
+            pagination:
+              $ref: '#/components/schemas/BCPaginationDataObj'
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  landingRank:
+                    type: number
+                  displayName:
+                    type: string
+                  imgUrl:
+                    type: string
+                  imgOnErrorUrl:
+                    type: string
+                  id:
+                    type: string
+    variationsObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        color:
+          White:
+          - '100001'
+          - '200002'
+          Dover:
+          - '100001'
+          - '300003'
+        size:
+          12x10:
+          - '100001'
+          4x4:
+          - '200002'
+          - '300003'
+        thickness:
+          2mm:
+          - '100001'
+          4mm:
+          - '200002'
+          6mm:
+          - '300003'
     getPerfectOrderDetailRep:
       type: object
       properties:
@@ -359,87 +440,6 @@ components:
                       $ref: '#/components/schemas/variationsObj'
                     skusVariation:
                       $ref: '#/components/schemas/skusVariationObj'
-    getPerfectOrderLandingRep:
-      type: object
-      properties:
-        messages:
-          type: string
-        success:
-          type: boolean
-        result:
-          type: object
-          properties:
-            pagination:
-              $ref: '#/components/schemas/BCPaginationDataObj'
-            items:
-              type: array
-              items:
-                type: object
-                properties:
-                  landingRank:
-                    type: number
-                  displayName:
-                    type: string
-                  imgUrl:
-                    type: string
-                  imgOnErrorUrl:
-                    type: string
-                  id:
-                    type: string
-    getPerfectStyleGroupsRep:
-      type: object
-      properties:
-        result:
-          type: array
-          items:
-            type: object
-            properties:
-              brandName:
-                type: string
-              styleId:
-                type: string
-              productStyleImage:
-                type: string
-              productStyleName:
-                type: string
-              rank:
-                type: string
-    BCPaginationObj:
-      type: object
-      properties:
-        enable:
-          type: boolean
-        page:
-          type: integer
-        currentPage:
-          type: boolean
-        type:
-          type: string
-    getPerfectOrderBrandsRep:
-      type: object
-      properties:
-        messages:
-          type: string
-        success:
-          type: boolean
-        result:
-          type: object
-          properties:
-            brands:
-              type: array
-              items:
-                type: object
-                properties:
-                  brandName:
-                    type: string
-                  smallImageUrl:
-                    type: string
-                  heroImageUrl:
-                    type: string
-                  thumbImageUrl:
-                    type: string
-                  zoomImageUrl:
-                    type: string
   securitySchemes:
     JSESSIONID:
       type: apiKey

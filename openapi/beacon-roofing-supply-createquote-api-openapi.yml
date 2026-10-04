@@ -78,31 +78,19 @@ paths:
       - CreateQuote
 components:
   schemas:
-    QuoteItem:
+    Message:
       type: object
       properties:
-        itemId:
+        type:
           type: string
-        itemType:
+        value:
           type: string
-        quantity:
-          type: number
-        uom:
-          type: string
-        color:
-          type: string
-        dimensions:
-          type: string
-        displayName:
+        code:
           type: string
       required:
-      - itemId
-      - itemType
-      - quantity
-      - uom
-      - color
-      - dimensions
-      - displayName
+      - type
+      - value
+      - code
     createQuoteResponse:
       type: object
       properties:
@@ -118,19 +106,6 @@ components:
       - messages
       - messageCode
       - success
-    Message:
-      type: object
-      properties:
-        type:
-          type: string
-        value:
-          type: string
-        code:
-          type: string
-      required:
-      - type
-      - value
-      - code
     createQuoteBody:
       type: object
       properties:
@@ -197,3 +172,28 @@ components:
       - expires
       - validate
       - quoteItems
+    QuoteItem:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemType:
+          type: string
+        quantity:
+          type: number
+        uom:
+          type: string
+        color:
+          type: string
+        dimensions:
+          type: string
+        displayName:
+          type: string
+      required:
+      - itemId
+      - itemType
+      - quantity
+      - uom
+      - color
+      - dimensions
+      - displayName

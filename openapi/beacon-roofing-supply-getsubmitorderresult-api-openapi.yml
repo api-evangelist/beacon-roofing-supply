@@ -69,6 +69,16 @@ paths:
       - GetSubmitOrderResult
 components:
   schemas:
+    getSubmitOrderResultBody:
+      type: object
+      properties:
+        orderId:
+          type: string
+        savedOrderId:
+          type: string
+      required:
+      - orderId
+      - savedOrderId
     getSubmitOrderResultResponse:
       type: object
       properties:
@@ -100,13 +110,3 @@ components:
       - mincronResponseError
       - ATGFailedStatus
       - ATGOrderError
-    getSubmitOrderResultBody:
-      type: object
-      properties:
-        orderId:
-          type: string
-        savedOrderId:
-          type: string
-      required:
-      - orderId
-      - savedOrderId

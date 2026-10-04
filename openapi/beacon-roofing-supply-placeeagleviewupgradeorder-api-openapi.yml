@@ -69,6 +69,18 @@ paths:
       - PlaceEagleViewUpgradeOrder
 components:
   schemas:
+    ModelState:
+      type: object
+      properties:
+        modelKey:
+          type: string
+        modelValue:
+          type: array
+          items:
+            type: string
+      required:
+      - modelKey
+      - modelValue
     placeEagleViewUpgradeOrderBody:
       type: object
       properties:
@@ -111,18 +123,6 @@ components:
       - DateOfLoss
       - CatId
       - UUID
-    ModelState:
-      type: object
-      properties:
-        modelKey:
-          type: string
-        modelValue:
-          type: array
-          items:
-            type: string
-      required:
-      - modelKey
-      - modelValue
     placeEagleViewUpgradeOrderResponse:
       type: object
       properties:

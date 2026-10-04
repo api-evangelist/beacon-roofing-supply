@@ -88,46 +88,6 @@ components:
       - ThumbnailUrl
       - LargeUrl
       - Timestamp
-    Info:
-      type: object
-      properties:
-        defaultValue:
-          type: string
-        imageUrl:
-          type: string
-        active:
-          type: boolean
-        key:
-          type: string
-        value:
-          type: string
-      required:
-      - defaultValue
-      - imageUrl
-      - active
-      - key
-      - value
-    getDTOrderDetailResponse:
-      type: object
-      properties:
-        DTStatus:
-          $ref: '#/components/schemas/DTStatus'
-        DTPhotos:
-          type: array
-          items:
-            $ref: '#/components/schemas/DTPhoto'
-        branchDTEnabled:
-          type: boolean
-        DTEnabled:
-          type: boolean
-        hasDTError:
-          type: boolean
-      required:
-      - DTStatus
-      - DTPhotos
-      - branchDTEnabled
-      - DTEnabled
-      - hasDTError
     DTStatus:
       type: object
       properties:
@@ -149,3 +109,43 @@ components:
       - contValue
       - statusEndDate
       - infos
+    getDTOrderDetailResponse:
+      type: object
+      properties:
+        DTStatus:
+          $ref: '#/components/schemas/DTStatus'
+        DTPhotos:
+          type: array
+          items:
+            $ref: '#/components/schemas/DTPhoto'
+        branchDTEnabled:
+          type: boolean
+        DTEnabled:
+          type: boolean
+        hasDTError:
+          type: boolean
+      required:
+      - DTStatus
+      - DTPhotos
+      - branchDTEnabled
+      - DTEnabled
+      - hasDTError
+    Info:
+      type: object
+      properties:
+        defaultValue:
+          type: string
+        imageUrl:
+          type: string
+        active:
+          type: boolean
+        key:
+          type: string
+        value:
+          type: string
+      required:
+      - defaultValue
+      - imageUrl
+      - active
+      - key
+      - value

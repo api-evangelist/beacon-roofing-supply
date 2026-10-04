@@ -99,37 +99,75 @@ paths:
       - CreateUser
 components:
   schemas:
-    Permission:
+    PermissionTemplate:
       type: object
       properties:
-        id:
-          type: string
-        key:
-          type: string
-        groupId:
-          type: string
         name:
           type: string
-        displayName:
+        templateId:
           type: string
-        type:
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission2'
+        lastModifiedDate:
           type: string
-        isAuthorised:
+        userEmail:
+          type: string
+        org:
+          $ref: '#/components/schemas/Org'
+      required:
+      - name
+      - templateId
+      - permissions
+      - lastModifiedDate
+      - userEmail
+      - org
+    createUserResponse:
+      type: object
+      properties:
+        userId:
+          type: string
+      required:
+      - userId
+    PermissionValues:
+      type: object
+      properties:
+        aa:
           type: boolean
-        isDisabled:
+        bb:
           type: boolean
-        isFixed:
+        cc:
           type: boolean
       required:
-      - id
-      - key
-      - groupId
-      - name
-      - displayName
-      - type
-      - isAuthorised
-      - isDisabled
-      - isFixed
+      - aa
+      - bb
+      - cc
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
     Branch:
       type: object
       properties:
@@ -164,78 +202,52 @@ components:
       - division
       - divisionName
       - market
-    createUserResponse:
-      type: object
-      properties:
-        userId:
-          type: string
-      required:
-      - userId
-    createUserBody:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        title:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-        role:
-          $ref: '#/components/schemas/Role'
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
-        status:
-          type: string
-        currentTemplate:
-          type: string
-        permissionTemplate:
-          $ref: '#/components/schemas/PermissionTemplate'
-        permissionValues:
-          $ref: '#/components/schemas/PermissionValues'
-      required:
-      - firstName
-      - lastName
-      - title
-      - email
-      - phone
-      - role
-      - accounts
-      - status
-      - currentTemplate
-      - permissionTemplate
-      - permissionValues
-    PermissionValues:
-      type: object
-      properties:
-        aa:
-          type: boolean
-        bb:
-          type: boolean
-        cc:
-          type: boolean
-      required:
-      - aa
-      - bb
-      - cc
-    Org:
+    Role:
       type: object
       properties:
         id:
           type: string
-        name:
+        displayName:
           type: string
-        masterAdmin:
-          $ref: '#/components/schemas/MasterAdmin'
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission2'
       required:
       - id
-      - name
-      - masterAdmin
+      - displayName
+      - permissions
+    Account:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        rewardsEligible:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+        branch:
+          $ref: '#/components/schemas/Branch'
+      required:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - rewardsEligible
+      - cashAccount
+      - isAccountClosed
+      - branch
     MasterAdmin:
       type: object
       properties:
@@ -304,46 +316,6 @@ components:
       - internalUser
       - userType
       - rewardsEligible
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
-    Role:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission2'
-      required:
-      - id
-      - displayName
-      - permissions
     Permission2:
       type: object
       properties:
@@ -362,58 +334,86 @@ components:
       - type
       - permissions
       - isGroup
-    Account:
+    Permission:
       type: object
       properties:
-        accountName:
+        id:
           type: string
-        accountEnabled:
-          type: boolean
-        accountLegacyId:
+        key:
           type: string
-        accountViewPrices:
-          type: boolean
-        addCustomSteel:
-          type: boolean
-        rewardsEligible:
-          type: boolean
-        cashAccount:
-          type: boolean
-        isAccountClosed:
-          type: boolean
-        branch:
-          $ref: '#/components/schemas/Branch'
-      required:
-      - accountName
-      - accountEnabled
-      - accountLegacyId
-      - accountViewPrices
-      - addCustomSteel
-      - rewardsEligible
-      - cashAccount
-      - isAccountClosed
-      - branch
-    PermissionTemplate:
-      type: object
-      properties:
+        groupId:
+          type: string
         name:
           type: string
-        templateId:
+        displayName:
           type: string
-        permissions:
+        type:
+          type: string
+        isAuthorised:
+          type: boolean
+        isDisabled:
+          type: boolean
+        isFixed:
+          type: boolean
+      required:
+      - id
+      - key
+      - groupId
+      - name
+      - displayName
+      - type
+      - isAuthorised
+      - isDisabled
+      - isFixed
+    Org:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        masterAdmin:
+          $ref: '#/components/schemas/MasterAdmin'
+      required:
+      - id
+      - name
+      - masterAdmin
+    createUserBody:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+        accounts:
           type: array
           items:
-            $ref: '#/components/schemas/Permission2'
-        lastModifiedDate:
+            $ref: '#/components/schemas/Account'
+        status:
           type: string
-        userEmail:
+        currentTemplate:
           type: string
-        org:
-          $ref: '#/components/schemas/Org'
+        permissionTemplate:
+          $ref: '#/components/schemas/PermissionTemplate'
+        permissionValues:
+          $ref: '#/components/schemas/PermissionValues'
       required:
-      - name
-      - templateId
-      - permissions
-      - lastModifiedDate
-      - userEmail
-      - org
+      - firstName
+      - lastName
+      - title
+      - email
+      - phone
+      - role
+      - accounts
+      - status
+      - currentTemplate
+      - permissionTemplate
+      - permissionValues

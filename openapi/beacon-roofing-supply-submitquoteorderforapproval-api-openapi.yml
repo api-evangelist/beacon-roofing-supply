@@ -72,6 +72,13 @@ paths:
       - SubmitQuoteOrderForApproval
 components:
   schemas:
+    submitQuoteOrderForApprovalResponse:
+      type: object
+      properties:
+        savedOrderId:
+          type: string
+      required:
+      - savedOrderId
     submitQuoteOrderForApprovalBody:
       type: object
       properties:
@@ -99,10 +106,3 @@ components:
       - jobName
       - jobNumber
       - additionalRecipients
-    submitQuoteOrderForApprovalResponse:
-      type: object
-      properties:
-        savedOrderId:
-          type: string
-      required:
-      - savedOrderId

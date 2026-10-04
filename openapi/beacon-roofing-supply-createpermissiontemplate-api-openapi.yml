@@ -69,13 +69,6 @@ paths:
       - CreatePermissionTemplate
 components:
   schemas:
-    createPermissionTemplateResponse:
-      type: object
-      properties:
-        templateId:
-          type: string
-      required:
-      - templateId
     createPermissionTemplateBody:
       type: object
       properties:
@@ -99,3 +92,10 @@ components:
       - aa
       - bb
       - cc
+    createPermissionTemplateResponse:
+      type: object
+      properties:
+        templateId:
+          type: string
+      required:
+      - templateId

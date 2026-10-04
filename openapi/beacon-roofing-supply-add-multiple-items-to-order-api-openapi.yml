@@ -95,6 +95,26 @@ components:
                 type: string
               matchMFG:
                 type: string
+    shippingObj:
+      type: object
+      properties:
+        shippingMethod:
+          type: string
+        shippingBranch:
+          type: string
+        address:
+          type: object
+          properties:
+            address1:
+              type: string
+            address2:
+              type: string
+            city:
+              type: string
+            postalCode:
+              type: string
+            state:
+              type: string
     addTocartItem:
       type: object
       properties:
@@ -119,26 +139,6 @@ components:
           example: Standard item or Custom Steel
         description:
           type: string
-    shippingObj:
-      type: object
-      properties:
-        shippingMethod:
-          type: string
-        shippingBranch:
-          type: string
-        address:
-          type: object
-          properties:
-            address1:
-              type: string
-            address2:
-              type: string
-            city:
-              type: string
-            postalCode:
-              type: string
-            state:
-              type: string
     addItemsToOrderReq:
       type: object
       properties:

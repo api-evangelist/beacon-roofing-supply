@@ -146,77 +146,10 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    UserRegisterResponseBranchSelection:
+    UserRegInfo_UserRegisterResponse_getUserRegisterToken:
       type: object
       properties:
-        accountId:
-          type: string
-        accountName:
-          type: string
-        branches:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserRegisterResponseBranchSelectionBranchInfo'
-    UserRegisterResponse_validateUserByAccount:
-      type: object
-      properties:
-        userRegInfo:
-          $ref: '#/components/schemas/UserRegInfo_UserRegisterResponse_validateUserByAccount'
-        showBranchSelection:
-          type: boolean
-        branchSelection:
-          $ref: '#/components/schemas/UserRegisterResponseBranchSelection'
-        retryTimesLeft:
-          type: integer
-        needLogin:
-          type: boolean
-        needRetry:
-          type: boolean
-        needContactSupport:
-          type: boolean
-        needGetUserRegisterToken:
-          type: boolean
-        needInvoice:
-          type: boolean
-        registerSuccess:
-          type: boolean
-    ValidateUserRegRequest_validateUserByEmail:
-      type: object
-      properties:
-        emailAddress:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        zipCode:
-          type: string
-        phoneNumber:
-          type: string
-        g-recaptcha-response:
-          type: string
-          description: When recaptcha enabled on site, this token is required.Otherwise, keep it empty.
-    UserRegisterResponse_register:
-      type: object
-      properties:
-        needLogin:
-          type: boolean
-        needRetry:
-          type: boolean
-        needContactSupport:
-          type: boolean
-        needGetUserRegisterToken:
-          type: boolean
-        registerSuccess:
-          type: boolean
-    UserRegAccountInfo:
-      type: object
-      properties:
-        accountId:
-          type: string
-        accountName:
-          type: string
-        branchId:
+        userRegisterToken:
           type: string
     UserRegisterResponse_validateUserByEmail:
       type: object
@@ -241,26 +174,11 @@ components:
           type: boolean
         registerSuccess:
           type: boolean
-    ValidateUserRegRequest_validateUserByAccount:
+    UserRegisterResponse_getUserRegisterToken:
       type: object
       properties:
-        emailAddress:
-          type: string
-        companyName:
-          type: string
-        account:
-          type: string
-        invoice:
-          type: string
-        invoiceDate:
-          type: string
-          format: MM-dd-yyyy
-          example: 01-17-2018
-    UserRegInfo_UserRegisterResponse_getUserRegisterToken:
-      type: object
-      properties:
-        userRegisterToken:
-          type: string
+        userRegInfo:
+          $ref: '#/components/schemas/UserRegInfo_UserRegisterResponse_getUserRegisterToken'
     UserRegInfo:
       type: object
       properties:
@@ -296,14 +214,11 @@ components:
           type: array
           items:
             type: string
-    UserRegisterResponse_getUserRegisterToken:
+    ValidateUserRegRequest_validateUserByAccount:
       type: object
       properties:
-        userRegInfo:
-          $ref: '#/components/schemas/UserRegInfo_UserRegisterResponse_getUserRegisterToken'
-    UserRegInfo_UserRegisterResponse_validateUserByAccount:
-      type: object
-      properties:
+        emailAddress:
+          type: string
         companyName:
           type: string
         account:
@@ -314,12 +229,24 @@ components:
           type: string
           format: MM-dd-yyyy
           example: 01-17-2018
-        accountInfos:
+    UserRegisterResponseBranchSelectionBranchInfo:
+      type: object
+      properties:
+        branchId:
+          type: string
+        branchName:
+          type: string
+    UserRegisterResponseBranchSelection:
+      type: object
+      properties:
+        accountId:
+          type: string
+        accountName:
+          type: string
+        branches:
           type: array
           items:
-            $ref: '#/components/schemas/UserRegAccountInfo'
-        token:
-          type: string
+            $ref: '#/components/schemas/UserRegisterResponseBranchSelectionBranchInfo'
     UserRegInfo_UserRegisterResponse_validateUserByEmail:
       type: object
       properties:
@@ -343,13 +270,86 @@ components:
           type: boolean
         token:
           type: string
-    UserRegisterResponseBranchSelectionBranchInfo:
+    UserRegAccountInfo:
       type: object
       properties:
+        accountId:
+          type: string
+        accountName:
+          type: string
         branchId:
           type: string
-        branchName:
+    UserRegisterResponse_register:
+      type: object
+      properties:
+        needLogin:
+          type: boolean
+        needRetry:
+          type: boolean
+        needContactSupport:
+          type: boolean
+        needGetUserRegisterToken:
+          type: boolean
+        registerSuccess:
+          type: boolean
+    ValidateUserRegRequest_validateUserByEmail:
+      type: object
+      properties:
+        emailAddress:
           type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        zipCode:
+          type: string
+        phoneNumber:
+          type: string
+        g-recaptcha-response:
+          type: string
+          description: When recaptcha enabled on site, this token is required.Otherwise, keep it empty.
+    UserRegInfo_UserRegisterResponse_validateUserByAccount:
+      type: object
+      properties:
+        companyName:
+          type: string
+        account:
+          type: string
+        invoice:
+          type: string
+        invoiceDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+        accountInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRegAccountInfo'
+        token:
+          type: string
+    UserRegisterResponse_validateUserByAccount:
+      type: object
+      properties:
+        userRegInfo:
+          $ref: '#/components/schemas/UserRegInfo_UserRegisterResponse_validateUserByAccount'
+        showBranchSelection:
+          type: boolean
+        branchSelection:
+          $ref: '#/components/schemas/UserRegisterResponseBranchSelection'
+        retryTimesLeft:
+          type: integer
+        needLogin:
+          type: boolean
+        needRetry:
+          type: boolean
+        needContactSupport:
+          type: boolean
+        needGetUserRegisterToken:
+          type: boolean
+        needInvoice:
+          type: boolean
+        registerSuccess:
+          type: boolean
   securitySchemes:
     JSESSIONID:
       type: apiKey

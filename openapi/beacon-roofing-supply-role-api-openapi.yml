@@ -63,6 +63,21 @@ paths:
       - Role
 components:
   schemas:
+    roleResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission2'
+      required:
+      - id
+      - displayName
+      - permissions
     Permission:
       type: object
       properties:
@@ -94,21 +109,6 @@ components:
       - isAuthorised
       - isDisabled
       - isFixed
-    roleResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission2'
-      required:
-      - id
-      - displayName
-      - permissions
     Permission2:
       type: object
       properties:

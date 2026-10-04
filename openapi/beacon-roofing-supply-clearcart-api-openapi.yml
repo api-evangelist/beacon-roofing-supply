@@ -63,18 +63,6 @@ paths:
       - ClearCart
 components:
   schemas:
-    clearCartResponse:
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/Result'
-        success:
-          type: boolean
-        messages:
-          type: object
-      required:
-      - result
-      - success
     Result:
       type: object
       properties:
@@ -94,3 +82,15 @@ components:
       - page
       - rows
       - rowsPerPage
+    clearCartResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/Result'
+        success:
+          type: boolean
+        messages:
+          type: object
+      required:
+      - result
+      - success

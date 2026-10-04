@@ -129,6 +129,25 @@ paths:
       - Template
 components:
   schemas:
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
     CurrentVariation:
       type: object
       properties:
@@ -144,22 +163,6 @@ components:
       - typeId
       - typeName
       - options
-    Option:
-      type: object
-      properties:
-        optionId:
-          type: string
-        optionName:
-          type: string
-        opectionChecked:
-          type: boolean
-        skuId:
-          type: string
-      required:
-      - optionId
-      - optionName
-      - opectionChecked
-      - skuId
     templateResponse:
       type: object
       properties:
@@ -211,16 +214,6 @@ components:
       - accountName
       - createdByUser
       - templateItems
-    ImageUrl:
-      type: object
-      properties:
-        thumbnail:
-          type: string
-        large:
-          type: string
-      required:
-      - thumbnail
-      - large
     Next:
       type: object
       properties:
@@ -234,41 +227,6 @@ components:
       - available
       - label
       - page
-    Result:
-      type: object
-      properties:
-        pageRows:
-          type: number
-        pages:
-          type: number
-        page:
-          type: number
-        rows:
-          type: number
-        rowsPerPage:
-          type: number
-      required:
-      - pageRows
-      - pages
-      - page
-      - rows
-      - rowsPerPage
-    LastModifiedUser:
-      type: object
-      properties:
-        profileId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        emailAddress:
-          type: string
-      required:
-      - profileId
-      - firstName
-      - lastName
-      - emailAddress
     TemplateItem:
       type: object
       properties:
@@ -320,6 +278,48 @@ components:
       - quantity
       - available
       - imageUrl
+    LastModifiedUser:
+      type: object
+      properties:
+        profileId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        emailAddress:
+          type: string
+      required:
+      - profileId
+      - firstName
+      - lastName
+      - emailAddress
+    ImageUrl:
+      type: object
+      properties:
+        thumbnail:
+          type: string
+        large:
+          type: string
+      required:
+      - thumbnail
+      - large
+    Option:
+      type: object
+      properties:
+        optionId:
+          type: string
+        optionName:
+          type: string
+        opectionChecked:
+          type: boolean
+        skuId:
+          type: string
+      required:
+      - optionId
+      - optionName
+      - opectionChecked
+      - skuId
     Pagination:
       type: object
       properties:

@@ -69,48 +69,6 @@ paths:
       - GetEagleViewOrderUpgradeProducts
 components:
   schemas:
-    CurrentOrder:
-      type: object
-      properties:
-        ReportId:
-          type: number
-        MeasurementRequestTypeId:
-          type: number
-        ProductId:
-          type: number
-        ProductDeliveryId:
-          type: number
-        AddOnProductIds:
-          type: array
-          items:
-            type: number
-        AdditionalEmails:
-          type: string
-        ClaimNumber:
-          type: string
-        ClaimInfo:
-          type: string
-        PONumber:
-          type: string
-        DateOfLoss:
-          type: string
-        CatId:
-          type: string
-        JobName:
-          type: string
-      required:
-      - ReportId
-      - MeasurementRequestTypeId
-      - ProductId
-      - ProductDeliveryId
-      - AddOnProductIds
-      - AdditionalEmails
-      - ClaimNumber
-      - ClaimInfo
-      - PONumber
-      - DateOfLoss
-      - CatId
-      - JobName
     getEagleViewOrderUpgradeProductsResponse:
       type: object
       properties:
@@ -123,6 +81,36 @@ components:
       required:
       - AvailableProducts
       - CurrentOrder
+    DeliveryProduct:
+      type: object
+      properties:
+        productID:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+        isTemporarilyUnavailable:
+          type: boolean
+        priceMin:
+          type: number
+        priceMax:
+          type: number
+        deliveryProductIds:
+          type: array
+          items:
+            type: number
+        DetailedDescription:
+          type: string
+      required:
+      - productID
+      - name
+      - description
+      - isTemporarilyUnavailable
+      - priceMin
+      - priceMax
+      - deliveryProductIds
+      - DetailedDescription
     AvailableProduct:
       type: object
       properties:
@@ -178,33 +166,45 @@ components:
       - SortOrder
       - AllowsUserSubmittedPhotos
       - DetailedDescription
-    DeliveryProduct:
+    CurrentOrder:
       type: object
       properties:
-        productID:
+        ReportId:
           type: number
-        name:
-          type: string
-        description:
-          type: string
-        isTemporarilyUnavailable:
-          type: boolean
-        priceMin:
+        MeasurementRequestTypeId:
           type: number
-        priceMax:
+        ProductId:
           type: number
-        deliveryProductIds:
+        ProductDeliveryId:
+          type: number
+        AddOnProductIds:
           type: array
           items:
             type: number
-        DetailedDescription:
+        AdditionalEmails:
+          type: string
+        ClaimNumber:
+          type: string
+        ClaimInfo:
+          type: string
+        PONumber:
+          type: string
+        DateOfLoss:
+          type: string
+        CatId:
+          type: string
+        JobName:
           type: string
       required:
-      - productID
-      - name
-      - description
-      - isTemporarilyUnavailable
-      - priceMin
-      - priceMax
-      - deliveryProductIds
-      - DetailedDescription
+      - ReportId
+      - MeasurementRequestTypeId
+      - ProductId
+      - ProductDeliveryId
+      - AddOnProductIds
+      - AdditionalEmails
+      - ClaimNumber
+      - ClaimInfo
+      - PONumber
+      - DateOfLoss
+      - CatId
+      - JobName

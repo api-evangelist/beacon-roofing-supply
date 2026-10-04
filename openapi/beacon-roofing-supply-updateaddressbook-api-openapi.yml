@@ -69,16 +69,19 @@ paths:
       - UpdateAddressBook
 components:
   schemas:
-    updateAddressBookBody:
+    Message:
       type: object
       properties:
-        addressBookId:
+        type:
           type: string
-        addressBookInfo:
-          $ref: '#/components/schemas/AddressBookInfo'
+        value:
+          type: string
+        code:
+          type: string
       required:
-      - addressBookId
-      - addressBookInfo
+      - type
+      - value
+      - code
     AddressBookInfo:
       type: object
       properties:
@@ -119,19 +122,16 @@ components:
       - country
       - countryValue
       - phoneNumber
-    Message:
+    updateAddressBookBody:
       type: object
       properties:
-        type:
+        addressBookId:
           type: string
-        value:
-          type: string
-        code:
-          type: string
+        addressBookInfo:
+          $ref: '#/components/schemas/AddressBookInfo'
       required:
-      - type
-      - value
-      - code
+      - addressBookId
+      - addressBookInfo
     updateAddressBookResponse:
       type: object
       properties:

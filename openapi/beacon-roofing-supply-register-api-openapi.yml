@@ -69,6 +69,25 @@ paths:
       - Register
 components:
   schemas:
+    registerResponse:
+      type: object
+      properties:
+        needLogin:
+          type: boolean
+        needRetry:
+          type: boolean
+        needContactSupport:
+          type: boolean
+        needGetUserRegisterToken:
+          type: boolean
+        registerSuccess:
+          type: boolean
+      required:
+      - needLogin
+      - needRetry
+      - needContactSupport
+      - needGetUserRegisterToken
+      - registerSuccess
     AccountInfo:
       type: object
       properties:
@@ -124,22 +143,3 @@ components:
       - accountInfos
       - internalUser
       - token
-    registerResponse:
-      type: object
-      properties:
-        needLogin:
-          type: boolean
-        needRetry:
-          type: boolean
-        needContactSupport:
-          type: boolean
-        needGetUserRegisterToken:
-          type: boolean
-        registerSuccess:
-          type: boolean
-      required:
-      - needLogin
-      - needRetry
-      - needContactSupport
-      - needGetUserRegisterToken
-      - registerSuccess

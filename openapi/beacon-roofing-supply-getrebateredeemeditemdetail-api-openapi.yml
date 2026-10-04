@@ -78,6 +78,54 @@ paths:
       - GetRebateRedeemedItemDetail
 components:
   schemas:
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    getRebateRedeemedItemDetailBody:
+      type: object
+      properties:
+        rebateId:
+          type: string
+        searchKey:
+          type: string
+        searchValue:
+          type: string
+        pageNum:
+          type: string
+      required:
+      - rebateId
+      - searchKey
+      - searchValue
+      - pageNum
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
     getRebateRedeemedItemDetailResponse:
       type: object
       properties:
@@ -148,6 +196,30 @@ components:
       - rebateId
       - currencyUnit
       - promotion
+    Pagination:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        previous:
+          $ref: '#/components/schemas/Next'
+        pageSize:
+          type: number
+        currentPage:
+          type: number
+        totalCount:
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - next
+      - previous
+      - pageSize
+      - currentPage
+      - totalCount
+      - results
     Header:
       type: object
       properties:
@@ -182,75 +254,3 @@ components:
       - currencyUnit
       - promotion
       - projectedRebate
-    getRebateRedeemedItemDetailBody:
-      type: object
-      properties:
-        rebateId:
-          type: string
-        searchKey:
-          type: string
-        searchValue:
-          type: string
-        pageNum:
-          type: string
-      required:
-      - rebateId
-      - searchKey
-      - searchValue
-      - pageNum
-    Next:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: number
-      required:
-      - available
-      - label
-      - page
-    Result:
-      type: object
-      properties:
-        pageRows:
-          type: number
-        pages:
-          type: number
-        page:
-          type: number
-        rows:
-          type: number
-        rowsPerPage:
-          type: number
-      required:
-      - pageRows
-      - pages
-      - page
-      - rows
-      - rowsPerPage
-    Pagination:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/Next'
-        previous:
-          $ref: '#/components/schemas/Next'
-        pageSize:
-          type: number
-        currentPage:
-          type: number
-        totalCount:
-          type: number
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
-      required:
-      - next
-      - previous
-      - pageSize
-      - currentPage
-      - totalCount
-      - results

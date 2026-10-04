@@ -69,40 +69,6 @@ paths:
       - ValidateUserByAccount
 components:
   schemas:
-    Branch:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        branchNumber:
-          type: string
-        branchName:
-          type: string
-        branchPhone:
-          type: string
-        branchRegionId:
-          type: string
-        company:
-          type: string
-        companyName:
-          type: string
-        division:
-          type: string
-        divisionName:
-          type: string
-        market:
-          type: string
-      required:
-      - address
-      - branchNumber
-      - branchName
-      - branchPhone
-      - branchRegionId
-      - company
-      - companyName
-      - division
-      - divisionName
-      - market
     validateUserByAccountBody:
       type: object
       properties:
@@ -156,21 +122,6 @@ components:
       - needGetUserRegisterToken
       - needInvoice
       - registerSuccess
-    BranchSelection:
-      type: object
-      properties:
-        accountId:
-          type: string
-        accountName:
-          type: string
-        branches:
-          type: array
-          items:
-            $ref: '#/components/schemas/Branch'
-      required:
-      - accountId
-      - accountName
-      - branches
     UserRegInfo:
       type: object
       properties:
@@ -203,3 +154,52 @@ components:
       - address3
       - country
       - city
+    Branch:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+      required:
+      - address
+      - branchNumber
+      - branchName
+      - branchPhone
+      - branchRegionId
+      - company
+      - companyName
+      - division
+      - divisionName
+      - market
+    BranchSelection:
+      type: object
+      properties:
+        accountId:
+          type: string
+        accountName:
+          type: string
+        branches:
+          type: array
+          items:
+            $ref: '#/components/schemas/Branch'
+      required:
+      - accountId
+      - accountName
+      - branches

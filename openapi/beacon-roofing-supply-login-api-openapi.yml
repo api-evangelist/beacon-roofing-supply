@@ -69,116 +69,6 @@ paths:
       - Login
 components:
   schemas:
-    LastSelectedAccount:
-      type: object
-      properties:
-        accountName:
-          type: string
-        accountEnabled:
-          type: boolean
-        accountLegacyId:
-          type: string
-        accountViewPrices:
-          type: boolean
-        addCustomSteel:
-          type: boolean
-        cashAccount:
-          type: boolean
-        isAccountClosed:
-          type: boolean
-      required:
-      - accountName
-      - accountEnabled
-      - accountLegacyId
-      - accountViewPrices
-      - addCustomSteel
-      - cashAccount
-      - isAccountClosed
-    login:
-      type: object
-      properties:
-        username:
-          type: string
-        password:
-          type: string
-        siteId:
-          type: string
-          default: homeSite
-        persistentLoginType:
-          type: string
-          default: RememberMe
-        userAgent:
-          type: string
-          default: desktop
-      required:
-      - username
-      - password
-      - siteId
-      - persistentLoginType
-      - userAgent
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
-    loginResponse:
-      type: object
-      properties:
-        messageInfo:
-          $ref: '#/components/schemas/MessageInfo'
-      required:
-      - messageInfo
-    MessageInfo:
-      type: object
-      properties:
-        accountBranch:
-          $ref: '#/components/schemas/AccountBranch'
-        lastName:
-          type: string
-        cartLineItems:
-          type: number
-        profileId:
-          type: string
-        firstName:
-          type: string
-        internalUser:
-          type: boolean
-        userType:
-          type: string
-        rewardsEligible:
-          type: boolean
-        lastSelectedAccount:
-          $ref: '#/components/schemas/LastSelectedAccount'
-      required:
-      - accountBranch
-      - lastName
-      - cartLineItems
-      - profileId
-      - firstName
-      - internalUser
-      - userType
-      - rewardsEligible
-      - lastSelectedAccount
     AccountBranch:
       type: object
       properties:
@@ -213,3 +103,113 @@ components:
       - division
       - divisionName
       - market
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    loginResponse:
+      type: object
+      properties:
+        messageInfo:
+          $ref: '#/components/schemas/MessageInfo'
+      required:
+      - messageInfo
+    login:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        siteId:
+          type: string
+          default: homeSite
+        persistentLoginType:
+          type: string
+          default: RememberMe
+        userAgent:
+          type: string
+          default: desktop
+      required:
+      - username
+      - password
+      - siteId
+      - persistentLoginType
+      - userAgent
+    LastSelectedAccount:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+      required:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - cashAccount
+      - isAccountClosed
+    MessageInfo:
+      type: object
+      properties:
+        accountBranch:
+          $ref: '#/components/schemas/AccountBranch'
+        lastName:
+          type: string
+        cartLineItems:
+          type: number
+        profileId:
+          type: string
+        firstName:
+          type: string
+        internalUser:
+          type: boolean
+        userType:
+          type: string
+        rewardsEligible:
+          type: boolean
+        lastSelectedAccount:
+          $ref: '#/components/schemas/LastSelectedAccount'
+      required:
+      - accountBranch
+      - lastName
+      - cartLineItems
+      - profileId
+      - firstName
+      - internalUser
+      - userType
+      - rewardsEligible
+      - lastSelectedAccount

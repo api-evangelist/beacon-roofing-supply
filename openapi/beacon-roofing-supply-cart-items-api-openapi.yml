@@ -69,6 +69,44 @@ paths:
       - Cart Items
 components:
   schemas:
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter
+    LastSelectedJob:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber
+    cartItemsResponse:
+      type: object
+      properties:
+        atgOrderId:
+          type: string
+        lastSelectedJob:
+          $ref: '#/components/schemas/LastSelectedJob'
+        cartLineItems:
+          type: number
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        lastSelectedAccount:
+          $ref: '#/components/schemas/LastSelectedAccount'
+      required:
+      - atgOrderId
+      - lastSelectedJob
+      - cartLineItems
+      - items
+      - lastSelectedAccount
     LastSelectedAccount:
       type: object
       properties:
@@ -94,41 +132,3 @@ components:
       - addCustomSteel
       - cashAccount
       - isAccountClosed
-    cartItemsResponse:
-      type: object
-      properties:
-        atgOrderId:
-          type: string
-        lastSelectedJob:
-          $ref: '#/components/schemas/LastSelectedJob'
-        cartLineItems:
-          type: number
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-        lastSelectedAccount:
-          $ref: '#/components/schemas/LastSelectedAccount'
-      required:
-      - atgOrderId
-      - lastSelectedJob
-      - cartLineItems
-      - items
-      - lastSelectedAccount
-    LastSelectedJob:
-      type: object
-      properties:
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-      required:
-      - jobName
-      - jobNumber
-    Item:
-      type: object
-      properties:
-        filter:
-          type: string
-      required:
-      - filter

@@ -69,6 +69,49 @@ paths:
       - Accounts
 components:
   schemas:
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    accountResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        totalNumRecs:
+          type: number
+        pageNumRecs:
+          type: number
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+      required:
+      - message
+      - totalNumRecs
+      - pageNumRecs
+      - accounts
     Account:
       type: object
       properties:
@@ -100,31 +143,6 @@ components:
       - cashAccount
       - isAccountClosed
       - branch
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
     Branch:
       type: object
       properties:
@@ -159,21 +177,3 @@ components:
       - division
       - divisionName
       - market
-    accountResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        totalNumRecs:
-          type: number
-        pageNumRecs:
-          type: number
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
-      required:
-      - message
-      - totalNumRecs
-      - pageNumRecs
-      - accounts

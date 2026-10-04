@@ -114,6 +114,19 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    SuggestiveSellingProduct:
+      type: object
+      properties:
+        productId:
+          type: string
+        productName:
+          type: string
+        productNameNotTruncate:
+          type: string
+        pdpUrl:
+          type: string
+        defaultItem:
+          $ref: '#/components/schemas/SuggestiveSellingSku'
     SuggestiveSellingSku:
       type: object
       properties:
@@ -130,19 +143,6 @@ components:
           type: string
         itemOnErrorImage:
           type: string
-    SuggestiveSellingProduct:
-      type: object
-      properties:
-        productId:
-          type: string
-        productName:
-          type: string
-        productNameNotTruncate:
-          type: string
-        pdpUrl:
-          type: string
-        defaultItem:
-          $ref: '#/components/schemas/SuggestiveSellingSku'
     suggestiveSelling_rep:
       type: array
       items:

@@ -87,6 +87,58 @@ components:
       - orderId
       - reportIds
       - modelState
+    placeEagleViewOrderBody:
+      type: object
+      properties:
+        OrderReports:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderReport'
+        PromoCode:
+          type: string
+        PlaceOrderUser:
+          type: string
+        accountId:
+          type: string
+        email:
+          type: string
+        projectName:
+          type: string
+        beaconPrice:
+          type: number
+        UUID:
+          type: string
+      required:
+      - OrderReports
+      - PromoCode
+      - PlaceOrderUser
+      - accountId
+      - email
+      - projectName
+      - beaconPrice
+      - UUID
+    ReportAttibute:
+      type: object
+      properties:
+        Attribute:
+          type: number
+        Value:
+          type: string
+      required:
+      - Attribute
+      - Value
+    ModelState:
+      type: object
+      properties:
+        modelKey:
+          type: string
+        modelValue:
+          type: array
+          items:
+            type: string
+      required:
+      - modelKey
+      - modelValue
     ReportAddress:
       type: object
       properties:
@@ -112,16 +164,6 @@ components:
       - Country
       - Latitude
       - Longitude
-    ReportAttibute:
-      type: object
-      properties:
-        Attribute:
-          type: number
-        Value:
-          type: string
-      required:
-      - Attribute
-      - Value
     OrderReport:
       type: object
       properties:
@@ -204,45 +246,3 @@ components:
       - deliveryType
       - addOns
       - structures
-    ModelState:
-      type: object
-      properties:
-        modelKey:
-          type: string
-        modelValue:
-          type: array
-          items:
-            type: string
-      required:
-      - modelKey
-      - modelValue
-    placeEagleViewOrderBody:
-      type: object
-      properties:
-        OrderReports:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderReport'
-        PromoCode:
-          type: string
-        PlaceOrderUser:
-          type: string
-        accountId:
-          type: string
-        email:
-          type: string
-        projectName:
-          type: string
-        beaconPrice:
-          type: number
-        UUID:
-          type: string
-      required:
-      - OrderReports
-      - PromoCode
-      - PlaceOrderUser
-      - accountId
-      - email
-      - projectName
-      - beaconPrice
-      - UUID

@@ -144,6 +144,27 @@ paths:
       - UpdateTemplate
 components:
   schemas:
+    updateTemplateBody:
+      type: object
+      properties:
+        templateId:
+          type: string
+        account:
+          type: string
+        templateName:
+          type: string
+        action:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+      required:
+      - templateId
+      - account
+      - templateName
+      - action
+      - items
     Item:
       type: object
       properties:
@@ -182,24 +203,3 @@ components:
       - itemTotal
       - itemSuccessTotal
       - detailUrl
-    updateTemplateBody:
-      type: object
-      properties:
-        templateId:
-          type: string
-        account:
-          type: string
-        templateName:
-          type: string
-        action:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-      required:
-      - templateId
-      - account
-      - templateName
-      - action
-      - items

@@ -908,94 +908,6 @@ components:
       properties:
         quote:
           $ref: '#/components/schemas/quoteDetailObj'
-    EditQuoteInfoBaseObj:
-      type: object
-      properties:
-        id:
-          type: string
-        quoteName:
-          type: string
-        phoneNumber:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        workType:
-          type: string
-          description: The Work Type, should be one of `N`(for New Construction) and `R`(for Remodel)
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-        quoteNotes:
-          type: string
-        mailingAddress1:
-          type: string
-        mailingAddress2:
-          type: string
-        mailingAddress3:
-          type: string
-        mailingState:
-          type: string
-        mailingCity:
-          type: string
-        mailingZip:
-          type: string
-        expires:
-          type: string
-        validate:
-          type: boolean
-          description: default is true, if false, ignore request body validation except quote name.
-    approveQuote_req:
-      type: object
-      properties:
-        quoteId:
-          type: string
-    EditDelegatedQuoteInfoObj:
-      allOf:
-      - type: object
-        properties:
-          accountId:
-            type: string
-            description: accountId on whose behalf quote is submitted
-          branchId:
-            type: string
-            description: branchIdId to which the quote is submitted
-          apiSiteId:
-            type: string
-            description: Api Site Id
-      - $ref: '#/components/schemas/EditDelegatedQuoteInfoBaseObj'
-    EditQuoteItemObj:
-      type: object
-      properties:
-        itemId:
-          type: string
-        itemType:
-          type: string
-        quantity:
-          type: integer
-        uom:
-          type: string
-        displayName:
-          type: string
-        color:
-          type: string
-        dimensions:
-          type: string
-    EditDelegatedQuoteInfoBaseObj:
-      allOf:
-      - $ref: '#/components/schemas/EditQuoteInfoBaseObj'
-      - type: object
-        properties:
-          quoteItems:
-            type: array
-            items:
-              $ref: '#/components/schemas/EditDelegatedQuoteItemObj'
     quoteDetailObj:
       type: object
       properties:
@@ -1117,9 +1029,155 @@ components:
           type: string
         jobTaxExempt:
           type: boolean
-    createQuote_req:
+    quoteObj:
       type: object
       properties:
+        quoteId:
+          type: string
+        quoteName:
+          type: string
+        creationDate:
+          type: string
+          format: MM-dd-yyyy
+        expirationDate:
+          type: string
+          format: MM-dd-yyyy
+        status:
+          type: string
+        displayStatus:
+          type: string
+          description: The value is one of Available, Partially Available and Complete
+        createdBy:
+          type: string
+    approveQuote_req:
+      type: object
+      properties:
+        quoteId:
+          type: string
+    quote_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+        draftQuote:
+          $ref: '#/components/schemas/quoteListObj'
+        inProcessQuote:
+          $ref: '#/components/schemas/quoteListObj'
+        receivedQuote:
+          $ref: '#/components/schemas/quoteListObj'
+    EditDelegatedQuoteItemObj:
+      allOf:
+      - $ref: '#/components/schemas/EditQuoteItemObj'
+      - type: object
+        properties:
+          netPrice:
+            type: string
+            description: net price for each item
+    deleteQuote_req:
+      type: object
+      properties:
+        quoteId:
+          type: string
+    rejectQuote_req:
+      type: object
+      properties:
+        quoteId:
+          type: string
+        reason:
+          type: string
+          description: "Available Reason.\n * Price is Too High\n * Lost Bid\n * Product Not Available\n * Product Will Arrive Late\n * Other\n"
+        additionalReason:
+          type: string
+          description: It's optional, when the user selects 'Other' as a reason, this field accepts an additional reason.
+    createQuoteItemObj:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemType:
+          type: string
+        quantity:
+          type: integer
+        uom:
+          type: string
+        color:
+          type: string
+        dimensions:
+          type: string
+        displayName:
+          type: string
+    quoteListObj:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        quoteList:
+          type: array
+          items:
+            $ref: '#/components/schemas/quoteObj'
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    submitQuoteForm_req:
+      type: object
+      properties:
+        userName:
+          type: string
+          description: The User Full Name
+        contactNumber:
+          type: number
+          description: The Contact Number
+        uploadDocument:
+          type: string
+          format: binary
+          description: 'The Upload Document File
+
+
+            Accepted File Types should be: *.pdf,*.csv,*.doc(x),*.tiff,*.xls(x)
+
+
+            File size should between 0KB~10MB
+
+            '
+        jobNumber:
+          type: string
+          description: The Job Number
+        workType:
+          type: string
+          description: The Work Type, should be one of `N`(for New Construction) and `R`(for Remodel)
+        quoteNotes:
+          type: string
+          description: The Quote Nodes
+    submitQuote_req:
+      $ref: '#/components/schemas/EditQuoteInfoObj'
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    updateQuote_req:
+      type: object
+      properties:
+        id:
+          type: string
         quoteName:
           type: string
         phoneNumber:
@@ -1132,7 +1190,62 @@ components:
           type: string
         state:
           type: string
-        statusDescription:
+        workType:
+          type: string
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+        postalCode:
+          type: string
+        quoteNotes:
+          type: string
+        mailingAddress1:
+          type: string
+        mailingAddress2:
+          type: string
+        mailingAddress3:
+          type: string
+        mailingState:
+          type: string
+        mailingCity:
+          type: string
+        mailingZip:
+          type: string
+        expires:
+          type: string
+        action:
+          type: string
+        quoteItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/updateQuoteItemsObj'
+        deleteItems:
+          type: array
+          items:
+            type: string
+        creationDate:
+          type: string
+          format: date
+        lastModifiedDate:
+          type: string
+          format: date
+    EditQuoteInfoBaseObj:
+      type: object
+      properties:
+        id:
+          type: string
+        quoteName:
+          type: string
+        phoneNumber:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
           type: string
         workType:
           type: string
@@ -1160,21 +1273,22 @@ components:
         validate:
           type: boolean
           description: default is true, if false, ignore request body validation except quote name.
-        quoteItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/createQuoteItemObj'
-    messagesObj:
-      type: array
-      items:
-        type: object
+    submitDelegatedQuote_req:
+      $ref: '#/components/schemas/EditDelegatedQuoteInfoObj'
+    EditDelegatedQuoteInfoObj:
+      allOf:
+      - type: object
         properties:
-          type:
+          accountId:
             type: string
-          value:
+            description: accountId on whose behalf quote is submitted
+          branchId:
             type: string
-          code:
+            description: branchIdId to which the quote is submitted
+          apiSiteId:
             type: string
+            description: Api Site Id
+      - $ref: '#/components/schemas/EditDelegatedQuoteInfoBaseObj'
     BCOtherPaginationObj:
       type: object
       properties:
@@ -1184,52 +1298,87 @@ components:
           type: string
         page:
           type: integer
-    rejectQuote_req:
+    quoteItemOrderInfoObj:
       type: object
       properties:
-        quoteId:
+        orderNumber:
           type: string
-        reason:
+        orderStatus:
           type: string
-          description: "Available Reason.\n * Price is Too High\n * Lost Bid\n * Product Not Available\n * Product Will Arrive Late\n * Other\n"
-        additionalReason:
-          type: string
-          description: It's optional, when the user selects 'Other' as a reason, this field accepts an additional reason.
-    EditQuoteInfoObj:
-      allOf:
-      - $ref: '#/components/schemas/EditQuoteInfoBaseObj'
-      - type: object
-        properties:
-          quoteItems:
-            type: array
-            items:
-              $ref: '#/components/schemas/EditQuoteItemObj'
-    submitQuote_rep:
+        shipQuantity:
+          type: integer
+          format: long
+        backorderQuantity:
+          type: integer
+          format: long
+    createQuote_rep:
       type: object
       properties:
         messages:
           $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
         success:
           type: boolean
-        result:
-          type: object
-          properties:
-            quoteNumber:
-              type: string
-            quoteStatus:
-              type: string
-    submitQuote_req:
-      $ref: '#/components/schemas/EditQuoteInfoObj'
-    BCPaginationObj:
+    BCPaginationDataObj:
       type: object
       properties:
-        enable:
-          type: boolean
-        page:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
           type: integer
         currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    updateQuoteItemsObj:
+      type: object
+      properties:
+        id:
+          type: string
+        itemNumber:
+          type: string
+        itemType:
+          type: string
+        displayName:
+          type: string
+        productId:
+          type: string
+        quantity:
+          type: string
+          format: long
+        deleteStatus:
           type: boolean
-        type:
+        siteId:
+          type: string
+        uom:
+          type: string
+        matchColor:
+          type: string
+        dimensions:
+          type: string
+    EditQuoteItemObj:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemType:
+          type: string
+        quantity:
+          type: integer
+        uom:
+          type: string
+        displayName:
+          type: string
+        color:
+          type: string
+        dimensions:
           type: string
     quoteDetailItemObj:
       type: object
@@ -1290,77 +1439,34 @@ components:
           format: long
         itemOrderInfo:
           $ref: '#/components/schemas/quoteItemOrderInfoObj'
-    quote_rep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-        draftQuote:
-          $ref: '#/components/schemas/quoteListObj'
-        inProcessQuote:
-          $ref: '#/components/schemas/quoteListObj'
-        receivedQuote:
-          $ref: '#/components/schemas/quoteListObj'
-    createQuoteItemObj:
-      type: object
-      properties:
-        itemId:
-          type: string
-        itemType:
-          type: string
-        quantity:
-          type: integer
-        uom:
-          type: string
-        color:
-          type: string
-        dimensions:
-          type: string
-        displayName:
-          type: string
-    EditDelegatedQuoteItemObj:
+    EditDelegatedQuoteInfoBaseObj:
       allOf:
-      - $ref: '#/components/schemas/EditQuoteItemObj'
+      - $ref: '#/components/schemas/EditQuoteInfoBaseObj'
       - type: object
         properties:
-          netPrice:
-            type: string
-            description: net price for each item
-    BCPaginationDataObj:
+          quoteItems:
+            type: array
+            items:
+              $ref: '#/components/schemas/EditDelegatedQuoteItemObj'
+    reviseQuote_req:
       type: object
       properties:
-        next:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        previous:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        pageSize:
-          type: integer
-        currentPage:
-          type: integer
-        totalCount:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPaginationObj'
-    quoteListObj:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
-        quoteList:
-          type: array
-          items:
-            $ref: '#/components/schemas/quoteObj'
-    updateQuote_req:
-      type: object
-      properties:
-        id:
+        quoteId:
           type: string
+        quoteNotes:
+          type: string
+    EditQuoteInfoObj:
+      allOf:
+      - $ref: '#/components/schemas/EditQuoteInfoBaseObj'
+      - type: object
+        properties:
+          quoteItems:
+            type: array
+            items:
+              $ref: '#/components/schemas/EditQuoteItemObj'
+    createQuote_req:
+      type: object
+      properties:
         quoteName:
           type: string
         phoneNumber:
@@ -1373,13 +1479,14 @@ components:
           type: string
         state:
           type: string
+        statusDescription:
+          type: string
         workType:
           type: string
+          description: The Work Type, should be one of `N`(for New Construction) and `R`(for Remodel)
         jobName:
           type: string
         jobNumber:
-          type: string
-        postalCode:
           type: string
         quoteNotes:
           type: string
@@ -1397,134 +1504,27 @@ components:
           type: string
         expires:
           type: string
-        action:
-          type: string
+        validate:
+          type: boolean
+          description: default is true, if false, ignore request body validation except quote name.
         quoteItems:
           type: array
           items:
-            $ref: '#/components/schemas/updateQuoteItemsObj'
-        deleteItems:
-          type: array
-          items:
-            type: string
-        creationDate:
-          type: string
-          format: date
-        lastModifiedDate:
-          type: string
-          format: date
-    quoteItemOrderInfoObj:
-      type: object
-      properties:
-        orderNumber:
-          type: string
-        orderStatus:
-          type: string
-        shipQuantity:
-          type: integer
-          format: long
-        backorderQuantity:
-          type: integer
-          format: long
-    quoteObj:
-      type: object
-      properties:
-        quoteId:
-          type: string
-        quoteName:
-          type: string
-        creationDate:
-          type: string
-          format: MM-dd-yyyy
-        expirationDate:
-          type: string
-          format: MM-dd-yyyy
-        status:
-          type: string
-        displayStatus:
-          type: string
-          description: The value is one of Available, Partially Available and Complete
-        createdBy:
-          type: string
-    reviseQuote_req:
-      type: object
-      properties:
-        quoteId:
-          type: string
-        quoteNotes:
-          type: string
-    submitDelegatedQuote_req:
-      $ref: '#/components/schemas/EditDelegatedQuoteInfoObj'
-    deleteQuote_req:
-      type: object
-      properties:
-        quoteId:
-          type: string
-    createQuote_rep:
+            $ref: '#/components/schemas/createQuoteItemObj'
+    submitQuote_rep:
       type: object
       properties:
         messages:
           $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
         success:
           type: boolean
-    updateQuoteItemsObj:
-      type: object
-      properties:
-        id:
-          type: string
-        itemNumber:
-          type: string
-        itemType:
-          type: string
-        displayName:
-          type: string
-        productId:
-          type: string
-        quantity:
-          type: string
-          format: long
-        deleteStatus:
-          type: boolean
-        siteId:
-          type: string
-        uom:
-          type: string
-        matchColor:
-          type: string
-        dimensions:
-          type: string
-    submitQuoteForm_req:
-      type: object
-      properties:
-        userName:
-          type: string
-          description: The User Full Name
-        contactNumber:
-          type: number
-          description: The Contact Number
-        uploadDocument:
-          type: string
-          format: binary
-          description: 'The Upload Document File
-
-
-            Accepted File Types should be: *.pdf,*.csv,*.doc(x),*.tiff,*.xls(x)
-
-
-            File size should between 0KB~10MB
-
-            '
-        jobNumber:
-          type: string
-          description: The Job Number
-        workType:
-          type: string
-          description: The Work Type, should be one of `N`(for New Construction) and `R`(for Remodel)
-        quoteNotes:
-          type: string
-          description: The Quote Nodes
+        result:
+          type: object
+          properties:
+            quoteNumber:
+              type: string
+            quoteStatus:
+              type: string
   securitySchemes:
     JSESSIONID:
       type: apiKey

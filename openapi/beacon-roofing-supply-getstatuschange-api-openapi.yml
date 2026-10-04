@@ -87,6 +87,19 @@ paths:
       - GetStatusChange
 components:
   schemas:
+    Notification:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected
     DtStatusChangeNotifacation:
       type: object
       properties:
@@ -101,28 +114,6 @@ components:
       required:
       - displayName
       - label
-      - notifications
-    Notification:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
-          type: boolean
-      required:
-      - displayName
-      - value
-      - selected
-    DtOrderStatusChangeNotifacation:
-      type: object
-      properties:
-        notifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/Notification'
-      required:
       - notifications
     getStatusChangeResponse:
       type: object
@@ -174,3 +165,12 @@ components:
       - scheduled
       - delivered
       - accountId
+    DtOrderStatusChangeNotifacation:
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+      required:
+      - notifications

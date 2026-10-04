@@ -85,6 +85,19 @@ components:
       - accountLegacyId
       - accountName
       - addressBookInfo
+    Message:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+        code:
+          type: string
+      required:
+      - type
+      - value
+      - code
     AddressBookInfo:
       type: object
       properties:
@@ -125,19 +138,6 @@ components:
       - country
       - countryValue
       - phoneNumber
-    Message:
-      type: object
-      properties:
-        type:
-          type: string
-        value:
-          type: string
-        code:
-          type: string
-      required:
-      - type
-      - value
-      - code
     getAddressBookResponse:
       type: object
       properties:

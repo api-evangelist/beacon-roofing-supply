@@ -115,21 +115,6 @@ components:
           type: string
       required:
       - filter
-    createTemplateBody:
-      type: object
-      properties:
-        templateName:
-          type: string
-        account:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-      required:
-      - templateName
-      - account
-      - items
     createTemplateResponse:
       type: object
       properties:
@@ -164,3 +149,18 @@ components:
       - itemSuccessTotal
       - detailUrl
       - callBackParam
+    createTemplateBody:
+      type: object
+      properties:
+        templateName:
+          type: string
+        account:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+      required:
+      - templateName
+      - account
+      - items

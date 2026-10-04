@@ -76,6 +76,39 @@ components:
           type: string
       required:
       - filter
+    updateSavedOrderItemsBody:
+      type: object
+      properties:
+        savedOrderId:
+          type: string
+        savedOrderName:
+          type: string
+        action:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+      required:
+      - savedOrderId
+      - savedOrderName
+      - action
+      - items
+    updateSavedOrderItemsResponse:
+      type: object
+      properties:
+        savedOrderId:
+          type: string
+        savedOrderName:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Items'
+      required:
+      - savedOrderId
+      - savedOrderName
+      - items
     Items:
       type: object
       properties:
@@ -125,36 +158,3 @@ components:
       - vendorColorId
       - productId
       - itemGrayOutLevel
-    updateSavedOrderItemsBody:
-      type: object
-      properties:
-        savedOrderId:
-          type: string
-        savedOrderName:
-          type: string
-        action:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-      required:
-      - savedOrderId
-      - savedOrderName
-      - action
-      - items
-    updateSavedOrderItemsResponse:
-      type: object
-      properties:
-        savedOrderId:
-          type: string
-        savedOrderName:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Items'
-      required:
-      - savedOrderId
-      - savedOrderName
-      - items

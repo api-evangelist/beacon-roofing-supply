@@ -78,18 +78,25 @@ paths:
       - User
 components:
   schemas:
-    userResponse:
+    Result:
       type: object
       properties:
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
       required:
-      - pagination
-      - users
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
     User:
       type: object
       properties:
@@ -112,6 +119,18 @@ components:
       - lastModifiedDate
       - status
       - rewardsEligible
+    userResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+      required:
+      - pagination
+      - users
     Or:
       type: object
       properties:
@@ -128,6 +147,26 @@ components:
     Value:
       type: object
       properties: {}
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
+    userBody:
+      type: object
+      properties:
+        query:
+          $ref: '#/components/schemas/Query'
+      required:
+      - query
     Query:
       type: object
       properties:
@@ -154,45 +193,6 @@ components:
       - sortType
       - pageIndex
       - pageSize
-    userBody:
-      type: object
-      properties:
-        query:
-          $ref: '#/components/schemas/Query'
-      required:
-      - query
-    Next:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: number
-      required:
-      - available
-      - label
-      - page
-    Result:
-      type: object
-      properties:
-        pageRows:
-          type: number
-        pages:
-          type: number
-        page:
-          type: number
-        rows:
-          type: number
-        rowsPerPage:
-          type: number
-      required:
-      - pageRows
-      - pages
-      - page
-      - rows
-      - rowsPerPage
     Pagination:
       type: object
       properties:

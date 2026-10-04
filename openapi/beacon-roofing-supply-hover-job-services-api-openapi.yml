@@ -197,9 +197,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    getHoverJobListImage_rep:
-      type: string
-      example: https://hover.to/.../xxxxxx.jpg?version=...
     HoverJobDetailImage:
       type: object
       properties:
@@ -214,24 +211,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/HoverJobListItem'
-    BCPaginationDataObj:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        previous:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        pageSize:
-          type: integer
-        currentPage:
-          type: integer
-        totalCount:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPaginationObj'
-    getHoverJobDetailImage_rep:
+    getHoverJobListImage_rep:
       type: string
       example: https://hover.to/.../xxxxxx.jpg?version=...
     BCOtherPaginationObj:
@@ -243,21 +223,9 @@ components:
           type: string
         page:
           type: integer
-    HoverJobListItem:
-      type: object
-      properties:
-        jobId:
-          type: string
-        time:
-          type: string
-        title:
-          type: string
-        location:
-          type: string
-        cityAndRegion:
-          type: string
-        completedAt:
-          type: string
+    getHoverJobDetailImage_rep:
+      type: string
+      example: https://hover.to/.../xxxxxx.jpg?version=...
     getHoverJobDetail_rep:
       type: object
       properties:
@@ -373,6 +341,38 @@ components:
         currentPage:
           type: boolean
         type:
+          type: string
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
+    HoverJobListItem:
+      type: object
+      properties:
+        jobId:
+          type: string
+        time:
+          type: string
+        title:
+          type: string
+        location:
+          type: string
+        cityAndRegion:
+          type: string
+        completedAt:
           type: string
   securitySchemes:
     JSESSIONID:

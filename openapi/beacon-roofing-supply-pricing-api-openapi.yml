@@ -94,23 +94,6 @@ components:
       - '253729'
       - '253737'
       - '253740'
-    _253740:
-      type: object
-      properties:
-        CTN:
-          type: number
-        PC:
-          type: number
-      required:
-      - CTN
-      - PC
-    _253737:
-      type: object
-      properties:
-        CTN:
-          type: number
-      required:
-      - CTN
     _2537402:
       type: object
       properties:
@@ -118,16 +101,33 @@ components:
           type: number
       required:
       - PC
-    _253729:
+    PriceInfo:
+      type: object
+      properties:
+        '253729':
+          $ref: '#/components/schemas/_253729'
+        '253737':
+          $ref: '#/components/schemas/_253737'
+        '253740':
+          $ref: '#/components/schemas/_253740'
+      required:
+      - '253729'
+      - '253737'
+      - '253740'
+    _253737:
+      type: object
+      properties:
+        CTN:
+          type: number
+      required:
+      - CTN
+    _2537292:
       type: object
       properties:
         BDL:
           type: number
-        PC:
-          type: number
       required:
       - BDL
-      - PC
     pricingResponse:
       type: object
       properties:
@@ -143,23 +143,23 @@ components:
       - priceInfo
       - orderPricing
       - unavailableSkuList
-    _2537292:
+    _253740:
+      type: object
+      properties:
+        CTN:
+          type: number
+        PC:
+          type: number
+      required:
+      - CTN
+      - PC
+    _253729:
       type: object
       properties:
         BDL:
           type: number
+        PC:
+          type: number
       required:
       - BDL
-    PriceInfo:
-      type: object
-      properties:
-        '253729':
-          $ref: '#/components/schemas/_253729'
-        '253737':
-          $ref: '#/components/schemas/_253737'
-        '253740':
-          $ref: '#/components/schemas/_253740'
-      required:
-      - '253729'
-      - '253737'
-      - '253740'
+      - PC

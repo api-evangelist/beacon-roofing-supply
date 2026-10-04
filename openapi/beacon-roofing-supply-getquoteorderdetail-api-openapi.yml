@@ -69,121 +69,17 @@ paths:
       - GetQuoteOrderDetail
 components:
   schemas:
-    JobAccounts:
+    Job:
       type: object
       properties:
-        unavailable:
-          type: boolean
-        unavailableMsg:
+        jobName:
           type: string
-        jobs:
-          type: array
-          items:
-            $ref: '#/components/schemas/Job'
-      required:
-      - unavailable
-      - unavailableMsg
-      - jobs
-    ShippingAddress:
-      type: object
-      properties:
-        addressBookId:
-          type: string
-        nickName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        city:
-          type: string
-        stateValue:
-          type: string
-        states:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryOption'
-        postalCode:
-          type: string
-        countryValue:
-          type: string
-        countries:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryOption'
-        phoneNumber:
+        jobNumber:
           type: string
       required:
-      - addressBookId
-      - nickName
-      - firstName
-      - lastName
-      - address1
-      - address2
-      - address3
-      - city
-      - stateValue
-      - states
-      - postalCode
-      - countryValue
-      - countries
-      - phoneNumber
-    CommerceItem:
-      type: object
-      properties:
-        id:
-          type: string
-        imageUrl:
-          type: string
-        imageOnErrorUrl:
-          type: string
-        thumbImageUrl:
-          type: string
-        pdpUrl:
-          type: string
-        description:
-          type: string
-        itemNumber:
-          type: string
-        price:
-          type: number
-        quantity:
-          type: number
-        uom:
-          type: string
-        subTotal:
-          type: number
-        deleteStatus:
-          type: boolean
-        vendorColorId:
-          type: string
-        productId:
-          type: string
-        itemGrayOutLevel:
-          type: string
-      required:
-      - id
-      - imageUrl
-      - imageOnErrorUrl
-      - thumbImageUrl
-      - pdpUrl
-      - description
-      - itemNumber
-      - price
-      - quantity
-      - uom
-      - subTotal
-      - deleteStatus
-      - vendorColorId
-      - productId
-      - itemGrayOutLevel
-    DeliveryOption:
+      - jobName
+      - jobNumber
+    ShippingMethod:
       type: object
       properties:
         displayName:
@@ -196,16 +92,92 @@ components:
       - displayName
       - value
       - selected
-    Job:
+    RequiredFields:
       type: object
       properties:
+        deliveryOption:
+          type: boolean
+        deliveryDate:
+          type: boolean
+        deliveryTime:
+          type: boolean
+        shippingMethod:
+          type: boolean
+        shippingAddress:
+          type: boolean
+        postalCode:
+          type: boolean
+        state:
+          type: boolean
+        address1:
+          type: boolean
+        address2:
+          type: boolean
+        address3:
+          type: boolean
+        country:
+          type: boolean
+        city:
+          type: boolean
+        branchName:
+          type: boolean
+        contactInfo:
+          type: boolean
+        firstName:
+          type: boolean
+        lastName:
+          type: boolean
+        nickName:
+          type: boolean
+        phoneNumber:
+          type: boolean
+        instructions:
+          type: boolean
+        po:
+          type: boolean
         jobName:
-          type: string
-        jobNumber:
-          type: string
+          type: boolean
+        jobAccounts:
+          type: boolean
       required:
+      - deliveryOption
+      - deliveryDate
+      - deliveryTime
+      - shippingMethod
+      - shippingAddress
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+      - branchName
+      - contactInfo
+      - firstName
+      - lastName
+      - nickName
+      - phoneNumber
+      - instructions
+      - po
       - jobName
-      - jobNumber
+      - jobAccounts
+    AddressBook:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        accountLegacyId:
+          type: string
+        accountName:
+          type: string
+        addressBookInfo:
+          $ref: '#/components/schemas/AddressBookInfo'
+      required:
+      - addressBookId
+      - accountLegacyId
+      - accountName
+      - addressBookInfo
     getQuoteOrderDetailResponse:
       type: object
       properties:
@@ -392,6 +364,19 @@ components:
       - showDeliveryNotification
       - showOrderSummary
       - orderRelatedDocuments
+    DeliveryOption:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected
     AddressBookInfo:
       type: object
       properties:
@@ -432,35 +417,21 @@ components:
       - country
       - countryValue
       - phoneNumber
-    ShippingMethod:
+    JobAccounts:
       type: object
       properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
+        unavailable:
           type: boolean
+        unavailableMsg:
+          type: string
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
       required:
-      - displayName
-      - value
-      - selected
-    AddressBook:
-      type: object
-      properties:
-        addressBookId:
-          type: string
-        accountLegacyId:
-          type: string
-        accountName:
-          type: string
-        addressBookInfo:
-          $ref: '#/components/schemas/AddressBookInfo'
-      required:
-      - addressBookId
-      - accountLegacyId
-      - accountName
-      - addressBookInfo
+      - unavailable
+      - unavailableMsg
+      - jobs
     ContactInfo:
       type: object
       properties:
@@ -511,73 +482,102 @@ components:
       - stateValue
       - postalCode
       - phoneNumber
-    RequiredFields:
+    ShippingAddress:
       type: object
       properties:
-        deliveryOption:
-          type: boolean
-        deliveryDate:
-          type: boolean
-        deliveryTime:
-          type: boolean
-        shippingMethod:
-          type: boolean
-        shippingAddress:
-          type: boolean
-        postalCode:
-          type: boolean
-        state:
-          type: boolean
-        address1:
-          type: boolean
-        address2:
-          type: boolean
-        address3:
-          type: boolean
-        country:
-          type: boolean
-        city:
-          type: boolean
-        branchName:
-          type: boolean
-        contactInfo:
-          type: boolean
-        firstName:
-          type: boolean
-        lastName:
-          type: boolean
+        addressBookId:
+          type: string
         nickName:
-          type: boolean
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        stateValue:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        postalCode:
+          type: string
+        countryValue:
+          type: string
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
         phoneNumber:
-          type: boolean
-        instructions:
-          type: boolean
-        po:
-          type: boolean
-        jobName:
-          type: boolean
-        jobAccounts:
-          type: boolean
+          type: string
       required:
-      - deliveryOption
-      - deliveryDate
-      - deliveryTime
-      - shippingMethod
-      - shippingAddress
-      - postalCode
-      - state
+      - addressBookId
+      - nickName
+      - firstName
+      - lastName
       - address1
       - address2
       - address3
-      - country
       - city
-      - branchName
-      - contactInfo
-      - firstName
-      - lastName
-      - nickName
+      - stateValue
+      - states
+      - postalCode
+      - countryValue
+      - countries
       - phoneNumber
-      - instructions
-      - po
-      - jobName
-      - jobAccounts
+    CommerceItem:
+      type: object
+      properties:
+        id:
+          type: string
+        imageUrl:
+          type: string
+        imageOnErrorUrl:
+          type: string
+        thumbImageUrl:
+          type: string
+        pdpUrl:
+          type: string
+        description:
+          type: string
+        itemNumber:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: number
+        uom:
+          type: string
+        subTotal:
+          type: number
+        deleteStatus:
+          type: boolean
+        vendorColorId:
+          type: string
+        productId:
+          type: string
+        itemGrayOutLevel:
+          type: string
+      required:
+      - id
+      - imageUrl
+      - imageOnErrorUrl
+      - thumbImageUrl
+      - pdpUrl
+      - description
+      - itemNumber
+      - price
+      - quantity
+      - uom
+      - subTotal
+      - deleteStatus
+      - vendorColorId
+      - productId
+      - itemGrayOutLevel

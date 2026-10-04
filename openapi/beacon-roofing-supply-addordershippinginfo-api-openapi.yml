@@ -83,19 +83,6 @@ paths:
       - AddOrderShippingInfo
 components:
   schemas:
-    DeliveryOption:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
-          type: boolean
-      required:
-      - displayName
-      - value
-      - selected
     addOrderShippingInfoBody:
       type: object
       properties:
@@ -124,6 +111,19 @@ components:
       - shippingAddress
       - saveShippingAddressToAddressBook
       - specialInstruction
+    DeliveryOption:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected
     ShippingAddress:
       type: object
       properties:

@@ -63,6 +63,184 @@ paths:
       - GetCurrentUserPermission
 components:
   schemas:
+    Shipping:
+      type: object
+      properties:
+        shippingBranch:
+          type: number
+        address:
+          $ref: '#/components/schemas/Address'
+        shippingMethod:
+          type: string
+      required:
+      - shippingBranch
+      - address
+      - shippingMethod
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber
+    Price:
+      type: object
+      properties:
+        'Yes':
+          type: boolean
+        'No':
+          type: boolean
+      required:
+      - 'Yes'
+      - 'No'
+    Quotes:
+      type: object
+      properties:
+        View:
+          type: boolean
+        Manage:
+          type: boolean
+        'No':
+          type: boolean
+      required:
+      - View
+      - Manage
+      - 'No'
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    Orderhistory:
+      type: object
+      properties:
+        queryList:
+          type: boolean
+        queryDetail:
+          type: boolean
+        withPrice:
+          type: boolean
+        withoutPrice:
+          type: boolean
+      required:
+      - queryList
+      - queryDetail
+      - withPrice
+      - withoutPrice
+    OrderHistory:
+      type: object
+      properties:
+        YesWithoutPricing:
+          type: boolean
+        YesWithPricing:
+          type: boolean
+        'No':
+          type: boolean
+      required:
+      - YesWithoutPricing
+      - YesWithPricing
+      - 'No'
+    Computed:
+      type: object
+      properties:
+        price:
+          type: boolean
+        order:
+          $ref: '#/components/schemas/Order'
+        orderhistory:
+          $ref: '#/components/schemas/Orderhistory'
+        quote:
+          $ref: '#/components/schemas/Quote'
+        rebate:
+          $ref: '#/components/schemas/Rebate'
+      required:
+      - price
+      - order
+      - orderhistory
+      - quote
+      - rebate
+    Original:
+      type: object
+      properties:
+        Price:
+          $ref: '#/components/schemas/Price'
+        PlaceOrder:
+          $ref: '#/components/schemas/Price'
+        OrderHistory:
+          $ref: '#/components/schemas/OrderHistory'
+        Quotes:
+          $ref: '#/components/schemas/Quotes'
+        RebateView:
+          $ref: '#/components/schemas/Price'
+      required:
+      - Price
+      - PlaceOrder
+      - OrderHistory
+      - Quotes
+      - RebateView
+    Quote:
+      type: object
+      properties:
+        edit:
+          type: boolean
+        upload:
+          type: boolean
+        submit:
+          type: boolean
+        update:
+          type: boolean
+        submitForm:
+          type: boolean
+        queryList:
+          type: boolean
+        queryListOpen:
+          type: boolean
+        queryListInProgress:
+          type: boolean
+        queryListProcessed:
+          type: boolean
+        queryDetailOpen:
+          type: boolean
+        queryDetailInProgress:
+          type: boolean
+        queryDetailProcessed:
+          type: boolean
+      required:
+      - edit
+      - upload
+      - submit
+      - update
+      - submitForm
+      - queryList
+      - queryListOpen
+      - queryListInProgress
+      - queryListProcessed
+      - queryDetailOpen
+      - queryDetailInProgress
+      - queryDetailProcessed
     Rebate:
       type: object
       properties:
@@ -137,155 +315,6 @@ components:
       - orderId
       - specialInstruction
       - UUID
-    Price:
-      type: object
-      properties:
-        'Yes':
-          type: boolean
-        'No':
-          type: boolean
-      required:
-      - 'Yes'
-      - 'No'
-    OrderHistory:
-      type: object
-      properties:
-        YesWithoutPricing:
-          type: boolean
-        YesWithPricing:
-          type: boolean
-        'No':
-          type: boolean
-      required:
-      - YesWithoutPricing
-      - YesWithPricing
-      - 'No'
-    Quotes:
-      type: object
-      properties:
-        View:
-          type: boolean
-        Manage:
-          type: boolean
-        'No':
-          type: boolean
-      required:
-      - View
-      - Manage
-      - 'No'
-    Original:
-      type: object
-      properties:
-        Price:
-          $ref: '#/components/schemas/Price'
-        PlaceOrder:
-          $ref: '#/components/schemas/Price'
-        OrderHistory:
-          $ref: '#/components/schemas/OrderHistory'
-        Quotes:
-          $ref: '#/components/schemas/Quotes'
-        RebateView:
-          $ref: '#/components/schemas/Price'
-      required:
-      - Price
-      - PlaceOrder
-      - OrderHistory
-      - Quotes
-      - RebateView
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
-    Job:
-      type: object
-      properties:
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-      required:
-      - jobName
-      - jobNumber
-    Quote:
-      type: object
-      properties:
-        edit:
-          type: boolean
-        upload:
-          type: boolean
-        submit:
-          type: boolean
-        update:
-          type: boolean
-        submitForm:
-          type: boolean
-        queryList:
-          type: boolean
-        queryListOpen:
-          type: boolean
-        queryListInProgress:
-          type: boolean
-        queryListProcessed:
-          type: boolean
-        queryDetailOpen:
-          type: boolean
-        queryDetailInProgress:
-          type: boolean
-        queryDetailProcessed:
-          type: boolean
-      required:
-      - edit
-      - upload
-      - submit
-      - update
-      - submitForm
-      - queryList
-      - queryListOpen
-      - queryListInProgress
-      - queryListProcessed
-      - queryDetailOpen
-      - queryDetailInProgress
-      - queryDetailProcessed
-    Computed:
-      type: object
-      properties:
-        price:
-          type: boolean
-        order:
-          $ref: '#/components/schemas/Order'
-        orderhistory:
-          $ref: '#/components/schemas/Orderhistory'
-        quote:
-          $ref: '#/components/schemas/Quote'
-        rebate:
-          $ref: '#/components/schemas/Rebate'
-      required:
-      - price
-      - order
-      - orderhistory
-      - quote
-      - rebate
     getCurrentUserPermissionResponse:
       type: object
       properties:
@@ -296,32 +325,3 @@ components:
       required:
       - original
       - computed
-    Orderhistory:
-      type: object
-      properties:
-        queryList:
-          type: boolean
-        queryDetail:
-          type: boolean
-        withPrice:
-          type: boolean
-        withoutPrice:
-          type: boolean
-      required:
-      - queryList
-      - queryDetail
-      - withPrice
-      - withoutPrice
-    Shipping:
-      type: object
-      properties:
-        shippingBranch:
-          type: number
-        address:
-          $ref: '#/components/schemas/Address'
-        shippingMethod:
-          type: string
-      required:
-      - shippingBranch
-      - address
-      - shippingMethod

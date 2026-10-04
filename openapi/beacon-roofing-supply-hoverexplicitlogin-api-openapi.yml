@@ -69,6 +69,13 @@ paths:
       - HoverExplicitLogin
 components:
   schemas:
+    hoverExplicitLoginResponse:
+      type: object
+      properties:
+        nextUrl:
+          type: string
+      required:
+      - nextUrl
     hoverExplicitLoginBody:
       type: object
       properties:
@@ -94,10 +101,3 @@ components:
       - siteId
       - persistentLoginType
       - userAgent
-    hoverExplicitLoginResponse:
-      type: object
-      properties:
-        nextUrl:
-          type: string
-      required:
-      - nextUrl
