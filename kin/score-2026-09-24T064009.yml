@@ -1,37 +1,35 @@
-# Kin Score artifact — beacon-roofing-supply — 2026-08-25T154045
+# Kin Score artifact — beacon-roofing-supply — 2026-09-24T064009
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: beacon-roofing-supply
-  schema_version: 0.14.0
-  scored_at: '2026-08-25'
-  run_ts: 2026-08-25T154045
-  composite: 20.7
-  band: emerging
+  schema_version: 0.22.0
+  scored_at: '2026-09-24'
+  run_ts: 2026-09-24T064009
+  composite: 43.4
+  band: developing
   facets:
-    discoverability: 59.3
-    contract_quality: 26.7
-    governance: 0.0
-    operational_transparency: 5.3
-    developer_ergonomics: 23.8
-    commercial_clarity: 13.2
-    contract_governance: 0.0
-    access_clarity: 13.2
+    discoverability: 75.9
+    contract_quality: 50.9
+    contract_governance: 4.5
+    operational_transparency: 23.7
+    developer_ergonomics: 58.9
+    access_clarity: 42.1
   agent_readiness:
-    score: 15.5
+    score: 27.2
     band: agent-aware
     dimensions:
       spec_presence: true
       agentic_access: false
       reversibility_documented: false
       mcp_server: false
-      auth_clarity: false
+      auth_clarity: bearer
       idempotency: false
-      error_semantics: false
-      openapi_examples: false
+      error_semantics: verified
+      openapi_examples: partial
       rate_limit_signal: documented
       event_surface_described: false
-      agent_skills: false
+      agent_skills: derived
       well_known_catalog: false
       consent_identity: false
       agent_card: false
@@ -40,3 +38,12 @@ kin_score:
       protected_resource_metadata: false
       dynamic_client_registration: false
       agentic_commerce: false
+  provenance:
+    mcp: derived
+    skills: derived
+    conformance: derived
+    contracts:
+      total: 41
+      derived: 0
+      coverage: 0.0
+      callable: 85.0

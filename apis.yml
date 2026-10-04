@@ -1069,6 +1069,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -1096,6 +1098,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - Add Multiple Items To Order
+  tags_raw:
   - AddMultipleItemsToOrder
   properties:
   - type: OpenAPI
@@ -1280,6 +1284,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - Change Password
+  tags_raw:
   - ChangePassword
   properties:
   - type: OpenAPI
@@ -1465,6 +1471,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - Create Template
+  tags_raw:
   - CreateTemplate
   properties:
   - type: OpenAPI
@@ -1839,6 +1847,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - Forgot Password
+  tags_raw:
   - ForgotPassword
   properties:
   - type: OpenAPI
@@ -3151,6 +3161,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - Item
+  tags_raw:
   - Items
   properties:
   - type: OpenAPI
@@ -3177,6 +3189,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
@@ -3307,6 +3321,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - Order History
+  tags_raw:
   - Orderhistory
   properties:
   - type: OpenAPI
@@ -3598,6 +3614,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - Quotes
+  tags_raw:
   - Quote
   properties:
   - type: OpenAPI
@@ -3756,6 +3774,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - Reset Password
+  tags_raw:
   - ResetPassword
   properties:
   - type: OpenAPI
@@ -4126,6 +4146,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - Suggestive Selling
+  tags_raw:
   - SuggestiveSelling
   properties:
   - type: OpenAPI
@@ -4178,6 +4200,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - Templates
+  tags_raw:
   - Template
   properties:
   - type: OpenAPI
@@ -4204,6 +4228,8 @@ apis:
   humanURL: https://beaconproplus.com/swagger/v2/
   baseURL: https://beaconproplus.com/v2/rest/com/becn
   tags:
+  - Typeahead
+  tags_raw:
   - TypeAhead
   properties:
   - type: OpenAPI
@@ -4785,6 +4811,9 @@ apis:
   - type: Documentation
     url: https://beaconproplus.com/swagger/internal/
 common:
+  - type: CapabilityMap
+    url: capabilities/beacon-roofing-supply-capability-edges.yml
+    name: Beacon Roofing Supply Business Capability Map
   - type: Overlay
     url: overlays/beacon-roofing-supply-v2-overlay.yaml
   - type: Overlay
