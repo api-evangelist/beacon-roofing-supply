@@ -1,0 +1,366 @@
+slug: beacon-roofing-supply
+provider: Beacon Roofing Supply
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 35
+edges:
+- tag: CreateQuote
+  spec_file: beacon-roofing-supply-createquote-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.85
+  evidence: 'POST /createQuote  "Creates quote for current user"; schemas: QuoteItem, createQuoteBody'
+  reason: Generation of a priced quote with line items on a B2B commerce platform is quote management
+    within the lead-to-order sales process.
+- tag: Quote Services
+  spec_file: beacon-roofing-supply-quote-services-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.85
+  evidence: POST /createQuote — "Create quote for current user"; POST /submitQuote; POST /approveQuote;
+    POST /reviseQuote; POST /rejectQuote
+  reason: A full quote lifecycle surface (create, update, delete, submit, approve, revise, reject, delegated
+    quotes) for customers of the distributor — unambiguously quote management within sales.
+- tag: Loyal Reward Services
+  spec_file: beacon-roofing-supply-loyal-reward-services-api-openapi.yml
+  capability_id: BC-420.40
+  capability_id_l1: BC-420
+  capability_name: Loyalty & Retention Management
+  confidence: 0.8
+  evidence: 'GET /loyalreward  getLoyalreward  Get the loyal info for the given account; schemas: rewardInfo,
+    balanceInfo, goalInfo'
+  reason: Operation exposes loyalty programme balances, goals and rewards for a customer account, which
+    is loyalty & retention management.
+- tag: Rebate Services
+  spec_file: beacon-roofing-supply-rebate-services-api-openapi.yml
+  capability_id: BC-440.30
+  capability_id_l1: BC-440
+  capability_name: Discount & Promotion Management
+  confidence: 0.8
+  evidence: POST /submitRebate — "Apply for Rebates"; GET /getRebateRedeemedSummaryItems — "Get Redeemed
+    Rebates Summary"; POST /unenrollRebate
+  reason: Operations administer customer rebate programmes — enrolment, application, redemption summaries
+    and detail downloads — which the candidate list places explicitly under Discount & Promotion Management
+    ("discount policies, promotional offers, rebates").
+- tag: RejectQuote
+  spec_file: beacon-roofing-supply-rejectquote-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.8
+  evidence: POST /rejectQuote — "Rejects quote"; schema rejectQuoteBody
+  reason: Operation acts on the quote lifecycle in a sales/commerce portal, matching quote management;
+    sub-capability choice is reasonably clear.
+- tag: ReviseQuote
+  spec_file: beacon-roofing-supply-revisequote-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.8
+  evidence: POST /reviseQuote — "Revises quote"; schema reviseQuoteBody
+  reason: Modification of an existing quote is part of the quote/CPQ lifecycle in the sales process.
+- tag: UpdateQuote
+  spec_file: beacon-roofing-supply-updatequote-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.8
+  evidence: POST /updateQuote — "Updates quote information"; schema QuoteItem
+  reason: Mutates quote header and line items, which is quote lifecycle management in the lead-to-order
+    process. Only the update operation is exposed, leaving slight ambiguity versus broader opportunity
+    management.
+- tag: CreatePermissionTemplate
+  spec_file: beacon-roofing-supply-createpermissiontemplate-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: 'POST /createPermissionTemplate  "Creates permissions template"; schemas: createPermissionTemplateResponse,
+    PermissionValues'
+  reason: Defines reusable permission sets governing what portal users may do — access-rights administration,
+    i.e. identity & access management, not a roofing-distribution business function.
+- tag: CreateUser
+  spec_file: beacon-roofing-supply-createuser-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: 'POST /createUser  "Creates a new user account"; schemas: Permission, Role, PermissionTemplate,
+    MasterAdmin'
+  reason: Account provisioning with roles and permission templates is user identity and access administration
+    for the portal, not customer relationship or HR management.
+- tag: DeletePermissionTemplate
+  spec_file: beacon-roofing-supply-deletepermissiontemplate-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: POST /deletePermissionTemplate  "Removes permissions template"
+  reason: Lifecycle management of permission templates used to grant portal access rights — access management
+    administration.
+- tag: DeleteQuote
+  spec_file: beacon-roofing-supply-deletequote-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.75
+  evidence: POST /deleteQuote  "Removes quotes for current user"
+  reason: Part of the quote lifecycle on the contractor commerce platform, paired with createQuote; quote
+    management under sales.
+- tag: GetAtgQuoteDetail
+  spec_file: beacon-roofing-supply-getatgquotedetail-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.75
+  evidence: GET /getAtgQuoteDetail — 'Returns Atg quote details for given quote'; schema 'Quote'
+  reason: The operation retrieves a commercial sales quote for the contractor customer, which is the quote
+    side of the lead-to-order process. Quote & Configuration Management is the closest fit; confidence
+    held moderate because only a single read operation is exposed and no pricing/configuration logic is
+    visible.
+- tag: GetMincronQuoteDetail
+  spec_file: beacon-roofing-supply-getmincronquotedetail-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.75
+  evidence: 'POST /getMincronQuoteDetail ... "Returns quote details for specific quote Id" (schemas: Quote,
+    getMincronQuoteDetailResponse)'
+  reason: The operation retrieves a priced customer quote (from the Mincron ERP) by quote id, with a Quote
+    schema. That is quote management in the lead-to-order flow, i.e. Quote & Configuration Management;
+    some ambiguity remains because only a read operation is exposed.
+- tag: GetPermissionTemplateDetail
+  spec_file: beacon-roofing-supply-getpermissiontemplatedetail-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: POST /getPermissionTemplateDetail — "Returns details for permissions templates"; schemas Permission,
+    PermissionValues, Role, MasterAdmin, Org, Account
+  reason: The surface exposes permission templates with roles, permission values and admin/org/account
+    scoping — i.e. access-rights administration for portal users. That is Identity & Access Management,
+    not a trading/commerce capability.
+- tag: GetQuoteDetail
+  spec_file: beacon-roofing-supply-getquotedetail-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.75
+  evidence: POST /getQuoteDetail — "Returns quote details for given quote"
+  reason: Retrieval of sales quote details for a contractor customer is quote management (CPQ). No schemas
+    are listed, so the edge rests on the operation summary alone.
+- tag: Quote
+  spec_file: beacon-roofing-supply-quote-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.75
+  evidence: GET /quote — "Returns list of quotes for current user"; schemas DraftQuote, QuoteList
+  reason: Lists customer quotes including drafts, which is quote management on the sales side. DraftQuote/QuoteList
+    schemas ground the quoting reading; some ambiguity remains between quote management and broader opportunity
+    management.
+- tag: Quote Order Services
+  spec_file: beacon-roofing-supply-quote-order-services-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.75
+  evidence: POST /convertQuoteOrder — "Convert quote to quote order"; POST /submitQuoteOrderForApproval;
+    GET /getQuoteOrderPrice — "Get quote order price"
+  reason: The operations manage quote orders end to end — conversion from quote, update, pricing, shipping
+    info, placement and approval submission — which is the quote-to-order (CPQ) motion. Some of the surface
+    drifts into order capture/fulfilment, so confidence is 0.75 rather than higher.
+- tag: GetProductVariation
+  spec_file: beacon-roofing-supply-getproductvariation-api-openapi.yml
+  capability_id: BC-820.40
+  capability_id_l1: BC-820
+  capability_name: Product Configuration & Variant Management
+  confidence: 0.72
+  evidence: GET /getProductVariation — "Returns product variations by product Id"; schemas VariationGroup,
+    ProductMultiVariation, Color, Size, Thickness, Skus
+  reason: Exposes variant dimensions (colour, size, thickness) and SKU mapping for a product, matching
+    product configuration and variant management. Could alternatively be read as catalogue master data,
+    hence not higher.
+- tag: Saved Order Services
+  spec_file: beacon-roofing-supply-saved-order-services-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.72
+  evidence: POST /saveOrder "Create new saved order and save current cart to this order"; POST /submitSavedOrder
+    "Submit/Revise saved order for approval"; POST /approveSavedOrder "Approve saved/pending order"
+  reason: Full lifecycle of customer orders (create from cart, approval routing, shipping info, item updates,
+    delete/reject) — customer order capture and orchestration, i.e. order management within the supply
+    chain. Approval workflow is intra-order, not a separate capability.
+- tag: UpdateQuoteOrder
+  spec_file: beacon-roofing-supply-updatequoteorder-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.72
+  evidence: POST /updateQuoteOrder — "Updates quote draft"; schemas CommerceItem, updateQuoteOrderBody
+  reason: The operation edits a draft quote with line items on a distributor's commerce platform, which
+    is quote/configuration (CPQ-style) management within sales rather than any technical concern.
+- tag: UpdateUser
+  spec_file: beacon-roofing-supply-updateuser-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: POST /updateUser — "Updates user information"; schemas Permission, Role, PermissionTemplate,
+    MasterAdmin
+  reason: The payload is dominated by roles and permission templates, so this is portal user account and
+    access administration, i.e. identity & access management, not customer master data.
+- tag: Checkout
+  spec_file: beacon-roofing-supply-checkout-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.7
+  evidence: POST /submitCurrentOrder — "Submit current order"; POST /addOrderShippingInfo — "Add/Update
+    current order shipping info"; GET /getCurrentOrderReview
+  reason: The operations take a cart through shipping details, order review and order submission — customer
+    order capture and promising that initiates fulfilment. Mapped to Order Fulfilment Management as the
+    closest cross-industry home for order capture/orchestration.
+- tag: Customer Services
+  spec_file: beacon-roofing-supply-customer-services-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: 'POST /createdCustomerAccount  "submit customer data to mincron service"; schemas: createCustomerReq,
+    createCustomerJobReq'
+  reason: Operations push new customer account and customer job records into the back-office (Mincron)
+    system — creation and maintenance of customer master records. Despite the 'Customer Services' tag
+    name, nothing here is inquiry/complaint handling.
+- tag: GetDTOrderDetail
+  spec_file: beacon-roofing-supply-getdtorderdetail-api-openapi.yml
+  capability_id: BC-520.50
+  capability_id_l1: BC-520
+  capability_name: Logistics Operations Management
+  confidence: 0.7
+  evidence: GET /getDTOrderDetail — 'Returns delivery tracking order information by order Id'; schemas
+    'DTStatus', 'DTPhoto'
+  reason: Delivery tracking status and proof-of-delivery photos for a materials order is transport/delivery
+    execution visibility, which sits under Logistics Operations Management. Confidence moderate as only
+    a single read endpoint is exposed.
+- tag: GetMultipleProductVariation
+  spec_file: beacon-roofing-supply-getmultipleproductvariation-api-openapi.yml
+  capability_id: BC-820.40
+  capability_id_l1: BC-820
+  capability_name: Product Configuration & Variant Management
+  confidence: 0.7
+  evidence: '"Returns product variation by product Id" (schemas: Thickness, Skus, Size, VariationGroup,
+    Variations, ProductMultiVariation, Color, VendorColor)'
+  reason: Operations resolve a product's variation axes (colour, size, thickness) and the SKUs behind
+    them, which is product configuration and variant management. Confidence held at 0.7 because the surface
+    is read-only catalogue resolution and could equally be framed as product master data.
+- tag: Invoiced Services
+  spec_file: beacon-roofing-supply-invoiced-services-api-openapi.yml
+  capability_id: BC-200.30
+  capability_id_l1: BC-200
+  capability_name: Accounts Receivable Management
+  confidence: 0.7
+  evidence: 'GET /invoice  getInvoice  List invoiced Data under the account ... schemas: orderInvoice,
+    orderInvoiceRep'
+  reason: Exposes customer invoices tied to an account, i.e. customer-side invoicing data from the distributor's
+    receivables process. Read-only listing keeps confidence moderate.
+- tag: PermissionTemplateList
+  spec_file: beacon-roofing-supply-permissiontemplatelist-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: 'POST /permissionTemplateList — "Returns list of permissions templates"; schemas: Permission,
+    Role, MasterAdmin, PermissionValues'
+  reason: The operation retrieves permission/role templates used to grant platform access to user accounts
+    within an org, which is access-rights administration (Identity & Access Management). Evidence is a
+    single read operation, so confidence is moderate rather than high; it is a platform access-control
+    surface, not a business-domain object.
+- tag: Pricing
+  spec_file: beacon-roofing-supply-pricing-api-openapi.yml
+  capability_id: BC-440
+  capability_id_l1: BC-440
+  capability_name: Pricing Management
+  confidence: 0.7
+  evidence: GET /pricing — "Returns price and unit of measure for item number(s)"; schemas OrderPricing,
+    PriceInfo
+  reason: The operation resolves item prices for the customer, i.e. price determination/lookup against
+    the price book. Evidence supports the Pricing Management L1 but does not clearly distinguish price-list
+    maintenance from discounting, so no L2 is asserted.
+- tag: Pricing Services
+  spec_file: beacon-roofing-supply-pricing-services-api-openapi.yml
+  capability_id: BC-440
+  capability_id_l1: BC-440
+  capability_name: Pricing Management
+  confidence: 0.7
+  evidence: POST /orderPricing — "query order price"; POST /quotePricing — "query quote price"; schemas
+    itemPrice, pricingItem
+  reason: Both operations compute/return prices for orders and quotes, realising price determination for
+    customer transactions. Mapped at the Pricing Management L1 only since the surface is price retrieval
+    rather than price-list stewardship or discount policy.
+- tag: ResetPassword
+  spec_file: beacon-roofing-supply-resetpassword-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /resetPassword — "Resets password for current user"; schemas resetPasswordBody, resetPasswordResponse
+  reason: Credential reset is squarely identity and access management; it is also arguably generic auth
+    plumbing, hence moderate confidence.
+- tag: Role
+  spec_file: beacon-roofing-supply-role-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: GET /role — "Returns role and permissions for current user"; schemas Permission, roleResponse
+  reason: Role and permission resolution for the authenticated user is access management, though it is
+    a thin read-only authorisation endpoint.
+- tag: Submit Order Services
+  spec_file: beacon-roofing-supply-submit-order-services-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.7
+  evidence: POST /submitOrder "Submit order"; schemas submitOrderReq, shippingObj, creditpurchase_req
+  reason: Submits a customer order with shipping and purchase details — sales order capture/fulfilment
+    initiation in the distributor's commerce platform.
+- tag: SubmitCurrentOrder
+  spec_file: beacon-roofing-supply-submitcurrentorder-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.7
+  evidence: POST /submitCurrentOrder "Submits current order"; schemas OrderSummary, ShippingAddress, DeliveryOption
+  reason: Checkout of the current cart into an order with delivery options and shipping address — customer
+    order capture and fulfilment orchestration.
+- tag: SubmitOrder
+  spec_file: beacon-roofing-supply-submitorder-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.7
+  evidence: POST /submitOrder "Submits order"; schemas submitOrderBody, LineItem, Shipping, Job
+  reason: Order submission with line items and shipping details for a materials distributor — order management/fulfilment,
+    not a technical utility.
+- tag: UpdatePermissionTemplate
+  spec_file: beacon-roofing-supply-updatepermissiontemplate-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /updatePermissionTemplate — "Updates permissions template"; schema PermissionValues
+  reason: Maintains reusable permission sets governing what account users may do in the portal — access
+    rights administration. Single operation, so moderate confidence on the IAM sub-capability.
