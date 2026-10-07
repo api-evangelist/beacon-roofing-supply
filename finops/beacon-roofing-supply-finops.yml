@@ -109,10 +109,8 @@ apis:
 unitEconomics:
   - name: Cost per Job
     metric: order_volume / active_jobs
-    target: align to job estimate
   - name: Rebate Capture Rate
     metric: rebates / order_volume
-    target: maximize per manufacturer program
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
