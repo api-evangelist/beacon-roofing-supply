@@ -100,6 +100,13 @@ components:
           example: true
         code:
           type: number
+    salesOrderHoldData:
+      type: object
+      properties:
+        salesOrderHold:
+          type: array
+          items:
+            $ref: '#/components/schemas/salesOrderHold'
     createSalesOrderHoldReq:
       type: object
       properties:
@@ -137,13 +144,6 @@ components:
           type: string
         released-by:
           type: string
-    salesOrderHoldData:
-      type: object
-      properties:
-        salesOrderHold:
-          type: array
-          items:
-            $ref: '#/components/schemas/salesOrderHold'
   securitySchemes:
     internalAuth:
       type: http

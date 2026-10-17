@@ -83,47 +83,6 @@ paths:
       - AddOrderShippingInfo
 components:
   schemas:
-    addOrderShippingInfoBody:
-      type: object
-      properties:
-        deliveryOptionValue:
-          type: string
-        deliveryDate:
-          type: string
-        deliveryTime:
-          type: string
-        shippingMethodValue:
-          type: string
-        changeShippingAddressLocation:
-          type: boolean
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddress'
-        saveShippingAddressToAddressBook:
-          type: boolean
-        specialInstruction:
-          type: string
-      required:
-      - deliveryOptionValue
-      - deliveryDate
-      - deliveryTime
-      - shippingMethodValue
-      - changeShippingAddressLocation
-      - shippingAddress
-      - saveShippingAddressToAddressBook
-      - specialInstruction
-    DeliveryOption:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
-          type: boolean
-      required:
-      - displayName
-      - value
-      - selected
     ShippingAddress:
       type: object
       properties:
@@ -174,3 +133,44 @@ components:
       - countryValue
       - countries
       - phoneNumber
+    addOrderShippingInfoBody:
+      type: object
+      properties:
+        deliveryOptionValue:
+          type: string
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        shippingMethodValue:
+          type: string
+        changeShippingAddressLocation:
+          type: boolean
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress'
+        saveShippingAddressToAddressBook:
+          type: boolean
+        specialInstruction:
+          type: string
+      required:
+      - deliveryOptionValue
+      - deliveryDate
+      - deliveryTime
+      - shippingMethodValue
+      - changeShippingAddressLocation
+      - shippingAddress
+      - saveShippingAddressToAddressBook
+      - specialInstruction
+    DeliveryOption:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected

@@ -63,19 +63,31 @@ paths:
       - GetCurrentUserInfo
 components:
   schemas:
-    MyOrders:
+    LastSelectedAccount:
       type: object
       properties:
-        requested:
+        accountName:
           type: string
-        scheduled:
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
           type: string
-        delivered:
-          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
       required:
-      - requested
-      - scheduled
-      - delivered
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - cashAccount
+      - isAccountClosed
     ContactAddress:
       type: object
       properties:
@@ -110,40 +122,31 @@ components:
       - state
       - postalCode
       - country
-    AccountBranch:
+    Address:
       type: object
       properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        branchNumber:
+        postalCode:
           type: string
-        branchName:
+        state:
           type: string
-        branchPhone:
+        address1:
           type: string
-        branchRegionId:
+        address2:
           type: string
-        company:
+        address3:
           type: string
-        companyName:
+        country:
           type: string
-        division:
-          type: string
-        divisionName:
-          type: string
-        market:
+        city:
           type: string
       required:
-      - address
-      - branchNumber
-      - branchName
-      - branchPhone
-      - branchRegionId
-      - company
-      - companyName
-      - division
-      - divisionName
-      - market
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
     getCurrentUserInfoResponse:
       type: object
       properties:
@@ -237,56 +240,53 @@ components:
       - declineNotificationEmail
       - userAccounts
       - hasPrivateEVAccount
-    Address:
+    AccountBranch:
       type: object
       properties:
-        postalCode:
+        address:
+          $ref: '#/components/schemas/Address'
+        branchNumber:
           type: string
-        state:
+        branchName:
           type: string
-        address1:
+        branchPhone:
           type: string
-        address2:
+        branchRegionId:
           type: string
-        address3:
+        company:
           type: string
-        country:
+        companyName:
           type: string
-        city:
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
           type: string
       required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
-    LastSelectedAccount:
+      - address
+      - branchNumber
+      - branchName
+      - branchPhone
+      - branchRegionId
+      - company
+      - companyName
+      - division
+      - divisionName
+      - market
+    SubscribEmailType:
       type: object
       properties:
-        accountName:
-          type: string
-        accountEnabled:
+        subscribeOrder:
           type: boolean
-        accountLegacyId:
-          type: string
-        accountViewPrices:
+        subscribeAccount:
           type: boolean
-        addCustomSteel:
-          type: boolean
-        cashAccount:
-          type: boolean
-        isAccountClosed:
+        subscribeQuote:
           type: boolean
       required:
-      - accountName
-      - accountEnabled
-      - accountLegacyId
-      - accountViewPrices
-      - addCustomSteel
-      - cashAccount
-      - isAccountClosed
+      - subscribeOrder
+      - subscribeAccount
+      - subscribeQuote
     DeliveryTrackingSettings:
       type: object
       properties:
@@ -306,16 +306,16 @@ components:
       - myOrders
       - allOrders
       - dtAccount
-    SubscribEmailType:
+    MyOrders:
       type: object
       properties:
-        subscribeOrder:
-          type: boolean
-        subscribeAccount:
-          type: boolean
-        subscribeQuote:
-          type: boolean
+        requested:
+          type: string
+        scheduled:
+          type: string
+        delivered:
+          type: string
       required:
-      - subscribeOrder
-      - subscribeAccount
-      - subscribeQuote
+      - requested
+      - scheduled
+      - delivered

@@ -93,48 +93,6 @@ paths:
       - Orderhistory
 components:
   schemas:
-    Result:
-      type: object
-      properties:
-        pageRows:
-          type: number
-        pages:
-          type: number
-        page:
-          type: number
-        rows:
-          type: number
-        rowsPerPage:
-          type: number
-      required:
-      - pageRows
-      - pages
-      - page
-      - rows
-      - rowsPerPage
-    Shipping:
-      type: object
-      properties:
-        shippingBranch:
-          type: number
-        address:
-          $ref: '#/components/schemas/Address'
-        shippingMethod:
-          type: string
-      required:
-      - shippingBranch
-      - address
-      - shippingMethod
-    Job:
-      type: object
-      properties:
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-      required:
-      - jobName
-      - jobNumber
     Next:
       type: object
       properties:
@@ -148,18 +106,6 @@ components:
       - available
       - label
       - page
-    orderhistoryResponse:
-      type: object
-      properties:
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-      required:
-      - orders
-      - pagination
     Address:
       type: object
       properties:
@@ -185,6 +131,37 @@ components:
       - address3
       - country
       - city
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    orderhistoryResponse:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+      - orders
+      - pagination
     Order:
       type: object
       properties:
@@ -234,6 +211,29 @@ components:
       - orderId
       - specialInstruction
       - UUID
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber
+    Shipping:
+      type: object
+      properties:
+        shippingBranch:
+          type: number
+        address:
+          $ref: '#/components/schemas/Address'
+        shippingMethod:
+          type: string
+      required:
+      - shippingBranch
+      - address
+      - shippingMethod
     Pagination:
       type: object
       properties:

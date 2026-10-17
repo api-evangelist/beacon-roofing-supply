@@ -81,26 +81,13 @@ paths:
       - Pricing
 components:
   schemas:
-    OrderPricing:
+    _253737:
       type: object
       properties:
-        '253729':
-          $ref: '#/components/schemas/_2537292'
-        '253737':
-          $ref: '#/components/schemas/_253737'
-        '253740':
-          $ref: '#/components/schemas/_2537402'
-      required:
-      - '253729'
-      - '253737'
-      - '253740'
-    _2537402:
-      type: object
-      properties:
-        PC:
+        CTN:
           type: number
       required:
-      - PC
+      - CTN
     PriceInfo:
       type: object
       properties:
@@ -114,35 +101,19 @@ components:
       - '253729'
       - '253737'
       - '253740'
-    _253737:
+    OrderPricing:
       type: object
       properties:
-        CTN:
-          type: number
+        '253729':
+          $ref: '#/components/schemas/_2537292'
+        '253737':
+          $ref: '#/components/schemas/_253737'
+        '253740':
+          $ref: '#/components/schemas/_2537402'
       required:
-      - CTN
-    _2537292:
-      type: object
-      properties:
-        BDL:
-          type: number
-      required:
-      - BDL
-    pricingResponse:
-      type: object
-      properties:
-        priceInfo:
-          $ref: '#/components/schemas/PriceInfo'
-        orderPricing:
-          $ref: '#/components/schemas/OrderPricing'
-        unavailableSkuList:
-          type: array
-          items:
-            type: string
-      required:
-      - priceInfo
-      - orderPricing
-      - unavailableSkuList
+      - '253729'
+      - '253737'
+      - '253740'
     _253740:
       type: object
       properties:
@@ -163,3 +134,32 @@ components:
       required:
       - BDL
       - PC
+    _2537402:
+      type: object
+      properties:
+        PC:
+          type: number
+      required:
+      - PC
+    pricingResponse:
+      type: object
+      properties:
+        priceInfo:
+          $ref: '#/components/schemas/PriceInfo'
+        orderPricing:
+          $ref: '#/components/schemas/OrderPricing'
+        unavailableSkuList:
+          type: array
+          items:
+            type: string
+      required:
+      - priceInfo
+      - orderPricing
+      - unavailableSkuList
+    _2537292:
+      type: object
+      properties:
+        BDL:
+          type: number
+      required:
+      - BDL

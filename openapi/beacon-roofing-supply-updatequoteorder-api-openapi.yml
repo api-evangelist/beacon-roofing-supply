@@ -69,18 +69,6 @@ paths:
       - UpdateQuoteOrder
 components:
   schemas:
-    updateQuoteOrderResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        commerceItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/CommerceItem'
-      required:
-      - id
-      - commerceItems
     Item:
       type: object
       properties:
@@ -103,6 +91,18 @@ components:
       - id
       - action
       - items
+    updateQuoteOrderResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        commerceItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommerceItem'
+      required:
+      - id
+      - commerceItems
     CommerceItem:
       type: object
       properties:

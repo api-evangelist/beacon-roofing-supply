@@ -140,6 +140,44 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    GAFQuickMeasureCallback_res:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
+          type: boolean
+        result:
+          type: object
+    GAFPlaceReportOrder_req_product:
+      type: object
+      properties:
+        productCode:
+          type: string
+        additionalInformation:
+          type: array
+          items:
+            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product_additionalInfo'
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    GAFPlaceReportOrder_req_product_additionalInfo:
+      type: object
+      properties:
+        questioncode:
+          type: string
+        question:
+          type: string
+        answer:
+          type: string
     GAFPlaceReportOrder_req_serverRes:
       type: object
       properties:
@@ -151,61 +189,15 @@ components:
           type: string
         Response:
           $ref: '#/components/schemas/GAFPlaceReportOrder_req_serverRes_res'
-    GAFPlaceReportOrder_req:
+    GAFGetStatus_res:
       type: object
       properties:
-        accountNumber:
-          type: string
-        subscriberName:
-          type: string
-        subscriberOrderNumber:
-          type: string
-        subscriberCustomField1:
-          type: string
-        emailAddress:
-          type: string
-        productCode:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        stateOrProvince:
-          type: string
-        postalCode:
-          type: string
-        fipscode:
-          type: string
-        county:
-          type: string
-        country:
-          type: string
-        latitude:
-          type: string
-        longitude:
-          type: string
-        fullAddress:
-          type: string
-        recipientEmailAddresses:
-          type: string
-        instructions:
-          type: string
-        isServiceOpen:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
           type: boolean
-        susbcriberId:
-          type: number
-        ignoreCache:
-          type: boolean
-        trackingId:
-          type: string
-        checkForDuplicate:
-          type: boolean
-        products:
-          type: array
-          items:
-            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product'
+        result:
+          $ref: '#/components/schemas/SiteStatus'
     GAFPlaceReportOrder_req_serverRes_res:
       type: object
       properties:
@@ -323,6 +315,17 @@ components:
           type: string
         Buildings:
           type: string
+    GAFPlaceReportOrder_res:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        success:
+          type: boolean
+        result:
+          type: object
+        GAFOrderNumber:
+          type: string
     SiteStatus:
       type: object
       properties:
@@ -334,24 +337,6 @@ components:
           description: current average response time for processing the reports in minutes.
         siteAverageResponseTimeMFCommercial:
           type: number
-    GAFGetStatus_res:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        success:
-          type: boolean
-        result:
-          $ref: '#/components/schemas/SiteStatus'
-    GAFQuickMeasureCallback_res:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        success:
-          type: boolean
-        result:
-          type: object
     GAFQuickMeasureCallback_req_roofMeasurement:
       type: object
       properties:
@@ -449,26 +434,6 @@ components:
             $ref: '#/components/schemas/GAFPlaceReportOrder_req_serverRes'
         ProblemCode:
           type: string
-    GAFPlaceReportOrder_req_product_additionalInfo:
-      type: object
-      properties:
-        questioncode:
-          type: string
-        question:
-          type: string
-        answer:
-          type: string
-    messagesObj:
-      type: array
-      items:
-        type: object
-        properties:
-          type:
-            type: string
-          value:
-            type: string
-          code:
-            type: string
     GAFQuickMeasureCallback_req_additionalProduct:
       type: object
       properties:
@@ -507,26 +472,6 @@ components:
           type: string
         WestImage:
           type: string
-    GAFPlaceReportOrder_req_product:
-      type: object
-      properties:
-        productCode:
-          type: string
-        additionalInformation:
-          type: array
-          items:
-            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product_additionalInfo'
-    GAFPlaceReportOrder_res:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        success:
-          type: boolean
-        result:
-          type: object
-        GAFOrderNumber:
-          type: string
     GAFQuickMeasureCallback_req:
       type: object
       properties:
@@ -546,6 +491,61 @@ components:
           type: string
         RoofMeasurement:
           $ref: '#/components/schemas/GAFQuickMeasureCallback_req_roofMeasurement'
+    GAFPlaceReportOrder_req:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        subscriberName:
+          type: string
+        subscriberOrderNumber:
+          type: string
+        subscriberCustomField1:
+          type: string
+        emailAddress:
+          type: string
+        productCode:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        stateOrProvince:
+          type: string
+        postalCode:
+          type: string
+        fipscode:
+          type: string
+        county:
+          type: string
+        country:
+          type: string
+        latitude:
+          type: string
+        longitude:
+          type: string
+        fullAddress:
+          type: string
+        recipientEmailAddresses:
+          type: string
+        instructions:
+          type: string
+        isServiceOpen:
+          type: boolean
+        susbcriberId:
+          type: number
+        ignoreCache:
+          type: boolean
+        trackingId:
+          type: string
+        checkForDuplicate:
+          type: boolean
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/GAFPlaceReportOrder_req_product'
   securitySchemes:
     JSESSIONID:
       type: apiKey

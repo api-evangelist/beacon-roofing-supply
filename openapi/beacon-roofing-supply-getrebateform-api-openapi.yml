@@ -85,6 +85,24 @@ components:
       required:
       - displayName
       - value
+    getRebateFormResponse:
+      type: object
+      properties:
+        rebateId:
+          type: string
+        rebateName:
+          type: string
+        ableSubmit:
+          type: boolean
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/Row'
+      required:
+      - rebateId
+      - rebateName
+      - ableSubmit
+      - rows
     Row:
       type: object
       properties:
@@ -142,21 +160,3 @@ components:
       - css
       - invalidMsg
       - selectValues
-    getRebateFormResponse:
-      type: object
-      properties:
-        rebateId:
-          type: string
-        rebateName:
-          type: string
-        ableSubmit:
-          type: boolean
-        rows:
-          type: array
-          items:
-            $ref: '#/components/schemas/Row'
-      required:
-      - rebateId
-      - rebateName
-      - ableSubmit
-      - rows

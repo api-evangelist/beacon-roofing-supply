@@ -69,6 +69,13 @@ paths:
       - GetHoverJobDetail
 components:
   schemas:
+    Image:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
     getHoverJobDetailResponse:
       type: object
       properties:
@@ -224,10 +231,3 @@ components:
       - orderMaterials
       - machete_features
       - images
-    Image:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id

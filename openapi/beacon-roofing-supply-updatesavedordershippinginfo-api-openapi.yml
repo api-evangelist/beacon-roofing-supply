@@ -65,6 +65,66 @@ paths:
       - UpdateSavedOrderShippingInfo
 components:
   schemas:
+    ContactInfo:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        phoneNumber:
+          type: string
+      required:
+      - firstName
+      - lastName
+      - nickName
+      - phoneNumber
+    DeliveryOption:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+        selected:
+          type: boolean
+      required:
+      - displayName
+      - value
+      - selected
+    updateSavedOrderShippingInfoBody:
+      type: object
+      properties:
+        orderId:
+          type: string
+        deliveryOption:
+          type: string
+        deliveryDate:
+          type: string
+        deliveryTime:
+          type: string
+        shippingMethod:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress'
+        branchName:
+          type: string
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo'
+        instructions:
+          type: string
+      required:
+      - orderId
+      - deliveryOption
+      - deliveryDate
+      - deliveryTime
+      - shippingMethod
+      - shippingAddress
+      - branchName
+      - contactInfo
+      - instructions
     ShippingAddress:
       type: object
       properties:
@@ -114,64 +174,4 @@ components:
       - postalCode
       - countryValue
       - countries
-      - phoneNumber
-    DeliveryOption:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-        selected:
-          type: boolean
-      required:
-      - displayName
-      - value
-      - selected
-    updateSavedOrderShippingInfoBody:
-      type: object
-      properties:
-        orderId:
-          type: string
-        deliveryOption:
-          type: string
-        deliveryDate:
-          type: string
-        deliveryTime:
-          type: string
-        shippingMethod:
-          type: string
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddress'
-        branchName:
-          type: string
-        contactInfo:
-          $ref: '#/components/schemas/ContactInfo'
-        instructions:
-          type: string
-      required:
-      - orderId
-      - deliveryOption
-      - deliveryDate
-      - deliveryTime
-      - shippingMethod
-      - shippingAddress
-      - branchName
-      - contactInfo
-      - instructions
-    ContactInfo:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        nickName:
-          type: string
-        phoneNumber:
-          type: string
-      required:
-      - firstName
-      - lastName
-      - nickName
       - phoneNumber

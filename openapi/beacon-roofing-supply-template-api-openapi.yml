@@ -129,6 +129,19 @@ paths:
       - Template
 components:
   schemas:
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
     Result:
       type: object
       properties:
@@ -163,24 +176,6 @@ components:
       - typeId
       - typeName
       - options
-    templateResponse:
-      type: object
-      properties:
-        totalNumRecs:
-          type: number
-        pageNumRecs:
-          type: number
-        templates:
-          type: array
-          items:
-            $ref: '#/components/schemas/Template'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-      required:
-      - totalNumRecs
-      - pageNumRecs
-      - templates
-      - pagination
     Template:
       type: object
       properties:
@@ -214,19 +209,6 @@ components:
       - accountName
       - createdByUser
       - templateItems
-    Next:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: number
-      required:
-      - available
-      - label
-      - page
     TemplateItem:
       type: object
       properties:
@@ -278,48 +260,6 @@ components:
       - quantity
       - available
       - imageUrl
-    LastModifiedUser:
-      type: object
-      properties:
-        profileId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        emailAddress:
-          type: string
-      required:
-      - profileId
-      - firstName
-      - lastName
-      - emailAddress
-    ImageUrl:
-      type: object
-      properties:
-        thumbnail:
-          type: string
-        large:
-          type: string
-      required:
-      - thumbnail
-      - large
-    Option:
-      type: object
-      properties:
-        optionId:
-          type: string
-        optionName:
-          type: string
-        opectionChecked:
-          type: boolean
-        skuId:
-          type: string
-      required:
-      - optionId
-      - optionName
-      - opectionChecked
-      - skuId
     Pagination:
       type: object
       properties:
@@ -344,3 +284,63 @@ components:
       - currentPage
       - totalCount
       - results
+    LastModifiedUser:
+      type: object
+      properties:
+        profileId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        emailAddress:
+          type: string
+      required:
+      - profileId
+      - firstName
+      - lastName
+      - emailAddress
+    templateResponse:
+      type: object
+      properties:
+        totalNumRecs:
+          type: number
+        pageNumRecs:
+          type: number
+        templates:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+      - totalNumRecs
+      - pageNumRecs
+      - templates
+      - pagination
+    Option:
+      type: object
+      properties:
+        optionId:
+          type: string
+        optionName:
+          type: string
+        opectionChecked:
+          type: boolean
+        skuId:
+          type: string
+      required:
+      - optionId
+      - optionName
+      - opectionChecked
+      - skuId
+    ImageUrl:
+      type: object
+      properties:
+        thumbnail:
+          type: string
+        large:
+          type: string
+      required:
+      - thumbnail
+      - large

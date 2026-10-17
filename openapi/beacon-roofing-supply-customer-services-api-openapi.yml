@@ -153,23 +153,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    createCustomerResp:
-      type: object
-      properties:
-        result:
-          type: object
-          properties:
-            Response:
-              type: object
-              properties:
-                Result:
-                  type: string
-                Message:
-                  type: string
-        success:
-          example: true
-        code:
-          type: number
     createCustomerJobReq:
       type: object
       properties:
@@ -437,6 +420,23 @@ components:
                               type: string
                             data-type:
                               type: string
+    createCustomerResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            Response:
+              type: object
+              properties:
+                Result:
+                  type: string
+                Message:
+                  type: string
+        success:
+          example: true
+        code:
+          type: number
     createCustomerReq:
       type: object
       properties:

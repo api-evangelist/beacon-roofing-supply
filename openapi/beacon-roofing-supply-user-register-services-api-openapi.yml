@@ -146,16 +146,66 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    UserRegInfo_UserRegisterResponse_getUserRegisterToken:
+    UserRegisterResponse_register:
       type: object
       properties:
-        userRegisterToken:
+        needLogin:
+          type: boolean
+        needRetry:
+          type: boolean
+        needContactSupport:
+          type: boolean
+        needGetUserRegisterToken:
+          type: boolean
+        registerSuccess:
+          type: boolean
+    UserRegInfo_UserRegisterResponse_validateUserByAccount:
+      type: object
+      properties:
+        companyName:
           type: string
-    UserRegisterResponse_validateUserByEmail:
+        account:
+          type: string
+        invoice:
+          type: string
+        invoiceDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+        accountInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRegAccountInfo'
+        token:
+          type: string
+    UserRegInfo_UserRegisterResponse_validateUserByEmail:
+      type: object
+      properties:
+        emailAddress:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        zipCode:
+          type: string
+        phoneNumber:
+          type: string
+        accountInfos:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRegAccountInfo'
+        internalUser:
+          type: boolean
+        beaconEmployee:
+          type: boolean
+        token:
+          type: string
+    UserRegisterResponse_validateUserByAccount:
       type: object
       properties:
         userRegInfo:
-          $ref: '#/components/schemas/UserRegInfo_UserRegisterResponse_validateUserByEmail'
+          $ref: '#/components/schemas/UserRegInfo_UserRegisterResponse_validateUserByAccount'
         showBranchSelection:
           type: boolean
         branchSelection:
@@ -214,6 +264,43 @@ components:
           type: array
           items:
             type: string
+    UserRegAccountInfo:
+      type: object
+      properties:
+        accountId:
+          type: string
+        accountName:
+          type: string
+        branchId:
+          type: string
+    UserRegInfo_UserRegisterResponse_getUserRegisterToken:
+      type: object
+      properties:
+        userRegisterToken:
+          type: string
+    UserRegisterResponse_validateUserByEmail:
+      type: object
+      properties:
+        userRegInfo:
+          $ref: '#/components/schemas/UserRegInfo_UserRegisterResponse_validateUserByEmail'
+        showBranchSelection:
+          type: boolean
+        branchSelection:
+          $ref: '#/components/schemas/UserRegisterResponseBranchSelection'
+        retryTimesLeft:
+          type: integer
+        needLogin:
+          type: boolean
+        needRetry:
+          type: boolean
+        needContactSupport:
+          type: boolean
+        needGetUserRegisterToken:
+          type: boolean
+        needInvoice:
+          type: boolean
+        registerSuccess:
+          type: boolean
     ValidateUserRegRequest_validateUserByAccount:
       type: object
       properties:
@@ -236,62 +323,6 @@ components:
           type: string
         branchName:
           type: string
-    UserRegisterResponseBranchSelection:
-      type: object
-      properties:
-        accountId:
-          type: string
-        accountName:
-          type: string
-        branches:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserRegisterResponseBranchSelectionBranchInfo'
-    UserRegInfo_UserRegisterResponse_validateUserByEmail:
-      type: object
-      properties:
-        emailAddress:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        zipCode:
-          type: string
-        phoneNumber:
-          type: string
-        accountInfos:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserRegAccountInfo'
-        internalUser:
-          type: boolean
-        beaconEmployee:
-          type: boolean
-        token:
-          type: string
-    UserRegAccountInfo:
-      type: object
-      properties:
-        accountId:
-          type: string
-        accountName:
-          type: string
-        branchId:
-          type: string
-    UserRegisterResponse_register:
-      type: object
-      properties:
-        needLogin:
-          type: boolean
-        needRetry:
-          type: boolean
-        needContactSupport:
-          type: boolean
-        needGetUserRegisterToken:
-          type: boolean
-        registerSuccess:
-          type: boolean
     ValidateUserRegRequest_validateUserByEmail:
       type: object
       properties:
@@ -308,48 +339,17 @@ components:
         g-recaptcha-response:
           type: string
           description: When recaptcha enabled on site, this token is required.Otherwise, keep it empty.
-    UserRegInfo_UserRegisterResponse_validateUserByAccount:
+    UserRegisterResponseBranchSelection:
       type: object
       properties:
-        companyName:
+        accountId:
           type: string
-        account:
+        accountName:
           type: string
-        invoice:
-          type: string
-        invoiceDate:
-          type: string
-          format: MM-dd-yyyy
-          example: 01-17-2018
-        accountInfos:
+        branches:
           type: array
           items:
-            $ref: '#/components/schemas/UserRegAccountInfo'
-        token:
-          type: string
-    UserRegisterResponse_validateUserByAccount:
-      type: object
-      properties:
-        userRegInfo:
-          $ref: '#/components/schemas/UserRegInfo_UserRegisterResponse_validateUserByAccount'
-        showBranchSelection:
-          type: boolean
-        branchSelection:
-          $ref: '#/components/schemas/UserRegisterResponseBranchSelection'
-        retryTimesLeft:
-          type: integer
-        needLogin:
-          type: boolean
-        needRetry:
-          type: boolean
-        needContactSupport:
-          type: boolean
-        needGetUserRegisterToken:
-          type: boolean
-        needInvoice:
-          type: boolean
-        registerSuccess:
-          type: boolean
+            $ref: '#/components/schemas/UserRegisterResponseBranchSelectionBranchInfo'
   securitySchemes:
     JSESSIONID:
       type: apiKey

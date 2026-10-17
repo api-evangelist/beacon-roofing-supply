@@ -69,25 +69,6 @@ paths:
       - QueryQuoteStatus
 components:
   schemas:
-    Result:
-      type: object
-      properties:
-        pageRows:
-          type: number
-        pages:
-          type: number
-        page:
-          type: number
-        rows:
-          type: number
-        rowsPerPage:
-          type: number
-      required:
-      - pageRows
-      - pages
-      - page
-      - rows
-      - rowsPerPage
     Message:
       type: object
       properties:
@@ -116,3 +97,22 @@ components:
       - messages
       - success
       - result
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage

@@ -69,54 +69,6 @@ paths:
       - PlaceEagleViewOrder
 components:
   schemas:
-    placeEagleViewOrderResponse:
-      type: object
-      properties:
-        mincronOrderId:
-          type: string
-        orderId:
-          type: number
-        reportIds:
-          type: array
-          items:
-            type: number
-        modelState:
-          $ref: '#/components/schemas/ModelState'
-      required:
-      - mincronOrderId
-      - orderId
-      - reportIds
-      - modelState
-    placeEagleViewOrderBody:
-      type: object
-      properties:
-        OrderReports:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderReport'
-        PromoCode:
-          type: string
-        PlaceOrderUser:
-          type: string
-        accountId:
-          type: string
-        email:
-          type: string
-        projectName:
-          type: string
-        beaconPrice:
-          type: number
-        UUID:
-          type: string
-      required:
-      - OrderReports
-      - PromoCode
-      - PlaceOrderUser
-      - accountId
-      - email
-      - projectName
-      - beaconPrice
-      - UUID
     ReportAttibute:
       type: object
       properties:
@@ -139,31 +91,6 @@ components:
       required:
       - modelKey
       - modelValue
-    ReportAddress:
-      type: object
-      properties:
-        Address:
-          type: string
-        City:
-          type: string
-        State:
-          type: string
-        Zip:
-          type: string
-        Country:
-          type: string
-        Latitude:
-          type: number
-        Longitude:
-          type: number
-      required:
-      - Address
-      - City
-      - State
-      - Zip
-      - Country
-      - Latitude
-      - Longitude
     OrderReport:
       type: object
       properties:
@@ -246,3 +173,76 @@ components:
       - deliveryType
       - addOns
       - structures
+    placeEagleViewOrderBody:
+      type: object
+      properties:
+        OrderReports:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderReport'
+        PromoCode:
+          type: string
+        PlaceOrderUser:
+          type: string
+        accountId:
+          type: string
+        email:
+          type: string
+        projectName:
+          type: string
+        beaconPrice:
+          type: number
+        UUID:
+          type: string
+      required:
+      - OrderReports
+      - PromoCode
+      - PlaceOrderUser
+      - accountId
+      - email
+      - projectName
+      - beaconPrice
+      - UUID
+    ReportAddress:
+      type: object
+      properties:
+        Address:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        Zip:
+          type: string
+        Country:
+          type: string
+        Latitude:
+          type: number
+        Longitude:
+          type: number
+      required:
+      - Address
+      - City
+      - State
+      - Zip
+      - Country
+      - Latitude
+      - Longitude
+    placeEagleViewOrderResponse:
+      type: object
+      properties:
+        mincronOrderId:
+          type: string
+        orderId:
+          type: number
+        reportIds:
+          type: array
+          items:
+            type: number
+        modelState:
+          $ref: '#/components/schemas/ModelState'
+      required:
+      - mincronOrderId
+      - orderId
+      - reportIds
+      - modelState

@@ -63,16 +63,37 @@ paths:
       - GetCurrentOrderReview
 components:
   schemas:
-    Job:
+    PoJob:
       type: object
       properties:
-        jobName:
+        poRequired:
+          type: boolean
+        jobNameRequired:
+          type: boolean
+        jobNumberRequired:
+          type: boolean
+        showJobName:
+          type: boolean
+        showJobNumber:
+          type: boolean
+        poName:
           type: string
         jobNumber:
           type: string
+        jobName:
+          type: string
+        jobAccounts:
+          $ref: '#/components/schemas/JobAccounts'
       required:
-      - jobName
+      - poRequired
+      - jobNameRequired
+      - jobNumberRequired
+      - showJobName
+      - showJobNumber
+      - poName
       - jobNumber
+      - jobName
+      - jobAccounts
     DeliveryOption:
       type: object
       properties:
@@ -86,6 +107,66 @@ components:
       - displayName
       - value
       - selected
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber
+    ShippingAddress:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        stateValue:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        postalCode:
+          type: string
+        countryValue:
+          type: string
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        phoneNumber:
+          type: string
+      required:
+      - addressBookId
+      - nickName
+      - firstName
+      - lastName
+      - address1
+      - address2
+      - address3
+      - city
+      - stateValue
+      - states
+      - postalCode
+      - countryValue
+      - countries
+      - phoneNumber
     JobAccounts:
       type: object
       properties:
@@ -146,84 +227,3 @@ components:
           type: string
       required:
       - nextUrl
-    PoJob:
-      type: object
-      properties:
-        poRequired:
-          type: boolean
-        jobNameRequired:
-          type: boolean
-        jobNumberRequired:
-          type: boolean
-        showJobName:
-          type: boolean
-        showJobNumber:
-          type: boolean
-        poName:
-          type: string
-        jobNumber:
-          type: string
-        jobName:
-          type: string
-        jobAccounts:
-          $ref: '#/components/schemas/JobAccounts'
-      required:
-      - poRequired
-      - jobNameRequired
-      - jobNumberRequired
-      - showJobName
-      - showJobNumber
-      - poName
-      - jobNumber
-      - jobName
-      - jobAccounts
-    ShippingAddress:
-      type: object
-      properties:
-        addressBookId:
-          type: string
-        nickName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        city:
-          type: string
-        stateValue:
-          type: string
-        states:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryOption'
-        postalCode:
-          type: string
-        countryValue:
-          type: string
-        countries:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryOption'
-        phoneNumber:
-          type: string
-      required:
-      - addressBookId
-      - nickName
-      - firstName
-      - lastName
-      - address1
-      - address2
-      - address3
-      - city
-      - stateValue
-      - states
-      - postalCode
-      - countryValue
-      - countries
-      - phoneNumber

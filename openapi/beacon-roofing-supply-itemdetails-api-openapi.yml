@@ -101,6 +101,98 @@ paths:
       - ItemDetails
 components:
   schemas:
+    Resource:
+      type: object
+      properties:
+        General Instructrions:
+          type: string
+        Warranty:
+          type: string
+        MSDS:
+          type: string
+        Brochure:
+          type: string
+      required:
+      - General Instructrions
+      - Warranty
+      - MSDS
+      - Brochure
+    Category:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+      required:
+      - categoryName
+      - categoryId
+    Variations2:
+      type: object
+      properties:
+        color:
+          $ref: '#/components/schemas/Color'
+        size:
+          $ref: '#/components/schemas/Size'
+        thickness:
+          $ref: '#/components/schemas/Thickness'
+      required:
+      - color
+      - size
+      - thickness
+    Size:
+      type: object
+      properties:
+        12x10:
+          type: array
+          items:
+            type: string
+        4x4:
+          type: array
+          items:
+            type: string
+      required:
+      - 12x10
+      - 4x4
+    SkuList:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        color:
+          type: string
+        unitPrice:
+          type: number
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        itemImage:
+          type: string
+        heroImage:
+          type: string
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          type: array
+          items:
+            type: string
+      required:
+      - currentUOM
+      - color
+      - unitPrice
+      - itemNumber
+      - productNumber
+      - itemImage
+      - heroImage
+      - thumbImage
+      - swatchImage
+      - skuShortDesc
+      - auxiliaryImages
     itemDetailsResponse:
       type: object
       properties:
@@ -128,6 +220,139 @@ components:
       - currentSKU
       - skuList
       - variations
+    CurrentSKU:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        color:
+          type: string
+        manufactureNumber:
+          type: string
+        unitPrice:
+          type: number
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        uomlist:
+          type: array
+          items:
+            type: string
+        itemImage:
+          type: string
+        heroImage:
+          type: string
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          type: array
+          items:
+            type: string
+      required:
+      - currentUOM
+      - color
+      - manufactureNumber
+      - unitPrice
+      - itemNumber
+      - productNumber
+      - uomlist
+      - itemImage
+      - heroImage
+      - thumbImage
+      - swatchImage
+      - skuShortDesc
+      - auxiliaryImages
+    Color:
+      type: object
+      properties:
+        White:
+          type: array
+          items:
+            type: string
+        Dover:
+          type: array
+          items:
+            type: string
+      required:
+      - White
+      - Dover
+    Product:
+      type: object
+      properties:
+        productImage:
+          type: string
+        productOnErrorImage:
+          type: string
+        longDesc:
+          type: string
+        manufactureNumber:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        shortDesc:
+          type: string
+        itemNumber:
+          type: string
+        hoverAttributes:
+          $ref: '#/components/schemas/HoverAttributes'
+        productName:
+          type: string
+        productId:
+          type: string
+        baseProductName:
+          type: string
+        internalProductName:
+          type: string
+        brand:
+          type: string
+        url:
+          type: string
+        relatedProducts:
+          type: array
+          items:
+            type: string
+      required:
+      - productImage
+      - productOnErrorImage
+      - longDesc
+      - manufactureNumber
+      - categories
+      - shortDesc
+      - itemNumber
+      - hoverAttributes
+      - productName
+      - productId
+      - baseProductName
+      - internalProductName
+      - brand
+      - url
+      - relatedProducts
+    Thickness:
+      type: object
+      properties:
+        2mm:
+          type: array
+          items:
+            type: string
+        4mm:
+          type: array
+          items:
+            type: string
+        6mm:
+          type: array
+          items:
+            type: string
+      required:
+      - 2mm
+      - 4mm
+      - 6mm
     Specification:
       type: object
       properties:
@@ -156,19 +381,6 @@ components:
       - Net_Free_Vent_Area__NFVA_
       - Exposure
       - Wind_Resistance
-    Variations2:
-      type: object
-      properties:
-        color:
-          $ref: '#/components/schemas/Color'
-        size:
-          $ref: '#/components/schemas/Size'
-        thickness:
-          $ref: '#/components/schemas/Thickness'
-      required:
-      - color
-      - size
-      - thickness
     HoverAttributes:
       type: object
       properties:
@@ -251,215 +463,3 @@ components:
       - cvLapIn
       - cfmValue
       - cfmUom
-    SkuList:
-      type: object
-      properties:
-        currentUOM:
-          type: string
-        color:
-          type: string
-        unitPrice:
-          type: number
-        itemNumber:
-          type: string
-        productNumber:
-          type: string
-        itemImage:
-          type: string
-        heroImage:
-          type: string
-        thumbImage:
-          type: string
-        swatchImage:
-          type: string
-        skuShortDesc:
-          type: string
-        auxiliaryImages:
-          type: array
-          items:
-            type: string
-      required:
-      - currentUOM
-      - color
-      - unitPrice
-      - itemNumber
-      - productNumber
-      - itemImage
-      - heroImage
-      - thumbImage
-      - swatchImage
-      - skuShortDesc
-      - auxiliaryImages
-    Color:
-      type: object
-      properties:
-        White:
-          type: array
-          items:
-            type: string
-        Dover:
-          type: array
-          items:
-            type: string
-      required:
-      - White
-      - Dover
-    Category:
-      type: object
-      properties:
-        categoryName:
-          type: string
-        categoryId:
-          type: string
-      required:
-      - categoryName
-      - categoryId
-    Thickness:
-      type: object
-      properties:
-        2mm:
-          type: array
-          items:
-            type: string
-        4mm:
-          type: array
-          items:
-            type: string
-        6mm:
-          type: array
-          items:
-            type: string
-      required:
-      - 2mm
-      - 4mm
-      - 6mm
-    Size:
-      type: object
-      properties:
-        12x10:
-          type: array
-          items:
-            type: string
-        4x4:
-          type: array
-          items:
-            type: string
-      required:
-      - 12x10
-      - 4x4
-    CurrentSKU:
-      type: object
-      properties:
-        currentUOM:
-          type: string
-        color:
-          type: string
-        manufactureNumber:
-          type: string
-        unitPrice:
-          type: number
-        itemNumber:
-          type: string
-        productNumber:
-          type: string
-        uomlist:
-          type: array
-          items:
-            type: string
-        itemImage:
-          type: string
-        heroImage:
-          type: string
-        thumbImage:
-          type: string
-        swatchImage:
-          type: string
-        skuShortDesc:
-          type: string
-        auxiliaryImages:
-          type: array
-          items:
-            type: string
-      required:
-      - currentUOM
-      - color
-      - manufactureNumber
-      - unitPrice
-      - itemNumber
-      - productNumber
-      - uomlist
-      - itemImage
-      - heroImage
-      - thumbImage
-      - swatchImage
-      - skuShortDesc
-      - auxiliaryImages
-    Product:
-      type: object
-      properties:
-        productImage:
-          type: string
-        productOnErrorImage:
-          type: string
-        longDesc:
-          type: string
-        manufactureNumber:
-          type: string
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/Category'
-        shortDesc:
-          type: string
-        itemNumber:
-          type: string
-        hoverAttributes:
-          $ref: '#/components/schemas/HoverAttributes'
-        productName:
-          type: string
-        productId:
-          type: string
-        baseProductName:
-          type: string
-        internalProductName:
-          type: string
-        brand:
-          type: string
-        url:
-          type: string
-        relatedProducts:
-          type: array
-          items:
-            type: string
-      required:
-      - productImage
-      - productOnErrorImage
-      - longDesc
-      - manufactureNumber
-      - categories
-      - shortDesc
-      - itemNumber
-      - hoverAttributes
-      - productName
-      - productId
-      - baseProductName
-      - internalProductName
-      - brand
-      - url
-      - relatedProducts
-    Resource:
-      type: object
-      properties:
-        General Instructrions:
-          type: string
-        Warranty:
-          type: string
-        MSDS:
-          type: string
-        Brochure:
-          type: string
-      required:
-      - General Instructrions
-      - Warranty
-      - MSDS
-      - Brochure

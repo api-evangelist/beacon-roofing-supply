@@ -77,13 +77,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    itemPricingResp:
-      type: object
-      properties:
-        bizItemPrices:
-          type: array
-          items:
-            $ref: '#/components/schemas/itemPrice'
     quotePriceRequest:
       type: object
       required:
@@ -103,6 +96,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/pricingItem'
+    priceRequest:
+      type: object
+      required:
+      - account
+      - brnNumber
+      - item
+      properties:
+        account:
+          type: string
+        jobNumber:
+          type: string
+        branchNumber:
+          type: string
+        item:
+          type: array
+          items:
+            $ref: '#/components/schemas/pricingItem'
+    itemPricingResp:
+      type: object
+      properties:
+        bizItemPrices:
+          type: array
+          items:
+            $ref: '#/components/schemas/itemPrice'
     itemPrice:
       type: object
       properties:
@@ -138,23 +155,6 @@ components:
           type: string
         warning:
           type: string
-    priceRequest:
-      type: object
-      required:
-      - account
-      - brnNumber
-      - item
-      properties:
-        account:
-          type: string
-        jobNumber:
-          type: string
-        branchNumber:
-          type: string
-        item:
-          type: array
-          items:
-            $ref: '#/components/schemas/pricingItem'
     pricingItem:
       type: object
       required:

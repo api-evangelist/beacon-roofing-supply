@@ -81,6 +81,13 @@ paths:
       - GetFavoriteProducts
 components:
   schemas:
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter
     getFavoriteProductsResponse:
       type: object
       properties:
@@ -93,10 +100,3 @@ components:
       required:
       - totalNumRecs
       - items
-    Item:
-      type: object
-      properties:
-        filter:
-          type: string
-      required:
-      - filter

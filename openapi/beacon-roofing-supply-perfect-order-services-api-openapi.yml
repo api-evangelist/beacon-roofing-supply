@@ -241,33 +241,74 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    skusVariationObj:
+    BCPaginationObj:
       type: object
-      additionalProperties:
-        type: object
-      example:
-        '600001':
-          color:
-          - White
-          - Dover
-          size:
-          - 12x10
-          thickness:
-          - 2mm
-        '600002':
-          color:
-          - White
-          size:
-          - 4x4
-          thickness:
-          - 4mm
-        '300003':
-          color:
-          - Dover
-          size:
-          - 4x4
-          thickness:
-          - 6mm
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    getPerfectOrderDetailRep:
+      type: object
+      properties:
+        messages:
+          type: string
+        perfectOrders:
+          type: array
+          items:
+            type: object
+            properties:
+              displayName:
+                type: string
+              items:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    unitPrice:
+                      type: number
+                      format: double
+                    itemNumber:
+                      type: string
+                    unitOfMeasure:
+                      type: string
+                    productImageUrl:
+                      type: string
+                    productOnErrorImageUrl:
+                      type: string
+                    productOrItemNumber:
+                      type: string
+                    itemOrProductDescription:
+                      type: string
+                    internalProductName:
+                      type: string
+                    quantity:
+                      type: string
+                    variations:
+                      $ref: '#/components/schemas/variationsObj'
+                    skusVariation:
+                      $ref: '#/components/schemas/skusVariationObj'
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
     getPerfectOrderBrandsRep:
       type: object
       properties:
@@ -302,6 +343,33 @@ components:
           type: string
         page:
           type: integer
+    skusVariationObj:
+      type: object
+      additionalProperties:
+        type: object
+      example:
+        '600001':
+          color:
+          - White
+          - Dover
+          size:
+          - 12x10
+          thickness:
+          - 2mm
+        '600002':
+          color:
+          - White
+          size:
+          - 4x4
+          thickness:
+          - 4mm
+        '300003':
+          color:
+          - Dover
+          size:
+          - 4x4
+          thickness:
+          - 6mm
     getPerfectStyleGroupsRep:
       type: object
       properties:
@@ -320,34 +388,6 @@ components:
                 type: string
               rank:
                 type: string
-    BCPaginationObj:
-      type: object
-      properties:
-        enable:
-          type: boolean
-        page:
-          type: integer
-        currentPage:
-          type: boolean
-        type:
-          type: string
-    BCPaginationDataObj:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        previous:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        pageSize:
-          type: integer
-        currentPage:
-          type: integer
-        totalCount:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPaginationObj'
     getPerfectOrderLandingRep:
       type: object
       properties:
@@ -400,46 +440,6 @@ components:
           - '200002'
           6mm:
           - '300003'
-    getPerfectOrderDetailRep:
-      type: object
-      properties:
-        messages:
-          type: string
-        perfectOrders:
-          type: array
-          items:
-            type: object
-            properties:
-              displayName:
-                type: string
-              items:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    unitPrice:
-                      type: number
-                      format: double
-                    itemNumber:
-                      type: string
-                    unitOfMeasure:
-                      type: string
-                    productImageUrl:
-                      type: string
-                    productOnErrorImageUrl:
-                      type: string
-                    productOrItemNumber:
-                      type: string
-                    itemOrProductDescription:
-                      type: string
-                    internalProductName:
-                      type: string
-                    quantity:
-                      type: string
-                    variations:
-                      $ref: '#/components/schemas/variationsObj'
-                    skusVariation:
-                      $ref: '#/components/schemas/skusVariationObj'
   securitySchemes:
     JSESSIONID:
       type: apiKey

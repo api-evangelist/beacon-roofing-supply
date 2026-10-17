@@ -69,37 +69,6 @@ paths:
       - CreateAddressBook
 components:
   schemas:
-    Message:
-      type: object
-      properties:
-        type:
-          type: string
-        value:
-          type: string
-        code:
-          type: string
-      required:
-      - type
-      - value
-      - code
-    createAddressBookResponse:
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/Message'
-        messageCode:
-          type: number
-        success:
-          type: boolean
-        addressBookId:
-          type: string
-      required:
-      - messages
-      - messageCode
-      - success
-      - addressBookId
     createAddressBookBody:
       type: object
       properties:
@@ -134,3 +103,34 @@ components:
       - postalCode
       - countryValue
       - phoneNumber
+    Message:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+        code:
+          type: string
+      required:
+      - type
+      - value
+      - code
+    createAddressBookResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        messageCode:
+          type: number
+        success:
+          type: boolean
+        addressBookId:
+          type: string
+      required:
+      - messages
+      - messageCode
+      - success
+      - addressBookId

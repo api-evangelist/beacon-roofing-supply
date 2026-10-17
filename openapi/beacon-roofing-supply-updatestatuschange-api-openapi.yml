@@ -69,6 +69,22 @@ paths:
       - UpdateStatusChange
 components:
   schemas:
+    DtAccountStatusChangeNotification:
+      type: object
+      properties:
+        requested:
+          type: string
+        scheduled:
+          type: string
+        delivered:
+          type: string
+        accountId:
+          type: string
+      required:
+      - requested
+      - scheduled
+      - delivered
+      - accountId
     updateStatusChangeResponse:
       type: object
       properties:
@@ -79,6 +95,19 @@ components:
       required:
       - messageCode
       - message
+    DtStatusChangeNotification:
+      type: object
+      properties:
+        requested:
+          type: string
+        scheduled:
+          type: string
+        delivered:
+          type: string
+      required:
+      - requested
+      - scheduled
+      - delivered
     updateStatusChangeBody:
       type: object
       properties:
@@ -100,32 +129,3 @@ components:
       - dtStatusChangeNotification
       - dtAdminStatusChangeNotification
       - dtAccountStatusChangeNotification
-    DtAccountStatusChangeNotification:
-      type: object
-      properties:
-        requested:
-          type: string
-        scheduled:
-          type: string
-        delivered:
-          type: string
-        accountId:
-          type: string
-      required:
-      - requested
-      - scheduled
-      - delivered
-      - accountId
-    DtStatusChangeNotification:
-      type: object
-      properties:
-        requested:
-          type: string
-        scheduled:
-          type: string
-        delivered:
-          type: string
-      required:
-      - requested
-      - scheduled
-      - delivered

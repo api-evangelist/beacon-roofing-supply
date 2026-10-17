@@ -66,55 +66,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    addItemsToOrderRep:
-      type: object
-      properties:
-        allItemsUnavailable:
-          type: boolean
-        unavailableItems:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              failedReason:
-                type: string
-        addedToCartItems:
-          type: array
-          items:
-            type: string
-        vendorColorNotMatchedItems:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              matchColor:
-                type: string
-              matchMFG:
-                type: string
-    shippingObj:
-      type: object
-      properties:
-        shippingMethod:
-          type: string
-        shippingBranch:
-          type: string
-        address:
-          type: object
-          properties:
-            address1:
-              type: string
-            address2:
-              type: string
-            city:
-              type: string
-            postalCode:
-              type: string
-            state:
-              type: string
     addTocartItem:
       type: object
       properties:
@@ -163,6 +114,55 @@ components:
           description: Template Id
         shipping:
           $ref: '#/components/schemas/shippingObj'
+    shippingObj:
+      type: object
+      properties:
+        shippingMethod:
+          type: string
+        shippingBranch:
+          type: string
+        address:
+          type: object
+          properties:
+            address1:
+              type: string
+            address2:
+              type: string
+            city:
+              type: string
+            postalCode:
+              type: string
+            state:
+              type: string
+    addItemsToOrderRep:
+      type: object
+      properties:
+        allItemsUnavailable:
+          type: boolean
+        unavailableItems:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              failedReason:
+                type: string
+        addedToCartItems:
+          type: array
+          items:
+            type: string
+        vendorColorNotMatchedItems:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              matchColor:
+                type: string
+              matchMFG:
+                type: string
   securitySchemes:
     JSESSIONID:
       type: apiKey

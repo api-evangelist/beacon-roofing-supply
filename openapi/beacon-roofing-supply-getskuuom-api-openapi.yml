@@ -75,18 +75,6 @@ paths:
       - GetSkuUom
 components:
   schemas:
-    getSkuUomResponse:
-      type: object
-      properties:
-        skuIdUomList:
-          type: array
-          items:
-            type: string
-        skuIdsUomList:
-          $ref: '#/components/schemas/SkuIdsUomList'
-      required:
-      - skuIdUomList
-      - skuIdsUomList
     SkuIdsUomList:
       type: object
       properties:
@@ -106,3 +94,15 @@ components:
       - '253729'
       - '253733'
       - '253740'
+    getSkuUomResponse:
+      type: object
+      properties:
+        skuIdUomList:
+          type: array
+          items:
+            type: string
+        skuIdsUomList:
+          $ref: '#/components/schemas/SkuIdsUomList'
+      required:
+      - skuIdUomList
+      - skuIdsUomList

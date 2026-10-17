@@ -75,40 +75,25 @@ paths:
       - GetDTOrderDetail
 components:
   schemas:
-    DTPhoto:
+    Info:
       type: object
       properties:
-        ThumbnailUrl:
+        defaultValue:
           type: string
-        LargeUrl:
+        imageUrl:
           type: string
-        Timestamp:
+        active:
+          type: boolean
+        key:
+          type: string
+        value:
           type: string
       required:
-      - ThumbnailUrl
-      - LargeUrl
-      - Timestamp
-    DTStatus:
-      type: object
-      properties:
-        displayName:
-          type: string
-        contKey:
-          type: string
-        contValue:
-          type: string
-        statusEndDate:
-          type: string
-        infos:
-          type: array
-          items:
-            $ref: '#/components/schemas/Info'
-      required:
-      - displayName
-      - contKey
-      - contValue
-      - statusEndDate
-      - infos
+      - defaultValue
+      - imageUrl
+      - active
+      - key
+      - value
     getDTOrderDetailResponse:
       type: object
       properties:
@@ -130,22 +115,37 @@ components:
       - branchDTEnabled
       - DTEnabled
       - hasDTError
-    Info:
+    DTStatus:
       type: object
       properties:
-        defaultValue:
+        displayName:
           type: string
-        imageUrl:
+        contKey:
           type: string
-        active:
-          type: boolean
-        key:
+        contValue:
           type: string
-        value:
+        statusEndDate:
+          type: string
+        infos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Info'
+      required:
+      - displayName
+      - contKey
+      - contValue
+      - statusEndDate
+      - infos
+    DTPhoto:
+      type: object
+      properties:
+        ThumbnailUrl:
+          type: string
+        LargeUrl:
+          type: string
+        Timestamp:
           type: string
       required:
-      - defaultValue
-      - imageUrl
-      - active
-      - key
-      - value
+      - ThumbnailUrl
+      - LargeUrl
+      - Timestamp

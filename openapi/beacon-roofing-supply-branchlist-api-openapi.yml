@@ -87,6 +87,40 @@ paths:
       - Branchlist
 components:
   schemas:
+    Branch:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+      required:
+      - address
+      - branchNumber
+      - branchName
+      - branchPhone
+      - branchRegionId
+      - company
+      - companyName
+      - division
+      - divisionName
+      - market
     Address:
       type: object
       properties:
@@ -130,37 +164,3 @@ components:
       - totalNumRecs
       - pageNumRecs
       - branches
-    Branch:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        branchNumber:
-          type: string
-        branchName:
-          type: string
-        branchPhone:
-          type: string
-        branchRegionId:
-          type: string
-        company:
-          type: string
-        companyName:
-          type: string
-        division:
-          type: string
-        divisionName:
-          type: string
-        market:
-          type: string
-      required:
-      - address
-      - branchNumber
-      - branchName
-      - branchPhone
-      - branchRegionId
-      - company
-      - companyName
-      - division
-      - divisionName
-      - market

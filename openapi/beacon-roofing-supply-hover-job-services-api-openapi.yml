@@ -197,11 +197,9 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    HoverJobDetailImage:
-      type: object
-      properties:
-        id:
-          type: string
+    getHoverJobDetailImage_rep:
+      type: string
+      example: https://hover.to/.../xxxxxx.jpg?version=...
     getHoverJobList_rep:
       type: object
       properties:
@@ -211,9 +209,54 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/HoverJobListItem'
-    getHoverJobListImage_rep:
-      type: string
-      example: https://hover.to/.../xxxxxx.jpg?version=...
+    HoverJobDetailImage:
+      type: object
+      properties:
+        id:
+          type: string
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    HoverJobListItem:
+      type: object
+      properties:
+        jobId:
+          type: string
+        time:
+          type: string
+        title:
+          type: string
+        location:
+          type: string
+        cityAndRegion:
+          type: string
+        completedAt:
+          type: string
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
     BCOtherPaginationObj:
       type: object
       properties:
@@ -223,7 +266,7 @@ components:
           type: string
         page:
           type: integer
-    getHoverJobDetailImage_rep:
+    getHoverJobListImage_rep:
       type: string
       example: https://hover.to/.../xxxxxx.jpg?version=...
     getHoverJobDetail_rep:
@@ -331,49 +374,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/HoverJobDetailImage'
-    BCPaginationObj:
-      type: object
-      properties:
-        enable:
-          type: boolean
-        page:
-          type: integer
-        currentPage:
-          type: boolean
-        type:
-          type: string
-    BCPaginationDataObj:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        previous:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        pageSize:
-          type: integer
-        currentPage:
-          type: integer
-        totalCount:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPaginationObj'
-    HoverJobListItem:
-      type: object
-      properties:
-        jobId:
-          type: string
-        time:
-          type: string
-        title:
-          type: string
-        location:
-          type: string
-        cityAndRegion:
-          type: string
-        completedAt:
-          type: string
   securitySchemes:
     JSESSIONID:
       type: apiKey

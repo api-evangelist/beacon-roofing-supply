@@ -78,6 +78,19 @@ paths:
       - User
 components:
   schemas:
+    Next:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: number
+      required:
+      - available
+      - label
+      - page
     Result:
       type: object
       properties:
@@ -97,6 +110,72 @@ components:
       - page
       - rows
       - rowsPerPage
+    Query:
+      type: object
+      properties:
+        or:
+          type: array
+          items:
+            $ref: '#/components/schemas/Or'
+        and:
+          type: array
+          items:
+            $ref: '#/components/schemas/Or'
+        sortBy:
+          type: string
+        sortType:
+          type: string
+        pageIndex:
+          type: number
+        pageSize:
+          type: number
+      required:
+      - or
+      - and
+      - sortBy
+      - sortType
+      - pageIndex
+      - pageSize
+    Value:
+      type: object
+      properties: {}
+    Pagination:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/Next'
+        previous:
+          $ref: '#/components/schemas/Next'
+        pageSize:
+          type: number
+        currentPage:
+          type: number
+        totalCount:
+          type: number
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+      required:
+      - next
+      - previous
+      - pageSize
+      - currentPage
+      - totalCount
+      - results
+    Or:
+      type: object
+      properties:
+        op:
+          type: string
+        property:
+          type: string
+        value:
+          $ref: '#/components/schemas/Value'
+      required:
+      - op
+      - property
+      - value
     User:
       type: object
       properties:
@@ -131,35 +210,6 @@ components:
       required:
       - pagination
       - users
-    Or:
-      type: object
-      properties:
-        op:
-          type: string
-        property:
-          type: string
-        value:
-          $ref: '#/components/schemas/Value'
-      required:
-      - op
-      - property
-      - value
-    Value:
-      type: object
-      properties: {}
-    Next:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: number
-      required:
-      - available
-      - label
-      - page
     userBody:
       type: object
       properties:
@@ -167,53 +217,3 @@ components:
           $ref: '#/components/schemas/Query'
       required:
       - query
-    Query:
-      type: object
-      properties:
-        or:
-          type: array
-          items:
-            $ref: '#/components/schemas/Or'
-        and:
-          type: array
-          items:
-            $ref: '#/components/schemas/Or'
-        sortBy:
-          type: string
-        sortType:
-          type: string
-        pageIndex:
-          type: number
-        pageSize:
-          type: number
-      required:
-      - or
-      - and
-      - sortBy
-      - sortType
-      - pageIndex
-      - pageSize
-    Pagination:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/Next'
-        previous:
-          $ref: '#/components/schemas/Next'
-        pageSize:
-          type: number
-        currentPage:
-          type: number
-        totalCount:
-          type: number
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
-      required:
-      - next
-      - previous
-      - pageSize
-      - currentPage
-      - totalCount
-      - results

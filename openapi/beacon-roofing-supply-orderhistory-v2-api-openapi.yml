@@ -117,60 +117,6 @@ paths:
       - Orderhistory V2
 components:
   schemas:
-    Result:
-      type: object
-      properties:
-        pageRows:
-          type: number
-        pages:
-          type: number
-        page:
-          type: number
-        rows:
-          type: number
-        rowsPerPage:
-          type: number
-      required:
-      - pageRows
-      - pages
-      - page
-      - rows
-      - rowsPerPage
-    Shipping:
-      type: object
-      properties:
-        shippingBranch:
-          type: number
-        address:
-          $ref: '#/components/schemas/Address'
-        shippingMethod:
-          type: string
-      required:
-      - shippingBranch
-      - address
-      - shippingMethod
-    Job:
-      type: object
-      properties:
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-      required:
-      - jobName
-      - jobNumber
-    orderHistoryv2Response:
-      type: object
-      properties:
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-      required:
-      - orders
-      - pagination
     Next:
       type: object
       properties:
@@ -209,6 +155,35 @@ components:
       - address3
       - country
       - city
+    Result:
+      type: object
+      properties:
+        pageRows:
+          type: number
+        pages:
+          type: number
+        page:
+          type: number
+        rows:
+          type: number
+        rowsPerPage:
+          type: number
+      required:
+      - pageRows
+      - pages
+      - page
+      - rows
+      - rowsPerPage
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber
     Order:
       type: object
       properties:
@@ -258,6 +233,19 @@ components:
       - orderId
       - specialInstruction
       - UUID
+    Shipping:
+      type: object
+      properties:
+        shippingBranch:
+          type: number
+        address:
+          $ref: '#/components/schemas/Address'
+        shippingMethod:
+          type: string
+      required:
+      - shippingBranch
+      - address
+      - shippingMethod
     Pagination:
       type: object
       properties:
@@ -282,3 +270,15 @@ components:
       - currentPage
       - totalCount
       - results
+    orderHistoryv2Response:
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+      - orders
+      - pagination

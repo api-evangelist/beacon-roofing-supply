@@ -665,300 +665,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    getRebateRedeemedItemDetail_rep:
-      $ref: '#/components/schemas/RedeemDetailsDTOObj'
-    downloadRebateRedeemedItemDetail_req:
-      type: object
-      properties:
-        redeemedRebateIds:
-          type: string
-        rebateId:
-          type: string
-        accountId:
-          type: string
-    downloadRebateRedeemedDetailAsPDF_req:
-      type: object
-      properties:
-        redeemedRebateIds:
-          type: string
-        rebateId:
-          type: string
-        submitRebateInfoId:
-          type: string
-    RebateFromSelectOptionDTOObj:
-      type: object
-      properties:
-        displayName:
-          type: string
-        value:
-          type: string
-    getRebateRedeemedItemDetail_req:
-      type: object
-      properties:
-        rebateId:
-          type: string
-        searchKey:
-          type: string
-        searchValue:
-          type: string
-        searchStartDate:
-          type: string
-        searchEndDate:
-          type: string
-        pageNum:
-          type: string
-        pageSize:
-          type: string
-    updateRebateForm_rep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-    submitRebate_req:
-      type: object
-      properties:
-        rebateId:
-          type: string
-        rebateInfo:
-          type: object
-          properties:
-            companyName:
-              type: string
-            contactName:
-              type: string
-            phoneNumber:
-              type: string
-            email:
-              type: string
-        rebateAddress:
-          type: object
-          properties:
-            address:
-              type: string
-            city:
-              type: string
-            state:
-              type: string
-            zip:
-              type: string
-        rebateCustomInfo:
-          type: object
-        rebateMailingAddress:
-          type: object
-    BCPaginationObj:
-      type: object
-      properties:
-        enable:
-          type: boolean
-        page:
-          type: integer
-        currentPage:
-          type: boolean
-        type:
-          type: string
-    messagesObj:
-      type: array
-      items:
-        type: object
-        properties:
-          type:
-            type: string
-          value:
-            type: string
-          code:
-            type: string
-    getRebateRedeemedSummaryItems_rep:
-      type: array
-      items:
-        $ref: '#/components/schemas/RedeemSummeryDTOObj'
-    RedeemSummeryDTOObj:
-      type: object
-      properties:
-        promotionDates:
-          type: string
-          example: May 5,2017-May 8,2019
-        accountId:
-          type: string
-        submitDate:
-          type: string
-          format: MM-dd-yyyy
-          example: 01-17-2018
-        id:
-          type: string
-        brand:
-          type: string
-        rebateId:
-          type: string
-        PDFUrl:
-          type: string
-        currencyUnit:
-          type: string
-        promotion:
-          type: string
-        projectedRebate:
-          type: string
-    userRebateInfo:
-      type: object
-      properties:
-        rebateInfoId:
-          type: string
-        subscriptionDate:
-          type: string
-        rebateForm:
-          $ref: '#/components/schemas/RebateFromObj'
-    BCOtherPaginationObj:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: integer
-    getSubmittedRebateForm_rep:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        result:
-          $ref: '#/components/schemas/userRebateInfo'
-    BCPaginationDataObj:
-      type: object
-      properties:
-        next:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        previous:
-          $ref: '#/components/schemas/BCOtherPaginationObj'
-        pageSize:
-          type: integer
-        currentPage:
-          type: integer
-        totalCount:
-          type: integer
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPaginationObj'
-    RebateItemObj:
-      type: object
-      properties:
-        image:
-          type: string
-        rebateName:
-          type: string
-        action:
-          type: string
-        rebateId:
-          type: string
-        brandName:
-          type: string
-        ableUpdate:
-          type: boolean
-        submittedRebateInfoId:
-          type: string
-        lastSubmittedDate:
-          type: string
-        startDate:
-          type: string
-          format: MM-dd-yyyy
-          example: 01-17-2018
-        endDate:
-          type: string
-          format: MM-dd-yyyy
-          example: 01-17-2018
-        deactivationDate:
-          type: string
-          format: MM-dd-yyyy
-          example: 01-17-2018
-    RebateFromInputDTOObj:
-      type: object
-      properties:
-        name:
-          type: string
-        label:
-          type: string
-        placeHolder:
-          type: string
-        value:
-          type: string
-        required:
-          type: boolean
-        type:
-          type: string
-        infoGroup:
-          type: string
-        maxLength:
-          type: integer
-        minLength:
-          type: integer
-        email:
-          type: boolean
-        phone:
-          type: boolean
-        zip:
-          type: boolean
-        numeric:
-          type: boolean
-        pattern:
-          type: string
-        css:
-          type: string
-        invalidMsg:
-          type: string
-        selectValues:
-          type: array
-          items:
-            $ref: '#/components/schemas/RebateFromSelectOptionDTOObj'
-        isRadioSelected:
-          type: boolean
-    RedeemDetailsDTOObj:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
-        header:
-          $ref: '#/components/schemas/RedeemSummeryDTOObj'
-        body:
-          type: array
-          items:
-            $ref: '#/components/schemas/RedeemDetailDTOObj'
-    updateRebateForm_req:
-      type: object
-      properties:
-        rebateInfoId:
-          type: string
-        rebateInfo:
-          type: object
-          properties:
-            companyName:
-              type: string
-            contactName:
-              type: string
-            phoneNumber:
-              type: string
-            email:
-              type: string
-        rebateAddress:
-          type: object
-          properties:
-            address:
-              type: string
-            city:
-              type: string
-            state:
-              type: string
-            zip:
-              type: string
-        rebateCustomInfo:
-          type: object
-        rebateMailingAddress:
-          type: object
     RedeemDetailDTOObj:
       type: object
       properties:
@@ -1001,10 +707,32 @@ components:
           type: string
         promotion:
           type: string
-    rebateLanding_rep:
-      $ref: '#/components/schemas/RebateItemObj'
-    getRebateFrom_rep:
-      $ref: '#/components/schemas/RebateFromObj'
+    userRebateInfo:
+      type: object
+      properties:
+        rebateInfoId:
+          type: string
+        subscriptionDate:
+          type: string
+        rebateForm:
+          $ref: '#/components/schemas/RebateFromObj'
+    BCPaginationDataObj:
+      type: object
+      properties:
+        next:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        previous:
+          $ref: '#/components/schemas/BCOtherPaginationObj'
+        pageSize:
+          type: integer
+        currentPage:
+          type: integer
+        totalCount:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPaginationObj'
     RebateFromObj:
       type: object
       properties:
@@ -1018,6 +746,278 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RebateFromInputDTOObj'
+    updateRebateForm_req:
+      type: object
+      properties:
+        rebateInfoId:
+          type: string
+        rebateInfo:
+          type: object
+          properties:
+            companyName:
+              type: string
+            contactName:
+              type: string
+            phoneNumber:
+              type: string
+            email:
+              type: string
+        rebateAddress:
+          type: object
+          properties:
+            address:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            zip:
+              type: string
+        rebateCustomInfo:
+          type: object
+        rebateMailingAddress:
+          type: object
+    RedeemDetailsDTOObj:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        header:
+          $ref: '#/components/schemas/RedeemSummeryDTOObj'
+        body:
+          type: array
+          items:
+            $ref: '#/components/schemas/RedeemDetailDTOObj'
+    RebateFromSelectOptionDTOObj:
+      type: object
+      properties:
+        displayName:
+          type: string
+        value:
+          type: string
+    RedeemSummeryDTOObj:
+      type: object
+      properties:
+        promotionDates:
+          type: string
+          example: May 5,2017-May 8,2019
+        accountId:
+          type: string
+        submitDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+        id:
+          type: string
+        brand:
+          type: string
+        rebateId:
+          type: string
+        PDFUrl:
+          type: string
+        currencyUnit:
+          type: string
+        promotion:
+          type: string
+        projectedRebate:
+          type: string
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    getRebateFrom_rep:
+      $ref: '#/components/schemas/RebateFromObj'
+    submitRebate_req:
+      type: object
+      properties:
+        rebateId:
+          type: string
+        rebateInfo:
+          type: object
+          properties:
+            companyName:
+              type: string
+            contactName:
+              type: string
+            phoneNumber:
+              type: string
+            email:
+              type: string
+        rebateAddress:
+          type: object
+          properties:
+            address:
+              type: string
+            city:
+              type: string
+            state:
+              type: string
+            zip:
+              type: string
+        rebateCustomInfo:
+          type: object
+        rebateMailingAddress:
+          type: object
+    BCPaginationObj:
+      type: object
+      properties:
+        enable:
+          type: boolean
+        page:
+          type: integer
+        currentPage:
+          type: boolean
+        type:
+          type: string
+    getRebateRedeemedSummaryItems_rep:
+      type: array
+      items:
+        $ref: '#/components/schemas/RedeemSummeryDTOObj'
+    RebateFromInputDTOObj:
+      type: object
+      properties:
+        name:
+          type: string
+        label:
+          type: string
+        placeHolder:
+          type: string
+        value:
+          type: string
+        required:
+          type: boolean
+        type:
+          type: string
+        infoGroup:
+          type: string
+        maxLength:
+          type: integer
+        minLength:
+          type: integer
+        email:
+          type: boolean
+        phone:
+          type: boolean
+        zip:
+          type: boolean
+        numeric:
+          type: boolean
+        pattern:
+          type: string
+        css:
+          type: string
+        invalidMsg:
+          type: string
+        selectValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/RebateFromSelectOptionDTOObj'
+        isRadioSelected:
+          type: boolean
+    getRebateRedeemedItemDetail_rep:
+      $ref: '#/components/schemas/RedeemDetailsDTOObj'
+    downloadRebateRedeemedDetailAsPDF_req:
+      type: object
+      properties:
+        redeemedRebateIds:
+          type: string
+        rebateId:
+          type: string
+        submitRebateInfoId:
+          type: string
+    rebateLanding_rep:
+      $ref: '#/components/schemas/RebateItemObj'
+    updateRebateForm_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    RebateItemObj:
+      type: object
+      properties:
+        image:
+          type: string
+        rebateName:
+          type: string
+        action:
+          type: string
+        rebateId:
+          type: string
+        brandName:
+          type: string
+        ableUpdate:
+          type: boolean
+        submittedRebateInfoId:
+          type: string
+        lastSubmittedDate:
+          type: string
+        startDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+        endDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+        deactivationDate:
+          type: string
+          format: MM-dd-yyyy
+          example: 01-17-2018
+    getSubmittedRebateForm_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/userRebateInfo'
+    downloadRebateRedeemedItemDetail_req:
+      type: object
+      properties:
+        redeemedRebateIds:
+          type: string
+        rebateId:
+          type: string
+        accountId:
+          type: string
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    getRebateRedeemedItemDetail_req:
+      type: object
+      properties:
+        rebateId:
+          type: string
+        searchKey:
+          type: string
+        searchValue:
+          type: string
+        searchStartDate:
+          type: string
+        searchEndDate:
+          type: string
+        pageNum:
+          type: string
+        pageSize:
+          type: string
   securitySchemes:
     JSESSIONID:
       type: apiKey

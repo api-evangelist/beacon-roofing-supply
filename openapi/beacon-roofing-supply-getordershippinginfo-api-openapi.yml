@@ -63,62 +63,6 @@ paths:
       - GetOrderShippingInfo
 components:
   schemas:
-    AddressBook:
-      type: object
-      properties:
-        addressBookId:
-          type: string
-        accountLegacyId:
-          type: string
-        accountName:
-          type: string
-        addressBookInfo:
-          $ref: '#/components/schemas/AddressBookInfo'
-      required:
-      - addressBookId
-      - accountLegacyId
-      - accountName
-      - addressBookInfo
-    AddressBookInfo:
-      type: object
-      properties:
-        nickName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        stateValue:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        countryValue:
-          type: string
-        phoneNumber:
-          type: string
-      required:
-      - nickName
-      - firstName
-      - lastName
-      - address1
-      - address2
-      - city
-      - state
-      - stateValue
-      - postalCode
-      - country
-      - countryValue
-      - phoneNumber
     DeliveryOption:
       type: object
       properties:
@@ -132,152 +76,6 @@ components:
       - displayName
       - value
       - selected
-    ShippingAddress2:
-      type: object
-      properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        states:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryOption'
-        postalCode:
-          type: string
-      required:
-      - address1
-      - address2
-      - address3
-      - country
-      - city
-      - state
-      - states
-      - postalCode
-    AddressBook2:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        shippingAddress:
-          $ref: '#/components/schemas/ShippingAddress2'
-        contactInfo:
-          $ref: '#/components/schemas/ContactInfo'
-      required:
-      - id
-      - displayName
-      - shippingAddress
-      - contactInfo
-    ContactInfo:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-        nickName:
-          type: string
-        phoneNumber:
-          type: string
-      required:
-      - firstName
-      - lastName
-      - nickName
-      - phoneNumber
-    BranchAddress:
-      type: object
-      properties:
-        displayName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        stateValue:
-          type: string
-        postalCode:
-          type: string
-        phoneNumber:
-          type: string
-      required:
-      - displayName
-      - address1
-      - address2
-      - address3
-      - country
-      - city
-      - state
-      - stateValue
-      - postalCode
-      - phoneNumber
-    ShippingAddress:
-      type: object
-      properties:
-        addressBookId:
-          type: string
-        nickName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        city:
-          type: string
-        stateValue:
-          type: string
-        states:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryOption'
-        postalCode:
-          type: string
-        countryValue:
-          type: string
-        countries:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeliveryOption'
-        phoneNumber:
-          type: string
-      required:
-      - addressBookId
-      - nickName
-      - firstName
-      - lastName
-      - address1
-      - address2
-      - address3
-      - city
-      - stateValue
-      - states
-      - postalCode
-      - countryValue
-      - countries
-      - phoneNumber
     getOrderShippingInfoResponse:
       type: object
       properties:
@@ -337,3 +135,205 @@ components:
       - addressBook
       - branchAddress
       - instructions
+    ShippingAddress:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
+          type: string
+        stateValue:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        postalCode:
+          type: string
+        countryValue:
+          type: string
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        phoneNumber:
+          type: string
+      required:
+      - addressBookId
+      - nickName
+      - firstName
+      - lastName
+      - address1
+      - address2
+      - address3
+      - city
+      - stateValue
+      - states
+      - postalCode
+      - countryValue
+      - countries
+      - phoneNumber
+    AddressBook:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        accountLegacyId:
+          type: string
+        accountName:
+          type: string
+        addressBookInfo:
+          $ref: '#/components/schemas/AddressBookInfo'
+      required:
+      - addressBookId
+      - accountLegacyId
+      - accountName
+      - addressBookInfo
+    AddressBookInfo:
+      type: object
+      properties:
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        countryValue:
+          type: string
+        phoneNumber:
+          type: string
+      required:
+      - nickName
+      - firstName
+      - lastName
+      - address1
+      - address2
+      - city
+      - state
+      - stateValue
+      - postalCode
+      - country
+      - countryValue
+      - phoneNumber
+    ContactInfo:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        nickName:
+          type: string
+        phoneNumber:
+          type: string
+      required:
+      - firstName
+      - lastName
+      - nickName
+      - phoneNumber
+    BranchAddress:
+      type: object
+      properties:
+        displayName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        phoneNumber:
+          type: string
+      required:
+      - displayName
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+      - state
+      - stateValue
+      - postalCode
+      - phoneNumber
+    AddressBook2:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        shippingAddress:
+          $ref: '#/components/schemas/ShippingAddress2'
+        contactInfo:
+          $ref: '#/components/schemas/ContactInfo'
+      required:
+      - id
+      - displayName
+      - shippingAddress
+      - contactInfo
+    ShippingAddress2:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        states:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeliveryOption'
+        postalCode:
+          type: string
+      required:
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+      - state
+      - states
+      - postalCode

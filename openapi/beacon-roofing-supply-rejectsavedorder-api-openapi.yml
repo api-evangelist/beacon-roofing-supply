@@ -65,41 +65,6 @@ paths:
       - RejectSavedOrder
 components:
   schemas:
-    Shipping:
-      type: object
-      properties:
-        shippingBranch:
-          type: number
-        address:
-          $ref: '#/components/schemas/Address'
-        shippingMethod:
-          type: string
-      required:
-      - shippingBranch
-      - address
-      - shippingMethod
-    Job:
-      type: object
-      properties:
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-      required:
-      - jobName
-      - jobNumber
-    rejectSavedOrderBody:
-      type: object
-      properties:
-        rejectReason:
-          type: string
-        orders:
-          type: array
-          items:
-            $ref: '#/components/schemas/Order'
-      required:
-      - rejectReason
-      - orders
     Address:
       type: object
       properties:
@@ -125,6 +90,18 @@ components:
       - address3
       - country
       - city
+    rejectSavedOrderBody:
+      type: object
+      properties:
+        rejectReason:
+          type: string
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+      required:
+      - rejectReason
+      - orders
     Order:
       type: object
       properties:
@@ -174,3 +151,26 @@ components:
       - orderId
       - specialInstruction
       - UUID
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber
+    Shipping:
+      type: object
+      properties:
+        shippingBranch:
+          type: number
+        address:
+          $ref: '#/components/schemas/Address'
+        shippingMethod:
+          type: string
+      required:
+      - shippingBranch
+      - address
+      - shippingMethod

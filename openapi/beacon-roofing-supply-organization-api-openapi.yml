@@ -63,19 +63,37 @@ paths:
       - Organization
 components:
   schemas:
-    PermissionValues:
+    organizationResponse:
       type: object
       properties:
-        aa:
-          type: boolean
-        bb:
-          type: boolean
-        cc:
+        id:
+          type: string
+        name:
+          type: string
+        masterAdmin:
+          $ref: '#/components/schemas/MasterAdmin'
+      required:
+      - id
+      - name
+      - masterAdmin
+    Permission2:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+        isGroup:
           type: boolean
       required:
-      - aa
-      - bb
-      - cc
+      - name
+      - type
+      - permissions
+      - isGroup
     Address:
       type: object
       properties:
@@ -135,21 +153,6 @@ components:
       - division
       - divisionName
       - market
-    Role:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission2'
-      required:
-      - id
-      - displayName
-      - permissions
     Account:
       type: object
       properties:
@@ -181,6 +184,65 @@ components:
       - cashAccount
       - isAccountClosed
       - branch
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission2'
+      required:
+      - id
+      - displayName
+      - permissions
+    Permission:
+      type: object
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        groupId:
+          type: string
+        name:
+          type: string
+        displayName:
+          type: string
+        type:
+          type: string
+        isAuthorised:
+          type: boolean
+        isDisabled:
+          type: boolean
+        isFixed:
+          type: boolean
+      required:
+      - id
+      - key
+      - groupId
+      - name
+      - displayName
+      - type
+      - isAuthorised
+      - isDisabled
+      - isFixed
+    PermissionValues:
+      type: object
+      properties:
+        aa:
+          type: boolean
+        bb:
+          type: boolean
+        cc:
+          type: boolean
+      required:
+      - aa
+      - bb
+      - cc
     MasterAdmin:
       type: object
       properties:
@@ -249,65 +311,3 @@ components:
       - internalUser
       - userType
       - rewardsEligible
-    Permission2:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-        isGroup:
-          type: boolean
-      required:
-      - name
-      - type
-      - permissions
-      - isGroup
-    Permission:
-      type: object
-      properties:
-        id:
-          type: string
-        key:
-          type: string
-        groupId:
-          type: string
-        name:
-          type: string
-        displayName:
-          type: string
-        type:
-          type: string
-        isAuthorised:
-          type: boolean
-        isDisabled:
-          type: boolean
-        isFixed:
-          type: boolean
-      required:
-      - id
-      - key
-      - groupId
-      - name
-      - displayName
-      - type
-      - isAuthorised
-      - isDisabled
-      - isFixed
-    organizationResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        masterAdmin:
-          $ref: '#/components/schemas/MasterAdmin'
-      required:
-      - id
-      - name
-      - masterAdmin

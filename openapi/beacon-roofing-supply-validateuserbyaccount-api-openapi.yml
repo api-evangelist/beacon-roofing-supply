@@ -69,25 +69,31 @@ paths:
       - ValidateUserByAccount
 components:
   schemas:
-    validateUserByAccountBody:
+    Address:
       type: object
       properties:
-        emailAddress:
+        postalCode:
           type: string
-        companyName:
+        state:
           type: string
-        account:
+        address1:
           type: string
-        invoice:
+        address2:
           type: string
-        invoiceDate:
+        address3:
+          type: string
+        country:
+          type: string
+        city:
           type: string
       required:
-      - emailAddress
-      - companyName
-      - account
-      - invoice
-      - invoiceDate
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
     validateUserByAccountResponse:
       type: object
       properties:
@@ -122,38 +128,40 @@ components:
       - needGetUserRegisterToken
       - needInvoice
       - registerSuccess
-    UserRegInfo:
+    validateUserByAccountBody:
       type: object
       properties:
-        userRegisterToken:
+        emailAddress:
+          type: string
+        companyName:
+          type: string
+        account:
+          type: string
+        invoice:
+          type: string
+        invoiceDate:
           type: string
       required:
-      - userRegisterToken
-    Address:
+      - emailAddress
+      - companyName
+      - account
+      - invoice
+      - invoiceDate
+    BranchSelection:
       type: object
       properties:
-        postalCode:
+        accountId:
           type: string
-        state:
+        accountName:
           type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
+        branches:
+          type: array
+          items:
+            $ref: '#/components/schemas/Branch'
       required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
+      - accountId
+      - accountName
+      - branches
     Branch:
       type: object
       properties:
@@ -188,18 +196,10 @@ components:
       - division
       - divisionName
       - market
-    BranchSelection:
+    UserRegInfo:
       type: object
       properties:
-        accountId:
+        userRegisterToken:
           type: string
-        accountName:
-          type: string
-        branches:
-          type: array
-          items:
-            $ref: '#/components/schemas/Branch'
       required:
-      - accountId
-      - accountName
-      - branches
+      - userRegisterToken

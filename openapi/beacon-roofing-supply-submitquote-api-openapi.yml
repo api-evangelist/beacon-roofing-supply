@@ -88,19 +88,6 @@ components:
       - page
       - rows
       - rowsPerPage
-    Message:
-      type: object
-      properties:
-        type:
-          type: string
-        value:
-          type: string
-        code:
-          type: string
-      required:
-      - type
-      - value
-      - code
     submitQuoteResponse:
       type: object
       properties:
@@ -207,3 +194,16 @@ components:
       - color
       - dimensions
       - displayName
+    Message:
+      type: object
+      properties:
+        type:
+          type: string
+        value:
+          type: string
+        code:
+          type: string
+      required:
+      - type
+      - value
+      - code

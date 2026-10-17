@@ -87,6 +87,15 @@ paths:
       - Categories
 components:
   schemas:
+    categoriesResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+      required:
+      - categories
     Category:
       type: object
       properties:
@@ -97,12 +106,3 @@ components:
       required:
       - categoryName
       - categoryId
-    categoriesResponse:
-      type: object
-      properties:
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/Category'
-      required:
-      - categories

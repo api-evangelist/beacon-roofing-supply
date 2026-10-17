@@ -69,13 +69,40 @@ paths:
       - ValidateUserByEmail
 components:
   schemas:
-    UserRegInfo:
+    validateUserByEmailResponse:
       type: object
       properties:
-        userRegisterToken:
-          type: string
+        userRegInfo:
+          $ref: '#/components/schemas/UserRegInfo'
+        showBranchSelection:
+          type: boolean
+        branchSelection:
+          $ref: '#/components/schemas/BranchSelection'
+        retryTimesLeft:
+          type: number
+        needLogin:
+          type: boolean
+        needRetry:
+          type: boolean
+        needContactSupport:
+          type: boolean
+        needGetUserRegisterToken:
+          type: boolean
+        needInvoice:
+          type: boolean
+        registerSuccess:
+          type: boolean
       required:
-      - userRegisterToken
+      - userRegInfo
+      - showBranchSelection
+      - branchSelection
+      - retryTimesLeft
+      - needLogin
+      - needRetry
+      - needContactSupport
+      - needGetUserRegisterToken
+      - needInvoice
+      - registerSuccess
     Address:
       type: object
       properties:
@@ -101,6 +128,21 @@ components:
       - address3
       - country
       - city
+    BranchSelection:
+      type: object
+      properties:
+        accountId:
+          type: string
+        accountName:
+          type: string
+        branches:
+          type: array
+          items:
+            $ref: '#/components/schemas/Branch'
+      required:
+      - accountId
+      - accountName
+      - branches
     Branch:
       type: object
       properties:
@@ -157,52 +199,10 @@ components:
       - zipCode
       - phoneNumber
       - g-recaptcha-response
-    validateUserByEmailResponse:
+    UserRegInfo:
       type: object
       properties:
-        userRegInfo:
-          $ref: '#/components/schemas/UserRegInfo'
-        showBranchSelection:
-          type: boolean
-        branchSelection:
-          $ref: '#/components/schemas/BranchSelection'
-        retryTimesLeft:
-          type: number
-        needLogin:
-          type: boolean
-        needRetry:
-          type: boolean
-        needContactSupport:
-          type: boolean
-        needGetUserRegisterToken:
-          type: boolean
-        needInvoice:
-          type: boolean
-        registerSuccess:
-          type: boolean
-      required:
-      - userRegInfo
-      - showBranchSelection
-      - branchSelection
-      - retryTimesLeft
-      - needLogin
-      - needRetry
-      - needContactSupport
-      - needGetUserRegisterToken
-      - needInvoice
-      - registerSuccess
-    BranchSelection:
-      type: object
-      properties:
-        accountId:
+        userRegisterToken:
           type: string
-        accountName:
-          type: string
-        branches:
-          type: array
-          items:
-            $ref: '#/components/schemas/Branch'
       required:
-      - accountId
-      - accountName
-      - branches
+      - userRegisterToken

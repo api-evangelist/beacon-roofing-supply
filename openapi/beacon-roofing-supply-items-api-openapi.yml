@@ -99,6 +99,195 @@ paths:
       - Items
 components:
   schemas:
+    Resource:
+      type: object
+      properties:
+        General Instructrions:
+          type: string
+        Warranty:
+          type: string
+        MSDS:
+          type: string
+        Brochure:
+          type: string
+      required:
+      - General Instructrions
+      - Warranty
+      - MSDS
+      - Brochure
+    Category:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+      required:
+      - categoryName
+      - categoryId
+    SkuList:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        color:
+          type: string
+        unitPrice:
+          type: number
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        itemImage:
+          type: string
+        heroImage:
+          type: string
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          type: array
+          items:
+            type: string
+      required:
+      - currentUOM
+      - color
+      - unitPrice
+      - itemNumber
+      - productNumber
+      - itemImage
+      - heroImage
+      - thumbImage
+      - swatchImage
+      - skuShortDesc
+      - auxiliaryImages
+    CurrentSKU:
+      type: object
+      properties:
+        currentUOM:
+          type: string
+        color:
+          type: string
+        manufactureNumber:
+          type: string
+        unitPrice:
+          type: number
+        itemNumber:
+          type: string
+        productNumber:
+          type: string
+        uomlist:
+          type: array
+          items:
+            type: string
+        itemImage:
+          type: string
+        heroImage:
+          type: string
+        thumbImage:
+          type: string
+        swatchImage:
+          type: string
+        skuShortDesc:
+          type: string
+        auxiliaryImages:
+          type: array
+          items:
+            type: string
+      required:
+      - currentUOM
+      - color
+      - manufactureNumber
+      - unitPrice
+      - itemNumber
+      - productNumber
+      - uomlist
+      - itemImage
+      - heroImage
+      - thumbImage
+      - swatchImage
+      - skuShortDesc
+      - auxiliaryImages
+    getItemsResponse:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+        message:
+          type: string
+        specification:
+          $ref: '#/components/schemas/Specification'
+        resource:
+          $ref: '#/components/schemas/Resource'
+        currentSKU:
+          $ref: '#/components/schemas/CurrentSKU'
+        skuList:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkuList'
+      required:
+      - product
+      - message
+      - specification
+      - resource
+      - currentSKU
+      - skuList
+    Product:
+      type: object
+      properties:
+        productImage:
+          type: string
+        productOnErrorImage:
+          type: string
+        longDesc:
+          type: string
+        manufactureNumber:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        shortDesc:
+          type: string
+        itemNumber:
+          type: string
+        hoverAttributes:
+          $ref: '#/components/schemas/HoverAttributes'
+        productName:
+          type: string
+        productId:
+          type: string
+        baseProductName:
+          type: string
+        internalProductName:
+          type: string
+        brand:
+          type: string
+        url:
+          type: string
+        relatedProducts:
+          type: array
+          items:
+            type: string
+      required:
+      - productImage
+      - productOnErrorImage
+      - longDesc
+      - manufactureNumber
+      - categories
+      - shortDesc
+      - itemNumber
+      - hoverAttributes
+      - productName
+      - productId
+      - baseProductName
+      - internalProductName
+      - brand
+      - url
+      - relatedProducts
     Specification:
       type: object
       properties:
@@ -127,30 +316,6 @@ components:
       - Net_Free_Vent_Area__NFVA_
       - Exposure
       - Wind_Resistance
-    getItemsResponse:
-      type: object
-      properties:
-        product:
-          $ref: '#/components/schemas/Product'
-        message:
-          type: string
-        specification:
-          $ref: '#/components/schemas/Specification'
-        resource:
-          $ref: '#/components/schemas/Resource'
-        currentSKU:
-          $ref: '#/components/schemas/CurrentSKU'
-        skuList:
-          type: array
-          items:
-            $ref: '#/components/schemas/SkuList'
-      required:
-      - product
-      - message
-      - specification
-      - resource
-      - currentSKU
-      - skuList
     HoverAttributes:
       type: object
       properties:
@@ -233,168 +398,3 @@ components:
       - cvLapIn
       - cfmValue
       - cfmUom
-    SkuList:
-      type: object
-      properties:
-        currentUOM:
-          type: string
-        color:
-          type: string
-        unitPrice:
-          type: number
-        itemNumber:
-          type: string
-        productNumber:
-          type: string
-        itemImage:
-          type: string
-        heroImage:
-          type: string
-        thumbImage:
-          type: string
-        swatchImage:
-          type: string
-        skuShortDesc:
-          type: string
-        auxiliaryImages:
-          type: array
-          items:
-            type: string
-      required:
-      - currentUOM
-      - color
-      - unitPrice
-      - itemNumber
-      - productNumber
-      - itemImage
-      - heroImage
-      - thumbImage
-      - swatchImage
-      - skuShortDesc
-      - auxiliaryImages
-    Category:
-      type: object
-      properties:
-        categoryName:
-          type: string
-        categoryId:
-          type: string
-      required:
-      - categoryName
-      - categoryId
-    CurrentSKU:
-      type: object
-      properties:
-        currentUOM:
-          type: string
-        color:
-          type: string
-        manufactureNumber:
-          type: string
-        unitPrice:
-          type: number
-        itemNumber:
-          type: string
-        productNumber:
-          type: string
-        uomlist:
-          type: array
-          items:
-            type: string
-        itemImage:
-          type: string
-        heroImage:
-          type: string
-        thumbImage:
-          type: string
-        swatchImage:
-          type: string
-        skuShortDesc:
-          type: string
-        auxiliaryImages:
-          type: array
-          items:
-            type: string
-      required:
-      - currentUOM
-      - color
-      - manufactureNumber
-      - unitPrice
-      - itemNumber
-      - productNumber
-      - uomlist
-      - itemImage
-      - heroImage
-      - thumbImage
-      - swatchImage
-      - skuShortDesc
-      - auxiliaryImages
-    Product:
-      type: object
-      properties:
-        productImage:
-          type: string
-        productOnErrorImage:
-          type: string
-        longDesc:
-          type: string
-        manufactureNumber:
-          type: string
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/Category'
-        shortDesc:
-          type: string
-        itemNumber:
-          type: string
-        hoverAttributes:
-          $ref: '#/components/schemas/HoverAttributes'
-        productName:
-          type: string
-        productId:
-          type: string
-        baseProductName:
-          type: string
-        internalProductName:
-          type: string
-        brand:
-          type: string
-        url:
-          type: string
-        relatedProducts:
-          type: array
-          items:
-            type: string
-      required:
-      - productImage
-      - productOnErrorImage
-      - longDesc
-      - manufactureNumber
-      - categories
-      - shortDesc
-      - itemNumber
-      - hoverAttributes
-      - productName
-      - productId
-      - baseProductName
-      - internalProductName
-      - brand
-      - url
-      - relatedProducts
-    Resource:
-      type: object
-      properties:
-        General Instructrions:
-          type: string
-        Warranty:
-          type: string
-        MSDS:
-          type: string
-        Brochure:
-          type: string
-      required:
-      - General Instructrions
-      - Warranty
-      - MSDS
-      - Brochure

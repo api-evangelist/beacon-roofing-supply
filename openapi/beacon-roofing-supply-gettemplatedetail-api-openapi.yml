@@ -126,39 +126,22 @@ components:
       - typeId
       - typeName
       - options
-    getTemplateDetailResponse:
+    Option:
       type: object
       properties:
-        templateId:
+        optionId:
           type: string
-        templateName:
+        optionName:
           type: string
-        lastModifiedDate:
-          type: string
-        lastModifiedUser:
-          $ref: '#/components/schemas/LastModifiedUser'
-        accountLegacyId:
-          type: string
-        isAccountClosed:
+        opectionChecked:
           type: boolean
-        accountName:
+        skuId:
           type: string
-        createdByUser:
-          $ref: '#/components/schemas/LastModifiedUser'
-        templateItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateItem'
       required:
-      - templateId
-      - templateName
-      - lastModifiedDate
-      - lastModifiedUser
-      - accountLegacyId
-      - isAccountClosed
-      - accountName
-      - createdByUser
-      - templateItems
+      - optionId
+      - optionName
+      - opectionChecked
+      - skuId
     TemplateItem:
       type: object
       properties:
@@ -236,19 +219,36 @@ components:
       required:
       - thumbnail
       - large
-    Option:
+    getTemplateDetailResponse:
       type: object
       properties:
-        optionId:
+        templateId:
           type: string
-        optionName:
+        templateName:
           type: string
-        opectionChecked:
+        lastModifiedDate:
+          type: string
+        lastModifiedUser:
+          $ref: '#/components/schemas/LastModifiedUser'
+        accountLegacyId:
+          type: string
+        isAccountClosed:
           type: boolean
-        skuId:
+        accountName:
           type: string
+        createdByUser:
+          $ref: '#/components/schemas/LastModifiedUser'
+        templateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateItem'
       required:
-      - optionId
-      - optionName
-      - opectionChecked
-      - skuId
+      - templateId
+      - templateName
+      - lastModifiedDate
+      - lastModifiedUser
+      - accountLegacyId
+      - isAccountClosed
+      - accountName
+      - createdByUser
+      - templateItems

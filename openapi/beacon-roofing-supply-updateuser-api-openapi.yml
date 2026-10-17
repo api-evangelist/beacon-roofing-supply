@@ -89,43 +89,24 @@ paths:
       - UpdateUser
 components:
   schemas:
-    PermissionTemplate:
+    Permission2:
       type: object
       properties:
         name:
           type: string
-        templateId:
+        type:
           type: string
         permissions:
           type: array
           items:
-            $ref: '#/components/schemas/Permission2'
-        lastModifiedDate:
-          type: string
-        userEmail:
-          type: string
-        org:
-          $ref: '#/components/schemas/Org'
+            $ref: '#/components/schemas/Permission'
+        isGroup:
+          type: boolean
       required:
       - name
-      - templateId
+      - type
       - permissions
-      - lastModifiedDate
-      - userEmail
-      - org
-    PermissionValues:
-      type: object
-      properties:
-        aa:
-          type: boolean
-        bb:
-          type: boolean
-        cc:
-          type: boolean
-      required:
-      - aa
-      - bb
-      - cc
+      - isGroup
     Address:
       type: object
       properties:
@@ -151,6 +132,19 @@ components:
       - address3
       - country
       - city
+    Org:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        masterAdmin:
+          $ref: '#/components/schemas/MasterAdmin'
+      required:
+      - id
+      - name
+      - masterAdmin
     Branch:
       type: object
       properties:
@@ -185,34 +179,6 @@ components:
       - division
       - divisionName
       - market
-    Org:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        masterAdmin:
-          $ref: '#/components/schemas/MasterAdmin'
-      required:
-      - id
-      - name
-      - masterAdmin
-    Role:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission2'
-      required:
-      - id
-      - displayName
-      - permissions
     Account:
       type: object
       properties:
@@ -244,92 +210,45 @@ components:
       - cashAccount
       - isAccountClosed
       - branch
-    MasterAdmin:
+    Role:
       type: object
       properties:
         id:
           type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        title:
-          type: string
-        phone:
-          type: string
-        email:
-          type: string
-        role:
-          $ref: '#/components/schemas/Role'
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
-        assignedAccounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Account'
-        lastActivity:
-          type: string
-        lastModifiedDate:
-          type: string
-        status:
-          type: string
-        permissionValues:
-          $ref: '#/components/schemas/PermissionValues'
-        active:
-          type: boolean
-        currentTemplate:
-          type: string
-        lastModifiedUserId:
-          type: string
-        userIsSelf:
-          type: boolean
-        internalUser:
-          type: string
-        userType:
-          type: string
-        rewardsEligible:
-          type: boolean
-      required:
-      - id
-      - firstName
-      - lastName
-      - title
-      - phone
-      - email
-      - role
-      - accounts
-      - assignedAccounts
-      - lastActivity
-      - lastModifiedDate
-      - status
-      - permissionValues
-      - active
-      - currentTemplate
-      - lastModifiedUserId
-      - userIsSelf
-      - internalUser
-      - userType
-      - rewardsEligible
-    Permission2:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
+        displayName:
           type: string
         permissions:
           type: array
           items:
-            $ref: '#/components/schemas/Permission'
-        isGroup:
-          type: boolean
+            $ref: '#/components/schemas/Permission2'
+      required:
+      - id
+      - displayName
+      - permissions
+    PermissionTemplate:
+      type: object
+      properties:
+        name:
+          type: string
+        templateId:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission2'
+        lastModifiedDate:
+          type: string
+        userEmail:
+          type: string
+        org:
+          $ref: '#/components/schemas/Org'
       required:
       - name
-      - type
+      - templateId
       - permissions
-      - isGroup
+      - lastModifiedDate
+      - userEmail
+      - org
     Permission:
       type: object
       properties:
@@ -403,3 +322,84 @@ components:
       - currentTemplate
       - permissionTemplate
       - permissionValues
+    PermissionValues:
+      type: object
+      properties:
+        aa:
+          type: boolean
+        bb:
+          type: boolean
+        cc:
+          type: boolean
+      required:
+      - aa
+      - bb
+      - cc
+    MasterAdmin:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        assignedAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        lastActivity:
+          type: string
+        lastModifiedDate:
+          type: string
+        status:
+          type: string
+        permissionValues:
+          $ref: '#/components/schemas/PermissionValues'
+        active:
+          type: boolean
+        currentTemplate:
+          type: string
+        lastModifiedUserId:
+          type: string
+        userIsSelf:
+          type: boolean
+        internalUser:
+          type: string
+        userType:
+          type: string
+        rewardsEligible:
+          type: boolean
+      required:
+      - id
+      - firstName
+      - lastName
+      - title
+      - phone
+      - email
+      - role
+      - accounts
+      - assignedAccounts
+      - lastActivity
+      - lastModifiedDate
+      - status
+      - permissionValues
+      - active
+      - currentTemplate
+      - lastModifiedUserId
+      - userIsSelf
+      - internalUser
+      - userType
+      - rewardsEligible

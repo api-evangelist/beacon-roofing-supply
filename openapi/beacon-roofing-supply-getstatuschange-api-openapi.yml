@@ -100,21 +100,6 @@ components:
       - displayName
       - value
       - selected
-    DtStatusChangeNotifacation:
-      type: object
-      properties:
-        displayName:
-          type: string
-        label:
-          type: string
-        notifications:
-          type: array
-          items:
-            $ref: '#/components/schemas/Notification'
-      required:
-      - displayName
-      - label
-      - notifications
     getStatusChangeResponse:
       type: object
       properties:
@@ -165,6 +150,21 @@ components:
       - scheduled
       - delivered
       - accountId
+    DtStatusChangeNotifacation:
+      type: object
+      properties:
+        displayName:
+          type: string
+        label:
+          type: string
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+      required:
+      - displayName
+      - label
+      - notifications
     DtOrderStatusChangeNotifacation:
       type: object
       properties:

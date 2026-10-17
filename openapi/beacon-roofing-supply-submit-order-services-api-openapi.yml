@@ -143,66 +143,26 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    creditpurchase_req:
+    shippingObj:
       type: object
       properties:
-        payWithCredit:
-          type: boolean
-        cardInfo:
+        shippingMethod:
+          type: string
+        shippingBranch:
+          type: string
+        address:
           type: object
           properties:
-            ExpMM:
+            address1:
               type: string
-            ExpYY:
+            address2:
               type: string
-            Type:
+            city:
               type: string
-            FullName:
+            postalCode:
               type: string
-        encryptionTokenData:
-          type: object
-          properties:
-            LowValueToken:
+            state:
               type: string
-        addressVerificationData:
-          type: object
-          properties:
-            AVSZIPCode:
-              type: string
-    ATGItemMapping_req:
-      type: object
-      properties:
-        MFCode:
-          type: string
-        MFRName:
-          type: string
-        branchId:
-          type: string
-        itemNumber:
-          type: string
-        incomingUOM:
-          type: string
-        becnUOM:
-          type: string
-        materialID:
-          type: string
-        conversionFactor:
-          type: string
-        becnProductId:
-          type: string
-        description:
-          type: string
-        accountId:
-          type: string
-        integrationName:
-          type: string
-    submitOrderRep:
-      type: object
-      properties:
-        orderId:
-          type: string
-        mincronCCMsg:
-          type: string
     submitOrderReq:
       type: object
       properties:
@@ -282,26 +242,66 @@ components:
               type: string
             attachEncodeFile:
               type: string
-    shippingObj:
+    ATGItemMapping_req:
       type: object
       properties:
-        shippingMethod:
+        MFCode:
           type: string
-        shippingBranch:
+        MFRName:
           type: string
-        address:
+        branchId:
+          type: string
+        itemNumber:
+          type: string
+        incomingUOM:
+          type: string
+        becnUOM:
+          type: string
+        materialID:
+          type: string
+        conversionFactor:
+          type: string
+        becnProductId:
+          type: string
+        description:
+          type: string
+        accountId:
+          type: string
+        integrationName:
+          type: string
+    creditpurchase_req:
+      type: object
+      properties:
+        payWithCredit:
+          type: boolean
+        cardInfo:
           type: object
           properties:
-            address1:
+            ExpMM:
               type: string
-            address2:
+            ExpYY:
               type: string
-            city:
+            Type:
               type: string
-            postalCode:
+            FullName:
               type: string
-            state:
+        encryptionTokenData:
+          type: object
+          properties:
+            LowValueToken:
               type: string
+        addressVerificationData:
+          type: object
+          properties:
+            AVSZIPCode:
+              type: string
+    submitOrderRep:
+      type: object
+      properties:
+        orderId:
+          type: string
+        mincronCCMsg:
+          type: string
   securitySchemes:
     JSESSIONID:
       type: apiKey

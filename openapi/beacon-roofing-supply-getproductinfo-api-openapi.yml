@@ -75,6 +75,21 @@ paths:
       - GetProductInfo
 components:
   schemas:
+    getProductInfoResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        hoverAttributes:
+          $ref: '#/components/schemas/HoverAttributes'
+        accounts:
+          type: array
+          items:
+            type: string
+      required:
+      - message
+      - hoverAttributes
+      - accounts
     HoverAttributes:
       type: object
       properties:
@@ -157,18 +172,3 @@ components:
       - cvLapIn
       - cfmValue
       - cfmUom
-    getProductInfoResponse:
-      type: object
-      properties:
-        message:
-          type: string
-        hoverAttributes:
-          $ref: '#/components/schemas/HoverAttributes'
-        accounts:
-          type: array
-          items:
-            type: string
-      required:
-      - message
-      - hoverAttributes
-      - accounts

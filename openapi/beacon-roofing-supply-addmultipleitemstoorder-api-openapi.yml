@@ -75,6 +75,38 @@ paths:
       - AddMultipleItemsToOrder
 components:
   schemas:
+    Item:
+      type: object
+      properties:
+        filter:
+          type: string
+      required:
+      - filter
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
     VendorColorNotMatchedItem:
       type: object
       properties:
@@ -88,6 +120,16 @@ components:
       - id
       - matchColor
       - matchMFG
+    UnavailableItem:
+      type: object
+      properties:
+        id:
+          type: string
+        failedReason:
+          type: string
+      required:
+      - id
+      - failedReason
     Shipping:
       type: object
       properties:
@@ -125,31 +167,6 @@ components:
       - items
       - jobNumber
       - shipping
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
     addMultipleItemsToOrderResponse:
       type: object
       properties:
@@ -172,20 +189,3 @@ components:
       - unavailableItems
       - addedToCartItems
       - vendorColorNotMatchedItems
-    Item:
-      type: object
-      properties:
-        filter:
-          type: string
-      required:
-      - filter
-    UnavailableItem:
-      type: object
-      properties:
-        id:
-          type: string
-        failedReason:
-          type: string
-      required:
-      - id
-      - failedReason

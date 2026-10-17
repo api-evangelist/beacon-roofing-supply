@@ -69,22 +69,6 @@ paths:
       - GetAddressBook
 components:
   schemas:
-    AddressBook:
-      type: object
-      properties:
-        addressBookId:
-          type: string
-        accountLegacyId:
-          type: string
-        accountName:
-          type: string
-        addressBookInfo:
-          $ref: '#/components/schemas/AddressBookInfo'
-      required:
-      - addressBookId
-      - accountLegacyId
-      - accountName
-      - addressBookInfo
     Message:
       type: object
       properties:
@@ -158,3 +142,19 @@ components:
       - messageCode
       - success
       - addressBooks
+    AddressBook:
+      type: object
+      properties:
+        addressBookId:
+          type: string
+        accountLegacyId:
+          type: string
+        accountName:
+          type: string
+        addressBookInfo:
+          $ref: '#/components/schemas/AddressBookInfo'
+      required:
+      - addressBookId
+      - accountLegacyId
+      - accountName
+      - addressBookInfo

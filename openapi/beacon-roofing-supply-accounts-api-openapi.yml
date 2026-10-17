@@ -69,6 +69,71 @@ paths:
       - Accounts
 components:
   schemas:
+    Branch:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+      required:
+      - address
+      - branchNumber
+      - branchName
+      - branchPhone
+      - branchRegionId
+      - company
+      - companyName
+      - division
+      - divisionName
+      - market
+    Account:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
+          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        rewardsEligible:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
+        branch:
+          $ref: '#/components/schemas/Branch'
+      required:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - rewardsEligible
+      - cashAccount
+      - isAccountClosed
+      - branch
     Address:
       type: object
       properties:
@@ -112,68 +177,3 @@ components:
       - totalNumRecs
       - pageNumRecs
       - accounts
-    Account:
-      type: object
-      properties:
-        accountName:
-          type: string
-        accountEnabled:
-          type: boolean
-        accountLegacyId:
-          type: string
-        accountViewPrices:
-          type: boolean
-        addCustomSteel:
-          type: boolean
-        rewardsEligible:
-          type: boolean
-        cashAccount:
-          type: boolean
-        isAccountClosed:
-          type: boolean
-        branch:
-          $ref: '#/components/schemas/Branch'
-      required:
-      - accountName
-      - accountEnabled
-      - accountLegacyId
-      - accountViewPrices
-      - addCustomSteel
-      - rewardsEligible
-      - cashAccount
-      - isAccountClosed
-      - branch
-    Branch:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/Address'
-        branchNumber:
-          type: string
-        branchName:
-          type: string
-        branchPhone:
-          type: string
-        branchRegionId:
-          type: string
-        company:
-          type: string
-        companyName:
-          type: string
-        division:
-          type: string
-        divisionName:
-          type: string
-        market:
-          type: string
-      required:
-      - address
-      - branchNumber
-      - branchName
-      - branchPhone
-      - branchRegionId
-      - company
-      - companyName
-      - division
-      - divisionName
-      - market

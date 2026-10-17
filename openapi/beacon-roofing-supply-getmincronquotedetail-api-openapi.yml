@@ -75,13 +75,6 @@ paths:
       - GetMincronQuoteDetail
 components:
   schemas:
-    getMincronQuoteDetailResponse:
-      type: object
-      properties:
-        quote:
-          $ref: '#/components/schemas/Quote'
-      required:
-      - quote
     Quote:
       type: object
       properties:
@@ -122,3 +115,10 @@ components:
       - queryDetailOpen
       - queryDetailInProgress
       - queryDetailProcessed
+    getMincronQuoteDetailResponse:
+      type: object
+      properties:
+        quote:
+          $ref: '#/components/schemas/Quote'
+      required:
+      - quote

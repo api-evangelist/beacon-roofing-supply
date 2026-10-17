@@ -68,15 +68,19 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    BCOtherPaginationObj:
+    productObj_mincronMapping:
       type: object
       properties:
-        available:
-          type: boolean
-        label:
+        customerNumber:
           type: string
-        page:
-          type: integer
+        itemNumber:
+          type: string
+        itemDescription:
+          type: string
+        productNumber:
+          type: string
+        aliasNumber:
+          type: string
     BCPaginationObj:
       type: object
       properties:
@@ -88,6 +92,18 @@ components:
           type: boolean
         type:
           type: string
+    productsRep:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            products:
+              type: array
+              items:
+                $ref: '#/components/schemas/productObj_mincronMapping'
+            pagination:
+              $ref: '#/components/schemas/BCPaginationDataObj'
     BCPaginationDataObj:
       type: object
       properties:
@@ -105,31 +121,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BCPaginationObj'
-    productsRep:
+    BCOtherPaginationObj:
       type: object
       properties:
-        result:
-          type: object
-          properties:
-            products:
-              type: array
-              items:
-                $ref: '#/components/schemas/productObj_mincronMapping'
-            pagination:
-              $ref: '#/components/schemas/BCPaginationDataObj'
-    productObj_mincronMapping:
-      type: object
-      properties:
-        customerNumber:
+        available:
+          type: boolean
+        label:
           type: string
-        itemNumber:
-          type: string
-        itemDescription:
-          type: string
-        productNumber:
-          type: string
-        aliasNumber:
-          type: string
+        page:
+          type: integer
   securitySchemes:
     bearerAuth:
       type: http

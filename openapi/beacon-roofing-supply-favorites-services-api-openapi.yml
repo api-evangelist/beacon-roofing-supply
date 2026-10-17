@@ -206,6 +206,157 @@ components:
           type: string
         color:
           type: string
+    getAccountFavorites_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        favoritesItemsCount:
+          type: integer
+        favoritesItemNumbers:
+          type: array
+          items:
+            type: string
+    getFavoritesCategories_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/favoritesCategories'
+    favoritesItemCategory:
+      type: object
+      properties:
+        categoryName:
+          type: string
+        categoryId:
+          type: string
+    favoritesItemObj:
+      type: object
+      properties:
+        favoritesItemId:
+          type: string
+        itemNumber:
+          type: string
+        quantity:
+          type: integer
+        nickName:
+          type: string
+        productImageUrl:
+          type: string
+        productOnErrorImageUrl:
+          type: string
+        productOrItemDescription:
+          type: string
+        productOrItemNumber:
+          type: string
+        internalProductName:
+          type: string
+        unitPrice:
+          type: number
+          format: double
+        unitOfMeasure:
+          type: string
+        vendorColorId:
+          type: string
+        available:
+          type: boolean
+        imageUrl:
+          $ref: '#/components/schemas/imageUrlObj'
+        pdpUrl:
+          type: string
+        multiVariationData:
+          $ref: '#/components/schemas/multiVariationDataObj'
+        mainCategory:
+          type: string
+        category:
+          $ref: '#/components/schemas/favoritesItemCategory'
+    imageUrlObj:
+      type: object
+      properties:
+        thumbnail:
+          type: string
+        large:
+          type: string
+        swatch:
+          type: string
+    updateFavorites_req_item:
+      type: object
+      properties:
+        itemId:
+          type: string
+        itemNumber:
+          type: string
+        unitOfMeasure:
+          type: string
+        nickName:
+          type: string
+        quantity:
+          type: integer
+        matchColor:
+          type: string
+        matchMFG:
+          type: string
+    favoritesCategories:
+      type: array
+      items:
+        type: object
+        properties:
+          category:
+            type: string
+            description: category name
+          subCategories:
+            type: array
+            items:
+              type: object
+              properties:
+                categoryId:
+                  type: string
+    favoritesObj:
+      type: object
+      properties:
+        accountName:
+          type: string
+        lastModifiedUser:
+          $ref: '#/components/schemas/profileObj'
+        createdByUser:
+          $ref: '#/components/schemas/profileObj'
+        lastModifiedDate:
+          type: string
+        createdDate:
+          type: string
+        accountLegacyId:
+          type: string
+        isAccountClosed:
+          type: boolean
+        categorySort:
+          type: boolean
+        favoritesItemsCount:
+          type: integer
+        favoritesItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/favoritesItemObj'
+    profileObj:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+    updateFavorites_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
     skusVariationObj:
       type: object
       additionalProperties:
@@ -233,28 +384,17 @@ components:
           - 4x4
           thickness:
           - 6mm
-    getAccountFavorites_rep:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        favoritesItemsCount:
-          type: integer
-        favoritesItemNumbers:
-          type: array
-          items:
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
             type: string
-    getFavorites_rep:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        result:
-          $ref: '#/components/schemas/favoritesObj'
+          value:
+            type: string
+          code:
+            type: string
     multiVariationDataObj:
       type: object
       properties:
@@ -299,143 +439,6 @@ components:
                   type: string
         maxVariationGroupSize:
           type: integer
-    favoritesItemObj:
-      type: object
-      properties:
-        favoritesItemId:
-          type: string
-        itemNumber:
-          type: string
-        quantity:
-          type: integer
-        nickName:
-          type: string
-        productImageUrl:
-          type: string
-        productOnErrorImageUrl:
-          type: string
-        productOrItemDescription:
-          type: string
-        productOrItemNumber:
-          type: string
-        internalProductName:
-          type: string
-        unitPrice:
-          type: number
-          format: double
-        unitOfMeasure:
-          type: string
-        vendorColorId:
-          type: string
-        available:
-          type: boolean
-        imageUrl:
-          $ref: '#/components/schemas/imageUrlObj'
-        pdpUrl:
-          type: string
-        multiVariationData:
-          $ref: '#/components/schemas/multiVariationDataObj'
-        mainCategory:
-          type: string
-        category:
-          $ref: '#/components/schemas/favoritesItemCategory'
-    getFavoritesCategories_rep:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        result:
-          $ref: '#/components/schemas/favoritesCategories'
-    updateFavorites_rep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-    favoritesCategories:
-      type: array
-      items:
-        type: object
-        properties:
-          category:
-            type: string
-            description: category name
-          subCategories:
-            type: array
-            items:
-              type: object
-              properties:
-                categoryId:
-                  type: string
-    updateFavorites_req:
-      type: object
-      properties:
-        account:
-          type: string
-        action:
-          type: string
-          description: action can be  'createItem',  'updateItem' and  'deleteItem'. It's similar to updateTemplate api
-        categorySort:
-          type: boolean
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/updateFavorites_req_item'
-    profileObj:
-      type: object
-      properties:
-        firstName:
-          type: string
-        lastName:
-          type: string
-    messagesObj:
-      type: array
-      items:
-        type: object
-        properties:
-          type:
-            type: string
-          value:
-            type: string
-          code:
-            type: string
-    favoritesItemCategory:
-      type: object
-      properties:
-        categoryName:
-          type: string
-        categoryId:
-          type: string
-    favoritesObj:
-      type: object
-      properties:
-        accountName:
-          type: string
-        lastModifiedUser:
-          $ref: '#/components/schemas/profileObj'
-        createdByUser:
-          $ref: '#/components/schemas/profileObj'
-        lastModifiedDate:
-          type: string
-        createdDate:
-          type: string
-        accountLegacyId:
-          type: string
-        isAccountClosed:
-          type: boolean
-        categorySort:
-          type: boolean
-        favoritesItemsCount:
-          type: integer
-        favoritesItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/favoritesItemObj'
     variationsObj:
       type: object
       additionalProperties:
@@ -461,32 +464,29 @@ components:
           - '200002'
           6mm:
           - '300003'
-    imageUrlObj:
+    getFavorites_rep:
       type: object
       properties:
-        thumbnail:
-          type: string
-        large:
-          type: string
-        swatch:
-          type: string
-    updateFavorites_req_item:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          $ref: '#/components/schemas/favoritesObj'
+    updateFavorites_req:
       type: object
       properties:
-        itemId:
+        account:
           type: string
-        itemNumber:
+        action:
           type: string
-        unitOfMeasure:
-          type: string
-        nickName:
-          type: string
-        quantity:
-          type: integer
-        matchColor:
-          type: string
-        matchMFG:
-          type: string
+          description: action can be  'createItem',  'updateItem' and  'deleteItem'. It's similar to updateTemplate api
+        categorySort:
+          type: boolean
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/updateFavorites_req_item'
   securitySchemes:
     JSESSIONID:
       type: apiKey

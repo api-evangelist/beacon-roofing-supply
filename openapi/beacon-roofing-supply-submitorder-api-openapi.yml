@@ -69,6 +69,48 @@ paths:
       - SubmitOrder
 components:
   schemas:
+    submitOrderResponse:
+      type: object
+      properties:
+        orderId:
+          type: string
+      required:
+      - orderId
+    Address:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+      required:
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
+    Job:
+      type: object
+      properties:
+        jobName:
+          type: string
+        jobNumber:
+          type: string
+      required:
+      - jobName
+      - jobNumber
     submitOrderBody:
       type: object
       properties:
@@ -117,16 +159,6 @@ components:
       - pickupTime
       - onHold
       - UUID
-    Job:
-      type: object
-      properties:
-        jobName:
-          type: string
-        jobNumber:
-          type: string
-      required:
-      - jobName
-      - jobNumber
     Shipping:
       type: object
       properties:
@@ -140,31 +172,6 @@ components:
       - shippingBranch
       - address
       - shippingMethod
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
     LineItem:
       type: object
       properties:
@@ -208,10 +215,3 @@ components:
       - productOrItemDescription
       - extendedDescription
       - lineComments
-    submitOrderResponse:
-      type: object
-      properties:
-        orderId:
-          type: string
-      required:
-      - orderId

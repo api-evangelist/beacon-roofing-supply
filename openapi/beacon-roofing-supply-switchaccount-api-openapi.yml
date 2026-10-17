@@ -69,26 +69,56 @@ paths:
       - SwitchAccount
 components:
   schemas:
-    MyOrders:
+    LastSelectedAccount:
       type: object
       properties:
-        requested:
+        accountName:
           type: string
-        scheduled:
+        accountEnabled:
+          type: boolean
+        accountLegacyId:
           type: string
-        delivered:
-          type: string
+        accountViewPrices:
+          type: boolean
+        addCustomSteel:
+          type: boolean
+        cashAccount:
+          type: boolean
+        isAccountClosed:
+          type: boolean
       required:
-      - requested
-      - scheduled
-      - delivered
-    switchAccountBody:
+      - accountName
+      - accountEnabled
+      - accountLegacyId
+      - accountViewPrices
+      - addCustomSteel
+      - cashAccount
+      - isAccountClosed
+    Address:
       type: object
       properties:
-        accountId:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        country:
+          type: string
+        city:
           type: string
       required:
-      - accountId
+      - postalCode
+      - state
+      - address1
+      - address2
+      - address3
+      - country
+      - city
     AccountBranch:
       type: object
       properties:
@@ -123,75 +153,6 @@ components:
       - division
       - divisionName
       - market
-    Address:
-      type: object
-      properties:
-        postalCode:
-          type: string
-        state:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        address3:
-          type: string
-        country:
-          type: string
-        city:
-          type: string
-      required:
-      - postalCode
-      - state
-      - address1
-      - address2
-      - address3
-      - country
-      - city
-    LastSelectedAccount:
-      type: object
-      properties:
-        accountName:
-          type: string
-        accountEnabled:
-          type: boolean
-        accountLegacyId:
-          type: string
-        accountViewPrices:
-          type: boolean
-        addCustomSteel:
-          type: boolean
-        cashAccount:
-          type: boolean
-        isAccountClosed:
-          type: boolean
-      required:
-      - accountName
-      - accountEnabled
-      - accountLegacyId
-      - accountViewPrices
-      - addCustomSteel
-      - cashAccount
-      - isAccountClosed
-    DeliveryTrackingSettings:
-      type: object
-      properties:
-        email:
-          type: string
-        phone:
-          type: string
-        myOrders:
-          $ref: '#/components/schemas/MyOrders'
-        allOrders:
-          $ref: '#/components/schemas/MyOrders'
-        dtAccount:
-          $ref: '#/components/schemas/MyOrders'
-      required:
-      - email
-      - phone
-      - myOrders
-      - allOrders
-      - dtAccount
     switchAccountResponse:
       type: object
       properties:
@@ -259,3 +220,42 @@ components:
       - lastSelectedAccount
       - deliveryTrackingSettings
       - hasPrivateEVAccount
+    DeliveryTrackingSettings:
+      type: object
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+        myOrders:
+          $ref: '#/components/schemas/MyOrders'
+        allOrders:
+          $ref: '#/components/schemas/MyOrders'
+        dtAccount:
+          $ref: '#/components/schemas/MyOrders'
+      required:
+      - email
+      - phone
+      - myOrders
+      - allOrders
+      - dtAccount
+    switchAccountBody:
+      type: object
+      properties:
+        accountId:
+          type: string
+      required:
+      - accountId
+    MyOrders:
+      type: object
+      properties:
+        requested:
+          type: string
+        scheduled:
+          type: string
+        delivered:
+          type: string
+      required:
+      - requested
+      - scheduled
+      - delivered

@@ -90,13 +90,28 @@ components:
       - typeId
       - typeName
       - options
-    InvalidTemplateItem:
+    ImageUrl:
       type: object
       properties:
-        templateItemId:
+        thumbnail:
+          type: string
+        large:
           type: string
       required:
-      - templateItemId
+      - thumbnail
+      - large
+    validateTemplateItemsBody:
+      type: object
+      properties:
+        templateId:
+          type: string
+        templateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateItem'
+      required:
+      - templateId
+      - templateItems
     TemplateItem:
       type: object
       properties:
@@ -148,37 +163,13 @@ components:
       - quantity
       - available
       - imageUrl
-    validateTemplateItemsResponse:
+    InvalidTemplateItem:
       type: object
       properties:
-        invalidTemplateItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/InvalidTemplateItem'
-      required:
-      - invalidTemplateItems
-    validateTemplateItemsBody:
-      type: object
-      properties:
-        templateId:
-          type: string
-        templateItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateItem'
-      required:
-      - templateId
-      - templateItems
-    ImageUrl:
-      type: object
-      properties:
-        thumbnail:
-          type: string
-        large:
+        templateItemId:
           type: string
       required:
-      - thumbnail
-      - large
+      - templateItemId
     Option:
       type: object
       properties:
@@ -195,3 +186,12 @@ components:
       - optionName
       - opectionChecked
       - skuId
+    validateTemplateItemsResponse:
+      type: object
+      properties:
+        invalidTemplateItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvalidTemplateItem'
+      required:
+      - invalidTemplateItems
