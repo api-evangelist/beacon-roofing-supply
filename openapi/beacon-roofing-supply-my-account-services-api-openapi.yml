@@ -2,88 +2,15 @@ openapi: 3.2.0
 info:
   title: Beacon Roofing Supply My Account Services API
   version: '1.0'
-  description: 'Operations tagged My Account Services across 3 of this provider''s published API definitions: beacon-roofing-supply-internal-openapi.yml, beacon-roofing-supply-v2-openapi.yml, beacon-roofing-supply-v3-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged My Account Services across 3 of this provider''s published API definitions: beacon-roofing-supply-v2-openapi.yml, beacon-roofing-supply-v3-openapi.yml, beacon-roofing-supply-my-account-services-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://beaconproplus.com/v2/rest/com/becn
-  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
+  description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
 - url: https://beaconproplus.com/v3/rest/com/becn
   description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of the all_api spec: ''Version 3: https://beaconproplus.com/v3/rest/com/becn''; probed 2026-09-04 -> 401 JSON envelope'
 tags:
 - name: My Account Services
 paths:
-  /deleteUser:
-    post:
-      security:
-      - internalAuth: []
-      tags:
-      - My Account Services
-      summary: delete BPP user from database
-      description: 'login: The "login name" of the BPP user.
-
-
-        email: The "email address" of the BPP user.'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/deleteUserReq'
-      responses:
-        '200':
-          description: 'successful operation
-
-
-            refer to *API Uniform Format*
-
-            '
-        '400':
-          description: Bad Request.
-        '401':
-          description: Unauthorized, the authorization token is invalid
-        '405':
-          description: Method not allowed, the request method is not valid for this API or this API is not available.
-        '500':
-          description: Internal exception
-      operationId: postDeleteUser
-      x-operation-id-source: derived
-    servers:
-    - url: https://beaconproplus.com/v2/rest/com/becn
-      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
-  /deleteInternalUser:
-    post:
-      security:
-      - internalAuth: []
-      tags:
-      - My Account Services
-      summary: delete BCC user from database
-      description: 'login: The "user name" of the BCC user.'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/deleteInternalUserReq'
-      responses:
-        '200':
-          description: 'successful operation
-
-
-            refer to *API Uniform Format*
-
-            '
-        '400':
-          description: Bad Request.
-        '401':
-          description: Unauthorized, the authorization token is invalid
-        '405':
-          description: Method not allowed, the request method is not valid for this API or this API is not available.
-        '500':
-          description: Internal exception
-      operationId: postDeleteInternalUser
-      x-operation-id-source: derived
-    servers:
-    - url: https://beaconproplus.com/v2/rest/com/becn
-      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
   /hoverExplicitLogin:
     post:
       security:
@@ -1602,76 +1529,89 @@ paths:
     servers:
     - url: https://beaconproplus.com/v2/rest/com/becn
       description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: info.description of this spec: ''[ PROD BASE URL: https://beaconproplus.com/v2/rest/com/becn ]'''
+  /deleteUser:
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - My Account Services
+      summary: delete BPP user from database
+      description: 'login: The "login name" of the BPP user.
+
+
+        email: The "email address" of the BPP user.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteUserReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postDeleteUser
+      x-operation-id-source: derived
+  /deleteInternalUser:
+    servers:
+    - url: https://beaconproplus.com/v2/rest/com/becn
+      description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
+    post:
+      security:
+      - internalAuth: []
+      tags:
+      - My Account Services
+      summary: delete BCC user from database
+      description: 'login: The "user name" of the BCC user.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deleteInternalUserReq'
+      responses:
+        '200':
+          description: 'successful operation
+
+
+            refer to *API Uniform Format*
+
+            '
+        '400':
+          description: Bad Request.
+        '401':
+          description: Unauthorized, the authorization token is invalid
+        '405':
+          description: Method not allowed, the request method is not valid for this API or this API is not available.
+        '500':
+          description: Internal exception
+      operationId: postDeleteInternalUser
+      x-operation-id-source: derived
 components:
   schemas:
-    deleteUserReq:
+    addressBookInfoObj_R:
       type: object
       properties:
-        login:
-          type: string
-        email:
-          type: string
-    deleteInternalUserReq:
-      type: object
-      properties:
-        login:
-          type: string
-    BCUserObj_user:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-        lastActivity:
-          type: string
-        lastModifiedDate:
-          type: string
-        status:
-          type: string
-        rewardsEligible:
-          type: boolean
-    deliveryTrackingSettingsObj_getCurrentUserInfo:
-      type: object
-      properties:
-        email:
-          type: string
-        phone:
-          type: string
-        myOrders:
-          type: object
-          additionalProperties:
-            type: string
-          example:
-            requested: Text
-            scheduled: Email
-            delivered: Text&Email
-        allOrders:
-          type: object
-          additionalProperties:
-            type: string
-          example:
-            requested: Text
-            scheduled: Email
-            delivered: Text&Email
-        dtAccount:
-          type: object
-          additionalProperties:
-            type: string
-          example:
-            requested: Text
-            scheduled: Email
-            delivered: Text&Email
-    contactInfoObj:
-      type: object
-      properties:
-        email:
-          type: string
-        lastName:
+        nickName:
           type: string
         firstName:
           type: string
-        phoneNumber:
+        lastName:
           type: string
         address1:
           type: string
@@ -1681,76 +1621,58 @@ components:
           type: string
         state:
           type: string
+        stateValue:
+          type: string
         postalCode:
           type: string
         country:
           type: string
-    BCUserObj:
+        countryValue:
+          type: string
+        phoneNumber:
+          type: string
+    updateAddressBookReq:
       type: object
       properties:
-        id:
+        addressBookId:
           type: string
-        firstName:
+        addressBookInfo:
+          $ref: '#/components/schemas/addressBookInfoObj_CU'
+    shareDeliveryPhotos_req:
+      type: object
+      properties:
+        orderNumber:
           type: string
-        lastName:
-          type: string
-        title:
-          type: string
-        phone:
-          type: string
-        email:
-          type: string
-        role:
-          $ref: '#/components/schemas/BCRoleObj'
-        accounts:
+        emails:
           type: array
           items:
-            $ref: '#/components/schemas/BCAccountObj'
-        assignedAccounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCAccountObj'
-        lastActivity:
-          type: string
-        lastModifiedDate:
-          type: string
-        status:
-          type: string
-        permissionValues:
-          type: string
-          additionalProperties:
-            type: boolean
-          example:
-            aa: true
-            bb: true
-            cc: false
-        permissionTemplate:
-          $ref: '#/components/schemas/BCPermissionTemplateObj'
-        active:
-          type: boolean
-        currentTemplate:
-          type: string
-        org:
-          $ref: '#/components/schemas/BCOrgObj'
-        lastModifiedUserId:
-          type: string
-        userIsSelf:
-          type: boolean
-        internalUser:
-          type: string
-        userType:
-          type: string
-        rewardsEligible:
-          type: boolean
-    BCOrgObj_getPermissionTemplateDetail:
+            type: string
+    updatePermissionTemplate_req:
       type: object
       properties:
         id:
           type: string
         name:
           type: string
-        masterAdmin:
-          $ref: '#/components/schemas/BCUserObj_getPermissionTemplateDetail'
+        permissionValues:
+          type: string
+          additionalProperties:
+            type: boolean
+          example:
+            '100001': true
+            '100002': true
+            '100003': false
+    BCAccountObj:
+      type: object
+      properties:
+        id:
+          type: string
+        displayName:
+          type: string
+        checked:
+          type: boolean
+        isAccountClosed:
+          type: boolean
     getCurrentUserPermissionRep:
       type: object
       properties:
@@ -1830,6 +1752,186 @@ components:
             upcomingDelivery: true
             nonAppDeliveryNotification: true
             mobileDeliveryNotification: true
+    BCUserObj:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        role:
+          $ref: '#/components/schemas/BCRoleObj'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCAccountObj'
+        assignedAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCAccountObj'
+        lastActivity:
+          type: string
+        lastModifiedDate:
+          type: string
+        status:
+          type: string
+        permissionValues:
+          type: string
+          additionalProperties:
+            type: boolean
+          example:
+            aa: true
+            bb: true
+            cc: false
+        permissionTemplate:
+          $ref: '#/components/schemas/BCPermissionTemplateObj'
+        active:
+          type: boolean
+        currentTemplate:
+          type: string
+        org:
+          $ref: '#/components/schemas/BCOrgObj'
+        lastModifiedUserId:
+          type: string
+        userIsSelf:
+          type: boolean
+        internalUser:
+          type: string
+        userType:
+          type: string
+        rewardsEligible:
+          type: boolean
+    updateUser_req:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        title:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+          pattern: ^\d{10}$
+          example: 1234567890
+        role:
+          type: object
+          properties:
+            id:
+              type: string
+        accounts:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              checked:
+                type: boolean
+        status:
+          type: string
+        currentTemplate:
+          type: string
+        permissionTemplate:
+          type: object
+          properties:
+            templateId:
+              type: string
+        permissionValues:
+          type: string
+          additionalProperties:
+            type: boolean
+          example:
+            '100001': true
+            '100002': true
+            '100003': false
+    customerType:
+      type: object
+      properties:
+        name:
+          type: string
+        realm:
+          type: string
+        isDefault:
+          type: boolean
+    createUser_rep:
+      type: object
+      properties:
+        userId:
+          type: string
+    setPassword_req:
+      type: object
+      properties:
+        password:
+          type: string
+        confirmpassword:
+          type: string
+        passwordtoken:
+          type: string
+    updateAddressBookRep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+    getAssignedEnterpriseAccounts_rep:
+      type: object
+      properties:
+        success:
+          type: boolean
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/enterpriseAccount'
+    createPermissionTemplate_rep:
+      type: object
+      properties:
+        templateId:
+          type: string
+    accountOSRAndBMInfo_emailInfoObj:
+      type: object
+      properties:
+        fullName:
+          type: string
+        emailAddess:
+          type: string
+        phoneNumber:
+          type: string
+    termObj:
+      type: object
+      properties:
+        op:
+          type: string
+        property:
+          type: string
+        value:
+          type: object
+    forgotPassword_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
     createUser_req:
       type: object
       properties:
@@ -1874,34 +1976,121 @@ components:
             '100001': true
             '100002': true
             '100003': false
-    getPermissionTemplateDetail_rep:
-      $ref: '#/components/schemas/BCPermissionTemplateObj_getPermissionTemplateDetail'
-    deleteAddressBookRep:
+    hoverExplicitLogin_req:
       type: object
       properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
+        username:
+          type: string
+        password:
+          type: string
+        uuid:
+          type: string
+        ua:
+          type: string
+          enum:
+          - desktop
+          - mobile
+        siteId:
+          type: string
+          enum:
+          - homeSite
+          - dealerchoice
+        persistentLoginType:
+          type: string
+          enum:
+          - RememberMe
+          - RememberPassword
+        userAgent:
+          type: string
+          enum:
+          - desktop
+          - tablet
+          - mobile
+    BCUserObj_getPermissionTemplateDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+    BCUserObj_user:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        lastActivity:
+          type: string
+        lastModifiedDate:
+          type: string
+        status:
+          type: string
+        rewardsEligible:
           type: boolean
-    branchAddressObj:
+    user_rep:
       type: object
       properties:
-        postalCode:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCUserObj_user'
+    BCUserObj_getUserDetail:
+      type: object
+      properties:
+        id:
           type: string
-        state:
+        firstName:
           type: string
-        address1:
+        lastName:
           type: string
-        address2:
+        title:
           type: string
-        address3:
+        phone:
           type: string
-        city:
+        email:
           type: string
-    getUserDetail_rep:
-      $ref: '#/components/schemas/BCUserObj_getUserDetail'
+        role:
+          $ref: '#/components/schemas/BCRoleObj'
+        accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCAccountObj'
+        assignedAccounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCAccountObj'
+        lastActivity:
+          type: string
+        lastModifiedDate:
+          type: string
+        status:
+          type: string
+        permissionTemplate:
+          $ref: '#/components/schemas/BCPermissionTemplateObj'
+        active:
+          type: boolean
+        currentTemplate:
+          type: string
+        org:
+          $ref: '#/components/schemas/BCOrgObj'
+        lastModifiedUserId:
+          type: string
+        userIsSelf:
+          type: boolean
+        internalUser:
+          type: string
+        userType:
+          type: string
+        rewardsEligible:
+          type: boolean
+    forgotPassword_req:
+      type: object
+      properties:
+        login:
+          type: string
     BCPermissionObj:
       type: object
       properties:
@@ -1945,13 +2134,139 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BCPaginationObj'
-    BCUserObj_getPermissionTemplateDetail:
+    createAddressBookReq:
+      $ref: '#/components/schemas/addressBookInfoObj_CU'
+    role_rep:
+      $ref: '#/components/schemas/BCRoleObj'
+    BCRoleObj:
       type: object
       properties:
         id:
           type: string
-        email:
+        displayName:
           type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionGroupObj'
+    createPermissionTemplate_req:
+      type: object
+      properties:
+        name:
+          type: string
+        permissionValues:
+          type: string
+          additionalProperties:
+            type: boolean
+          example:
+            '100001': true
+            '100002': true
+            '100003': false
+    BCPermissionGroupObj:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionObj'
+        isGroup:
+          type: boolean
+    BCOrgObj_getPermissionTemplateDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        masterAdmin:
+          $ref: '#/components/schemas/BCUserObj_getPermissionTemplateDetail'
+    enterpriseAccount:
+      type: object
+      properties:
+        enterpriseAccountLegacyId:
+          type: string
+        enterpriseAccountName:
+          type: string
+        childAccounts:
+          type: array
+          items:
+            type: object
+            properties:
+              accountLegacyId:
+                type: string
+              accountName:
+                type: string
+    deleteMobileDeviceTokenReq:
+      type: object
+      properties:
+        deviceTokens:
+          type: array
+          items:
+            type: string
+    getPermissionTemplateDetail_rep:
+      $ref: '#/components/schemas/BCPermissionTemplateObj_getPermissionTemplateDetail'
+    saveCurrentUserInfoReq:
+      type: object
+      properties:
+        title:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        contactPhoneNumber:
+          type: string
+        officePhoneNumber:
+          type: string
+        mobilePhoneNumber:
+          type: string
+        subscribeOrder:
+          type: boolean
+        subscribeQuote:
+          type: boolean
+        subscribeAccount:
+          type: boolean
+    updateMobileDeviceReq:
+      type: object
+      properties:
+        deviceToken:
+          $ref: '#/components/schemas/deviceTokenObj'
+    getUserDetail_rep:
+      $ref: '#/components/schemas/BCUserObj_getUserDetail'
+    permissionTemplateList_rep:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        permssionTemplate:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionTemplateObj'
+    deleteAddressBookRep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
     deviceTokenObj:
       type: object
       properties:
@@ -1963,6 +2278,99 @@ components:
             type: string
         email:
           type: string
+    permissionTemplateList_req:
+      type: object
+      properties:
+        sortBy:
+          type: string
+        sortType:
+          type: string
+        pageIndex:
+          type: integer
+        pageSize:
+          type: integer
+    BCPermissionTemplateObj:
+      type: object
+      properties:
+        name:
+          type: string
+        templateId:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionGroupObj'
+        lastModifiedDate:
+          type: string
+        userEmail:
+          type: string
+        org:
+          $ref: '#/components/schemas/BCOrgObj'
+    changePassword_req:
+      type: object
+      properties:
+        oldPassword:
+          type: string
+        password:
+          type: string
+        confirmpassword:
+          type: string
+    organization_rep:
+      $ref: '#/components/schemas/BCOrgObj'
+    hoverExplicitLogin_rep:
+      type: object
+      properties:
+        nextUrl:
+          type: string
+    BCOrgObj:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        masterAdmin:
+          $ref: '#/components/schemas/BCUserObj'
+    deliveryTrackingSettingsObj_getCurrentUserInfo:
+      type: object
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+        myOrders:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            requested: Text
+            scheduled: Email
+            delivered: Text&Email
+        allOrders:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            requested: Text
+            scheduled: Email
+            delivered: Text&Email
+        dtAccount:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            requested: Text
+            scheduled: Email
+            delivered: Text&Email
+    setPassword_rep:
+      type: object
+      properties:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
     getCurrentUserInfoRep:
       type: object
       properties:
@@ -2058,261 +2466,6 @@ components:
           type: boolean
         loyaltyFlag:
           type: boolean
-    BCPermissionTemplateObj_getPermissionTemplateDetail:
-      type: object
-      properties:
-        name:
-          type: string
-        templateId:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPermissionGroupObj'
-        lastModifiedDate:
-          type: string
-        userEmail:
-          type: string
-        org:
-          $ref: '#/components/schemas/BCOrgObj_getPermissionTemplateDetail'
-    deleteMobileDeviceTokenReq:
-      type: object
-      properties:
-        deviceTokens:
-          type: array
-          items:
-            type: string
-    permissionTemplateList_rep:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
-        permssionTemplate:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPermissionTemplateObj'
-    getAddressBookRep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
-        addressBooks:
-          type: array
-          items:
-            type: object
-            properties:
-              addressBookId:
-                type: string
-              accountLegacyId:
-                type: string
-              accountName:
-                type: string
-              addressBookInfo:
-                $ref: '#/components/schemas/addressBookInfoObj_R'
-    setPassword_req:
-      type: object
-      properties:
-        password:
-          type: string
-        confirmpassword:
-          type: string
-        passwordtoken:
-          type: string
-    createUser_rep:
-      type: object
-      properties:
-        userId:
-          type: string
-    addressBookInfoObj_CU:
-      type: object
-      properties:
-        nickName:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        stateValue:
-          type: string
-        postalCode:
-          type: string
-        countryValue:
-          type: string
-        phoneNumber:
-          type: string
-    organization_rep:
-      $ref: '#/components/schemas/BCOrgObj'
-    accountObj:
-      type: object
-      properties:
-        accountName:
-          type: string
-        accountEnabled:
-          type: boolean
-        accountLegacyId:
-          type: string
-        accountViewPrices:
-          type: boolean
-        addCustomSteel:
-          type: boolean
-        cashAccount:
-          type: boolean
-        isAccountClosed:
-          type: boolean
-        canAccessEVSmartOrder:
-          type: boolean
-        customerType:
-          $ref: '#/components/schemas/customerType'
-        hasMincronRebate:
-          type: boolean
-        loyaltyEnrolled:
-          type: boolean
-        nationalAccount:
-          type: boolean
-        loyaltyFlag:
-          type: boolean
-        gafQuickMeasureFlag:
-          type: boolean
-    accountOSRAndBMInfo_emailInfoObj:
-      type: object
-      properties:
-        fullName:
-          type: string
-        emailAddess:
-          type: string
-        phoneNumber:
-          type: string
-    updateMobileDeviceReq:
-      type: object
-      properties:
-        deviceToken:
-          $ref: '#/components/schemas/deviceTokenObj'
-    accountOSRAndBMInfo:
-      type: object
-      properties:
-        OSRList:
-          type: array
-          items:
-            $ref: '#/components/schemas/accountOSRAndBMInfo_emailInfoObj'
-        BMList:
-          type: array
-          items:
-            $ref: '#/components/schemas/accountOSRAndBMInfo_emailInfoObj'
-    permissionTemplateList_req:
-      type: object
-      properties:
-        sortBy:
-          type: string
-        sortType:
-          type: string
-        pageIndex:
-          type: integer
-        pageSize:
-          type: integer
-    updateAddressBookReq:
-      type: object
-      properties:
-        addressBookId:
-          type: string
-        addressBookInfo:
-          $ref: '#/components/schemas/addressBookInfoObj_CU'
-    messagesObj:
-      type: array
-      items:
-        type: object
-        properties:
-          type:
-            type: string
-          value:
-            type: string
-          code:
-            type: string
-    customerType:
-      type: object
-      properties:
-        name:
-          type: string
-        realm:
-          type: string
-        isDefault:
-          type: boolean
-    shareDeliveryPhotos_req:
-      type: object
-      properties:
-        orderNumber:
-          type: string
-        emails:
-          type: array
-          items:
-            type: string
-    BCOrgObj:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        masterAdmin:
-          $ref: '#/components/schemas/BCUserObj'
-    enterpriseAccount:
-      type: object
-      properties:
-        enterpriseAccountLegacyId:
-          type: string
-        enterpriseAccountName:
-          type: string
-        childAccounts:
-          type: array
-          items:
-            type: object
-            properties:
-              accountLegacyId:
-                type: string
-              accountName:
-                type: string
-    termObj:
-      type: object
-      properties:
-        op:
-          type: string
-        property:
-          type: string
-        value:
-          type: object
-    createAddressBookRep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-        addressBookId:
-          type: string
-    BCAccountObj:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        checked:
-          type: boolean
-        isAccountClosed:
-          type: boolean
     BCPaginationObj:
       type: object
       properties:
@@ -2323,6 +2476,58 @@ components:
         currentPage:
           type: boolean
         type:
+          type: string
+    branchObj:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/branchAddressObj'
+        branchNumber:
+          type: string
+        branchName:
+          type: string
+        branchPhone:
+          type: string
+        branchRegionId:
+          type: string
+        company:
+          type: string
+        companyName:
+          type: string
+        division:
+          type: string
+        divisionName:
+          type: string
+        market:
+          type: string
+        branchDTEnabled:
+          type: boolean
+        active:
+          type: boolean
+        activeToSendEmail:
+          type: boolean
+        corporateBranch:
+          type: boolean
+        mincronBranchStatus:
+          type: string
+        canAccessEVSmartOrderOnBranch:
+          type: boolean
+        guidedOrder:
+          type: boolean
+    branchAddressObj:
+      type: object
+      properties:
+        postalCode:
+          type: string
+        state:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        address3:
+          type: string
+        city:
           type: string
     getUserInfoRep:
       type: object
@@ -2391,15 +2596,6 @@ components:
                   type: string
                 market:
                   type: string
-    getAccountOSRAndBMInfo_rep:
-      type: object
-      properties:
-        success:
-          type: boolean
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        result:
-          $ref: '#/components/schemas/accountOSRAndBMInfo'
     changePassword_rep:
       type: object
       properties:
@@ -2409,9 +2605,56 @@ components:
           type: integer
         success:
           type: boolean
-    role_rep:
-      $ref: '#/components/schemas/BCRoleObj'
-    getAssignedEnterpriseAccounts_rep:
+    addressBookInfoObj_CU:
+      type: object
+      properties:
+        nickName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        stateValue:
+          type: string
+        postalCode:
+          type: string
+        countryValue:
+          type: string
+        phoneNumber:
+          type: string
+    BCOtherPaginationObj:
+      type: object
+      properties:
+        available:
+          type: boolean
+        label:
+          type: string
+        page:
+          type: integer
+    BCPermissionTemplateObj_getPermissionTemplateDetail:
+      type: object
+      properties:
+        name:
+          type: string
+        templateId:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BCPermissionGroupObj'
+        lastModifiedDate:
+          type: string
+        userEmail:
+          type: string
+        org:
+          $ref: '#/components/schemas/BCOrgObj_getPermissionTemplateDetail'
+    getAccountOSRAndBMInfo_rep:
       type: object
       properties:
         success:
@@ -2419,13 +2662,17 @@ components:
         messages:
           $ref: '#/components/schemas/messagesObj'
         result:
-          type: array
-          items:
-            $ref: '#/components/schemas/enterpriseAccount'
-    createPermissionTemplate_rep:
+          $ref: '#/components/schemas/accountOSRAndBMInfo'
+    createAddressBookRep:
       type: object
       properties:
-        templateId:
+        messages:
+          $ref: '#/components/schemas/messagesObj'
+        messageCode:
+          type: integer
+        success:
+          type: boolean
+        addressBookId:
           type: string
     currentUserPermissionObj:
       type: object
@@ -2441,87 +2688,36 @@ components:
           example:
             'Yes': true
             'No': false
-    BCUserObj_getUserDetail:
+    accountObj:
       type: object
       properties:
-        id:
+        accountName:
           type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        title:
-          type: string
-        phone:
-          type: string
-        email:
-          type: string
-        role:
-          $ref: '#/components/schemas/BCRoleObj'
-        accounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCAccountObj'
-        assignedAccounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCAccountObj'
-        lastActivity:
-          type: string
-        lastModifiedDate:
-          type: string
-        status:
-          type: string
-        permissionTemplate:
-          $ref: '#/components/schemas/BCPermissionTemplateObj'
-        active:
+        accountEnabled:
           type: boolean
-        currentTemplate:
+        accountLegacyId:
           type: string
-        org:
-          $ref: '#/components/schemas/BCOrgObj'
-        lastModifiedUserId:
-          type: string
-        userIsSelf:
+        accountViewPrices:
           type: boolean
-        internalUser:
-          type: string
-        userType:
-          type: string
-        rewardsEligible:
+        addCustomSteel:
           type: boolean
-    saveCurrentUserInfoReq:
-      type: object
-      properties:
-        title:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        postalCode:
-          type: string
-        country:
-          type: string
-        contactPhoneNumber:
-          type: string
-        officePhoneNumber:
-          type: string
-        mobilePhoneNumber:
-          type: string
-        subscribeOrder:
+        cashAccount:
           type: boolean
-        subscribeQuote:
+        isAccountClosed:
           type: boolean
-        subscribeAccount:
+        canAccessEVSmartOrder:
+          type: boolean
+        customerType:
+          $ref: '#/components/schemas/customerType'
+        hasMincronRebate:
+          type: boolean
+        loyaltyEnrolled:
+          type: boolean
+        nationalAccount:
+          type: boolean
+        loyaltyFlag:
+          type: boolean
+        gafQuickMeasureFlag:
           type: boolean
     QueryConditionObj:
       type: object
@@ -2542,83 +2738,7 @@ components:
           type: integer
         pageSize:
           type: integer
-    BCPermissionGroupObj:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPermissionObj'
-        isGroup:
-          type: boolean
-    updatePermissionTemplate_req:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        permissionValues:
-          type: string
-          additionalProperties:
-            type: boolean
-          example:
-            '100001': true
-            '100002': true
-            '100003': false
-    updateUser_req:
-      type: object
-      properties:
-        id:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        title:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-          pattern: ^\d{10}$
-          example: 1234567890
-        role:
-          type: object
-          properties:
-            id:
-              type: string
-        accounts:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              checked:
-                type: boolean
-        status:
-          type: string
-        currentTemplate:
-          type: string
-        permissionTemplate:
-          type: object
-          properties:
-            templateId:
-              type: string
-        permissionValues:
-          type: string
-          additionalProperties:
-            type: boolean
-          example:
-            '100001': true
-            '100002': true
-            '100003': false
-    forgotPassword_rep:
+    getAddressBookRep:
       type: object
       properties:
         messages:
@@ -2627,69 +2747,52 @@ components:
           type: integer
         success:
           type: boolean
-    hoverExplicitLogin_rep:
+        pagination:
+          $ref: '#/components/schemas/BCPaginationDataObj'
+        addressBooks:
+          type: array
+          items:
+            type: object
+            properties:
+              addressBookId:
+                type: string
+              accountLegacyId:
+                type: string
+              accountName:
+                type: string
+              addressBookInfo:
+                $ref: '#/components/schemas/addressBookInfoObj_R'
+    deleteAddressBookReq:
       type: object
       properties:
-        nextUrl:
+        addressBookId:
           type: string
-    branchObj:
+    user_req:
       type: object
       properties:
-        address:
-          $ref: '#/components/schemas/branchAddressObj'
-        branchNumber:
-          type: string
-        branchName:
-          type: string
-        branchPhone:
-          type: string
-        branchRegionId:
-          type: string
-        company:
-          type: string
-        companyName:
-          type: string
-        division:
-          type: string
-        divisionName:
-          type: string
-        market:
-          type: string
-        branchDTEnabled:
-          type: boolean
-        active:
-          type: boolean
-        activeToSendEmail:
-          type: boolean
-        corporateBranch:
-          type: boolean
-        mincronBranchStatus:
-          type: string
-        canAccessEVSmartOrderOnBranch:
-          type: boolean
-        guidedOrder:
-          type: boolean
-    createPermissionTemplate_req:
+        query:
+          $ref: '#/components/schemas/QueryConditionObj'
+    accountOSRAndBMInfo:
       type: object
       properties:
-        name:
-          type: string
-        permissionValues:
-          type: string
-          additionalProperties:
-            type: boolean
-          example:
-            '100001': true
-            '100002': true
-            '100003': false
-    addressBookInfoObj_R:
+        OSRList:
+          type: array
+          items:
+            $ref: '#/components/schemas/accountOSRAndBMInfo_emailInfoObj'
+        BMList:
+          type: array
+          items:
+            $ref: '#/components/schemas/accountOSRAndBMInfo_emailInfoObj'
+    contactInfoObj:
       type: object
       properties:
-        nickName:
+        email:
+          type: string
+        lastName:
           type: string
         firstName:
           type: string
-        lastName:
+        phoneNumber:
           type: string
         address1:
           type: string
@@ -2699,141 +2802,34 @@ components:
           type: string
         state:
           type: string
-        stateValue:
-          type: string
         postalCode:
           type: string
         country:
           type: string
-        countryValue:
-          type: string
-        phoneNumber:
-          type: string
-    setPassword_rep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-    updateAddressBookRep:
-      type: object
-      properties:
-        messages:
-          $ref: '#/components/schemas/messagesObj'
-        messageCode:
-          type: integer
-        success:
-          type: boolean
-    BCRoleObj:
-      type: object
-      properties:
-        id:
-          type: string
-        displayName:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPermissionGroupObj'
-    user_req:
-      type: object
-      properties:
-        query:
-          $ref: '#/components/schemas/QueryConditionObj'
-    changePassword_req:
-      type: object
-      properties:
-        oldPassword:
-          type: string
-        password:
-          type: string
-        confirmpassword:
-          type: string
-    createAddressBookReq:
-      $ref: '#/components/schemas/addressBookInfoObj_CU'
-    BCOtherPaginationObj:
-      type: object
-      properties:
-        available:
-          type: boolean
-        label:
-          type: string
-        page:
-          type: integer
-    deleteAddressBookReq:
-      type: object
-      properties:
-        addressBookId:
-          type: string
-    forgotPassword_req:
+    messagesObj:
+      type: array
+      items:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+          code:
+            type: string
+    deleteInternalUserReq:
       type: object
       properties:
         login:
           type: string
-    BCPermissionTemplateObj:
+    deleteUserReq:
       type: object
       properties:
-        name:
+        login:
           type: string
-        templateId:
+        email:
           type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCPermissionGroupObj'
-        lastModifiedDate:
-          type: string
-        userEmail:
-          type: string
-        org:
-          $ref: '#/components/schemas/BCOrgObj'
-    hoverExplicitLogin_req:
-      type: object
-      properties:
-        username:
-          type: string
-        password:
-          type: string
-        uuid:
-          type: string
-        ua:
-          type: string
-          enum:
-          - desktop
-          - mobile
-        siteId:
-          type: string
-          enum:
-          - homeSite
-          - dealerchoice
-        persistentLoginType:
-          type: string
-          enum:
-          - RememberMe
-          - RememberPassword
-        userAgent:
-          type: string
-          enum:
-          - desktop
-          - tablet
-          - mobile
-    user_rep:
-      type: object
-      properties:
-        pagination:
-          $ref: '#/components/schemas/BCPaginationDataObj'
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/BCUserObj_user'
   securitySchemes:
-    internalAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: token
     JSESSIONID:
       type: apiKey
       in: cookie
@@ -2858,7 +2854,11 @@ components:
       type: http
       scheme: bearer
       bearerFormat: token
+    internalAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
 x-refined-from:
-- beacon-roofing-supply-internal-openapi.yml
 - beacon-roofing-supply-v2-openapi.yml
 - beacon-roofing-supply-v3-openapi.yml
+- beacon-roofing-supply-my-account-services-api-openapi.yml

@@ -16,7 +16,56 @@ info:
     ### API Response messages doc
 
 
-    Show...'
+    Show...
+
+
+    API
+
+
+    messages.key
+
+
+    messages.value
+
+
+    /token
+
+    grant_type
+
+    Bad Grant Type
+
+
+    refresh_token
+
+    Empty Refresh Token
+
+
+    Empty Request
+
+
+    Empty Refresh Token or Client ID
+
+
+    Invalid Token
+
+
+    Expired Token
+
+
+    client_id
+
+    Empty Client ID
+
+
+    token_validation
+
+    Get token failed
+
+
+    Get token failed
+
+
+    Validate token failed'
 servers:
 - url: https://{server}/rest/model/REST/oauth/
   variables:

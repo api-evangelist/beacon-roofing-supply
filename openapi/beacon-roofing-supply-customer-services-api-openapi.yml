@@ -4,7 +4,205 @@ info:
   version: 24PI-4-Sprint-3
   description: 'This version of APIs do not require the user to login, to be able to access
 
-    services.'
+    services. A bearer token is required to be authorized to access the
+
+    services.
+
+
+    ### STORE BASE URL:
+
+
+    [ PROD BASE URL: *https://beaconproplus.com/v4/rest/com/becn* ]
+
+
+    [ UAT BASE URL: *https://beacon-uat-ng.becn.com/v4/rest/com/becn* ]
+
+
+    [ DEV BASE URL: *https://beacon-dev-ng.becn.com/v4/rest/com/becn* ]
+
+
+    ### IDP BASE URL:
+
+
+    [ PROD BASE URL: *https://identity.becn.com/auth/realms/master/protocol/openid-connect/token* ]
+
+
+    [ UAT BASE URL: *https://identity-uat.becn.com/auth/realms/master/protocol/openid-connect/token* ]
+
+
+    [ DEV BASE URL: *https://identity-dev.becn.com/auth/realms/master/protocol/openid-connect/token* ]
+
+
+    Key
+
+
+    ## API Uniform Format:
+
+
+    Show...
+
+    ### Success Response:
+
+    ```
+
+    {
+
+    "success":true,
+
+    "messages":null,
+
+    "result":
+
+    }
+
+    ```
+
+    ### Explanation:
+
+    If the response example value of one endpoint `/foo` is:
+
+    ```
+
+    {
+
+    "name":"bar",
+
+    "age":123
+
+    }
+
+    ```
+
+
+    Then the actual response value of this endpoint is: (replace the value of "result" element in `API Uniform Format` with example response)
+
+    ```
+
+    {
+
+    "success":true,
+
+    "messages":null,
+
+    "result":{
+
+    "name":"bar",
+
+    "age":123
+
+    }
+
+    }
+
+    ```
+
+    ### Validation Failed Response:
+
+    ```
+
+    {
+
+    "success":false,
+
+    "messages":[{
+
+    "type": "error",
+
+    "value": "validation exception message"
+
+    },...],
+
+    "result": null
+
+    }
+
+    ```
+
+
+    ## Keycloak Authentication Process
+
+
+    Show...
+
+    ### Token endpoint
+
+    ```
+
+    /auth/realms/master/protocol/openid-connect/token
+
+    ```
+
+    The token endpoint is used to obtain tokens. Tokens can either be obtained by exchanging an authorization code or by supplying credentials directly depending on what flow is used. The token endpoint is also used to obtain new access tokens when they expire.
+
+    ### Resource Owner Password Credentials
+
+    Resource Owner Password Credentials, referred to as Direct Grant in {project_name}, allows exchanging user credentials for tokens.
+
+
+    For a client to be permitted to use the Resource Owner Password Credentials grant the client has to have the Direct Access Grants Enabled option enabled.
+
+
+    This flow is not included in OpenID Connect, but is a part of the OAuth 2.0 specification.
+
+    ### Example for obtaining access token & refresh token using CURL
+
+    The following example shows how to obtain an access token for a user in the realm master with username user and password password. The example is using the confidential client client_id:
+
+    ```
+
+    curl \
+
+    -d "client_id=client_id" \
+
+    -d "client_secret=client_secret" \
+
+    -d "username=user" \
+
+    -d "password=password" \
+
+    -d "grant_type=password" \
+
+    "http://{IDP_domain}/auth/realms/master/protocol/openid-connect/token"
+
+    ```
+
+    ### Example for obtaining access token with client credentials using CURL
+
+    The following example shows how to obtain an access token with client credentials. The example is using the confidential client client_id:
+
+    ```
+
+    curl \
+
+    -d "client_id=client_id" \
+
+    -d "client_secret=client_secret" \
+
+    -d "grant_type=client_credentials" \
+
+    "http://{IDP_domain}/auth/realms/master/protocol/openid-connect/token"
+
+    ```
+
+    ### Example for refreshing an access token using CURL
+
+    The following example shows how to refresh an access token with refresh token. The example is using the confidential client client_id:
+
+    ```
+
+    curl \
+
+    -d "client_id=client_id" \
+
+    -d "client_secret=client_secret" \
+
+    -d "grant_type=refresh_token" \
+
+    -d "refresh_token=refresh_token" \
+
+    "http://{IDP_domain}/auth/realms/master/protocol/openid-connect/token"
+
+    ```'
 servers:
 - url: https://beaconproplus.com/v2/rest/com/becn
   description: 'Production. Added by API Evangelist; the harvested document carried no servers[]. Source: internal service published on the same public Swagger index; base taken from the shared v2 prefix'
@@ -420,23 +618,6 @@ components:
                               type: string
                             data-type:
                               type: string
-    createCustomerResp:
-      type: object
-      properties:
-        result:
-          type: object
-          properties:
-            Response:
-              type: object
-              properties:
-                Result:
-                  type: string
-                Message:
-                  type: string
-        success:
-          example: true
-        code:
-          type: number
     createCustomerReq:
       type: object
       properties:
@@ -656,6 +837,23 @@ components:
                                 type: string
                               decision:
                                 type: string
+    createCustomerResp:
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            Response:
+              type: object
+              properties:
+                Result:
+                  type: string
+                Message:
+                  type: string
+        success:
+          example: true
+        code:
+          type: number
   securitySchemes:
     internalAuth:
       type: http

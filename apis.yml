@@ -281,33 +281,6 @@ apis:
     url: https://beaconproplus.com/swagger/public/
   - type: Documentation
     url: https://beaconproplus.com/swagger/internal/
-- aid: beacon-roofing-supply:beacon-roofing-supply-eagle-view-reports-api
-  name: Beacon Roofing Supply Eagle View Reports API
-  description: >-
-    The Eagle View Reports API from Beacon Roofing Supply — 3 operation(s) for eagle view reports.
-  humanURL: https://beaconproplus.com/swagger/v2/
-  baseURL: https://beaconproplus.com/v2/rest/com/becn
-  tags:
-  - Eagle View Reports
-  properties:
-  - type: OpenAPI
-    url: openapi/beacon-roofing-supply-eagle-view-reports-api-openapi.yml
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/v2/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/all_api/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/v3/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/v1/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/oauth2/
-  - type: OAuthScopes
-    url: scopes/beacon-roofing-supply-scopes.yml
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/public/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/internal/
 - aid: beacon-roofing-supply:beacon-roofing-supply-ev-measurement-to-order-api
   name: Beacon Roofing Supply EV Measurement to Order API
   description: >-
@@ -428,33 +401,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/beacon-roofing-supply-hover-job-services-api-openapi.yml
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/v2/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/all_api/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/v3/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/v1/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/oauth2/
-  - type: OAuthScopes
-    url: scopes/beacon-roofing-supply-scopes.yml
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/public/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/internal/
-- aid: beacon-roofing-supply:beacon-roofing-supply-idp-token-services-api
-  name: Beacon Roofing Supply IDP Token Services API
-  description: >-
-    The IDP Token Services API from Beacon Roofing Supply — 1 operation(s) for idp token services.
-  humanURL: https://beaconproplus.com/swagger/v2/
-  baseURL: https://beaconproplus.com/v2/rest/com/becn
-  tags:
-  - IDP Token Services
-  properties:
-  - type: OpenAPI
-    url: openapi/beacon-roofing-supply-idp-token-services-api-openapi.yml
   - type: Documentation
     url: https://beaconproplus.com/swagger/v2/
   - type: Documentation
@@ -831,34 +777,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/beacon-roofing-supply-rebate-services-api-openapi.yml
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/v2/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/all_api/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/v3/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/v1/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/oauth2/
-  - type: OAuthScopes
-    url: scopes/beacon-roofing-supply-scopes.yml
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/public/
-  - type: Documentation
-    url: https://beaconproplus.com/swagger/internal/
-- aid: beacon-roofing-supply:beacon-roofing-supply-sales-order-hold-services-api
-  name: Beacon Roofing Supply Sales Order Hold Services API
-  description: >-
-    The Sales Order Hold Services API from Beacon Roofing Supply — 2 operation(s) for sales order hold
-    services.
-  humanURL: https://beaconproplus.com/swagger/v2/
-  baseURL: https://beaconproplus.com/v2/rest/com/becn
-  tags:
-  - Sales Order Hold Services
-  properties:
-  - type: OpenAPI
-    url: openapi/beacon-roofing-supply-sales-order-hold-services-api-openapi.yml
   - type: Documentation
     url: https://beaconproplus.com/swagger/v2/
   - type: Documentation
@@ -4768,6 +4686,59 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/beacon-roofing-supply-validateuserbyemail-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-eagleview-api
+  name: Beacon Roofing Supply Eagle View API
+  description: The EagleView API from Beacon Roofing Supply — 9 operation(s) for eagleview.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - EagleView
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-eagleview-api-openapi.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v2/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/all_api/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v3/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/v1/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/oauth2/
+  - type: OAuthScopes
+    url: scopes/beacon-roofing-supply-scopes.yml
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/public/
+  - type: Documentation
+    url: https://beaconproplus.com/swagger/internal/
+- aid: beacon-roofing-supply:beacon-roofing-supply-eagleviewmeasurement-api
+  name: Beacon Roofing Supply Eagle View Measurement API
+  description: >-
+    The EagleViewMeasurement API from Beacon Roofing Supply — 2 operation(s) for eagleviewmeasurement.
+  humanURL: https://beaconproplus.com/swagger/v2/
+  baseURL: https://beaconproplus.com/v2/rest/com/becn
+  tags:
+  - EagleViewMeasurement
+  properties:
+  - type: OpenAPI
+    url: openapi/beacon-roofing-supply-eagleviewmeasurement-api-openapi.yml
   - type: Documentation
     url: https://beaconproplus.com/swagger/v2/
   - type: Documentation
