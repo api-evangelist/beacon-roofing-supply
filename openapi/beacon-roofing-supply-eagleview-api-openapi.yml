@@ -2396,3 +2396,9 @@ components:
           type: boolean
         DetailedDescription:
           type: string
+x-provenance:
+  method: harvested
+  publisher: Beacon Roofing Supply
+  source: https://beaconproplus.com/v3/api-docs
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
